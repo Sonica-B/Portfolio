@@ -13,7 +13,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hey! I'm Shreya's AI assistant. Ask me anything about her experience, projects, or skills! ✨"
+      content: "Hey! I'm Shreya's AI assistant. Ask me anything about her experience, projects, or skills."
     }
   ])
   const [input, setInput] = useState('')

@@ -71,7 +71,10 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
             onClick={onBack}
             className="glass-button text-sm mb-6 flex items-center gap-2"
           >
-            ← Back to Home
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
           </button>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Experience</span>
@@ -116,7 +119,12 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
                   <ul className="space-y-2 mb-4">
                     {exp.highlights.map((item, i) => (
                       <li key={i} className="text-gray-400 text-sm flex items-start">
-                        <span className="text-primary mr-2 mt-1">▹</span>
+                        <span className="text-primary mr-2 mt-1">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="9 11 12 14 22 4"/>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                          </svg>
+                        </span>
                         {item}
                       </li>
                     ))}

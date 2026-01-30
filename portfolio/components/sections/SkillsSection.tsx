@@ -6,28 +6,61 @@ interface SkillsSectionProps {
   onBack: () => void
 }
 
+function CategoryIcon({ type }: { type: string }) {
+  switch (type) {
+    case 'ai':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-cyan-400">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
+      )
+    case 'cloud':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-purple-400">
+          <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>
+        </svg>
+      )
+    case 'code':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400">
+          <polyline points="16 18 22 12 16 6"/>
+          <polyline points="8 6 2 12 8 18"/>
+        </svg>
+      )
+    case 'tools':
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-orange-400">
+          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+        </svg>
+      )
+    default:
+      return null
+  }
+}
+
 const skillCategories = [
   {
     title: 'AI & Machine Learning',
-    icon: '🧠',
+    icon: 'ai',
     skills: ['PyTorch', 'TensorFlow', 'Scikit-Learn', 'Keras', 'Hugging Face', 'LangGraph', 'LangChain', 'LLMs', 'RAG', 'Diffusion Models', 'CycleGANs', 'Computer Vision'],
     gradient: 'from-cyan-500 to-blue-600',
   },
   {
     title: 'Cloud & DevOps',
-    icon: '☁️',
+    icon: 'cloud',
     skills: ['AWS (S3, Lambda, Bedrock)', 'Azure DevOps', 'Docker', 'Terraform', 'Ansible', 'CI/CD', 'MLflow', 'Kubernetes', 'Grafana'],
     gradient: 'from-purple-500 to-pink-600',
   },
   {
     title: 'Programming',
-    icon: '💻',
+    icon: 'code',
     skills: ['Python', 'C++', 'C#', 'Java', 'R', 'Rust', 'SQL', 'Bash', 'PowerShell'],
     gradient: 'from-emerald-500 to-cyan-600',
   },
   {
     title: 'Frameworks & Tools',
-    icon: '🔧',
+    icon: 'tools',
     skills: ['React', 'Angular', 'Flask', 'OpenCV', 'Unity', 'Blender', 'ONNX', 'TensorRT', 'CUDA', 'Git'],
     gradient: 'from-orange-500 to-red-600',
   },
@@ -53,7 +86,10 @@ export default function SkillsSection({ onBack }: SkillsSectionProps) {
             onClick={onBack}
             className="glass-button text-sm mb-6 flex items-center gap-2"
           >
-            ← Back to Home
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
           </button>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Tech Stack</span>
@@ -77,7 +113,7 @@ export default function SkillsSection({ onBack }: SkillsSectionProps) {
 
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl">{category.icon}</span>
+                  <CategoryIcon type={category.icon} />
                   <h3 className="text-xl font-bold text-white">{category.title}</h3>
                 </div>
 
@@ -107,8 +143,12 @@ export default function SkillsSection({ onBack }: SkillsSectionProps) {
           transition={{ delay: 0.5 }}
           className="floating-card p-6 mt-6"
         >
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <span>🎓</span> Education
+          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            Education
           </h3>
 
           <div className="grid md:grid-cols-2 gap-6">
