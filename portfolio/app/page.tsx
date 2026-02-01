@@ -4,7 +4,6 @@ import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { AnimatePresence } from 'framer-motion'
 import LandingPage from '@/components/LandingPage'
-import LinkedInHighlights from '@/components/LinkedInHighlights'
 import BottomNav from '@/components/BottomNav'
 import ProjectsSection from '@/components/sections/ProjectsSection'
 import ExperienceSection from '@/components/sections/ExperienceSection'
@@ -33,12 +32,7 @@ export default function Home() {
       case 'about':
         return <AboutSection onBack={() => setActiveSection('home')} />
       default:
-        return (
-          <>
-            <LandingPage onNavigate={setActiveSection} />
-            <LinkedInHighlights />
-          </>
-        )
+        return <LandingPage onNavigate={setActiveSection} />
     }
   }
 
