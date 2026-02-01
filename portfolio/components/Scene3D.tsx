@@ -1,279 +1,221 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Float, Line } from '@react-three/drei'
 import * as THREE from 'three'
 
-// Pulsing Neural Node with glow effect
-function NeuralNode({
-  position,
-  size = 0.08,
-  color = '#00d4ff',
-  pulseSpeed = 1,
-  layer = 0
-}: {
-  position: [number, number, number],
-  size?: number,
-  color?: string,
-  pulseSpeed?: number,
-  layer?: number
-}) {
-  const meshRef = useRef<THREE.Mesh>(null)
-  const glowRef = useRef<THREE.Mesh>(null)
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      const pulse = Math.sin(state.clock.elapsedTime * pulseSpeed + position[0] + layer) * 0.3 + 1
-      meshRef.current.scale.setScalar(pulse)
-    }
-    if (glowRef.current) {
-      glowRef.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2) * 0.2)
-    }
-  })
-
-  return (
-    <group position={position}>
-      {/* Glow sphere */}
-      <mesh ref={glowRef}>
-        <sphereGeometry args={[size * 2.5, 16, 16]} />
-        <meshBasicMaterial color={color} transparent opacity={0.1} />
-      </mesh>
-      {/* Main node */}
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[size, 24, 24]} />
-        <meshBasicMaterial color={color} transparent opacity={0.7} />
-      </mesh>
-    </group>
-  )
-}
-
-// Animated data signal flowing through connection
-function DataSignal({
-  start,
-  end,
-  color = '#00d4ff',
-  delay = 0
-}: {
-  start: THREE.Vector3,
-  end: THREE.Vector3,
-  color?: string,
-  delay?: number
-}) {
-  const meshRef = useRef<THREE.Mesh>(null)
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      const t = ((state.clock.elapsedTime * 0.5 + delay) % 1)
-      meshRef.current.position.lerpVectors(start, end, t)
-      meshRef.current.scale.setScalar(Math.sin(t * Math.PI) * 0.8 + 0.2)
-    }
-  })
-
-  return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[0.04, 8, 8]} />
-      <meshBasicMaterial color={color} transparent opacity={0.9} />
-    </mesh>
-  )
-}
-
-// Neural Network Connection with animated signals
-function NeuralConnection({
-  start,
-  end,
-  color = '#00d4ff',
-  showSignal = true,
-  signalDelay = 0
-}: {
-  start: [number, number, number],
-  end: [number, number, number],
-  color?: string,
-  showSignal?: boolean,
-  signalDelay?: number
-}) {
-  const points = useMemo(() => [new THREE.Vector3(...start), new THREE.Vector3(...end)], [start, end])
-
-  return (
-    <group>
-      <Line
-        points={points}
-        color={color}
-        lineWidth={1}
-        transparent
-        opacity={0.25}
-      />
-      {showSignal && (
-        <DataSignal
-          start={points[0]}
-          end={points[1]}
-          color={color}
-          delay={signalDelay}
-        />
-      )}
-    </group>
-  )
-}
-
-// Main Neural Brain Structure - prominent and animated
-function NeuralBrain() {
+// Organic Neural Network Mesh with enhanced interactivity
+function NeuralMesh() {
   const groupRef = useRef<THREE.Group>(null)
-  const { pointer } = useThree()
+  const { pointer, viewport } = useThree()
+  const [twinklingNodes, setTwinklingNodes] = useState<Set<number>>(new Set())
 
-  // Generate brain-like structure with multiple layers
+  // Generate scattered nodes and organic connections
   const { nodes, connections } = useMemo(() => {
-    const nodePositions: { pos: [number, number, number], layer: number, color: string }[] = []
-    const conns: { start: [number, number, number], end: [number, number, number], color: string, signalDelay: number }[] = []
+    const nodeList: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[] = []
+    const connList: { start: number; end: number; color: THREE.Color }[] = []
 
-    const colors = ['#00d4ff', '#a855f7', '#22d3ee', '#c084fc', '#06b6d4']
+    const nodeCount = 180
 
-    // Create layered neural network structure
-    const layers = [
-      { count: 4, x: -5, spread: 2.5 },
-      { count: 6, x: -2.5, spread: 3 },
-      { count: 8, x: 0, spread: 3.5 },
-      { count: 6, x: 2.5, spread: 3 },
-      { count: 4, x: 5, spread: 2.5 },
-    ]
+    // Create scattered nodes
+    for (let i = 0; i < nodeCount; i++) {
+      const x = (Math.random() - 0.5) * 35
+      const y = (Math.random() - 0.5) * 22
+      const z = (Math.random() - 0.5) * 12 - 8
 
-    layers.forEach((layer, layerIdx) => {
-      for (let i = 0; i < layer.count; i++) {
-        const angle = (i / layer.count) * Math.PI * 2
-        const y = Math.sin(angle) * layer.spread
-        const z = Math.cos(angle) * layer.spread - 8
-        const color = colors[layerIdx % colors.length]
-        nodePositions.push({ pos: [layer.x, y, z], layer: layerIdx, color })
+      // Enhanced color gradient: magenta -> purple -> cyan -> teal -> green
+      const t = (x + 17.5) / 35
+      let color: THREE.Color
+      if (t < 0.25) {
+        // Magenta to purple
+        const localT = t / 0.25
+        color = new THREE.Color().lerpColors(
+          new THREE.Color('#ec4899'),
+          new THREE.Color('#a855f7'),
+          localT
+        )
+      } else if (t < 0.5) {
+        // Purple to cyan
+        const localT = (t - 0.25) / 0.25
+        color = new THREE.Color().lerpColors(
+          new THREE.Color('#a855f7'),
+          new THREE.Color('#22d3ee'),
+          localT
+        )
+      } else if (t < 0.75) {
+        // Cyan to teal
+        const localT = (t - 0.5) / 0.25
+        color = new THREE.Color().lerpColors(
+          new THREE.Color('#22d3ee'),
+          new THREE.Color('#14b8a6'),
+          localT
+        )
+      } else {
+        // Teal to green
+        const localT = (t - 0.75) / 0.25
+        color = new THREE.Color().lerpColors(
+          new THREE.Color('#14b8a6'),
+          new THREE.Color('#22c55e'),
+          localT
+        )
       }
-    })
 
-    // Connect adjacent layers
-    let nodeIdx = 0
-    for (let layerIdx = 0; layerIdx < layers.length - 1; layerIdx++) {
-      const currentLayerStart = nodeIdx
-      const currentLayerCount = layers[layerIdx].count
-      const nextLayerStart = nodeIdx + currentLayerCount
-      const nextLayerCount = layers[layerIdx + 1].count
+      const pos = new THREE.Vector3(x, y, z)
+      nodeList.push({ pos: pos.clone(), basePos: pos.clone(), color })
+    }
 
-      for (let i = 0; i < currentLayerCount; i++) {
-        // Connect to 2-3 nodes in next layer
-        const connectionCount = 2 + Math.floor(Math.random() * 2)
-        for (let c = 0; c < connectionCount; c++) {
-          const targetIdx = nextLayerStart + Math.floor(Math.random() * nextLayerCount)
-          const color = nodePositions[currentLayerStart + i].color
-          conns.push({
-            start: nodePositions[currentLayerStart + i].pos,
-            end: nodePositions[targetIdx].pos,
-            color,
-            signalDelay: Math.random() * 2
+    // Create organic connections between nearby nodes
+    const connectionDistance = 3.8
+
+    for (let i = 0; i < nodeList.length; i++) {
+      for (let j = i + 1; j < nodeList.length; j++) {
+        const dist = nodeList[i].basePos.distanceTo(nodeList[j].basePos)
+        if (dist < connectionDistance) {
+          const midColor = new THREE.Color().lerpColors(
+            nodeList[i].color,
+            nodeList[j].color,
+            0.5
+          )
+          connList.push({
+            start: i,
+            end: j,
+            color: midColor
           })
         }
       }
-      nodeIdx += currentLayerCount
     }
 
-    return { nodes: nodePositions, connections: conns }
+    return { nodes: nodeList, connections: connList }
   }, [])
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      // Gentle rotation following mouse
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.2 + pointer.x * 0.15
-      groupRef.current.rotation.x = Math.cos(state.clock.elapsedTime * 0.15) * 0.1 + pointer.y * 0.1
-    }
-  })
+  // Random twinkling effect - more frequent and more nodes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newTwinkling = new Set<number>()
+      // Randomly select 12-20 nodes to twinkle
+      const count = Math.floor(Math.random() * 9) + 12
+      for (let i = 0; i < count; i++) {
+        newTwinkling.add(Math.floor(Math.random() * nodes.length))
+      }
+      setTwinklingNodes(newTwinkling)
+    }, 600)
+
+    return () => clearInterval(interval)
+  }, [nodes.length])
 
   return (
     <group ref={groupRef}>
-      {nodes.map((node, i) => (
-        <NeuralNode
-          key={i}
-          position={node.pos}
-          size={0.1}
-          color={node.color}
-          pulseSpeed={1.5 + node.layer * 0.2}
-          layer={node.layer}
-        />
-      ))}
-      {connections.map((conn, i) => (
-        <NeuralConnection
-          key={i}
-          start={conn.start}
-          end={conn.end}
-          color={conn.color}
-          showSignal={i % 3 === 0}
-          signalDelay={conn.signalDelay}
-        />
-      ))}
+      <AnimatedNodes
+        nodes={nodes}
+        twinklingNodes={twinklingNodes}
+        pointer={pointer}
+        viewport={viewport}
+      />
+      <AnimatedConnections
+        nodes={nodes}
+        connections={connections}
+        pointer={pointer}
+        viewport={viewport}
+      />
     </group>
   )
 }
 
-// Floating Data Stream Particles - enhanced
-function DataParticles() {
-  const particlesRef = useRef<THREE.Points>(null)
-  const { pointer } = useThree()
+// Animated nodes with parallax, movement, and twinkling
+function AnimatedNodes({
+  nodes,
+  twinklingNodes,
+  pointer,
+  viewport
+}: {
+  nodes: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[]
+  twinklingNodes: Set<number>
+  pointer: THREE.Vector2
+  viewport: { width: number; height: number }
+}) {
+  const pointsRef = useRef<THREE.Points>(null)
+  const positionsRef = useRef<Float32Array>(new Float32Array(nodes.length * 3))
+  const colorsRef = useRef<Float32Array>(new Float32Array(nodes.length * 3))
 
-  const particles = useMemo(() => {
-    const count = 250
-    const positions = new Float32Array(count * 3)
-    const colors = new Float32Array(count * 3)
+  // Initialize positions and colors
+  useMemo(() => {
+    nodes.forEach((node, i) => {
+      positionsRef.current[i * 3] = node.basePos.x
+      positionsRef.current[i * 3 + 1] = node.basePos.y
+      positionsRef.current[i * 3 + 2] = node.basePos.z
 
-    for (let i = 0; i < count; i++) {
-      // Create flowing particle streams
-      const stream = Math.floor(Math.random() * 5)
-      const streamAngle = (stream / 5) * Math.PI * 2
-      const distance = Math.random() * 15 + 5
-
-      positions[i * 3] = Math.cos(streamAngle) * distance + (Math.random() - 0.5) * 5
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20
-      positions[i * 3 + 2] = Math.sin(streamAngle) * distance - 10
-
-      // Vibrant cyan to purple gradient
-      const t = Math.random()
-      colors[i * 3] = t * 0.5 + 0.3     // R
-      colors[i * 3 + 1] = 0.9 - t * 0.3 // G
-      colors[i * 3 + 2] = 1             // B
-    }
-
-    return { positions, colors }
-  }, [])
+      colorsRef.current[i * 3] = node.color.r
+      colorsRef.current[i * 3 + 1] = node.color.g
+      colorsRef.current[i * 3 + 2] = node.color.b
+    })
+  }, [nodes])
 
   useFrame((state) => {
-    if (particlesRef.current) {
-      // Flowing rotation
-      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.05 + pointer.x * 0.1
-      particlesRef.current.rotation.x = pointer.y * 0.05
+    if (!pointsRef.current) return
 
-      // Animate particle positions for flowing effect
-      const positions = particlesRef.current.geometry.attributes.position.array as Float32Array
-      for (let i = 0; i < positions.length / 3; i++) {
-        positions[i * 3 + 1] += Math.sin(state.clock.elapsedTime + i * 0.1) * 0.003
+    const time = state.clock.elapsedTime
+    const positions = pointsRef.current.geometry.attributes.position.array as Float32Array
+    const colors = pointsRef.current.geometry.attributes.color.array as Float32Array
+
+    nodes.forEach((node, i) => {
+      // ENHANCED Parallax effect - much more pronounced
+      const depth = (node.basePos.z + 14) / 20
+      const parallaxX = pointer.x * viewport.width * 0.4 * depth
+      const parallaxY = pointer.y * viewport.height * 0.3 * depth
+
+      // ENHANCED floating movement - larger amplitude, varied speeds
+      const floatX = Math.sin(time * 0.4 + i * 0.3) * 0.4
+      const floatY = Math.cos(time * 0.35 + i * 0.5) * 0.35
+      const floatZ = Math.sin(time * 0.3 + i * 0.2) * 0.25
+
+      // Update positions with parallax and float
+      positions[i * 3] = node.basePos.x + parallaxX + floatX
+      positions[i * 3 + 1] = node.basePos.y + parallaxY + floatY
+      positions[i * 3 + 2] = node.basePos.z + floatZ
+
+      // Update node's current position for connection lines
+      node.pos.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
+
+      // ENHANCED Twinkling effect - much brighter and more visible
+      if (twinklingNodes.has(i)) {
+        const twinkle = Math.sin(time * 12) * 0.8 + 2.2
+        colors[i * 3] = Math.min(1, node.color.r * twinkle)
+        colors[i * 3 + 1] = Math.min(1, node.color.g * twinkle)
+        colors[i * 3 + 2] = Math.min(1, node.color.b * twinkle)
+      } else {
+        // Subtle ambient pulse for all nodes
+        const pulse = Math.sin(time * 0.8 + i * 0.15) * 0.2 + 1
+        colors[i * 3] = node.color.r * pulse
+        colors[i * 3 + 1] = node.color.g * pulse
+        colors[i * 3 + 2] = node.color.b * pulse
       }
-      particlesRef.current.geometry.attributes.position.needsUpdate = true
-    }
+    })
+
+    pointsRef.current.geometry.attributes.position.needsUpdate = true
+    pointsRef.current.geometry.attributes.color.needsUpdate = true
   })
 
   return (
-    <points ref={particlesRef}>
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={250}
-          array={particles.positions}
+          count={nodes.length}
+          array={positionsRef.current}
           itemSize={3}
         />
         <bufferAttribute
           attach="attributes-color"
-          count={250}
-          array={particles.colors}
+          count={nodes.length}
+          array={colorsRef.current}
           itemSize={3}
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.06}
+        size={0.22}
         vertexColors
         transparent
-        opacity={0.6}
+        opacity={0.7}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
       />
@@ -281,151 +223,76 @@ function DataParticles() {
   )
 }
 
-// Circuit Pattern Background
-function CircuitPattern() {
-  const groupRef = useRef<THREE.Group>(null)
+// Animated connection lines that follow node movements
+function AnimatedConnections({
+  nodes,
+  connections,
+}: {
+  nodes: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[]
+  connections: { start: number; end: number; color: THREE.Color }[]
+  pointer: THREE.Vector2
+  viewport: { width: number; height: number }
+}) {
+  const linesRef = useRef<THREE.LineSegments>(null)
+  const positionsRef = useRef<Float32Array>(new Float32Array(connections.length * 6))
+  const colorsRef = useRef<Float32Array>(new Float32Array(connections.length * 6))
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.z = state.clock.elapsedTime * 0.02
-    }
+  // Initialize colors
+  useMemo(() => {
+    connections.forEach((conn, i) => {
+      colorsRef.current[i * 6] = conn.color.r
+      colorsRef.current[i * 6 + 1] = conn.color.g
+      colorsRef.current[i * 6 + 2] = conn.color.b
+      colorsRef.current[i * 6 + 3] = conn.color.r
+      colorsRef.current[i * 6 + 4] = conn.color.g
+      colorsRef.current[i * 6 + 5] = conn.color.b
+    })
+  }, [connections])
+
+  useFrame(() => {
+    if (!linesRef.current) return
+
+    const positions = linesRef.current.geometry.attributes.position.array as Float32Array
+
+    connections.forEach((conn, i) => {
+      const startNode = nodes[conn.start]
+      const endNode = nodes[conn.end]
+
+      // Use the animated node positions
+      positions[i * 6] = startNode.pos.x
+      positions[i * 6 + 1] = startNode.pos.y
+      positions[i * 6 + 2] = startNode.pos.z
+      positions[i * 6 + 3] = endNode.pos.x
+      positions[i * 6 + 4] = endNode.pos.y
+      positions[i * 6 + 5] = endNode.pos.z
+    })
+
+    linesRef.current.geometry.attributes.position.needsUpdate = true
   })
 
-  const circuitLines = useMemo(() => {
-    const lines: { start: [number, number, number], end: [number, number, number] }[] = []
-    // Create circuit-like patterns
-    for (let i = 0; i < 12; i++) {
-      const angle = (i / 12) * Math.PI * 2
-      const r1 = 8
-      const r2 = 12
-      lines.push({
-        start: [Math.cos(angle) * r1, Math.sin(angle) * r1, -20],
-        end: [Math.cos(angle) * r2, Math.sin(angle) * r2, -20]
-      })
-    }
-    return lines
-  }, [])
-
   return (
-    <group ref={groupRef}>
-      {circuitLines.map((line, i) => (
-        <Line
-          key={i}
-          points={[new THREE.Vector3(...line.start), new THREE.Vector3(...line.end)]}
-          color={i % 2 === 0 ? '#00d4ff' : '#a855f7'}
-          lineWidth={0.5}
-          transparent
-          opacity={0.15}
+    <lineSegments ref={linesRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={connections.length * 2}
+          array={positionsRef.current}
+          itemSize={3}
         />
-      ))}
-      {/* Outer ring */}
-      <mesh position={[0, 0, -20]}>
-        <torusGeometry args={[12, 0.02, 16, 100]} />
-        <meshBasicMaterial color="#00d4ff" transparent opacity={0.15} />
-      </mesh>
-      {/* Inner ring */}
-      <mesh position={[0, 0, -20]}>
-        <torusGeometry args={[8, 0.02, 16, 100]} />
-        <meshBasicMaterial color="#a855f7" transparent opacity={0.2} />
-      </mesh>
-    </group>
-  )
-}
-
-// Floating geometric shapes representing AI concepts
-function AIGeometries() {
-  const cubeRef = useRef<THREE.Mesh>(null)
-  const torusRef = useRef<THREE.Mesh>(null)
-  const dodecaRef = useRef<THREE.Mesh>(null)
-
-  useFrame((state) => {
-    if (cubeRef.current) {
-      cubeRef.current.rotation.x = state.clock.elapsedTime * 0.3
-      cubeRef.current.rotation.y = state.clock.elapsedTime * 0.2
-    }
-    if (torusRef.current) {
-      torusRef.current.rotation.x = state.clock.elapsedTime * 0.2
-      torusRef.current.rotation.z = state.clock.elapsedTime * 0.15
-    }
-    if (dodecaRef.current) {
-      dodecaRef.current.rotation.y = state.clock.elapsedTime * 0.25
-      dodecaRef.current.rotation.z = state.clock.elapsedTime * 0.1
-    }
-  })
-
-  return (
-    <>
-      {/* Floating cube */}
-      <Float speed={1} rotationIntensity={0.5} floatIntensity={0.5}>
-        <mesh ref={cubeRef} position={[-8, 4, -15]}>
-          <boxGeometry args={[1.5, 1.5, 1.5]} />
-          <meshBasicMaterial color="#00d4ff" wireframe transparent opacity={0.25} />
-        </mesh>
-      </Float>
-
-      {/* Floating torus knot */}
-      <Float speed={0.8} rotationIntensity={0.3} floatIntensity={0.4}>
-        <mesh ref={torusRef} position={[9, -3, -18]}>
-          <torusKnotGeometry args={[1, 0.3, 100, 16]} />
-          <meshBasicMaterial color="#a855f7" wireframe transparent opacity={0.2} />
-        </mesh>
-      </Float>
-
-      {/* Floating dodecahedron */}
-      <Float speed={0.6} rotationIntensity={0.4} floatIntensity={0.35}>
-        <mesh ref={dodecaRef} position={[7, 5, -12]}>
-          <dodecahedronGeometry args={[1.2, 0]} />
-          <meshBasicMaterial color="#22d3ee" wireframe transparent opacity={0.25} />
-        </mesh>
-      </Float>
-
-      {/* Icosahedron */}
-      <Float speed={0.5} rotationIntensity={0.2} floatIntensity={0.3}>
-        <mesh position={[-7, -4, -14]}>
-          <icosahedronGeometry args={[1, 0]} />
-          <meshBasicMaterial color="#c084fc" wireframe transparent opacity={0.2} />
-        </mesh>
-      </Float>
-    </>
-  )
-}
-
-// Animated rings around the scene
-function AnimatedRings() {
-  const ring1Ref = useRef<THREE.Mesh>(null)
-  const ring2Ref = useRef<THREE.Mesh>(null)
-  const ring3Ref = useRef<THREE.Mesh>(null)
-
-  useFrame((state) => {
-    if (ring1Ref.current) {
-      ring1Ref.current.rotation.x = Math.PI / 3 + Math.sin(state.clock.elapsedTime * 0.3) * 0.1
-      ring1Ref.current.rotation.z = state.clock.elapsedTime * 0.08
-    }
-    if (ring2Ref.current) {
-      ring2Ref.current.rotation.x = Math.PI / 4
-      ring2Ref.current.rotation.y = -state.clock.elapsedTime * 0.06
-    }
-    if (ring3Ref.current) {
-      ring3Ref.current.rotation.y = state.clock.elapsedTime * 0.04
-      ring3Ref.current.rotation.z = Math.PI / 6
-    }
-  })
-
-  return (
-    <>
-      <mesh ref={ring1Ref} position={[0, 0, -6]}>
-        <torusGeometry args={[6, 0.015, 16, 150]} />
-        <meshBasicMaterial color="#00d4ff" transparent opacity={0.3} />
-      </mesh>
-      <mesh ref={ring2Ref} position={[0, 0, -8]}>
-        <torusGeometry args={[9, 0.015, 16, 150]} />
-        <meshBasicMaterial color="#a855f7" transparent opacity={0.2} />
-      </mesh>
-      <mesh ref={ring3Ref} position={[0, 0, -10]}>
-        <torusGeometry args={[12, 0.015, 16, 150]} />
-        <meshBasicMaterial color="#22d3ee" transparent opacity={0.15} />
-      </mesh>
-    </>
+        <bufferAttribute
+          attach="attributes-color"
+          count={connections.length * 2}
+          array={colorsRef.current}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <lineBasicMaterial
+        vertexColors
+        transparent
+        opacity={0.18}
+        blending={THREE.AdditiveBlending}
+      />
+    </lineSegments>
   )
 }
 
@@ -433,31 +300,11 @@ export default function Scene3D() {
   return (
     <div className="scene-3d">
       <Canvas
-        camera={{ position: [0, 0, 10], fov: 60 }}
+        camera={{ position: [0, 0, 16], fov: 55 }}
         gl={{ antialias: true, alpha: true }}
       >
         <color attach="background" args={['#000000']} />
-
-        {/* Ambient lighting */}
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={0.4} color="#00d4ff" />
-        <pointLight position={[-10, -10, -10]} intensity={0.3} color="#a855f7" />
-        <pointLight position={[0, 0, 5]} intensity={0.2} color="#22d3ee" />
-
-        {/* Main Neural Network Brain */}
-        <NeuralBrain />
-
-        {/* Flowing Data Particles */}
-        <DataParticles />
-
-        {/* Circuit Pattern Background */}
-        <CircuitPattern />
-
-        {/* Floating AI Geometries */}
-        <AIGeometries />
-
-        {/* Animated Rings */}
-        <AnimatedRings />
+        <NeuralMesh />
       </Canvas>
     </div>
   )
