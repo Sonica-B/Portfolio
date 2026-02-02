@@ -1,8 +1,8 @@
 'use client'
 
-import { motion, useMotionValue, useSpring, useTransform, PanInfo } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ActiveSection } from '@/app/page'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 
 interface BubbleData {
   id: ActiveSection
@@ -39,8 +39,9 @@ function DraggableBubble({
 }) {
   const [borderRadius, setBorderRadius] = useState(generateBlobRadius())
   const [isDragging, setIsDragging] = useState(false)
-  const hasDragged = useRef(false)
-  const totalDragDistance = useRef(0)
+  const dragStartTime = useRef(0)
+  const dragStartPos = useRef({ x: 0, y: 0 })
+  const currentPos = useRef({ x: 0, y: 0 })
 
   // Motion values for smooth dragging
   const x = useMotionValue(0)
@@ -73,32 +74,40 @@ function DraggableBubble({
     return () => clearInterval(interval)
   }, [bubble.morphDuration])
 
-  const handleDragStart = () => {
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    dragStartTime.current = Date.now()
+    dragStartPos.current = { x: e.clientX, y: e.clientY }
+    currentPos.current = { x: e.clientX, y: e.clientY }
+  }, [])
+
+  const handleDragStart = useCallback(() => {
     setIsDragging(true)
-    hasDragged.current = false
-    totalDragDistance.current = 0
-  }
+  }, [])
 
-  const handleDrag = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    totalDragDistance.current += Math.abs(info.delta.x) + Math.abs(info.delta.y)
-    if (totalDragDistance.current > 5) {
-      hasDragged.current = true
-    }
-  }
+  const handleDrag = useCallback((e: MouseEvent | TouchEvent | PointerEvent) => {
+    const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX
+    const clientY = 'touches' in e ? e.touches[0].clientY : (e as MouseEvent).clientY
+    currentPos.current = { x: clientX, y: clientY }
+  }, [])
 
-  const handleDragEnd = () => {
+  const handleDragEnd = useCallback(() => {
+    const dragDuration = Date.now() - dragStartTime.current
+    const dragDistance = Math.sqrt(
+      Math.pow(currentPos.current.x - dragStartPos.current.x, 2) +
+      Math.pow(currentPos.current.y - dragStartPos.current.y, 2)
+    )
+
     setIsDragging(false)
+
+    // Navigate if it was a quick tap (< 200ms) OR minimal movement (< 8px)
+    if (dragDuration < 200 || dragDistance < 8) {
+      onNavigate(bubble.id)
+    }
+
     // Animate back to original position
     x.set(0)
     y.set(0)
-  }
-
-  const handleClick = () => {
-    // Only navigate if we didn't drag significantly
-    if (!hasDragged.current) {
-      onNavigate(bubble.id)
-    }
-  }
+  }, [bubble.id, onNavigate, x, y])
 
   return (
     <motion.div
@@ -110,7 +119,7 @@ function DraggableBubble({
         type: 'spring',
         stiffness: 100
       }}
-      className="absolute cursor-grab active:cursor-grabbing group"
+      className="absolute cursor-pointer group"
       style={{
         top: bubble.top,
         right: bubble.right,
@@ -127,12 +136,11 @@ function DraggableBubble({
       dragConstraints={{ left: -200, right: 200, top: -200, bottom: 200 }}
       dragElastic={0.1}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+      onPointerDown={handlePointerDown}
       onDragStart={handleDragStart}
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
-      onClick={handleClick}
-      whileHover={{ scale: isDragging ? undefined : 1.05 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ scale: isDragging ? undefined : 1.08 }}
     >
       {/* Floating animation wrapper */}
       <motion.div
@@ -148,7 +156,7 @@ function DraggableBubble({
         }}
         className="relative w-full h-full"
       >
-        {/* Main bubble - Dynamic morphing shape */}
+        {/* Main bubble - Dynamic morphing shape - 90% opacity */}
         <div
           className="absolute inset-0 transition-all"
           style={{
@@ -157,24 +165,25 @@ function DraggableBubble({
             transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             background: `
               radial-gradient(circle at 30% 30%,
-                rgba(255,255,255,0.08) 0%,
+                rgba(255,255,255,0.12) 0%,
                 transparent 50%
               ),
               radial-gradient(circle at 70% 80%,
-                rgba(168,85,247,0.12) 0%,
+                rgba(168,85,247,0.18) 0%,
                 transparent 40%
               ),
               radial-gradient(circle at 20% 70%,
-                rgba(0,212,255,0.08) 0%,
+                rgba(0,212,255,0.12) 0%,
                 transparent 40%
-              )
+              ),
+              rgba(30, 20, 50, 0.4)
             `,
-            border: `1px solid ${isDragging ? 'rgba(0,212,255,0.4)' : 'rgba(168,85,247,0.25)'}`,
+            border: `1px solid ${isDragging ? 'rgba(0,212,255,0.5)' : 'rgba(168,85,247,0.35)'}`,
             boxShadow: isDragging
-              ? `inset 0 0 40px rgba(0,212,255,0.15), inset 0 0 15px rgba(168,85,247,0.1), 0 0 40px rgba(0,212,255,0.2), 0 20px 40px rgba(0,0,0,0.3)`
-              : `inset 0 0 40px rgba(168,85,247,0.08), inset 0 0 15px rgba(0,212,255,0.06), 0 0 25px rgba(168,85,247,0.1)`,
-            backdropFilter: 'blur(2px)',
-            opacity: 0.7,
+              ? `inset 0 0 50px rgba(0,212,255,0.2), inset 0 0 20px rgba(168,85,247,0.15), 0 0 50px rgba(0,212,255,0.25), 0 25px 50px rgba(0,0,0,0.4)`
+              : `inset 0 0 50px rgba(168,85,247,0.12), inset 0 0 20px rgba(0,212,255,0.08), 0 0 30px rgba(168,85,247,0.15)`,
+            backdropFilter: 'blur(8px)',
+            opacity: 0.9,
           }}
         />
 
@@ -186,12 +195,12 @@ function DraggableBubble({
             left: '10%',
             right: '10%',
             height: '40%',
-            background: 'linear-gradient(180deg, rgba(0,212,255,0.15) 0%, rgba(168,85,247,0.1) 50%, transparent 100%)',
+            background: 'linear-gradient(180deg, rgba(0,212,255,0.2) 0%, rgba(168,85,247,0.15) 50%, transparent 100%)',
             borderRadius: borderRadius,
             transitionDuration: `${bubble.morphDuration / 3}s`,
             transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             filter: 'blur(3px)',
-            opacity: 0.7,
+            opacity: 0.9,
           }}
         />
 
@@ -203,12 +212,12 @@ function DraggableBubble({
             left: '15%',
             right: '15%',
             height: '35%',
-            background: 'linear-gradient(0deg, rgba(168,85,247,0.18) 0%, rgba(236,72,153,0.1) 50%, transparent 100%)',
+            background: 'linear-gradient(0deg, rgba(168,85,247,0.25) 0%, rgba(236,72,153,0.15) 50%, transparent 100%)',
             borderRadius: borderRadius,
             transitionDuration: `${bubble.morphDuration / 3}s`,
             transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             filter: 'blur(4px)',
-            opacity: 0.7,
+            opacity: 0.9,
           }}
         />
 
@@ -230,19 +239,19 @@ function DraggableBubble({
             left: '20%',
             width: '18%',
             height: '12%',
-            background: 'rgba(255,255,255,0.2)',
+            background: 'rgba(255,255,255,0.3)',
             borderRadius: '50%',
             filter: 'blur(4px)',
-            opacity: 0.7,
+            opacity: 0.9,
           }}
         />
 
-        {/* Label - Title & Subtitle */}
+        {/* Label - Title & Subtitle - LARGER TEXT */}
         <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
-          <span className={`text-xs font-semibold tracking-wide drop-shadow-lg transition-colors duration-300 ${isDragging ? 'text-cyan-300' : 'text-white/80'}`}>
+          <span className={`text-sm font-bold tracking-wide drop-shadow-lg transition-colors duration-300 ${isDragging ? 'text-cyan-300' : 'text-white/90'}`}>
             {bubble.title}
           </span>
-          <span className="text-white/50 text-[9px] font-light italic tracking-wider drop-shadow-lg">
+          <span className="text-white/60 text-[11px] font-medium italic tracking-wider drop-shadow-lg mt-0.5">
             {bubble.subtitle}
           </span>
         </div>
@@ -252,7 +261,7 @@ function DraggableBubble({
           className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${isDragging ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
           style={{
             borderRadius: borderRadius,
-            boxShadow: '0 0 30px rgba(0,212,255,0.2), inset 0 0 20px rgba(168,85,247,0.1)',
+            boxShadow: '0 0 40px rgba(0,212,255,0.25), inset 0 0 25px rgba(168,85,247,0.15)',
           }}
         />
       </motion.div>

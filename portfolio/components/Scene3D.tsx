@@ -4,30 +4,45 @@ import { useRef, useMemo, useState, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 
-// Organic Neural Network Mesh with enhanced interactivity
+// Signal pulse that travels along connections
+interface SignalPulse {
+  startNode: number
+  endNode: number
+  progress: number
+  speed: number
+  color: THREE.Color
+}
+
+// Organic Neural Network Mesh with sci-fi signal transmission
 function NeuralMesh() {
   const groupRef = useRef<THREE.Group>(null)
   const { pointer, viewport } = useThree()
-  const [twinklingNodes, setTwinklingNodes] = useState<Set<number>>(new Set())
+  const [activePulses, setActivePulses] = useState<SignalPulse[]>([])
+  const [litNodes, setLitNodes] = useState<Map<number, number>>(new Map()) // node index -> brightness
 
-  // Generate scattered nodes and organic connections
-  const { nodes, connections } = useMemo(() => {
+  // Generate denser scattered nodes and organic connections
+  const { nodes, connections, adjacencyMap } = useMemo(() => {
     const nodeList: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[] = []
     const connList: { start: number; end: number; color: THREE.Color }[] = []
+    const adjMap: Map<number, number[]> = new Map()
 
-    const nodeCount = 180
+    const nodeCount = 280 // Denser network
 
-    // Create scattered nodes
+    // Create scattered nodes in organic clusters
     for (let i = 0; i < nodeCount; i++) {
-      const x = (Math.random() - 0.5) * 35
-      const y = (Math.random() - 0.5) * 22
-      const z = (Math.random() - 0.5) * 12 - 8
+      // Create organic clustering effect
+      const cluster = Math.floor(Math.random() * 5)
+      const clusterOffsetX = (cluster - 2) * 6
+      const clusterOffsetY = Math.sin(cluster * 1.2) * 3
+
+      const x = (Math.random() - 0.5) * 12 + clusterOffsetX
+      const y = (Math.random() - 0.5) * 14 + clusterOffsetY
+      const z = (Math.random() - 0.5) * 10 - 8
 
       // Enhanced color gradient: magenta -> purple -> cyan -> teal -> green
       const t = (x + 17.5) / 35
       let color: THREE.Color
       if (t < 0.25) {
-        // Magenta to purple
         const localT = t / 0.25
         color = new THREE.Color().lerpColors(
           new THREE.Color('#ec4899'),
@@ -35,7 +50,6 @@ function NeuralMesh() {
           localT
         )
       } else if (t < 0.5) {
-        // Purple to cyan
         const localT = (t - 0.25) / 0.25
         color = new THREE.Color().lerpColors(
           new THREE.Color('#a855f7'),
@@ -43,7 +57,6 @@ function NeuralMesh() {
           localT
         )
       } else if (t < 0.75) {
-        // Cyan to teal
         const localT = (t - 0.5) / 0.25
         color = new THREE.Color().lerpColors(
           new THREE.Color('#22d3ee'),
@@ -51,7 +64,6 @@ function NeuralMesh() {
           localT
         )
       } else {
-        // Teal to green
         const localT = (t - 0.75) / 0.25
         color = new THREE.Color().lerpColors(
           new THREE.Color('#14b8a6'),
@@ -62,10 +74,11 @@ function NeuralMesh() {
 
       const pos = new THREE.Vector3(x, y, z)
       nodeList.push({ pos: pos.clone(), basePos: pos.clone(), color })
+      adjMap.set(i, [])
     }
 
-    // Create organic connections between nearby nodes
-    const connectionDistance = 3.8
+    // Create more organic connections between nearby nodes
+    const connectionDistance = 3.2
 
     for (let i = 0; i < nodeList.length; i++) {
       for (let j = i + 1; j < nodeList.length; j++) {
@@ -81,72 +94,158 @@ function NeuralMesh() {
             end: j,
             color: midColor
           })
+          // Build adjacency map for signal propagation
+          adjMap.get(i)?.push(j)
+          adjMap.get(j)?.push(i)
         }
       }
     }
 
-    return { nodes: nodeList, connections: connList }
+    return { nodes: nodeList, connections: connList, adjacencyMap: adjMap }
   }, [])
 
-  // Random twinkling effect - more frequent and more nodes
+  // Sequential wave signal propagation
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newTwinkling = new Set<number>()
-      // Randomly select 12-20 nodes to twinkle
-      const count = Math.floor(Math.random() * 9) + 12
-      for (let i = 0; i < count; i++) {
-        newTwinkling.add(Math.floor(Math.random() * nodes.length))
-      }
-      setTwinklingNodes(newTwinkling)
-    }, 600)
+    const spawnSignal = () => {
+      // Start signals from random nodes
+      const startNode = Math.floor(Math.random() * nodes.length)
+      const neighbors = adjacencyMap.get(startNode) || []
 
+      if (neighbors.length > 0) {
+        // Pick 1-2 random neighbors to send signals to
+        const numSignals = Math.min(neighbors.length, Math.floor(Math.random() * 2) + 1)
+        const newPulses: SignalPulse[] = []
+
+        for (let i = 0; i < numSignals; i++) {
+          const endNode = neighbors[Math.floor(Math.random() * neighbors.length)]
+          newPulses.push({
+            startNode,
+            endNode,
+            progress: 0,
+            speed: 0.015 + Math.random() * 0.01,
+            color: nodes[startNode].color.clone()
+          })
+        }
+
+        // Light up the starting node
+        setLitNodes(prev => {
+          const newMap = new Map(prev)
+          newMap.set(startNode, 2.5)
+          return newMap
+        })
+
+        setActivePulses(prev => [...prev, ...newPulses])
+      }
+    }
+
+    // Spawn new signals periodically
+    const interval = setInterval(spawnSignal, 150)
     return () => clearInterval(interval)
-  }, [nodes.length])
+  }, [nodes, adjacencyMap])
+
+  // Update signal pulses and propagate
+  useEffect(() => {
+    const updatePulses = () => {
+      setActivePulses(prev => {
+        const updated: SignalPulse[] = []
+        const newLitNodes = new Map(litNodes)
+
+        prev.forEach(pulse => {
+          const newProgress = pulse.progress + pulse.speed
+
+          if (newProgress >= 1) {
+            // Signal reached destination - light up end node
+            newLitNodes.set(pulse.endNode, 2.5)
+
+            // Propagate to next nodes (chain reaction)
+            if (Math.random() < 0.6) {
+              const neighbors = adjacencyMap.get(pulse.endNode) || []
+              const validNeighbors = neighbors.filter(n => n !== pulse.startNode)
+              if (validNeighbors.length > 0) {
+                const nextNode = validNeighbors[Math.floor(Math.random() * validNeighbors.length)]
+                updated.push({
+                  startNode: pulse.endNode,
+                  endNode: nextNode,
+                  progress: 0,
+                  speed: pulse.speed,
+                  color: nodes[pulse.endNode].color.clone()
+                })
+              }
+            }
+          } else {
+            updated.push({ ...pulse, progress: newProgress })
+          }
+        })
+
+        // Decay lit nodes
+        litNodes.forEach((brightness, nodeIdx) => {
+          const newBrightness = brightness - 0.03
+          if (newBrightness > 1) {
+            newLitNodes.set(nodeIdx, newBrightness)
+          } else {
+            newLitNodes.delete(nodeIdx)
+          }
+        })
+
+        setLitNodes(newLitNodes)
+        return updated.slice(-100) // Limit active pulses
+      })
+    }
+
+    const interval = setInterval(updatePulses, 16)
+    return () => clearInterval(interval)
+  }, [litNodes, adjacencyMap, nodes])
 
   return (
     <group ref={groupRef}>
       <AnimatedNodes
         nodes={nodes}
-        twinklingNodes={twinklingNodes}
+        litNodes={litNodes}
         pointer={pointer}
         viewport={viewport}
       />
       <AnimatedConnections
         nodes={nodes}
         connections={connections}
+        activePulses={activePulses}
         pointer={pointer}
         viewport={viewport}
+      />
+      <SignalPulses
+        nodes={nodes}
+        pulses={activePulses}
       />
     </group>
   )
 }
 
-// Animated nodes with parallax, movement, and twinkling
+// Animated circular nodes with parallax and signal lighting
 function AnimatedNodes({
   nodes,
-  twinklingNodes,
+  litNodes,
   pointer,
   viewport
 }: {
   nodes: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[]
-  twinklingNodes: Set<number>
+  litNodes: Map<number, number>
   pointer: THREE.Vector2
   viewport: { width: number; height: number }
 }) {
   const pointsRef = useRef<THREE.Points>(null)
   const positionsRef = useRef<Float32Array>(new Float32Array(nodes.length * 3))
   const colorsRef = useRef<Float32Array>(new Float32Array(nodes.length * 3))
+  const sizesRef = useRef<Float32Array>(new Float32Array(nodes.length))
 
-  // Initialize positions and colors
+  // Initialize
   useMemo(() => {
     nodes.forEach((node, i) => {
       positionsRef.current[i * 3] = node.basePos.x
       positionsRef.current[i * 3 + 1] = node.basePos.y
       positionsRef.current[i * 3 + 2] = node.basePos.z
-
       colorsRef.current[i * 3] = node.color.r
       colorsRef.current[i * 3 + 1] = node.color.g
       colorsRef.current[i * 3 + 2] = node.color.b
+      sizesRef.current[i] = 0.15
     })
   }, [nodes])
 
@@ -158,37 +257,30 @@ function AnimatedNodes({
     const colors = pointsRef.current.geometry.attributes.color.array as Float32Array
 
     nodes.forEach((node, i) => {
-      // ENHANCED Parallax effect - much more pronounced
+      // Parallax effect
       const depth = (node.basePos.z + 14) / 20
-      const parallaxX = pointer.x * viewport.width * 0.4 * depth
-      const parallaxY = pointer.y * viewport.height * 0.3 * depth
+      const parallaxX = pointer.x * viewport.width * 0.35 * depth
+      const parallaxY = pointer.y * viewport.height * 0.25 * depth
 
-      // ENHANCED floating movement - larger amplitude, varied speeds
-      const floatX = Math.sin(time * 0.4 + i * 0.3) * 0.4
-      const floatY = Math.cos(time * 0.35 + i * 0.5) * 0.35
-      const floatZ = Math.sin(time * 0.3 + i * 0.2) * 0.25
+      // Organic wave-like floating movement
+      const waveX = Math.sin(time * 0.3 + i * 0.2 + node.basePos.y * 0.1) * 0.3
+      const waveY = Math.cos(time * 0.25 + i * 0.15 + node.basePos.x * 0.1) * 0.25
+      const waveZ = Math.sin(time * 0.2 + i * 0.1) * 0.15
 
-      // Update positions with parallax and float
-      positions[i * 3] = node.basePos.x + parallaxX + floatX
-      positions[i * 3 + 1] = node.basePos.y + parallaxY + floatY
-      positions[i * 3 + 2] = node.basePos.z + floatZ
+      positions[i * 3] = node.basePos.x + parallaxX + waveX
+      positions[i * 3 + 1] = node.basePos.y + parallaxY + waveY
+      positions[i * 3 + 2] = node.basePos.z + waveZ
 
-      // Update node's current position for connection lines
       node.pos.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2])
 
-      // ENHANCED Twinkling effect - much brighter and more visible
-      if (twinklingNodes.has(i)) {
-        const twinkle = Math.sin(time * 12) * 0.8 + 2.2
-        colors[i * 3] = Math.min(1, node.color.r * twinkle)
-        colors[i * 3 + 1] = Math.min(1, node.color.g * twinkle)
-        colors[i * 3 + 2] = Math.min(1, node.color.b * twinkle)
-      } else {
-        // Subtle ambient pulse for all nodes
-        const pulse = Math.sin(time * 0.8 + i * 0.15) * 0.2 + 1
-        colors[i * 3] = node.color.r * pulse
-        colors[i * 3 + 1] = node.color.g * pulse
-        colors[i * 3 + 2] = node.color.b * pulse
-      }
+      // Signal-based lighting
+      const litBrightness = litNodes.get(i) || 1
+      const basePulse = Math.sin(time * 0.5 + i * 0.1) * 0.15 + 1
+
+      const brightness = Math.max(litBrightness, basePulse)
+      colors[i * 3] = Math.min(1, node.color.r * brightness)
+      colors[i * 3 + 1] = Math.min(1, node.color.g * brightness)
+      colors[i * 3 + 2] = Math.min(1, node.color.b * brightness)
     })
 
     pointsRef.current.geometry.attributes.position.needsUpdate = true
@@ -212,10 +304,10 @@ function AnimatedNodes({
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.22}
+        size={0.2}
         vertexColors
         transparent
-        opacity={0.7}
+        opacity={0.8}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
       />
@@ -223,13 +315,15 @@ function AnimatedNodes({
   )
 }
 
-// Animated connection lines that follow node movements
+// Connection lines with subtle base glow
 function AnimatedConnections({
   nodes,
   connections,
+  activePulses,
 }: {
   nodes: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[]
   connections: { start: number; end: number; color: THREE.Color }[]
+  activePulses: SignalPulse[]
   pointer: THREE.Vector2
   viewport: { width: number; height: number }
 }) {
@@ -237,15 +331,26 @@ function AnimatedConnections({
   const positionsRef = useRef<Float32Array>(new Float32Array(connections.length * 6))
   const colorsRef = useRef<Float32Array>(new Float32Array(connections.length * 6))
 
-  // Initialize colors
+  // Track which connections have active pulses
+  const activeConnectionsRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    const activeSet = new Set<string>()
+    activePulses.forEach(pulse => {
+      activeSet.add(`${pulse.startNode}-${pulse.endNode}`)
+      activeSet.add(`${pulse.endNode}-${pulse.startNode}`)
+    })
+    activeConnectionsRef.current = activeSet
+  }, [activePulses])
+
   useMemo(() => {
     connections.forEach((conn, i) => {
-      colorsRef.current[i * 6] = conn.color.r
-      colorsRef.current[i * 6 + 1] = conn.color.g
-      colorsRef.current[i * 6 + 2] = conn.color.b
-      colorsRef.current[i * 6 + 3] = conn.color.r
-      colorsRef.current[i * 6 + 4] = conn.color.g
-      colorsRef.current[i * 6 + 5] = conn.color.b
+      colorsRef.current[i * 6] = conn.color.r * 0.4
+      colorsRef.current[i * 6 + 1] = conn.color.g * 0.4
+      colorsRef.current[i * 6 + 2] = conn.color.b * 0.4
+      colorsRef.current[i * 6 + 3] = conn.color.r * 0.4
+      colorsRef.current[i * 6 + 4] = conn.color.g * 0.4
+      colorsRef.current[i * 6 + 5] = conn.color.b * 0.4
     })
   }, [connections])
 
@@ -253,21 +358,33 @@ function AnimatedConnections({
     if (!linesRef.current) return
 
     const positions = linesRef.current.geometry.attributes.position.array as Float32Array
+    const colors = linesRef.current.geometry.attributes.color.array as Float32Array
 
     connections.forEach((conn, i) => {
       const startNode = nodes[conn.start]
       const endNode = nodes[conn.end]
 
-      // Use the animated node positions
       positions[i * 6] = startNode.pos.x
       positions[i * 6 + 1] = startNode.pos.y
       positions[i * 6 + 2] = startNode.pos.z
       positions[i * 6 + 3] = endNode.pos.x
       positions[i * 6 + 4] = endNode.pos.y
       positions[i * 6 + 5] = endNode.pos.z
+
+      // Subtle glow for active connections
+      const isActive = activeConnectionsRef.current.has(`${conn.start}-${conn.end}`)
+      const brightness = isActive ? 0.6 : 0.3
+
+      colors[i * 6] = conn.color.r * brightness
+      colors[i * 6 + 1] = conn.color.g * brightness
+      colors[i * 6 + 2] = conn.color.b * brightness
+      colors[i * 6 + 3] = conn.color.r * brightness
+      colors[i * 6 + 4] = conn.color.g * brightness
+      colors[i * 6 + 5] = conn.color.b * brightness
     })
 
     linesRef.current.geometry.attributes.position.needsUpdate = true
+    linesRef.current.geometry.attributes.color.needsUpdate = true
   })
 
   return (
@@ -289,10 +406,77 @@ function AnimatedConnections({
       <lineBasicMaterial
         vertexColors
         transparent
-        opacity={0.18}
+        opacity={0.2}
         blending={THREE.AdditiveBlending}
       />
     </lineSegments>
+  )
+}
+
+// Animated signal pulses traveling along connections
+function SignalPulses({
+  nodes,
+  pulses
+}: {
+  nodes: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[]
+  pulses: SignalPulse[]
+}) {
+  const meshRef = useRef<THREE.InstancedMesh>(null)
+  const tempObject = useMemo(() => new THREE.Object3D(), [])
+  const tempColor = useMemo(() => new THREE.Color(), [])
+
+  useFrame(() => {
+    if (!meshRef.current) return
+
+    pulses.forEach((pulse, i) => {
+      if (i >= 100) return // Max instances
+
+      const startPos = nodes[pulse.startNode].pos
+      const endPos = nodes[pulse.endNode].pos
+
+      // Interpolate position along the connection
+      const x = startPos.x + (endPos.x - startPos.x) * pulse.progress
+      const y = startPos.y + (endPos.y - startPos.y) * pulse.progress
+      const z = startPos.z + (endPos.z - startPos.z) * pulse.progress
+
+      tempObject.position.set(x, y, z)
+
+      // Pulse size based on progress (grows then shrinks)
+      const sizeCurve = Math.sin(pulse.progress * Math.PI)
+      const scale = 0.08 + sizeCurve * 0.06
+      tempObject.scale.setScalar(scale)
+
+      tempObject.updateMatrix()
+      meshRef.current!.setMatrixAt(i, tempObject.matrix)
+
+      // Bright neon color
+      tempColor.copy(pulse.color).multiplyScalar(2.5)
+      meshRef.current!.setColorAt(i, tempColor)
+    })
+
+    // Hide unused instances
+    for (let i = pulses.length; i < 100; i++) {
+      tempObject.position.set(0, 0, -1000)
+      tempObject.scale.setScalar(0)
+      tempObject.updateMatrix()
+      meshRef.current!.setMatrixAt(i, tempObject.matrix)
+    }
+
+    meshRef.current.instanceMatrix.needsUpdate = true
+    if (meshRef.current.instanceColor) {
+      meshRef.current.instanceColor.needsUpdate = true
+    }
+  })
+
+  return (
+    <instancedMesh ref={meshRef} args={[undefined, undefined, 100]}>
+      <sphereGeometry args={[1, 12, 12]} />
+      <meshBasicMaterial
+        transparent
+        opacity={0.9}
+        blending={THREE.AdditiveBlending}
+      />
+    </instancedMesh>
   )
 }
 
