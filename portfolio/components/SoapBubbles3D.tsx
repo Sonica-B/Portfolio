@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ActiveSection } from '@/app/page'
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 
 interface BubbleData {
   id: ActiveSection
@@ -39,9 +39,6 @@ function DraggableBubble({
 }) {
   const [borderRadius, setBorderRadius] = useState(generateBlobRadius())
   const [isDragging, setIsDragging] = useState(false)
-  const dragStartTime = useRef(0)
-  const dragStartPos = useRef({ x: 0, y: 0 })
-  const currentPos = useRef({ x: 0, y: 0 })
 
   // Motion values for smooth dragging
   const x = useMotionValue(0)
@@ -74,40 +71,21 @@ function DraggableBubble({
     return () => clearInterval(interval)
   }, [bubble.morphDuration])
 
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    dragStartTime.current = Date.now()
-    dragStartPos.current = { x: e.clientX, y: e.clientY }
-    currentPos.current = { x: e.clientX, y: e.clientY }
-  }, [])
+  const handleTap = () => {
+    // onTap only fires if it wasn't a drag
+    onNavigate(bubble.id)
+  }
 
-  const handleDragStart = useCallback(() => {
+  const handleDragStart = () => {
     setIsDragging(true)
-  }, [])
+  }
 
-  const handleDrag = useCallback((e: MouseEvent | TouchEvent | PointerEvent) => {
-    const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX
-    const clientY = 'touches' in e ? e.touches[0].clientY : (e as MouseEvent).clientY
-    currentPos.current = { x: clientX, y: clientY }
-  }, [])
-
-  const handleDragEnd = useCallback(() => {
-    const dragDuration = Date.now() - dragStartTime.current
-    const dragDistance = Math.sqrt(
-      Math.pow(currentPos.current.x - dragStartPos.current.x, 2) +
-      Math.pow(currentPos.current.y - dragStartPos.current.y, 2)
-    )
-
+  const handleDragEnd = () => {
     setIsDragging(false)
-
-    // Navigate if it was a quick tap (< 200ms) OR minimal movement (< 8px)
-    if (dragDuration < 200 || dragDistance < 8) {
-      onNavigate(bubble.id)
-    }
-
     // Animate back to original position
     x.set(0)
     y.set(0)
-  }, [bubble.id, onNavigate, x, y])
+  }
 
   return (
     <motion.div
@@ -136,11 +114,11 @@ function DraggableBubble({
       dragConstraints={{ left: -200, right: 200, top: -200, bottom: 200 }}
       dragElastic={0.1}
       dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-      onPointerDown={handlePointerDown}
       onDragStart={handleDragStart}
-      onDrag={handleDrag}
       onDragEnd={handleDragEnd}
+      onTap={handleTap}
       whileHover={{ scale: isDragging ? undefined : 1.08 }}
+      whileTap={{ scale: 0.95 }}
     >
       {/* Floating animation wrapper */}
       <motion.div
@@ -247,7 +225,7 @@ function DraggableBubble({
         />
 
         {/* Label - Title & Subtitle - LARGER TEXT */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center select-none">
+        <div className="absolute inset-0 flex flex-col items-center justify-center select-none pointer-events-none">
           <span className={`text-sm font-bold tracking-wide drop-shadow-lg transition-colors duration-300 ${isDragging ? 'text-cyan-300' : 'text-white/90'}`}>
             {bubble.title}
           </span>
