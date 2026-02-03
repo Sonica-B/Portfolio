@@ -62,40 +62,40 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen py-20 px-4 md:px-8"
+      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
+          className="mb-8 sm:mb-12"
         >
           <button
             onClick={onBack}
-            className="glass-button text-sm mb-6 flex items-center gap-2"
+            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             Back to Home
           </button>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">About Me</span>
           </h1>
         </motion.div>
 
         {/* Main Content */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
           {/* Bio Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
-            className="md:col-span-2 floating-card p-6"
+            className="md:col-span-2 floating-card p-4 sm:p-6"
           >
-            <div className="flex items-start gap-6 mb-6">
-              <div className="w-24 h-24 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0">
                 <Image
                   src="/shreya.jpg"
                   alt="Shreya Boyane"
@@ -104,8 +104,8 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-1">Shreya Boyane</h2>
+              <div className="text-center sm:text-left">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">Shreya Boyane</h2>
                 <p className="text-primary">AI/ML Engineer</p>
                 <p className="text-gray-500 text-sm">Worcester, MA</p>
               </div>
@@ -129,17 +129,17 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
 
             {/* Quick Contact */}
             <div className="mt-6 pt-6 border-t border-white/10">
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
+                <div className="text-center sm:text-left">
                   <p className="text-gray-500">Email</p>
-                  <a href="mailto:shreyaa.boyane@gmail.com" className="text-primary hover:underline">
+                  <a href="mailto:shreyaa.boyane@gmail.com" className="text-primary hover:underline break-all">
                     shreyaa.boyane@gmail.com
                   </a>
                 </div>
-                <div>
-                  <p className="text-gray-500">Phone</p>
-                  <a href="tel:+17745199905" className="text-primary hover:underline">
-                    +1 (774) 519-9905
+                <div className="text-center sm:text-left">
+                  <p className="text-gray-500">Schedule a Call</p>
+                  <a href="https://zcal.co/i/4aMYgoRr" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    Book a 30-min meeting
                   </a>
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="floating-card p-6"
+            className="floating-card p-4 sm:p-6"
           >
             <h3 className="text-lg font-bold text-white mb-4">Quick Stats</h3>
             <div className="space-y-4">
@@ -181,24 +181,24 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="floating-card p-6 mt-6"
+          className="floating-card p-4 sm:p-6 mt-4 sm:mt-6"
         >
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-yellow-400">
+          <h3 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-yellow-400 flex-shrink-0">
               <circle cx="12" cy="8" r="6"/>
               <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
             </svg>
             Awards & Recognition
           </h3>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
             {awards.map((award, index) => (
-              <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-white/5">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-yellow-400">
+              <div key={index} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-yellow-400 flex-shrink-0">
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                 </svg>
                 <div>
-                  <p className="text-white font-medium">{award.title}</p>
-                  <p className="text-gray-500 text-sm">{award.company}</p>
+                  <p className="text-white font-medium text-sm sm:text-base">{award.title}</p>
+                  <p className="text-gray-500 text-xs sm:text-sm">{award.company}</p>
                 </div>
               </div>
             ))}
@@ -210,35 +210,35 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="floating-card p-6 mt-6"
+          className="floating-card p-4 sm:p-6 mt-4 sm:mt-6"
         >
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary">
+          <h3 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary flex-shrink-0">
               <circle cx="12" cy="12" r="10"/>
               <line x1="12" y1="16" x2="12" y2="12"/>
               <line x1="12" y1="8" x2="12.01" y2="8"/>
             </svg>
             What Drives Me
           </h3>
-          <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-400">
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-cyan-400 mb-3">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 text-sm text-gray-400">
+            <div className="p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-cyan-400 mb-2 sm:mb-3">
                 <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
               </svg>
-              Turning research papers into production systems
+              <span className="text-xs sm:text-sm">Turning research papers into production systems</span>
             </div>
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-purple-400 mb-3">
+            <div className="p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-purple-400 mb-2 sm:mb-3">
                 <circle cx="12" cy="12" r="3"/>
                 <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
               </svg>
-              Making AI that actually helps people
+              <span className="text-xs sm:text-sm">Making AI that actually helps people</span>
             </div>
-            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400 mb-3">
+            <div className="p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5 sm:col-span-2 md:col-span-1">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400 mb-2 sm:mb-3">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
               </svg>
-              Optimizing everything, from code to coffee
+              <span className="text-xs sm:text-sm">Optimizing everything, from code to coffee</span>
             </div>
           </div>
         </motion.div>

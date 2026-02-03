@@ -58,28 +58,28 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen py-20 px-4 md:px-8"
+      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
+          className="mb-8 sm:mb-12"
         >
           <button
             onClick={onBack}
-            className="glass-button text-sm mb-6 flex items-center gap-2"
+            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             Back to Home
           </button>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="gradient-text">Experience</span>
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400 text-base sm:text-lg">
             2+ years building production AI systems and DevOps infrastructure.
           </p>
         </motion.div>
@@ -87,7 +87,7 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
         {/* Timeline */}
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500 via-purple-500 to-emerald-500 opacity-30" />
+          <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500 via-purple-500 to-emerald-500 opacity-30" />
 
           {experiences.map((exp, index) => (
             <motion.div
@@ -95,32 +95,32 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="relative pl-20 pb-12 last:pb-0"
+              className="relative pl-10 sm:pl-20 pb-8 sm:pb-12 last:pb-0"
             >
               {/* Timeline Dot */}
-              <div className={`absolute left-6 w-4 h-4 rounded-full bg-gradient-to-r ${exp.gradient} shadow-lg`} />
+              <div className={`absolute left-2 sm:left-6 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gradient-to-r ${exp.gradient} shadow-lg`} />
 
               {/* Card */}
-              <div className="floating-card p-6 group">
+              <div className="floating-card p-4 sm:p-6 group">
                 <div className={`absolute inset-0 bg-gradient-to-br ${exp.gradient} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`} />
 
                 <div className="relative z-10">
                   {/* Period */}
-                  <span className="text-xs px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/10">
+                  <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/10">
                     {exp.period}
                   </span>
 
                   {/* Title & Company */}
-                  <h3 className="text-xl font-bold text-white mt-4">{exp.title}</h3>
-                  <p className="text-primary text-sm">{exp.company}</p>
-                  <p className="text-gray-500 text-xs mb-4">{exp.location}</p>
+                  <h3 className="text-base sm:text-xl font-bold text-white mt-3 sm:mt-4">{exp.title}</h3>
+                  <p className="text-primary text-xs sm:text-sm">{exp.company}</p>
+                  <p className="text-gray-500 text-[10px] sm:text-xs mb-3 sm:mb-4">{exp.location}</p>
 
                   {/* Highlights */}
-                  <ul className="space-y-2 mb-4">
+                  <ul className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
                     {exp.highlights.map((item, i) => (
-                      <li key={i} className="text-gray-400 text-sm flex items-start">
-                        <span className="text-primary mr-2 mt-1">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <li key={i} className="text-gray-400 text-xs sm:text-sm flex items-start">
+                        <span className="text-primary mr-2 mt-0.5 sm:mt-1 flex-shrink-0">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <polyline points="9 11 12 14 22 4"/>
                             <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
                           </svg>
@@ -131,9 +131,9 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
                   </ul>
 
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {exp.tech.map((tech, i) => (
-                      <span key={i} className="text-xs px-2 py-1 rounded-lg border border-white/10 text-gray-500">
+                      <span key={i} className="text-[10px] sm:text-xs px-2 py-1 rounded-lg border border-white/10 text-gray-500">
                         {tech}
                       </span>
                     ))}

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ActiveSection } from '@/app/page'
 
@@ -91,73 +92,142 @@ const socialLinks = [
 ]
 
 export default function BottomNav({ activeSection, onNavigate, isVisible }: BottomNavProps) {
+  const [isExpanded, setIsExpanded] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+      // Auto-collapse on mobile
+      if (window.innerWidth < 768) {
+        setIsExpanded(false)
+      } else {
+        setIsExpanded(true)
+      }
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
-        >
-          <div className="liquid-glass-dark rounded-[28px] px-2 py-2 flex items-center gap-1">
-            {/* Navigation Tabs */}
-            <div className="flex items-center">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => onNavigate(item.id as ActiveSection)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`
-                    relative px-4 py-2.5 rounded-2xl flex items-center gap-2 transition-all duration-300
-                    ${activeSection === item.id
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
-                    }
-                  `}
-                >
-                  {/* Active indicator */}
-                  {activeSection === item.id && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 bg-white/10 rounded-2xl"
-                      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                    />
+        <>
+          {/* Collapsed FAB - Bottom right corner for thumb accessibility */}
+          <AnimatePresence>
+            {isMobile && !isExpanded && (
+              <motion.button
+                key="fab"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0, opacity: 0 }}
+                transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+                onClick={() => setIsExpanded(true)}
+                className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(0,212,255,0.2) 0%, rgba(168,85,247,0.2) 100%)',
+                  backdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                  <path d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {/* Expanded Navigation - Centered */}
+          <AnimatePresence>
+            {(!isMobile || isExpanded) && (
+              <motion.div
+                key="expanded-nav"
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 100, opacity: 0 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+              >
+                <div className="liquid-glass-dark rounded-[28px] px-2 py-2 flex items-center gap-1">
+                  {/* Navigation Tabs */}
+                  <div className="flex items-center">
+                    {navItems.map((item) => (
+                      <motion.button
+                        key={item.id}
+                        onClick={() => {
+                          onNavigate(item.id as ActiveSection)
+                          if (isMobile) setIsExpanded(false)
+                        }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`
+                          relative px-3 sm:px-4 py-2.5 rounded-2xl flex items-center gap-2 transition-all duration-300
+                          ${activeSection === item.id
+                            ? 'text-white'
+                            : 'text-gray-400 hover:text-white'
+                          }
+                        `}
+                      >
+                        {/* Active indicator */}
+                        {activeSection === item.id && (
+                          <motion.div
+                            layoutId="activeTab"
+                            className="absolute inset-0 bg-white/10 rounded-2xl"
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                          />
+                        )}
+                        <span className="relative z-10">
+                          <NavIcon type={item.id} isActive={activeSection === item.id} />
+                        </span>
+                        <span className="relative z-10 text-sm font-medium hidden sm:block">
+                          {item.label}
+                        </span>
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  {/* Divider - hidden on mobile */}
+                  <div className="w-px h-8 bg-white/10 mx-2 hidden sm:block" />
+
+                  {/* Social Links - hidden on mobile */}
+                  <div className="hidden sm:flex items-center gap-1">
+                    {socialLinks.map((link) => (
+                      <motion.a
+                        key={link.name}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                        title={link.name}
+                      >
+                        {link.icon}
+                      </motion.a>
+                    ))}
+                  </div>
+
+                  {/* Mobile close button - at the end */}
+                  {isMobile && (
+                    <motion.button
+                      onClick={() => setIsExpanded(false)}
+                      whileTap={{ scale: 0.9 }}
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all ml-1"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M6 9l6 6 6-6"/>
+                      </svg>
+                    </motion.button>
                   )}
-                  <span className="relative z-10">
-                    <NavIcon type={item.id} isActive={activeSection === item.id} />
-                  </span>
-                  <span className="relative z-10 text-sm font-medium hidden sm:block">
-                    {item.label}
-                  </span>
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Divider */}
-            <div className="w-px h-8 bg-white/10 mx-2" />
-
-            {/* Social Links */}
-            <div className="flex items-center gap-1">
-              {socialLinks.map((link) => (
-                <motion.a
-                  key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all"
-                  title={link.name}
-                >
-                  {link.icon}
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
       )}
     </AnimatePresence>
   )

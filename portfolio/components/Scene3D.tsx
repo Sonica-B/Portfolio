@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -15,7 +15,7 @@ interface SignalPulse {
 }
 
 // Neural Network with real-time signal propagation
-function NeuralMesh() {
+function NeuralMesh({ isMobile }: { isMobile: boolean }) {
   const { pointer, viewport } = useThree()
 
   // Use refs for mutable state to avoid re-renders
@@ -24,24 +24,29 @@ function NeuralMesh() {
   const pulseIdRef = useRef(0)
   const lastSpawnRef = useRef(0)
 
-  // Generate nodes and connections
+  // Generate nodes and connections - responsive to mobile
   const { nodes, connections, adjacencyMap } = useMemo(() => {
     const nodeList: { pos: THREE.Vector3; basePos: THREE.Vector3; color: THREE.Color }[] = []
     const connList: { start: number; end: number; color: THREE.Color }[] = []
     const adjMap: Map<number, number[]> = new Map()
 
-    const nodeCount = 250
+    // Mobile: fewer nodes, narrower spread, taller layout
+    const nodeCount = isMobile ? 120 : 250
+    const xSpreadFactor = isMobile ? 0.35 : 1  // Narrower on mobile
+    const ySpreadFactor = isMobile ? 1.2 : 1   // Taller on mobile
 
     for (let i = 0; i < nodeCount; i++) {
       const cluster = Math.floor(Math.random() * 5)
-      const clusterOffsetX = (cluster - 2) * 7
-      const clusterOffsetY = Math.sin(cluster * 1.2) * 4
+      const clusterOffsetX = (cluster - 2) * 7 * xSpreadFactor
+      const clusterOffsetY = Math.sin(cluster * 1.2) * 4 * ySpreadFactor
 
-      const x = (Math.random() - 0.5) * 14 + clusterOffsetX
-      const y = (Math.random() - 0.5) * 16 + clusterOffsetY
+      const x = (Math.random() - 0.5) * 14 * xSpreadFactor + clusterOffsetX
+      const y = (Math.random() - 0.5) * 16 * ySpreadFactor + clusterOffsetY
       const z = (Math.random() - 0.5) * 8 - 10
 
-      const t = (x + 20) / 40
+      // Normalize color gradient based on actual spread (so mobile shows full spectrum)
+      const maxX = 7 * xSpreadFactor + 7 * xSpreadFactor // Max possible x
+      const t = (x + maxX) / (maxX * 2)
       let color: THREE.Color
       if (t < 0.25) {
         color = new THREE.Color().lerpColors(new THREE.Color('#ec4899'), new THREE.Color('#a855f7'), t / 0.25)
@@ -72,7 +77,7 @@ function NeuralMesh() {
     }
 
     return { nodes: nodeList, connections: connList, adjacencyMap: adjMap }
-  }, [])
+  }, [isMobile])
 
   // Spawn new signal
   const spawnSignal = (startNode: number) => {
@@ -414,14 +419,25 @@ function SignalPulses({
 }
 
 export default function Scene3D() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
     <div className="scene-3d">
       <Canvas
-        camera={{ position: [0, 0, 18], fov: 50 }}
+        camera={{ position: [0, 0, isMobile ? 14 : 18], fov: isMobile ? 60 : 50 }}
         gl={{ antialias: true, alpha: true }}
       >
         <color attach="background" args={['#000000']} />
-        <NeuralMesh />
+        <NeuralMesh isMobile={isMobile} />
       </Canvas>
     </div>
   )

@@ -61,71 +61,71 @@ export default function ProjectsSection({ onBack }: ProjectsSectionProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen py-20 px-4 md:px-8"
+      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
+          className="mb-8 sm:mb-12"
         >
           <button
             onClick={onBack}
-            className="glass-button text-sm mb-6 flex items-center gap-2"
+            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             Back to Home
           </button>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="gradient-text">Featured Projects</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl">
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl">
             From multi-agent AI systems to computer vision and medical imaging.
           </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="floating-card p-6 group"
+              className="floating-card p-4 sm:p-6 group"
             >
               {/* Gradient Overlay */}
               <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity duration-500`} />
 
               <div className="relative z-10">
                 {/* Period Badge */}
-                <span className="text-xs px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/10">
+                <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/10">
                   {project.period}
                 </span>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-white mt-4 mb-1">{project.title}</h3>
-                <p className="text-sm text-gray-500 mb-4">{project.subtitle}</p>
+                <h3 className="text-base sm:text-xl font-bold text-white mt-3 sm:mt-4 mb-1">{project.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">{project.subtitle}</p>
 
                 {/* Description */}
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed">{project.description}</p>
 
                 {/* Metrics */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                   {project.metrics.map((metric, i) => (
-                    <span key={i} className="text-xs px-2 py-1 rounded-lg bg-white/5 text-gray-300">
+                    <span key={i} className="text-[10px] sm:text-xs px-2 py-1 rounded-lg bg-white/5 text-gray-300">
                       {metric}
                     </span>
                   ))}
                 </div>
 
                 {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {project.tech.map((tech, i) => (
-                    <span key={i} className="text-xs px-2 py-1 rounded-lg border border-white/10 text-gray-500">
+                    <span key={i} className="text-[10px] sm:text-xs px-2 py-1 rounded-lg border border-white/10 text-gray-500">
                       {tech}
                     </span>
                   ))}

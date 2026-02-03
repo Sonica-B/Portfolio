@@ -55,14 +55,14 @@ export default function LinkedInHighlights() {
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02, y: -2 }}
       transition={{ delay: 0.7, duration: 0.3 }}
-      className="mt-5 block group max-w-md"
+      className="mt-4 sm:mt-5 block group max-w-md w-full"
       style={{
         background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
         backdropFilter: 'blur(16px) saturate(180%)',
         WebkitBackdropFilter: 'blur(16px) saturate(180%)',
         border: '1px solid rgba(255,255,255,0.12)',
-        borderRadius: '16px',
-        padding: '14px 18px',
+        borderRadius: '14px',
+        padding: '12px 14px',
         boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
       }}
     >

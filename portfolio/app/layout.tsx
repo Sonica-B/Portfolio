@@ -14,11 +14,20 @@ export const metadata: Metadata = {
     siteName: 'Shreya Boyane Portfolio',
     type: 'website',
     locale: 'en_US',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Shreya Boyane - AI/ML Engineer',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Shreya Boyane | AI/ML Engineer',
     description: 'AI Engineer specializing in Agentic AI workflows, LLMs, and Computer Vision.',
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -33,7 +42,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      </head>
+      <body className="overflow-x-hidden">{children}</body>
     </html>
   )
 }

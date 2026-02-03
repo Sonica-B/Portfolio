@@ -64,21 +64,21 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* Chat Button */}
+      {/* Chat Button - Bottom left on mobile to avoid FAB nav conflict */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-2xl liquid-glass
-                   flex items-center justify-center z-40 group"
+        className="fixed bottom-4 left-4 sm:bottom-6 sm:left-auto sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl liquid-glass
+                   flex items-center justify-center z-50 group"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-500 opacity-20 group-hover:opacity-40 transition-opacity" />
         {isOpen ? (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="sm:w-6 sm:h-6">
             <path d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="sm:w-6 sm:h-6">
             <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
           </svg>
         )}
@@ -91,8 +91,8 @@ export default function ChatBot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 w-80 md:w-96 h-[480px] liquid-glass-dark
-                       rounded-3xl z-40 flex flex-col overflow-hidden"
+            className="fixed bottom-20 sm:bottom-24 left-2 right-2 sm:left-auto sm:right-6 sm:w-80 md:w-96 h-[70vh] sm:h-[480px] max-h-[600px] liquid-glass-dark
+                       rounded-2xl sm:rounded-3xl z-50 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="px-5 py-4 border-b border-white/10">
