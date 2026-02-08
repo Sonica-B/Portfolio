@@ -98,8 +98,8 @@ const personJsonLd = {
   url: SITE_URL,
   image: `${SITE_URL}/Shreya.png`,
   description:
-    'AI/ML Engineer specializing in production-grade Agentic AI workflows, LLM systems, and Computer Vision solutions.',
-  jobTitle: 'AI/ML Engineer',
+    'AI/ML Engineer specializing in production-grade Agentic AI workflows, LLM systems, and Computer Vision solutions. Former Lead DevOps Engineer with expertise in CI/CD, MLOps, and scalable AI systems.',
+  jobTitle: 'Machine Learning Engineer',
   knowsAbout: [
     'Artificial Intelligence',
     'Machine Learning',
@@ -110,29 +110,77 @@ const personJsonLd = {
     'Natural Language Processing',
     'Multi-Agent AI Systems',
     'Python',
+    'PyTorch',
+    'TensorFlow',
+    'DevOps',
+    'CI/CD Pipelines',
+    'MLOps',
     'Brain-Computer Interfaces',
+    'Docker',
+    'Kubernetes',
+    'AWS',
   ],
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'Worcester Polytechnic Institute',
-    alternateName: 'WPI',
-    url: 'https://www.wpi.edu',
-    sameAs: 'https://en.wikipedia.org/wiki/Worcester_Polytechnic_Institute',
-  },
+  alumniOf: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Worcester Polytechnic Institute',
+      alternateName: 'WPI',
+      url: 'https://www.wpi.edu',
+      sameAs: 'https://en.wikipedia.org/wiki/Worcester_Polytechnic_Institute',
+    },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'PES Modern College of Engineering',
+      alternateName: 'PES MCOE',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Pune',
+        addressCountry: 'IN',
+      },
+    },
+  ],
+  hasCredential: [
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Master of Science in Artificial Intelligence',
+      credentialCategory: 'degree',
+      recognizedBy: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Worcester Polytechnic Institute',
+      },
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'Bachelor of Engineering in Information Technology',
+      credentialCategory: 'degree',
+      recognizedBy: {
+        '@type': 'CollegeOrUniversity',
+        name: 'PES Modern College of Engineering',
+      },
+    },
+  ],
+  award: [
+    'Bravo Individual Award - Persistent Systems',
+    'Best Intern Award - Top among 20,000+ new joiners',
+    '1st Rank - Yantra-Maan Robotics, Xtronica Mpulse 2018',
+  ],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Worcester',
     addressRegion: 'MA',
     addressCountry: 'US',
   },
+  nationality: {
+    '@type': 'Country',
+    name: 'India',
+  },
+  knowsLanguage: ['English', 'Hindi', 'Marathi'],
   sameAs: [
-    'https://linkedin.com/in/shreya-boyane',
+    'https://www.linkedin.com/in/shreya-boyane',
     'https://github.com/Sonica-B',
-    // Add more as you create them:
-    // 'https://www.wikidata.org/wiki/QXXXXXXX',
-    // 'https://scholar.google.com/citations?user=XXXXX',
-    // 'https://orcid.org/0000-0000-0000-0000',
-    // 'https://www.researchgate.net/profile/Shreya-Boyane',
+    'https://orcid.org/0009-0004-1211-3253',
+    // Add Wikidata QID after creating the entry:
+    'https://www.wikidata.org/wiki/Q138034331',
   ],
   mainEntityOfPage: {
     '@type': 'WebPage',
@@ -190,9 +238,8 @@ export default function RootLayout({
         />
 
         {/* Favicon set */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="manifest" href="/manifest.json" />
 
         {/* Theme color for browser UI */}
