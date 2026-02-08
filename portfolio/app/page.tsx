@@ -38,6 +38,44 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen overflow-hidden">
+      {/* SEO: Crawlable semantic content (visually hidden, readable by search engines) */}
+      <article className="sr-only" aria-hidden="false">
+        <header>
+          <h1>Shreya Boyane - AI/ML Engineer</h1>
+          <p>
+            Shreya Boyane is an AI/ML Engineer specializing in production-grade
+            Agentic AI workflows, LLM systems, and Computer Vision solutions.
+            Currently pursuing a Master of Science in Artificial Intelligence at
+            Worcester Polytechnic Institute (WPI) in Worcester, Massachusetts.
+          </p>
+        </header>
+        <section>
+          <h2>Expertise</h2>
+          <ul>
+            <li>Agentic AI Workflows &amp; Multi-Agent Systems</li>
+            <li>Large Language Models (LLMs) &amp; Natural Language Processing</li>
+            <li>Computer Vision &amp; Deep Learning</li>
+            <li>Brain-Computer Interfaces (BCI)</li>
+            <li>Python, PyTorch, TensorFlow</li>
+            <li>MLOps &amp; Production ML Systems</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Education</h2>
+          <p>MS in Artificial Intelligence - Worcester Polytechnic Institute (WPI)</p>
+        </section>
+        <section>
+          <h2>Contact</h2>
+          <address>
+            <a href="mailto:shreyaa.boyane@gmail.com">shreyaa.boyane@gmail.com</a>
+            {' | '}
+            <a href="https://linkedin.com/in/shreya-boyane" rel="me">LinkedIn</a>
+            {' | '}
+            <a href="https://github.com/Sonica-B" rel="me">GitHub</a>
+          </address>
+        </section>
+      </article>
+
       <Scene3D />
       <div className="ambient-bg" />
 
