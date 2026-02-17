@@ -2,10 +2,6 @@
 
 import { motion } from 'framer-motion'
 
-interface ExperienceSectionProps {
-  onBack: () => void
-}
-
 const experiences = [
   {
     title: 'Machine Learning Engineer',
@@ -51,34 +47,21 @@ const experiences = [
   },
 ]
 
-export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
+export default function ExperienceSection() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
-    >
+    <div className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="mb-8 sm:mb-12"
         >
-          <button
-            onClick={onBack}
-            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Home
-          </button>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="gradient-text">Experience</span>
-          </h1>
+          </h2>
           <p className="text-gray-400 text-base sm:text-lg">
             2+ years building production AI systems and DevOps infrastructure.
           </p>
@@ -93,8 +76,9 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.2 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
               className="relative pl-10 sm:pl-20 pb-8 sm:pb-12 last:pb-0"
             >
               {/* Timeline Dot */}
@@ -144,6 +128,6 @@ export default function ExperienceSection({ onBack }: ExperienceSectionProps) {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

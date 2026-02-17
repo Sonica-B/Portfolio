@@ -3,10 +3,6 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
-interface AboutSectionProps {
-  onBack: () => void
-}
-
 const stats = [
   { value: '3.88', label: 'GPA', icon: 'book' },
   { value: '2+', label: 'Years Exp', icon: 'briefcase' },
@@ -17,6 +13,7 @@ const stats = [
 const awards = [
   { title: 'Top Talent 2024', company: 'Persistent Systems' },
   { title: 'Bravo Individual Award', company: 'Persistent Systems' },
+  { title: '1st Rank - Yantra-Maan Robotics', company: 'Xtronica Mpulse 2018' },
 ]
 
 function StatIcon({ type }: { type: string }) {
@@ -55,34 +52,21 @@ function StatIcon({ type }: { type: string }) {
   }
 }
 
-export default function AboutSection({ onBack }: AboutSectionProps) {
+export default function AboutSection() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
-    >
+    <div className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="mb-8 sm:mb-12"
         >
-          <button
-            onClick={onBack}
-            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Home
-          </button>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">About Me</span>
-          </h1>
+          </h2>
         </motion.div>
 
         {/* Main Content */}
@@ -90,8 +74,9 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
           {/* Bio Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="md:col-span-2 floating-card p-4 sm:p-6"
           >
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6">
@@ -149,8 +134,9 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
           {/* Stats Card */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="floating-card p-4 sm:p-6"
           >
             <h3 className="text-lg font-bold text-white mb-4">Quick Stats</h3>
@@ -159,8 +145,9 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                   className="flex items-center gap-3 p-3 rounded-xl bg-white/5"
                 >
                   <span className="text-primary">
@@ -179,8 +166,9 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
         {/* Awards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="floating-card p-4 sm:p-6 mt-4 sm:mt-6"
         >
           <h3 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
@@ -190,7 +178,7 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
             </svg>
             Awards & Recognition
           </h3>
-          <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
             {awards.map((award, index) => (
               <div key={index} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-yellow-400 flex-shrink-0">
@@ -208,8 +196,9 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
         {/* What Drives Me */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
           className="floating-card p-4 sm:p-6 mt-4 sm:mt-6"
         >
           <h3 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
@@ -243,6 +232,6 @@ export default function AboutSection({ onBack }: AboutSectionProps) {
           </div>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

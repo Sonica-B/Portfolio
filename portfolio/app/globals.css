@@ -108,16 +108,27 @@ body {
   transition: left 0.5s ease;
 }
 
-.glass-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 30px rgba(0, 212, 255, 0.2);
-}
+/* Only apply hover transforms on devices with hover capability */
+@media (hover: hover) {
+  .glass-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(0, 212, 255, 0.2);
+  }
 
-.glass-button:hover::before {
-  left: 100%;
+  .glass-button:hover::before {
+    left: 100%;
+  }
+
+  .floating-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(0, 212, 255, 0.15);
+  }
 }
 
 .glass-button-primary {
@@ -129,10 +140,12 @@ body {
   border-color: rgba(0, 212, 255, 0.4);
 }
 
-.glass-button-primary:hover {
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 40px rgba(0, 212, 255, 0.4);
+@media (hover: hover) {
+  .glass-button-primary:hover {
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 40px rgba(0, 212, 255, 0.4);
+  }
 }
 
 /* Floating Card */
@@ -149,14 +162,6 @@ body {
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform-style: preserve-3d;
   perspective: 1000px;
-}
-
-.floating-card:hover {
-  transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.4),
-    0 0 40px rgba(0, 212, 255, 0.15);
 }
 
 /* Gradient Text */
@@ -257,9 +262,11 @@ body {
   transition: all 0.3s ease;
 }
 
-.social-icon:hover {
-  transform: scale(1.1) translateY(-2px);
-  filter: drop-shadow(0 0 10px currentColor);
+@media (hover: hover) {
+  .social-icon:hover {
+    transform: scale(1.1) translateY(-2px);
+    filter: drop-shadow(0 0 10px currentColor);
+  }
 }
 
 /* Section container */

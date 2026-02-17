@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { AnimatePresence } from 'framer-motion'
 import LandingPage from '@/components/LandingPage'
 import BottomNav from '@/components/BottomNav'
 import ProjectsSection from '@/components/sections/ProjectsSection'
@@ -18,26 +17,46 @@ const Scene3D = dynamic(() => import('@/components/Scene3D'), {
 
 export type ActiveSection = 'home' | 'projects' | 'experience' | 'skills' | 'about'
 
-export default function Home() {
-  const [activeSection, setActiveSection] = useState<ActiveSection>('home')
+const SECTION_ORDER: ActiveSection[] = ['home', 'experience', 'projects', 'skills', 'about']
 
-  const renderSection = () => {
-    switch (activeSection) {
-      case 'projects':
-        return <ProjectsSection onBack={() => setActiveSection('home')} />
-      case 'experience':
-        return <ExperienceSection onBack={() => setActiveSection('home')} />
-      case 'skills':
-        return <SkillsSection onBack={() => setActiveSection('home')} />
-      case 'about':
-        return <AboutSection onBack={() => setActiveSection('home')} />
-      default:
-        return <LandingPage onNavigate={setActiveSection} />
-    }
+export default function Home() {
+  const [visibleSection, setVisibleSection] = useState<ActiveSection>('home')
+
+  const sectionRefs = {
+    home: useRef<HTMLElement>(null),
+    experience: useRef<HTMLElement>(null),
+    projects: useRef<HTMLElement>(null),
+    skills: useRef<HTMLElement>(null),
+    about: useRef<HTMLElement>(null),
   }
 
+  const scrollToSection = useCallback((section: ActiveSection) => {
+    sectionRefs[section].current?.scrollIntoView({ behavior: 'smooth' })
+  }, [])
+
+  // IntersectionObserver to track visible section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSection(entry.target.id as ActiveSection)
+          }
+        })
+      },
+      { rootMargin: '-30% 0px -30% 0px', threshold: 0 }
+    )
+
+    SECTION_ORDER.forEach((id) => {
+      const ref = sectionRefs[id]
+      if (ref.current) observer.observe(ref.current)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <main className="relative min-h-screen overflow-hidden">
+    <main className="relative">
       {/* SEO: Crawlable semantic content (visually hidden, readable by search engines) */}
       <article className="sr-only" aria-hidden="false">
         <header>
@@ -79,14 +98,31 @@ export default function Home() {
       <Scene3D />
       <div className="ambient-bg" />
 
-      <AnimatePresence mode="wait">
-        {renderSection()}
-      </AnimatePresence>
+      {/* All sections stacked vertically for continuous scroll */}
+      <section ref={sectionRefs.home} id="home">
+        <LandingPage onNavigate={scrollToSection} />
+      </section>
+
+      <section ref={sectionRefs.experience} id="experience">
+        <ExperienceSection />
+      </section>
+
+      <section ref={sectionRefs.projects} id="projects">
+        <ProjectsSection />
+      </section>
+
+      <section ref={sectionRefs.skills} id="skills">
+        <SkillsSection />
+      </section>
+
+      <section ref={sectionRefs.about} id="about">
+        <AboutSection />
+      </section>
 
       <BottomNav
-        activeSection={activeSection}
-        onNavigate={setActiveSection}
-        isVisible={activeSection !== 'home'}
+        activeSection={visibleSection}
+        onNavigate={scrollToSection}
+        isVisible={visibleSection !== 'home'}
       />
 
       <ChatBot />

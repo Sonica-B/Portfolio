@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { ActiveSection } from '@/app/page'
 
@@ -46,8 +47,21 @@ function NavButton({
 }
 
 export default function MobileTimeline({ onNavigate }: MobileTimelineProps) {
+  const heroRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const heroScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.97])
+
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <motion.div
+      ref={heroRef}
+      style={{ opacity: heroOpacity, scale: heroScale }}
+      className="min-h-screen relative overflow-hidden"
+    >
       {/* Neural Network Background is rendered at page level (page.tsx) */}
 
       {/* Main Content */}
@@ -236,7 +250,26 @@ export default function MobileTimeline({ onNavigate }: MobileTimelineProps) {
             delay={0.9}
           />
         </div>
+
+        {/* Scroll hint */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="mt-6 flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            className="flex flex-col items-center gap-1 text-gray-600"
+          >
+            <span className="text-[10px] tracking-widest uppercase">Scroll to explore</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }

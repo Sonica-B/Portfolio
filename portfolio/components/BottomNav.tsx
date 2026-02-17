@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
 import { ActiveSection } from '@/app/page'
 
 interface BottomNavProps {
@@ -10,39 +10,38 @@ interface BottomNavProps {
   isVisible: boolean
 }
 
-function NavIcon({ type, isActive }: { type: string, isActive: boolean }) {
-  const color = isActive ? 'currentColor' : 'currentColor'
+function NavIcon({ type }: { type: string }) {
   switch (type) {
     case 'home':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
           <polyline points="9 22 9 12 15 12 15 22"/>
         </svg>
       )
     case 'projects':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/>
           <path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/>
         </svg>
       )
     case 'experience':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
           <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
         </svg>
       )
     case 'skills':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
         </svg>
       )
     case 'about':
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
@@ -54,8 +53,8 @@ function NavIcon({ type, isActive }: { type: string, isActive: boolean }) {
 
 const navItems = [
   { id: 'home', label: 'Home' },
-  { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
   { id: 'skills', label: 'Skills' },
   { id: 'about', label: 'About' },
 ]
@@ -94,11 +93,24 @@ const socialLinks = [
 export default function BottomNav({ activeSection, onNavigate, isVisible }: BottomNavProps) {
   const [isExpanded, setIsExpanded] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
+  const { scrollY } = useScroll()
+  const lastScrollY = useState(0)
+
+  // Hide nav when scrolling down, show when scrolling up
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const previous = lastScrollY[0]
+    if (latest > previous && latest > 300) {
+      setIsHidden(true)
+    } else {
+      setIsHidden(false)
+    }
+    lastScrollY[0] = latest
+  })
 
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
-      // Auto-collapse on mobile
       if (window.innerWidth < 768) {
         setIsExpanded(false)
       } else {
@@ -120,7 +132,7 @@ export default function BottomNav({ activeSection, onNavigate, isVisible }: Bott
               <motion.button
                 key="fab"
                 initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
+                animate={{ scale: isHidden ? 0 : 1, opacity: isHidden ? 0 : 1 }}
                 exit={{ scale: 0, opacity: 0 }}
                 transition={{ type: 'spring', damping: 20, stiffness: 300 }}
                 onClick={() => setIsExpanded(true)}
@@ -147,7 +159,7 @@ export default function BottomNav({ activeSection, onNavigate, isVisible }: Bott
               <motion.div
                 key="expanded-nav"
                 initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
+                animate={{ y: isHidden && !isMobile ? 100 : 0, opacity: isHidden && !isMobile ? 0 : 1 }}
                 exit={{ y: 100, opacity: 0 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                 className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
@@ -181,7 +193,7 @@ export default function BottomNav({ activeSection, onNavigate, isVisible }: Bott
                           />
                         )}
                         <span className="relative z-10">
-                          <NavIcon type={item.id} isActive={activeSection === item.id} />
+                          <NavIcon type={item.id} />
                         </span>
                         <span className="relative z-10 text-sm font-medium hidden sm:block">
                           {item.label}

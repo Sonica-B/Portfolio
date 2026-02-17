@@ -2,10 +2,6 @@
 
 import { motion } from 'framer-motion'
 
-interface SkillsSectionProps {
-  onBack: () => void
-}
-
 function CategoryIcon({ type }: { type: string }) {
   switch (type) {
     case 'ai':
@@ -61,39 +57,26 @@ const skillCategories = [
   {
     title: 'Frameworks & Tools',
     icon: 'tools',
-    skills: ['React', 'Angular', 'Flask', 'OpenCV', 'Unity', 'Blender', 'ONNX', 'TensorRT', 'CUDA', 'Git'],
+    skills: ['React', 'Angular', 'Flask', 'FastAPI', 'OpenCV', 'ROS2', 'Unity', 'Blender', 'ONNX', 'TensorRT', 'CUDA', 'Git'],
     gradient: 'from-orange-500 to-red-600',
   },
 ]
 
-export default function SkillsSection({ onBack }: SkillsSectionProps) {
+export default function SkillsSection() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
-    >
+    <div className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="mb-8 sm:mb-12"
         >
-          <button
-            onClick={onBack}
-            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Home
-          </button>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="gradient-text">Tech Stack</span>
-          </h1>
+          </h2>
           <p className="text-gray-400 text-base sm:text-lg">
             The tools and technologies I work with.
           </p>
@@ -105,8 +88,9 @@ export default function SkillsSection({ onBack }: SkillsSectionProps) {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: (index % 2) * 0.1 }}
               className="floating-card p-4 sm:p-6 group"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`} />
@@ -122,9 +106,9 @@ export default function SkillsSection({ onBack }: SkillsSectionProps) {
                     <motion.span
                       key={i}
                       initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 + i * 0.02 }}
-                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: i * 0.02 }}
                       className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all cursor-default"
                     >
                       {skill}
@@ -139,8 +123,9 @@ export default function SkillsSection({ onBack }: SkillsSectionProps) {
         {/* Education Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="floating-card p-4 sm:p-6 mt-4 sm:mt-6"
         >
           <h3 className="text-base sm:text-xl font-bold text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
@@ -172,6 +157,6 @@ export default function SkillsSection({ onBack }: SkillsSectionProps) {
           </div>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   )
 }

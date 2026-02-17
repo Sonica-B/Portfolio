@@ -2,10 +2,6 @@
 
 import { motion } from 'framer-motion'
 
-interface ProjectsSectionProps {
-  onBack: () => void
-}
-
 const projects = [
   {
     title: 'Multi-Agent Immigration Document Validation',
@@ -52,36 +48,41 @@ const projects = [
     gradient: 'from-violet-500 to-purple-600',
     period: 'Apr - May 2025',
   },
+  {
+    title: 'RoboFusion: ML-Driven Robotic Arm Control',
+    subtitle: 'ROS2 + Computer Vision',
+    description: 'ML-powered robotic arm with real-time object detection, grasp planning, and ROS2 integration for autonomous pick-and-place tasks.',
+    tech: ['ROS2', 'PyTorch', 'OpenCV', 'MoveIt2', 'Gazebo'],
+    metrics: ['Real-time control', '92% grasp rate', 'Sim-to-real'],
+    gradient: 'from-teal-500 to-emerald-600',
+    period: '2025',
+  },
+  {
+    title: 'Medical-Triage-HIL',
+    subtitle: 'LLM for Emergency Triage',
+    description: 'Human-in-the-loop LLM system for emergency medical triage with confidence-aware routing and difficulty-weighted training.',
+    tech: ['LLMs', 'PyTorch', 'Scikit-Learn', 'FastAPI'],
+    metrics: ['20% precision gain', '60% detection boost', '50% less errors'],
+    gradient: 'from-rose-500 to-orange-600',
+    period: '2025',
+  },
 ]
 
-export default function ProjectsSection({ onBack }: ProjectsSectionProps) {
+export default function ProjectsSection() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
-    >
+    <div className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="mb-8 sm:mb-12"
         >
-          <button
-            onClick={onBack}
-            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Home
-          </button>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="gradient-text">Featured Projects</span>
-          </h1>
+          </h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-2xl">
             From multi-agent AI systems to computer vision and medical imaging.
           </p>
@@ -93,8 +94,9 @@ export default function ProjectsSection({ onBack }: ProjectsSectionProps) {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.5, delay: (index % 2) * 0.1 }}
               className="floating-card p-4 sm:p-6 group"
             >
               {/* Gradient Overlay */}
@@ -135,6 +137,6 @@ export default function ProjectsSection({ onBack }: ProjectsSectionProps) {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
