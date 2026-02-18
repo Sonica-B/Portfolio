@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ActiveSection } from '@/app/page'
 
 interface BottomNavProps {
@@ -39,6 +39,13 @@ function NavIcon({ type }: { type: string }) {
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
         </svg>
       )
+    case 'achievements':
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <circle cx="12" cy="8" r="6"/>
+          <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+        </svg>
+      )
     case 'about':
       return (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -56,6 +63,7 @@ const navItems = [
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
   { id: 'skills', label: 'Skills' },
+  { id: 'achievements', label: 'Awards' },
   { id: 'about', label: 'About' },
 ]
 
@@ -93,20 +101,6 @@ const socialLinks = [
 export default function BottomNav({ activeSection, onNavigate, isVisible }: BottomNavProps) {
   const [isExpanded, setIsExpanded] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
-  const [isHidden, setIsHidden] = useState(false)
-  const { scrollY } = useScroll()
-  const lastScrollY = useState(0)
-
-  // Hide nav when scrolling down, show when scrolling up
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    const previous = lastScrollY[0]
-    if (latest > previous && latest > 300) {
-      setIsHidden(true)
-    } else {
-      setIsHidden(false)
-    }
-    lastScrollY[0] = latest
-  })
 
   useEffect(() => {
     const checkMobile = () => {
@@ -132,7 +126,7 @@ export default function BottomNav({ activeSection, onNavigate, isVisible }: Bott
               <motion.button
                 key="fab"
                 initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: isHidden ? 0 : 1, opacity: isHidden ? 0 : 1 }}
+                animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
                 transition={{ type: 'spring', damping: 20, stiffness: 300 }}
                 onClick={() => setIsExpanded(true)}
@@ -159,7 +153,7 @@ export default function BottomNav({ activeSection, onNavigate, isVisible }: Bott
               <motion.div
                 key="expanded-nav"
                 initial={{ y: 100, opacity: 0 }}
-                animate={{ y: isHidden && !isMobile ? 100 : 0, opacity: isHidden && !isMobile ? 0 : 1 }}
+                animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 100, opacity: 0 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                 className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"

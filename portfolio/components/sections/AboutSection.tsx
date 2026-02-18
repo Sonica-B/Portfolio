@@ -3,55 +3,6 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
-const stats = [
-  { value: '3.88', label: 'GPA', icon: 'book' },
-  { value: '2+', label: 'Years Exp', icon: 'briefcase' },
-  { value: '20+', label: 'Projects', icon: 'code' },
-  { value: '95%', label: 'Accuracy', icon: 'target' },
-]
-
-const awards = [
-  { title: 'Top Talent 2024', company: 'Persistent Systems' },
-  { title: 'Bravo Individual Award', company: 'Persistent Systems' },
-  { title: '1st Rank - Yantra-Maan Robotics', company: 'Xtronica Mpulse 2018' },
-]
-
-function StatIcon({ type }: { type: string }) {
-  switch (type) {
-    case 'book':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-        </svg>
-      )
-    case 'briefcase':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-          <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
-        </svg>
-      )
-    case 'code':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <polyline points="16 18 22 12 16 6"/>
-          <polyline points="8 6 2 12 8 18"/>
-        </svg>
-      )
-    case 'target':
-      return (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <circle cx="12" cy="12" r="10"/>
-          <circle cx="12" cy="12" r="6"/>
-          <circle cx="12" cy="12" r="2"/>
-        </svg>
-      )
-    default:
-      return null
-  }
-}
-
 export default function AboutSection() {
   return (
     <div className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
@@ -69,127 +20,63 @@ export default function AboutSection() {
           </h2>
         </motion.div>
 
-        {/* Main Content */}
-        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
-          {/* Bio Card */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="md:col-span-2 floating-card p-4 sm:p-6"
-          >
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0">
-                <Image
-                  src="/shreya.jpg"
-                  alt="Shreya Boyane"
-                  width={96}
-                  height={96}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="text-center sm:text-left">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">Shreya Boyane</h2>
-                <p className="text-primary">AI/ML Engineer</p>
-                <p className="text-gray-500 text-sm">Worcester, MA</p>
-              </div>
-            </div>
-
-            <div className="space-y-4 text-gray-300 leading-relaxed">
-              <p>
-                I&apos;m a <span className="text-primary">Machine Learning Engineer</span> with 2+ years of DevOps experience,
-                currently pursuing my M.S. in Artificial Intelligence at <span className="text-accent">Worcester Polytechnic Institute</span>.
-              </p>
-              <p>
-                I specialize in building <span className="text-primary">production-grade Agentic AI workflows</span>,
-                adaptive LLM systems, and Generative AI solutions. My work spans from multi-agent document intelligence
-                systems to real-time computer vision applications.
-              </p>
-              <p>
-                When I&apos;m not training models or debugging pipelines, you&apos;ll find me exploring the latest in AI research
-                and figuring out how to make machines a little smarter and a lot more useful.
-              </p>
-            </div>
-
-            {/* Quick Contact */}
-            <div className="mt-6 pt-6 border-t border-white/10">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
-                <div className="text-center sm:text-left">
-                  <p className="text-gray-500">Email</p>
-                  <a href="mailto:shreyaa.boyane@gmail.com" className="text-primary hover:underline break-all">
-                    shreyaa.boyane@gmail.com
-                  </a>
-                </div>
-                <div className="text-center sm:text-left">
-                  <p className="text-gray-500">Schedule a Call</p>
-                  <a href="https://zcal.co/i/4aMYgoRr" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                    Book a 30-min meeting
-                  </a>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Stats Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="floating-card p-4 sm:p-6"
-          >
-            <h3 className="text-lg font-bold text-white mb-4">Quick Stats</h3>
-            <div className="space-y-4">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-white/5"
-                >
-                  <span className="text-primary">
-                    <StatIcon type={stat.icon} />
-                  </span>
-                  <div>
-                    <p className="text-2xl font-bold gradient-text">{stat.value}</p>
-                    <p className="text-gray-500 text-xs">{stat.label}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Awards */}
+        {/* Bio Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="floating-card p-4 sm:p-6 mt-4 sm:mt-6"
+          className="floating-card p-4 sm:p-6"
         >
-          <h3 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-yellow-400 flex-shrink-0">
-              <circle cx="12" cy="8" r="6"/>
-              <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
-            </svg>
-            Awards & Recognition
-          </h3>
-          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
-            {awards.map((award, index) => (
-              <div key={index} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-yellow-400 flex-shrink-0">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
-                <div>
-                  <p className="text-white font-medium text-sm sm:text-base">{award.title}</p>
-                  <p className="text-gray-500 text-xs sm:text-sm">{award.company}</p>
-                </div>
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0">
+              <Image
+                src="/shreya.jpg"
+                alt="Shreya Boyane"
+                width={96}
+                height={96}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="text-center sm:text-left">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">Shreya Boyane</h2>
+              <p className="text-primary">AI/ML Engineer</p>
+              <p className="text-gray-500 text-sm">Worcester, MA</p>
+            </div>
+          </div>
+
+          <div className="space-y-4 text-gray-300 leading-relaxed">
+            <p>
+              I&apos;m a <span className="text-primary">Machine Learning Engineer</span> with 2+ years of DevOps experience,
+              currently pursuing my M.S. in Artificial Intelligence at <span className="text-accent">Worcester Polytechnic Institute</span>.
+            </p>
+            <p>
+              I specialize in building <span className="text-primary">production-grade Agentic AI workflows</span>,
+              adaptive LLM systems, and Generative AI solutions. My work spans from multi-agent document intelligence
+              systems to real-time computer vision applications.
+            </p>
+            <p>
+              When I&apos;m not training models or debugging pipelines, you&apos;ll find me exploring the latest in AI research
+              and figuring out how to make machines a little smarter and a lot more useful.
+            </p>
+          </div>
+
+          {/* Quick Contact */}
+          <div className="mt-6 pt-6 border-t border-white/10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
+              <div className="text-center sm:text-left">
+                <p className="text-gray-500">Email</p>
+                <a href="mailto:shreyaa.boyane@gmail.com" className="text-primary hover:underline break-all">
+                  shreyaa.boyane@gmail.com
+                </a>
               </div>
-            ))}
+              <div className="text-center sm:text-left">
+                <p className="text-gray-500">Schedule a Call</p>
+                <a href="https://zcal.co/i/4aMYgoRr" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  Book a 30-min meeting
+                </a>
+              </div>
+            </div>
           </div>
         </motion.div>
 

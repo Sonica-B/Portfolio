@@ -8,6 +8,7 @@ import ProjectsSection from '@/components/sections/ProjectsSection'
 import ExperienceSection from '@/components/sections/ExperienceSection'
 import SkillsSection from '@/components/sections/SkillsSection'
 import AboutSection from '@/components/sections/AboutSection'
+import AchievementsSection from '@/components/sections/AchievementsSection'
 import ChatBot from '@/components/ChatBot'
 
 const Scene3D = dynamic(() => import('@/components/Scene3D'), {
@@ -15,18 +16,31 @@ const Scene3D = dynamic(() => import('@/components/Scene3D'), {
   loading: () => <div className="ambient-bg" />
 })
 
-export type ActiveSection = 'home' | 'projects' | 'experience' | 'skills' | 'about'
+export type ActiveSection = 'home' | 'projects' | 'experience' | 'skills' | 'achievements' | 'about'
 
-const SECTION_ORDER: ActiveSection[] = ['home', 'experience', 'projects', 'skills', 'about']
+const SECTION_ORDER: ActiveSection[] = ['home', 'experience', 'projects', 'skills', 'achievements', 'about']
 
 export default function Home() {
   const [visibleSection, setVisibleSection] = useState<ActiveSection>('home')
+  const scrollProgressRef = useRef(0)
+
+  // Bridge DOM scroll to R3F via mutable ref (no re-renders)
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollY = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      scrollProgressRef.current = docHeight > 0 ? scrollY / docHeight : 0
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const sectionRefs = {
     home: useRef<HTMLElement>(null),
     experience: useRef<HTMLElement>(null),
     projects: useRef<HTMLElement>(null),
     skills: useRef<HTMLElement>(null),
+    achievements: useRef<HTMLElement>(null),
     about: useRef<HTMLElement>(null),
   }
 
@@ -95,7 +109,7 @@ export default function Home() {
         </section>
       </article>
 
-      <Scene3D />
+      <Scene3D scrollProgressRef={scrollProgressRef} />
       <div className="ambient-bg" />
 
       {/* All sections stacked vertically for continuous scroll */}
@@ -113,6 +127,10 @@ export default function Home() {
 
       <section ref={sectionRefs.skills} id="skills">
         <SkillsSection />
+      </section>
+
+      <section ref={sectionRefs.achievements} id="achievements">
+        <AchievementsSection />
       </section>
 
       <section ref={sectionRefs.about} id="about">
