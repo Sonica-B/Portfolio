@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 
 function CategoryIcon({ type }: { type: string }) {
@@ -38,255 +38,168 @@ function CategoryIcon({ type }: { type: string }) {
 
 const skillCategories = [
   {
+    id: 'ai',
     title: 'AI & ML',
     icon: 'ai',
-    skills: ['PyTorch', 'TensorFlow', 'Scikit-Learn', 'Keras', 'Hugging Face', 'LangGraph', 'LangChain', 'LLMs', 'RAG', 'Diffusion Models', 'CycleGANs', 'Computer Vision'],
     color: '#06b6d4',
-    radius: 140,
+    skills: ['PyTorch', 'TensorFlow', 'Scikit-Learn', 'Keras', 'Hugging Face', 'LangGraph', 'LangChain', 'LLMs', 'RAG', 'Diffusion Models', 'CycleGANs', 'Computer Vision'],
   },
   {
+    id: 'cloud',
     title: 'Cloud & DevOps',
     icon: 'cloud',
-    skills: ['AWS (S3, Lambda, Bedrock)', 'Azure DevOps', 'Docker', 'Terraform', 'Ansible', 'CI/CD', 'MLflow', 'Kubernetes', 'Grafana'],
     color: '#a855f7',
-    radius: 200,
+    skills: ['AWS (S3, Lambda, Bedrock)', 'Azure DevOps', 'Docker', 'Terraform', 'Ansible', 'CI/CD', 'MLflow', 'Kubernetes', 'Grafana'],
   },
   {
+    id: 'code',
     title: 'Programming',
     icon: 'code',
-    skills: ['Python', 'C++', 'C#', 'Java', 'R', 'Rust', 'SQL', 'Bash', 'PowerShell'],
     color: '#10b981',
-    radius: 255,
+    skills: ['Python', 'C++', 'C#', 'Java', 'R', 'Rust', 'SQL', 'Bash', 'PowerShell'],
   },
   {
+    id: 'tools',
     title: 'Frameworks & Tools',
     icon: 'tools',
-    skills: ['React', 'Angular', 'Flask', 'FastAPI', 'OpenCV', 'ROS2', 'Unity', 'Blender', 'ONNX', 'TensorRT', 'CUDA', 'Git'],
     color: '#f97316',
-    radius: 310,
+    skills: ['React', 'Angular', 'Flask', 'FastAPI', 'OpenCV', 'ROS2', 'Unity', 'Blender', 'ONNX', 'TensorRT', 'CUDA', 'Git'],
   },
 ]
 
-const maxSkills = Math.max(...skillCategories.map(c => c.skills.length))
+const totalSkills = skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0)
 
-// Generate positions for skill nodes along an arc
-function getArcPositions(cx: number, cy: number, radius: number, count: number) {
-  const startAngle = -210 * (Math.PI / 180) // Start from top-left
-  const sweepAngle = 300 * (Math.PI / 180)  // Sweep 300 degrees
+function CategoryCard({ category, index, isMobile }: {
+  category: typeof skillCategories[number]
+  index: number
+  isMobile: boolean
+}) {
+  const cardRef = useRef<HTMLDivElement>(null)
 
-  return Array.from({ length: count }, (_, i) => {
-    const angle = startAngle + (i / (count - 1 || 1)) * sweepAngle
-    return {
-      x: cx + Math.cos(angle) * radius,
-      y: cy + Math.sin(angle) * radius,
-    }
-  })
-}
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (isMobile || !cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    const el = cardRef.current
+    el.style.setProperty('--rx', `${(y - 0.5) * -8}deg`)
+    el.style.setProperty('--ry', `${(x - 0.5) * 8}deg`)
+    el.style.setProperty('--mx', `${x * 100}%`)
+    el.style.setProperty('--my', `${y * 100}%`)
+  }, [isMobile])
 
-// Desktop: Concentric Rings SVG Visualization
-function ConcentricRings() {
-  const [hoveredRing, setHoveredRing] = useState<number | null>(null)
-  const cx = 350
-  const cy = 350
-  const draw = { hidden: { pathLength: 0, opacity: 0 }, visible: { pathLength: 1, opacity: 1 } }
+  const handleMouseLeave = useCallback(() => {
+    if (!cardRef.current) return
+    cardRef.current.style.setProperty('--rx', '0deg')
+    cardRef.current.style.setProperty('--ry', '0deg')
+  }, [])
 
   return (
-    <div className="flex justify-center">
-      <svg viewBox="0 0 700 700" style={{ width: 'min(700px, 90vw)', height: 'auto' }}>
-        {/* Center hub */}
-        <motion.circle
-          cx={cx} cy={cy} r={55}
-          fill="rgba(15,15,25,0.9)"
-          stroke="url(#hubGlow)"
-          strokeWidth="2"
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6, delay: index * 0.12 }}
+    >
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="group/card relative rounded-2xl h-full"
+        style={{
+          transform: isMobile ? 'none' : 'perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))',
+          transition: 'transform 0.2s ease-out',
+        }}
+      >
+        {/* Dynamic border glow - brightens at cursor position */}
+        <div
+          className="absolute -inset-px rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: `radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), ${category.color}50, ${category.color}08 50%, transparent 70%)`,
+          }}
         />
-        <motion.text
-          x={cx} y={cy - 6}
-          textAnchor="middle"
-          fill="white"
-          fontSize="14"
-          fontWeight="bold"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+
+        {/* Card body */}
+        <div
+          className="relative h-full rounded-2xl border border-white/[0.08] group-hover/card:border-transparent transition-colors duration-500 p-4 sm:p-5"
+          style={{ background: 'rgba(10, 10, 20, 0.85)', backdropFilter: 'blur(20px)' }}
         >
-          Tech
-        </motion.text>
-        <motion.text
-          x={cx} y={cy + 12}
-          textAnchor="middle"
-          fill="white"
-          fontSize="14"
-          fontWeight="bold"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-        >
-          Stack
-        </motion.text>
+          {/* Internal cursor spotlight */}
+          <div
+            className="absolute inset-0 rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background: `radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), ${category.color}10, transparent 60%)`
+            }}
+          />
 
-        <defs>
-          <linearGradient id="hubGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#06b6d4" />
-            <stop offset="100%" stopColor="#a855f7" />
-          </linearGradient>
-        </defs>
+          {/* Top accent line */}
+          <motion.div
+            className="absolute top-0 left-6 right-6 h-px pointer-events-none"
+            style={{ background: `linear-gradient(90deg, transparent, ${category.color}40, transparent)` }}
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 + index * 0.12 }}
+          />
 
-        {/* Concentric ring arcs */}
-        {skillCategories.map((cat, ringIdx) => {
-          const isHovered = hoveredRing === ringIdx
-          const isDimmed = hoveredRing !== null && hoveredRing !== ringIdx
-          const nodePositions = getArcPositions(cx, cy, cat.radius, cat.skills.length)
-
-          return (
-            <g
-              key={ringIdx}
-              onMouseEnter={() => setHoveredRing(ringIdx)}
-              onMouseLeave={() => setHoveredRing(null)}
-              style={{ cursor: 'pointer' }}
-            >
-              {/* Ring arc */}
-              <motion.circle
-                cx={cx} cy={cy} r={cat.radius}
-                fill="none"
-                stroke={cat.color}
-                strokeWidth={isHovered ? 2.5 : 1.5}
-                opacity={isDimmed ? 0.15 : isHovered ? 0.8 : 0.35}
-                strokeDasharray="6 4"
-                variants={draw}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.3 + ringIdx * 0.2 }}
-                style={{ transition: 'opacity 0.3s, stroke-width 0.3s' }}
-              />
-
-              {/* Domain label */}
-              <motion.text
-                x={cx}
-                y={cy - cat.radius - 10}
-                textAnchor="middle"
-                fill={cat.color}
-                fontSize="11"
-                fontWeight="600"
-                opacity={isDimmed ? 0.2 : 0.8}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: isDimmed ? 0.2 : 0.8 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 + ringIdx * 0.2 }}
-                style={{ transition: 'opacity 0.3s' }}
+          {/* Content */}
+          <div className="relative z-10">
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-4">
+              <div
+                className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: `${category.color}12`, border: `1px solid ${category.color}20` }}
               >
-                {cat.title}
-              </motion.text>
+                <CategoryIcon type={category.icon} />
+              </div>
+              <h3 className="text-sm sm:text-base font-bold text-white">{category.title}</h3>
+              <span
+                className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-md flex-shrink-0"
+                style={{ color: category.color, background: `${category.color}10`, border: `1px solid ${category.color}15` }}
+              >
+                {category.skills.length}
+              </span>
+            </div>
 
-              {/* Skill nodes + labels */}
-              {nodePositions.map((pos, skillIdx) => (
-                <g key={skillIdx}>
-                  <motion.circle
-                    cx={pos.x} cy={pos.y} r={4}
-                    fill={cat.color}
-                    opacity={isDimmed ? 0.15 : 0.9}
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.8 + ringIdx * 0.2 + skillIdx * 0.05, type: 'spring' }}
-                    style={{ transition: 'opacity 0.3s' }}
-                  />
-
-                  {/* Skill label via foreignObject */}
-                  <motion.foreignObject
-                    x={pos.x - 40} y={pos.y + 6}
-                    width={80} height={24}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: isDimmed ? 0.1 : 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.9 + ringIdx * 0.2 + skillIdx * 0.05 }}
-                    style={{ transition: 'opacity 0.3s' }}
-                  >
-                    <div
-                      className="text-center text-[8px] leading-tight px-1 py-0.5 rounded bg-black/40 text-gray-300 border border-white/5 truncate"
-                      title={cat.skills[skillIdx]}
-                    >
-                      {cat.skills[skillIdx]}
-                    </div>
-                  </motion.foreignObject>
-                </g>
+            {/* Skill pills */}
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {category.skills.map((skill, i) => (
+                <motion.span
+                  key={skill}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: 0.15 + index * 0.08 + i * 0.03 }}
+                  whileHover={{ scale: 1.06 }}
+                  className="px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs text-gray-400 hover:text-white border border-white/[0.06] hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.06] cursor-default transition-all duration-200"
+                >
+                  {skill}
+                </motion.span>
               ))}
-            </g>
-          )
-        })}
-      </svg>
-    </div>
-  )
-}
-
-// Mobile: Stacked domain bars with skill pills
-function StackedBars() {
-  return (
-    <div className="space-y-4">
-      {skillCategories.map((cat, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          className="floating-card p-4 group"
-        >
-          {/* Header */}
-          <div className="flex items-center gap-2 mb-3">
-            <CategoryIcon type={cat.icon} />
-            <h3 className="text-sm font-bold text-white flex-1">{cat.title}</h3>
-            <span className="text-[10px] text-gray-500">{cat.skills.length} skills</span>
+            </div>
           </div>
-
-          {/* Animated fill bar */}
-          <div className="h-1.5 rounded-full bg-white/5 mb-3 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full"
-              style={{ background: cat.color }}
-              initial={{ width: 0 }}
-              whileInView={{ width: `${(cat.skills.length / maxSkills) * 100}%` }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3 + index * 0.1, ease: 'easeOut' }}
-            />
-          </div>
-
-          {/* Skill pills */}
-          <div className="flex flex-wrap gap-1.5">
-            {cat.skills.map((skill, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.2, delay: 0.4 + index * 0.1 + i * 0.03 }}
-                className="px-2 py-1 rounded-lg text-xs bg-white/5 text-gray-300 border border-white/10"
-              >
-                {skill}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
-      ))}
-    </div>
+        </div>
+      </div>
+    </motion.div>
   )
 }
 
 export default function SkillsSection() {
   const [isMobile, setIsMobile] = useState(false)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const handleGridMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!gridRef.current) return
+    const rect = gridRef.current.getBoundingClientRect()
+    gridRef.current.style.setProperty('--grid-mx', `${e.clientX - rect.left}px`)
+    gridRef.current.style.setProperty('--grid-my', `${e.clientY - rect.top}px`)
   }, [])
 
   return (
@@ -308,8 +221,42 @@ export default function SkillsSection() {
           </p>
         </motion.div>
 
-        {/* Responsive visualization */}
-        {isMobile ? <StackedBars /> : <ConcentricRings />}
+        {/* Grid with ambient cursor spotlight */}
+        <div
+          ref={gridRef}
+          onMouseMove={!isMobile ? handleGridMouseMove : undefined}
+          className="group/grid relative"
+        >
+          {/* Ambient grid-level spotlight */}
+          {!isMobile && (
+            <div
+              className="absolute inset-0 pointer-events-none opacity-0 group-hover/grid:opacity-100 transition-opacity duration-700 rounded-3xl"
+              style={{
+                background: 'radial-gradient(600px circle at var(--grid-mx, 50%) var(--grid-my, 50%), rgba(6, 182, 212, 0.04), transparent 40%)'
+              }}
+            />
+          )}
+
+          {/* Category cards in bento grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 relative">
+            {skillCategories.map((cat, i) => (
+              <CategoryCard key={cat.id} category={cat} index={i} isMobile={isMobile} />
+            ))}
+          </div>
+
+          {/* Summary */}
+          <motion.div
+            className="mt-6 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8 }}
+          >
+            <p className="text-gray-600 text-xs">
+              {totalSkills} technologies across {skillCategories.length} domains
+            </p>
+          </motion.div>
+        </div>
       </div>
     </div>
   )
