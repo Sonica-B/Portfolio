@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 
 // Abstract SVG visual per project domain
@@ -16,7 +17,6 @@ function ProjectVisual({ type, gradient }: { type: string; gradient: string[] })
               <stop offset="100%" stopColor={gradient[1]} />
             </linearGradient>
           </defs>
-          {/* Connected agent nodes */}
           <motion.path d="M30 60 L60 30 L90 60 L60 90 Z" fill="none" stroke={`url(#g-${type})`} strokeWidth="1.5"
             variants={draw} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 1.2 }} />
           <motion.path d="M60 30 L60 90 M30 60 L90 60" fill="none" stroke={`url(#g-${type})`} strokeWidth="1" strokeDasharray="4 3"
@@ -30,31 +30,18 @@ function ProjectVisual({ type, gradient }: { type: string; gradient: string[] })
     case 'diffusion':
       return (
         <svg viewBox="0 0 120 120" className="w-full h-full">
-          <defs>
-            <linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={gradient[0]} />
-              <stop offset="100%" stopColor={gradient[1]} />
-            </linearGradient>
-          </defs>
-          {/* Wavy noise-to-image lines */}
+          <defs><linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor={gradient[0]} /><stop offset="100%" stopColor={gradient[1]} /></linearGradient></defs>
           {[20, 40, 60, 80, 100].map((y, i) => (
             <motion.path key={i} d={`M10 ${y} Q30 ${y - 15 + i * 3} 50 ${y} T90 ${y} T110 ${y}`}
               fill="none" stroke={`url(#g-${type})`} strokeWidth="1.5" strokeLinecap="round"
-              variants={draw} initial="hidden" whileInView="visible" viewport={{ once: true }}
-              transition={{ duration: 1, delay: i * 0.15 }} />
+              variants={draw} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 1, delay: i * 0.15 }} />
           ))}
         </svg>
       )
     case 'depth':
       return (
         <svg viewBox="0 0 120 120" className="w-full h-full">
-          <defs>
-            <linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={gradient[0]} />
-              <stop offset="100%" stopColor={gradient[1]} />
-            </linearGradient>
-          </defs>
-          {/* Layered depth perspective trapezoids */}
+          <defs><linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor={gradient[0]} /><stop offset="100%" stopColor={gradient[1]} /></linearGradient></defs>
           {[{ s: 50, o: 0.9 }, { s: 38, o: 0.6 }, { s: 26, o: 0.35 }].map((p, i) => (
             <motion.rect key={i} x={60 - p.s / 2} y={60 - p.s / 2} width={p.s} height={p.s}
               fill="none" stroke={`url(#g-${type})`} strokeWidth="1.5" opacity={p.o} rx="3"
@@ -69,40 +56,25 @@ function ProjectVisual({ type, gradient }: { type: string; gradient: string[] })
     case 'scan':
       return (
         <svg viewBox="0 0 120 120" className="w-full h-full">
-          <defs>
-            <linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={gradient[0]} />
-              <stop offset="100%" stopColor={gradient[1]} />
-            </linearGradient>
-          </defs>
-          {/* Concentric scan circles */}
+          <defs><linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor={gradient[0]} /><stop offset="100%" stopColor={gradient[1]} /></linearGradient></defs>
           {[15, 25, 35, 45].map((r, i) => (
             <motion.circle key={i} cx="60" cy="60" r={r} fill="none" stroke={`url(#g-${type})`}
               strokeWidth="1.2" opacity={0.9 - i * 0.15}
               initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
               transition={{ delay: i * 0.15, type: 'spring', stiffness: 100 }} />
           ))}
-          {/* Sweep line */}
           <motion.line x1="60" y1="60" x2="60" y2="15" stroke={gradient[0]} strokeWidth="2"
             initial={{ rotate: 0 }} whileInView={{ rotate: 360 }} viewport={{ once: true }}
-            transition={{ duration: 3, ease: 'linear' }}
-            style={{ transformOrigin: '60px 60px' }} />
+            transition={{ duration: 3, ease: 'linear' }} style={{ transformOrigin: '60px 60px' }} />
         </svg>
       )
     case 'trajectory':
       return (
         <svg viewBox="0 0 120 120" className="w-full h-full">
-          <defs>
-            <linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={gradient[0]} />
-              <stop offset="100%" stopColor={gradient[1]} />
-            </linearGradient>
-          </defs>
-          {/* Curved dotted trajectory path */}
+          <defs><linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor={gradient[0]} /><stop offset="100%" stopColor={gradient[1]} /></linearGradient></defs>
           <motion.path d="M15 100 Q30 50 60 60 T105 20" fill="none" stroke={`url(#g-${type})`}
             strokeWidth="2" strokeDasharray="6 4" strokeLinecap="round"
             variants={draw} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 1.5 }} />
-          {/* Waypoints */}
           {[{ x: 15, y: 100 }, { x: 45, y: 55 }, { x: 75, y: 45 }, { x: 105, y: 20 }].map((p, i) => (
             <motion.circle key={i} cx={p.x} cy={p.y} r="3" fill={gradient[i % 2]}
               initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
@@ -113,24 +85,16 @@ function ProjectVisual({ type, gradient }: { type: string; gradient: string[] })
     case 'robotic':
       return (
         <svg viewBox="0 0 120 120" className="w-full h-full">
-          <defs>
-            <linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={gradient[0]} />
-              <stop offset="100%" stopColor={gradient[1]} />
-            </linearGradient>
-          </defs>
-          {/* Angular arm segments */}
+          <defs><linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor={gradient[0]} /><stop offset="100%" stopColor={gradient[1]} /></linearGradient></defs>
           <motion.path d="M30 95 L45 65 L70 55 L95 35" fill="none" stroke={`url(#g-${type})`}
             strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
             variants={draw} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 1 }} />
-          {/* Joints */}
           {[{ x: 30, y: 95 }, { x: 45, y: 65 }, { x: 70, y: 55 }, { x: 95, y: 35 }].map((p, i) => (
             <motion.circle key={i} cx={p.x} cy={p.y} r={i === 0 ? 5 : 3.5} fill="none"
               stroke={gradient[0]} strokeWidth="1.5"
               initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
               transition={{ delay: 0.4 + i * 0.1, type: 'spring' }} />
           ))}
-          {/* Gripper */}
           <motion.path d="M92 32 L100 25 M92 38 L100 42" fill="none" stroke={gradient[1]} strokeWidth="1.5" strokeLinecap="round"
             variants={draw} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.8 }} />
         </svg>
@@ -138,17 +102,10 @@ function ProjectVisual({ type, gradient }: { type: string; gradient: string[] })
     case 'triage':
       return (
         <svg viewBox="0 0 120 120" className="w-full h-full">
-          <defs>
-            <linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={gradient[0]} />
-              <stop offset="100%" stopColor={gradient[1]} />
-            </linearGradient>
-          </defs>
-          {/* Decision tree / flowchart */}
+          <defs><linearGradient id={`g-${type}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor={gradient[0]} /><stop offset="100%" stopColor={gradient[1]} /></linearGradient></defs>
           <motion.path d="M60 15 L60 40 M60 40 L30 60 M60 40 L90 60 M30 60 L30 85 M90 60 L75 85 M90 60 L105 85"
             fill="none" stroke={`url(#g-${type})`} strokeWidth="1.5" strokeLinecap="round"
             variants={draw} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ duration: 1.2 }} />
-          {/* Nodes */}
           {[{ x: 60, y: 15 }, { x: 60, y: 40 }, { x: 30, y: 60 }, { x: 90, y: 60 }, { x: 30, y: 85 }, { x: 75, y: 85 }, { x: 105, y: 85 }].map((p, i) => (
             <motion.circle key={i} cx={p.x} cy={p.y} r="4" fill={i < 2 ? gradient[0] : gradient[1]}
               initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }}
@@ -249,9 +206,52 @@ const projects = [
 ]
 
 export default function ProjectsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const touchStartX = useRef(0)
+  const touchDeltaX = useRef(0)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  const cardsPerView = isMobile ? 1 : 2
+  const maxIndex = projects.length - cardsPerView
+
+  const goNext = useCallback(() => setCurrentIndex(i => Math.min(i + 1, maxIndex)), [maxIndex])
+  const goPrev = useCallback(() => setCurrentIndex(i => Math.max(i - 1, 0)), [])
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    touchDeltaX.current = 0
+  }, [])
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current
+  }, [])
+  const onTouchEnd = useCallback(() => {
+    if (touchDeltaX.current < -50) goNext()
+    else if (touchDeltaX.current > 50) goPrev()
+  }, [goNext, goPrev])
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') goNext()
+      else if (e.key === 'ArrowLeft') goPrev()
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [goNext, goPrev])
+
   return (
-    <div className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="relative py-16 sm:py-20 px-4 sm:px-6 md:px-8">
+      {/* Glass background */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[6px]" />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -268,75 +268,125 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-          {projects.map((project, index) => (
+        {/* Carousel */}
+        <div className="relative">
+          {/* Navigation Arrows */}
+          <button
+            onClick={goPrev}
+            disabled={currentIndex === 0}
+            className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border border-white/10 bg-black/50 backdrop-blur-md text-white disabled:opacity-20 disabled:cursor-default hover:bg-white/10 hover:border-white/20 transition-all"
+            aria-label="Previous project"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button
+            onClick={goNext}
+            disabled={currentIndex >= maxIndex}
+            className="absolute -right-2 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border border-white/10 bg-black/50 backdrop-blur-md text-white disabled:opacity-20 disabled:cursor-default hover:bg-white/10 hover:border-white/20 transition-all"
+            aria-label="Next project"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          {/* Carousel Track */}
+          <div
+            className="overflow-hidden rounded-2xl"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.5, delay: (index % 2) * 0.1 }}
-              className="floating-card p-4 sm:p-6 group relative overflow-hidden"
+              className="flex"
+              animate={{ x: `-${currentIndex * (100 / cardsPerView)}%` }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             >
-              {/* Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity duration-500`} />
+              {projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 px-2 sm:px-3"
+                  style={{ width: `${100 / cardsPerView}%` }}
+                >
+                  <div className="floating-card p-4 sm:p-6 group relative overflow-hidden h-full">
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity duration-500`} />
 
-              {/* Abstract SVG Visual - background decoration */}
-              <div className="absolute bottom-0 right-0 w-1/3 h-1/3 opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none">
-                <ProjectVisual type={project.visualType} gradient={project.gradientColors} />
-              </div>
+                    {/* Abstract SVG Visual */}
+                    <div className="absolute bottom-0 right-0 w-1/3 h-1/3 opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none">
+                      <ProjectVisual type={project.visualType} gradient={project.gradientColors} />
+                    </div>
 
-              <div className="relative z-10">
-                {/* Period Badge + GitHub Link */}
-                <div className="flex items-center justify-between mb-3 sm:mb-0">
-                  <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/10">
-                    {project.period}
-                  </span>
-                  {project.github && (
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.15 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/25 transition-all"
-                      title="View on GitHub"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                    </motion.a>
-                  )}
+                    <div className="relative z-10">
+                      {/* Period Badge + GitHub Link */}
+                      <div className="flex items-center justify-between mb-3 sm:mb-0">
+                        <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/10">
+                          {project.period}
+                        </span>
+                        {project.github && (
+                          <motion.a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.15 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/25 transition-all"
+                            title="View on GitHub"
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                          </motion.a>
+                        )}
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-base sm:text-xl font-bold text-white mt-3 sm:mt-4 mb-1 pr-2">{project.title}</h3>
+                      <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">{project.subtitle}</p>
+
+                      {/* Description */}
+                      <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed">{project.description}</p>
+
+                      {/* Metrics */}
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+                        {project.metrics.map((metric, i) => (
+                          <span key={i} className="text-[10px] sm:text-xs px-2 py-1 rounded-lg bg-white/5 text-gray-300">
+                            {metric}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                        {project.tech.map((tech, i) => (
+                          <span key={i} className="text-[10px] sm:text-xs px-2 py-1 rounded-lg border border-white/10 text-gray-500">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-base sm:text-xl font-bold text-white mt-3 sm:mt-4 mb-1 pr-2">{project.title}</h3>
-                <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">{project.subtitle}</p>
-
-                {/* Description */}
-                <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed">{project.description}</p>
-
-                {/* Metrics */}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-                  {project.metrics.map((metric, i) => (
-                    <span key={i} className="text-[10px] sm:text-xs px-2 py-1 rounded-lg bg-white/5 text-gray-300">
-                      {metric}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span key={i} className="text-[10px] sm:text-xs px-2 py-1 rounded-lg border border-white/10 text-gray-500">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              ))}
             </motion.div>
-          ))}
+          </div>
+        </div>
+
+        {/* Dot Indicators + Counter */}
+        <div className="flex items-center justify-center gap-4 mt-6">
+          <div className="flex gap-1.5">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === currentIndex ? 'bg-cyan-400 w-6' : 'bg-white/20 w-1.5 hover:bg-white/40'
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+          <span className="text-gray-500 text-xs font-mono">
+            {currentIndex + 1}/{maxIndex + 1}
+          </span>
         </div>
       </div>
     </div>
