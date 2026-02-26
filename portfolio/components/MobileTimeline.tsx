@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { ActiveSection } from '@/app/page'
 
@@ -46,8 +47,21 @@ function NavButton({
 }
 
 export default function MobileTimeline({ onNavigate }: MobileTimelineProps) {
+  const heroRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const heroScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.97])
+
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <motion.div
+      ref={heroRef}
+      style={{ opacity: heroOpacity, scale: heroScale }}
+      className="min-h-screen relative overflow-hidden"
+    >
       {/* Neural Network Background is rendered at page level (page.tsx) */}
 
       {/* Main Content */}
@@ -201,42 +215,73 @@ export default function MobileTimeline({ onNavigate }: MobileTimelineProps) {
         {/* Spacer */}
         <div className="flex-1 min-h-[20px]" />
 
-        {/* Navigation Grid - 2x2 */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-          <NavButton
-            label="Experience"
-            onClick={() => onNavigate('experience')}
-            gradient="from-gray-500 to-gray-600"
-            leftColor="#6b7280"
-            rightColor="#4b5563"
-            delay={0.6}
-          />
-          <NavButton
-            label="Projects"
-            onClick={() => onNavigate('projects')}
-            gradient="from-purple-500 to-pink-500"
-            leftColor="#a855f7"
-            rightColor="#ec4899"
-            delay={0.7}
-          />
-          <NavButton
-            label="About Me"
-            onClick={() => onNavigate('about')}
-            gradient="from-cyan-400 to-teal-400"
-            leftColor="#22d3ee"
-            rightColor="#2dd4bf"
-            delay={0.8}
-          />
-          <NavButton
-            label="Skills"
-            onClick={() => onNavigate('skills')}
-            gradient="from-cyan-400 to-cyan-500"
-            leftColor="#22d3ee"
-            rightColor="#06b6d4"
-            delay={0.9}
-          />
+        {/* Navigation Grid - 3 top + 2 bottom */}
+        <div className="flex flex-col items-center gap-5">
+          <div className="grid grid-cols-3 gap-x-4">
+            <NavButton
+              label="Experience"
+              onClick={() => onNavigate('experience')}
+              gradient="from-gray-500 to-gray-600"
+              leftColor="#6b7280"
+              rightColor="#4b5563"
+              delay={0.6}
+            />
+            <NavButton
+              label="Projects"
+              onClick={() => onNavigate('projects')}
+              gradient="from-purple-500 to-pink-500"
+              leftColor="#a855f7"
+              rightColor="#ec4899"
+              delay={0.7}
+            />
+            <NavButton
+              label="Skills"
+              onClick={() => onNavigate('skills')}
+              gradient="from-cyan-400 to-cyan-500"
+              leftColor="#22d3ee"
+              rightColor="#06b6d4"
+              delay={0.8}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-x-6">
+            <NavButton
+              label="Awards"
+              onClick={() => onNavigate('achievements')}
+              gradient="from-yellow-400 to-orange-500"
+              leftColor="#facc15"
+              rightColor="#f97316"
+              delay={0.9}
+            />
+            <NavButton
+              label="About Me"
+              onClick={() => onNavigate('about')}
+              gradient="from-cyan-400 to-teal-400"
+              leftColor="#22d3ee"
+              rightColor="#2dd4bf"
+              delay={1.0}
+            />
+          </div>
         </div>
+
+        {/* Scroll hint */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="mt-6 flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+            className="flex flex-col items-center gap-1 text-gray-600"
+          >
+            <span className="text-[10px] tracking-widest uppercase">Scroll to explore</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }

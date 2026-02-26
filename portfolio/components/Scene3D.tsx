@@ -31,7 +31,7 @@ function NeuralMesh({ isMobile }: { isMobile: boolean }) {
     const adjMap: Map<number, number[]> = new Map()
 
     // Mobile: fewer nodes, narrower spread, taller layout
-    const nodeCount = isMobile ? 120 : 250
+    const nodeCount = isMobile ? 150 : 300
     const xSpreadFactor = isMobile ? 0.35 : 1  // Narrower on mobile
     const ySpreadFactor = isMobile ? 1.2 : 1   // Taller on mobile
 
@@ -42,7 +42,7 @@ function NeuralMesh({ isMobile }: { isMobile: boolean }) {
 
       const x = (Math.random() - 0.5) * 14 * xSpreadFactor + clusterOffsetX
       const y = (Math.random() - 0.5) * 16 * ySpreadFactor + clusterOffsetY
-      const z = (Math.random() - 0.5) * 8 - 10
+      const z = (Math.random() - 0.5) * 20 - 5
 
       // Normalize color gradient based on actual spread (so mobile shows full spectrum)
       const maxX = 7 * xSpreadFactor + 7 * xSpreadFactor // Max possible x
@@ -418,8 +418,50 @@ function SignalPulses({
   )
 }
 
-export default function Scene3D() {
+// Camera that moves through the neural field based on scroll position
+function ScrollCamera({
+  scrollProgressRef,
+  isMobile
+}: {
+  scrollProgressRef: React.MutableRefObject<number>
+  isMobile: boolean
+}) {
+  const { camera } = useThree()
+  const smoothProgress = useRef(0)
+
+  const startZ = isMobile ? 14 : 18
+  const endZ = isMobile ? 4 : -2
+  const startFov = isMobile ? 60 : 50
+  const endFov = isMobile ? 75 : 70
+
+  useFrame(() => {
+    // Smooth lerp toward target
+    smoothProgress.current += (scrollProgressRef.current - smoothProgress.current) * 0.05
+
+    const t = smoothProgress.current
+
+    // Animate camera z position - travel through node field
+    camera.position.z = startZ + (endZ - startZ) * t
+
+    // Subtle sinusoidal y-drift for organic movement
+    camera.position.y = Math.sin(t * Math.PI * 2) * 0.8
+
+    // Animate FOV for rushing tunnel feel
+    const perspCamera = camera as THREE.PerspectiveCamera
+    perspCamera.fov = startFov + (endFov - startFov) * t
+    perspCamera.updateProjectionMatrix()
+  })
+
+  return null
+}
+
+interface Scene3DProps {
+  scrollProgressRef?: React.MutableRefObject<number>
+}
+
+export default function Scene3D({ scrollProgressRef }: Scene3DProps) {
   const [isMobile, setIsMobile] = useState(false)
+  const fallbackRef = useRef(0)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -430,6 +472,8 @@ export default function Scene3D() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  const progressRef = scrollProgressRef || fallbackRef
+
   return (
     <div className="scene-3d">
       <Canvas
@@ -437,6 +481,7 @@ export default function Scene3D() {
         gl={{ antialias: true, alpha: true }}
       >
         <color attach="background" args={['#000000']} />
+        <ScrollCamera scrollProgressRef={progressRef} isMobile={isMobile} />
         <NeuralMesh isMobile={isMobile} />
       </Canvas>
     </div>

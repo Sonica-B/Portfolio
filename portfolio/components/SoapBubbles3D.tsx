@@ -19,7 +19,8 @@ const bubbles: BubbleData[] = [
   { id: 'projects', title: 'Projects', subtitle: 'My experiments', size: '140px', top: '5%', right: '5%', delay: 0, morphDuration: 8 },
   { id: 'experience', title: 'Experience', subtitle: 'My journey so far', size: '155px', top: '8%', right: '30%', delay: 0.2, morphDuration: 10 },
   { id: 'skills', title: 'Skills', subtitle: 'My powers', size: '130px', top: '40%', right: '2%', delay: 0.4, morphDuration: 7 },
-  { id: 'about', title: 'About Me', subtitle: 'My story', size: '135px', top: '55%', right: '25%', delay: 0.6, morphDuration: 9 },
+  { id: 'achievements', title: 'Achievements', subtitle: 'My wins', size: '120px', top: '38%', right: '28%', delay: 0.5, morphDuration: 8 },
+  { id: 'about', title: 'About Me', subtitle: 'My story', size: '135px', top: '60%', right: '22%', delay: 0.6, morphDuration: 9 },
 ]
 
 // Generate random blob border-radius values

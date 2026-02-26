@@ -1,177 +1,291 @@
 'use client'
 
-import { motion } from 'framer-motion'
-
-interface SkillsSectionProps {
-  onBack: () => void
-}
-
-function CategoryIcon({ type }: { type: string }) {
-  switch (type) {
-    case 'ai':
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-cyan-400">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-        </svg>
-      )
-    case 'cloud':
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-purple-400">
-          <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>
-        </svg>
-      )
-    case 'code':
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-emerald-400">
-          <polyline points="16 18 22 12 16 6"/>
-          <polyline points="8 6 2 12 8 18"/>
-        </svg>
-      )
-    case 'tools':
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-orange-400">
-          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-        </svg>
-      )
-    default:
-      return null
-  }
-}
+import { useState, useEffect, useMemo, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const skillCategories = [
   {
-    title: 'AI & Machine Learning',
-    icon: 'ai',
-    skills: ['PyTorch', 'TensorFlow', 'Scikit-Learn', 'Keras', 'Hugging Face', 'LangGraph', 'LangChain', 'LLMs', 'RAG', 'Diffusion Models', 'CycleGANs', 'Computer Vision'],
-    gradient: 'from-cyan-500 to-blue-600',
+    id: 'ai', title: 'AI & Machine Learning', short: 'AI & ML',
+    color: '#06b6d4', gradient: ['#00d4ff', '#0891b2'],
+    skills: ['PyTorch','TensorFlow','Scikit-Learn','Keras','Hugging Face','PyTorch Lightning','LLMs','LangGraph','LangChain','RAG','Deep Learning','Reinforcement Learning','NLP','Multi-agent Systems','OpenAI GPT','Prompt Engineering','OpenAI Evals','bi-LSTM','MLflow','Algorithms'],
   },
   {
-    title: 'Cloud & DevOps',
-    icon: 'cloud',
-    skills: ['AWS (S3, Lambda, Bedrock)', 'Azure DevOps', 'Docker', 'Terraform', 'Ansible', 'CI/CD', 'MLflow', 'Kubernetes', 'Grafana'],
-    gradient: 'from-purple-500 to-pink-600',
+    id: 'cv', title: 'Computer Vision & 3D', short: 'CV & 3D',
+    color: '#a855f7', gradient: ['#c084fc', '#7c3aed'],
+    skills: ['OpenCV','Computer Vision','Image Processing','Generative AI','NeRF','CycleGANs','Diffusion Models','Structure-from-Motion','Pose Estimation','Depth Estimation','Multi-modal Models','Signal Processing','Autoregressive Models'],
   },
   {
-    title: 'Programming',
-    icon: 'code',
-    skills: ['Python', 'C++', 'C#', 'Java', 'R', 'Rust', 'SQL', 'Bash', 'PowerShell'],
-    gradient: 'from-emerald-500 to-cyan-600',
+    id: 'cloud', title: 'Cloud & DevOps', short: 'Cloud/DevOps',
+    color: '#ec4899', gradient: ['#f472b6', '#be185d'],
+    skills: ['Azure DevOps','AWS (S3, Lambda, Bedrock)','Docker','Terraform','Kubernetes','CI/CD','Infrastructure-as-Code','Azure ML','Prometheus','Grafana','Linux','GitHub Actions','GitLab CI/CD','Ansible','SNYK Security','HPC (Slurm)','SRE','JIRA'],
   },
   {
-    title: 'Frameworks & Tools',
-    icon: 'tools',
-    skills: ['React', 'Angular', 'Flask', 'OpenCV', 'Unity', 'Blender', 'ONNX', 'TensorRT', 'CUDA', 'Git'],
-    gradient: 'from-orange-500 to-red-600',
+    id: 'lang', title: 'Programming', short: 'Programming',
+    color: '#10b981', gradient: ['#34d399', '#059669'],
+    skills: ['Python','C','C++','C#','Java','R','Rust','Scala','SQL','MATLAB','HTML/CSS','JavaScript','Bash','PowerShell'],
+  },
+  {
+    id: 'frameworks', title: 'Frameworks & Tools', short: 'Frameworks',
+    color: '#f97316', gradient: ['#fb923c', '#c2410c'],
+    skills: ['Flask','FastAPI','Angular','React','Unity Engine','Blender','ROS2','ONNX','TensorRT','CUDA','TorchScript','SIMD','Figma','Git','Tableau','Simulation'],
+  },
+  {
+    id: 'data', title: 'Data & Databases', short: 'Data & DBs',
+    color: '#3b82f6', gradient: ['#60a5fa', '#1d4ed8'],
+    skills: ['MySQL','MongoDB','PostgreSQL','Firebase','DynamoDB','JSON Schemas','Data Analytics','Predictive Modeling','Statistical Modeling','Data Mining'],
   },
 ]
 
-export default function SkillsSection({ onBack }: SkillsSectionProps) {
+const totalSkills = skillCategories.reduce((s, c) => s + c.skills.length, 0)
+
+const VIEW = 800
+const CX = 400, CY = 400
+const R = 150, SW = 72, GAP = 4
+const R_OUT = R + SW / 2
+const R_IN = R - SW / 2
+
+function p2c(cx: number, cy: number, r: number, deg: number) {
+  const rad = ((deg - 90) * Math.PI) / 180
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) }
+}
+
+function arc(cx: number, cy: number, r: number, a1: number, a2: number) {
+  const s = p2c(cx, cy, r, a2), e = p2c(cx, cy, r, a1)
+  return `M ${s.x} ${s.y} A ${r} ${r} 0 ${a2 - a1 > 180 ? 1 : 0} 0 ${e.x} ${e.y}`
+}
+
+function Segment3D({
+  startAngle, endAngle, catIndex, color, gradId,
+  isActive, isHovered, isAnyActive,
+  onActivate, onHover, onLeave,
+}: {
+  startAngle: number; endAngle: number; catIndex: number
+  color: string; gradId: string
+  isActive: boolean; isHovered: boolean; isAnyActive: boolean
+  onActivate: () => void; onHover: () => void; onLeave: () => void
+}) {
+  const d = arc(CX, CY, R, startAngle, endAngle)
+  const mid = (startAngle + endAngle) / 2
+  const rad = ((mid - 90) * Math.PI) / 180
+  const lit = isActive || isHovered
+  const pop = lit ? 12 : 0
+  const ox = Math.cos(rad) * pop, oy = Math.sin(rad) * pop
+  const dim = isAnyActive && !lit ? 0.22 : 1
+  const sp = { type: 'spring' as const, stiffness: 300, damping: 25 }
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8"
-    >
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 sm:mb-12"
-        >
-          <button
-            onClick={onBack}
-            className="glass-button text-sm mb-4 sm:mb-6 flex items-center gap-2"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Home
-          </button>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
-            <span className="gradient-text">Tech Stack</span>
-          </h1>
-          <p className="text-gray-400 text-base sm:text-lg">
-            The tools and technologies I work with.
-          </p>
-        </motion.div>
+    <g style={{ cursor: 'pointer' }} onClick={onActivate} onMouseEnter={onHover} onMouseLeave={onLeave}>
+      <motion.path d={d} fill="none" stroke={color} strokeWidth={SW + 22} strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: lit ? 0.4 : 0.05, x: ox, y: oy }}
+        transition={{ pathLength: { duration: 1.2, delay: 0.1 + catIndex * 0.15, ease: 'easeInOut' }, opacity: { duration: 0.35 }, x: sp, y: sp }}
+        style={{ filter: 'blur(12px)' }} />
+      <motion.path d={d} fill="none" stroke={`url(#${gradId})`} strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1, strokeWidth: lit ? SW + 8 : SW, opacity: dim, x: ox, y: oy }}
+        transition={{ pathLength: { duration: 1.2, delay: 0.1 + catIndex * 0.15, ease: 'easeInOut' }, strokeWidth: sp, opacity: { duration: 0.35 }, x: sp, y: sp }} />
+      <motion.path d={arc(CX, CY, R_IN + 8, startAngle + 1.5, endAngle - 1.5)} fill="none" stroke="white" strokeWidth={4} strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1, opacity: lit ? 0.22 : 0.06, x: ox, y: oy }}
+        transition={{ pathLength: { duration: 1.2, delay: 0.15 + catIndex * 0.15 }, opacity: { duration: 0.3 }, x: sp, y: sp }} />
+      <motion.path d={arc(CX, CY, R_OUT + 6, startAngle + 1, endAngle - 1)} fill="none" stroke="black" strokeWidth={5} strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1, opacity: lit ? 0.25 : 0.08, x: ox, y: oy }}
+        transition={{ pathLength: { duration: 1.2, delay: 0.15 + catIndex * 0.15 }, opacity: { duration: 0.3 }, x: sp, y: sp }} />
+      <motion.path d={d} fill="none" stroke="transparent" strokeWidth={SW + 30} strokeLinecap="round"
+        animate={{ x: ox, y: oy }} transition={{ x: sp, y: sp }} />
+    </g>
+  )
+}
 
-        {/* Skills Grid */}
-        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="floating-card p-4 sm:p-6 group"
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`} />
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <CategoryIcon type={category.icon} />
-                  <h3 className="text-base sm:text-xl font-bold text-white">{category.title}</h3>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                  {category.skills.map((skill, i) => (
-                    <motion.span
-                      key={i}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 + i * 0.02 }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-xs sm:text-sm bg-white/5 text-gray-300 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all cursor-default"
-                    >
-                      {skill}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Education Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="floating-card p-4 sm:p-6 mt-4 sm:mt-6"
-        >
-          <h3 className="text-base sm:text-xl font-bold text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary flex-shrink-0">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-            </svg>
-            Education
-          </h3>
-
-          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-            <div className="border-l-2 border-cyan-500 pl-3 sm:pl-4">
-              <p className="text-primary text-xs sm:text-sm">Aug 2024 - May 2026</p>
-              <h4 className="text-base sm:text-lg font-semibold text-white">M.S. in Artificial Intelligence</h4>
-              <p className="text-gray-400 text-sm">Worcester Polytechnic Institute</p>
-              <p className="text-accent text-xs sm:text-sm mt-1">GPA: 3.88/4.0</p>
-              <p className="text-gray-500 text-[10px] sm:text-xs mt-2">
-                Generative AI, Computer Vision, Deep Learning, LLMs, MLOps
-              </p>
-            </div>
-            <div className="border-l-2 border-purple-500 pl-3 sm:pl-4">
-              <p className="text-accent text-xs sm:text-sm">Jun 2018 - May 2022</p>
-              <h4 className="text-base sm:text-lg font-semibold text-white">B.E. in Information Technology</h4>
-              <p className="text-gray-400 text-sm">PES Modern College of Engineering</p>
-              <p className="text-gray-500 text-[10px] sm:text-xs mt-2">
-                Honors in AI and Machine Learning
-              </p>
-            </div>
-          </div>
-        </motion.div>
+function MobileSkillsPanel({ category }: { category: typeof skillCategories[number] }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+      className="rounded-2xl border border-white/[0.08] p-4"
+      style={{ background: 'rgba(10,10,20,0.85)', backdropFilter: 'blur(20px)' }}>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="w-2.5 h-2.5 rounded-full" style={{ background: category.color }} />
+        <h3 className="text-sm font-bold text-white">{category.title}</h3>
+        <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-md"
+          style={{ color: category.color, background: `${category.color}12`, border: `1px solid ${category.color}20` }}>{category.skills.length}</span>
+      </div>
+      <div className="flex flex-wrap gap-1.5">
+        {category.skills.map((skill, i) => (
+          <motion.span key={skill} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 22, delay: i * 0.02 }}
+            className="px-2 py-1 rounded-lg text-[11px] text-gray-300 border cursor-default"
+            style={{ borderColor: `${category.color}18`, background: `${category.color}08` }}>{skill}</motion.span>
+        ))}
       </div>
     </motion.div>
+  )
+}
+
+export default function SkillsSection() {
+  const [isMobile, setIsMobile] = useState(false)
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
+  useEffect(() => {
+    const c = () => setIsMobile(window.innerWidth < 768)
+    c(); window.addEventListener('resize', c)
+    return () => window.removeEventListener('resize', c)
+  }, [])
+
+  const arcs = useMemo(() => {
+    const avail = 360 - GAP * skillCategories.length
+    let cur = 0
+    return skillCategories.map(cat => {
+      const sweep = (cat.skills.length / totalSkills) * avail
+      const s = cur + GAP / 2, e = s + sweep
+      cur = e + GAP / 2
+      return { start: s, end: e }
+    })
+  }, [])
+
+  const toggle = useCallback((i: number) => setActiveIndex(p => p === i ? null : i), [])
+  const di = hoveredIndex ?? activeIndex
+  const dc = di !== null ? skillCategories[di] : null
+
+  const connectors = useMemo(() => arcs.map((a, i) => {
+    const mid = (a.start + a.end) / 2
+    const rad = ((mid - 90) * Math.PI) / 180
+    const cos = Math.cos(rad), sin = Math.sin(rad)
+    const dotX = CX + (R_OUT + 4) * cos, dotY = CY + (R_OUT + 4) * sin
+    const elbX = CX + (R_OUT + 40) * cos, elbY = CY + (R_OUT + 40) * sin
+    const isRight = cos >= 0
+    return { dotX, dotY, elbX, elbY, endX: elbX + (isRight ? 50 : -50), endY: elbY, isRight }
+  }), [arcs])
+
+  return (
+    <section className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8 relative">
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[6px]" />
+      <div className="relative z-10 max-w-5xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }} className="mb-8 sm:mb-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3"><span className="gradient-text">Tech Stack</span></h2>
+          <p className="text-gray-400 text-base sm:text-lg">{totalSkills} technologies across {skillCategories.length} domains</p>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="flex justify-center mb-6">
+          <div className="relative w-full" style={{ maxWidth: isMobile ? 280 : 700, overflow: 'visible' }}>
+            {!isMobile && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ overflow: 'visible' }}>
+                <div className="rounded-full" style={{ width: 500, height: 500, background: 'radial-gradient(circle, rgba(168,85,247,0.12) 0%, rgba(0,212,255,0.06) 40%, transparent 70%)', filter: 'blur(40px)' }} />
+              </div>
+            )}
+
+            <svg viewBox={`0 0 ${VIEW} ${VIEW}`} className="w-full" style={{ display: 'block', overflow: 'visible' }}>
+              <defs>
+                {skillCategories.map(cat => (
+                  <linearGradient key={cat.id} id={`sg-${cat.id}`} gradientUnits="userSpaceOnUse" x1={CX - R} y1={CY - R} x2={CX + R} y2={CY + R}>
+                    <stop offset="0%" stopColor={cat.gradient[0]} /><stop offset="100%" stopColor={cat.gradient[1]} />
+                  </linearGradient>
+                ))}
+                <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="rgba(168,85,247,0.08)" /><stop offset="100%" stopColor="transparent" />
+                </radialGradient>
+              </defs>
+              <circle cx={CX} cy={CY} r={R_IN - 10} fill="url(#cg)" />
+              <circle cx={CX} cy={CY} r={R_IN - 4} fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth={0.5} />
+              <circle cx={CX} cy={CY} r={R_OUT + 4} fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth={0.5} />
+              <circle cx={CX} cy={CY} r={R_OUT + 16} fill="none" stroke="rgba(255,255,255,0.015)" strokeWidth={0.5} strokeDasharray="4 8" />
+
+              {skillCategories.map((cat, i) => (
+                <Segment3D key={cat.id} startAngle={arcs[i].start} endAngle={arcs[i].end}
+                  catIndex={i} color={cat.color} gradId={`sg-${cat.id}`}
+                  isActive={activeIndex === i} isHovered={hoveredIndex === i} isAnyActive={activeIndex !== null}
+                  onActivate={() => toggle(i)} onHover={() => setHoveredIndex(i)} onLeave={() => setHoveredIndex(null)} />
+              ))}
+
+              {!isMobile && connectors.map((c, i) => {
+                const cat = skillCategories[i], lit = di === i
+                return (
+                  <g key={`c-${cat.id}`}>
+                    <motion.circle cx={c.dotX} cy={c.dotY} r={4} fill={lit ? cat.color : 'rgba(255,255,255,0.5)'}
+                      animate={{ opacity: lit ? 1 : 0.35, r: lit ? 5 : 3.5 }} transition={{ duration: 0.3 }} />
+                    <motion.path d={`M ${c.dotX} ${c.dotY} L ${c.elbX} ${c.elbY} L ${c.endX} ${c.endY}`}
+                      fill="none" strokeLinecap="round"
+                      animate={{ stroke: lit ? cat.color : 'rgba(255,255,255,0.12)', strokeWidth: lit ? 1.5 : 0.8, opacity: lit ? 0.9 : 0.4 }}
+                      transition={{ duration: 0.3 }} />
+                    <motion.circle cx={c.endX} cy={c.endY} r={2} fill={lit ? cat.color : 'rgba(255,255,255,0.2)'}
+                      animate={{ opacity: lit ? 0.8 : 0.2 }} transition={{ duration: 0.3 }} />
+                  </g>
+                )
+              })}
+            </svg>
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <AnimatePresence mode="wait">
+                {dc ? (
+                  <motion.div key={dc.id} initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.7 }}
+                    transition={{ duration: 0.2 }} className="flex flex-col items-center">
+                    <span className="text-3xl sm:text-4xl font-bold" style={{ color: dc.color }}>{dc.skills.length}</span>
+                    <span className="text-[10px] sm:text-xs text-gray-400 mt-0.5 text-center leading-tight max-w-[110px]">{dc.title}</span>
+                  </motion.div>
+                ) : (
+                  <motion.div key="total" initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.7 }}
+                    transition={{ duration: 0.2 }} className="flex flex-col items-center">
+                    <span className="text-4xl sm:text-5xl font-bold text-white">{totalSkills}</span>
+                    <span className="text-[10px] sm:text-xs text-gray-500 mt-1 uppercase tracking-widest">Skills</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {!isMobile && connectors.map((c, i) => {
+              const cat = skillCategories[i], lit = di === i
+              const pct = ((cat.skills.length / totalSkills) * 100).toFixed(1)
+              return (
+                <div key={`l-${cat.id}`} className="absolute pointer-events-none select-none"
+                  style={{ left: `${(c.endX / VIEW) * 100}%`, top: `${(c.endY / VIEW) * 100}%`,
+                    transform: c.isRight ? 'translate(10px, -50%)' : 'translate(calc(-100% - 10px), -50%)', zIndex: lit ? 30 : 10 }}>
+                  <motion.div animate={{ opacity: lit ? 1 : 0.45 }} transition={{ duration: 0.3 }}
+                    className={c.isRight ? 'text-left' : 'text-right'}>
+                    <div className="flex items-baseline gap-1.5 whitespace-nowrap"
+                      style={{ flexDirection: c.isRight ? 'row' : 'row-reverse' }}>
+                      <span className={`text-[11px] sm:text-xs font-semibold transition-colors duration-300 ${lit ? 'text-white' : 'text-gray-500'}`}>
+                        {cat.short}</span>
+                      <span className="text-xs sm:text-sm font-bold" style={{ color: cat.color }}>{pct}%</span>
+                    </div>
+                    <div className={`text-[9px] sm:text-[10px] transition-colors duration-300 mt-0.5 ${lit ? 'text-gray-300' : 'text-gray-600'}`}>
+                      {cat.skills.length} skills</div>
+                    <AnimatePresence>
+                      {lit && (
+                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                          className="overflow-hidden mt-1.5">
+                          <div className="flex flex-wrap gap-1" style={{ maxWidth: 220, justifyContent: c.isRight ? 'flex-start' : 'flex-end' }}>
+                            {cat.skills.map((skill, j) => (
+                              <motion.span key={skill} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.5 }}
+                                transition={{ type: 'spring', stiffness: 500, damping: 25, delay: j * 0.015 }}
+                                className="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-medium border whitespace-nowrap"
+                                style={{ color: cat.color, borderColor: `${cat.color}30`, background: `${cat.color}10` }}>
+                                {skill}</motion.span>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </div>
+              )
+            })}
+          </div>
+        </motion.div>
+
+        {isMobile && (
+          <div className="mb-6 min-h-[100px]">
+            <AnimatePresence mode="wait">
+              {dc && <MobileSkillsPanel key={dc.id} category={dc} />}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
+    </section>
   )
 }

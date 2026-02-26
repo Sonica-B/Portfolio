@@ -160,8 +160,12 @@ const personJsonLd = {
     },
   ],
   award: [
+    'Top Talent Award - DevOps Excellence, Persistent Systems',
+    'Data Science GQP MVP - Best Qualifying Project, WPI',
     'Bravo Individual Award - Persistent Systems',
-    'Best Intern Award - Top among 20,000+ new joiners',
+    'Team Excellence Award FY2023 - Persistent Systems',
+    'Bravo Team Award - Persistent Systems',
+    'Best Intern Award - Top among 20,000+ new joiners, Persistent Systems',
     '1st Rank - Yantra-Maan Robotics, Xtronica Mpulse 2018',
   ],
   address: {
@@ -176,11 +180,12 @@ const personJsonLd = {
   },
   knowsLanguage: ['English', 'Hindi', 'Marathi'],
   sameAs: [
-    'https://www.linkedin.com/in/shreya-boyane',
+    'https://www.linkedin.com/in/shreya-boyane/',
     'https://github.com/Sonica-B',
     'https://orcid.org/0009-0004-1211-3253',
-    // Add Wikidata QID after creating the entry:
     'https://www.wikidata.org/wiki/Q138034331',
+    'https://g.dev/shreyaboyane',
+    'https://dev.to/sonicab',
   ],
   mainEntityOfPage: {
     '@type': 'WebPage',
