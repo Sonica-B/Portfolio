@@ -138,7 +138,7 @@ const timelineData: TimelineItem[] = [
 
 // Extended winding S-curve road paths for 9 milestones
 const DESKTOP_PATH = 'M400 50 C200 50 150 150 400 200 C650 250 200 320 400 380 C600 440 150 500 400 560 C650 620 200 680 400 740 C600 800 150 860 400 920 C650 980 200 1040 400 1100 C600 1160 150 1220 400 1280 C650 1340 200 1400 400 1460 C600 1520 200 1600 400 1660'
-const MOBILE_PATH = 'M160 50 C80 50 60 130 160 170 C260 210 60 280 160 320 C260 360 60 430 160 470 C260 510 60 580 160 620 C260 660 60 730 160 770 C260 810 60 880 160 920 C260 960 60 1030 160 1070 C260 1110 60 1180 160 1220 C260 1260 60 1340 160 1380'
+const MOBILE_PATH = 'M160 50 C80 50 60 180 160 230 C260 280 60 410 160 460 C260 510 60 640 160 690 C260 740 60 870 160 920 C260 970 60 1100 160 1150 C260 1200 60 1330 160 1380 C260 1430 60 1560 160 1610 C260 1660 60 1790 160 1840 C260 1890 60 2020 160 2070'
 
 export default function ExperienceSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -184,12 +184,12 @@ export default function ExperienceSection() {
   }, [isMobile])
 
   const svgWidth = isMobile ? 320 : 800
-  const svgHeight = isMobile ? 1430 : 1710
+  const svgHeight = isMobile ? 2120 : 1710
   const currentPath = isMobile ? MOBILE_PATH : DESKTOP_PATH
   const roadWidth = isMobile ? 36 : 54
 
   return (
-    <div ref={sectionRef} className="py-16 sm:py-20 px-4 sm:px-6 md:px-8">
+    <div ref={sectionRef} className="relative py-16 sm:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
@@ -288,8 +288,8 @@ export default function ExperienceSection() {
                     position: 'absolute',
                     top: `${(pos.y / svgHeight) * 100}%`,
                     left: '50%',
-                    transform: 'translate(-50%, 10px)',
-                    width: '85%',
+                    transform: 'translate(-50%, 16px)',
+                    width: '88%',
                     maxWidth: '340px',
                   }
                 : {

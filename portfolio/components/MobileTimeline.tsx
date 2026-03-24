@@ -123,7 +123,7 @@ export default function MobileTimeline({ onNavigate }: MobileTimelineProps) {
                 fill
                 className="object-contain"
                 style={{ objectPosition: 'center 20%' }}
-                priority
+                sizes="(max-width: 768px) 100vw, 0px"
               />
             </div>
 

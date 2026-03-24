@@ -4,17 +4,35 @@ import { useRef, useState, useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import LandingPage from '@/components/LandingPage'
 import BottomNav from '@/components/BottomNav'
-import ProjectsSection from '@/components/sections/ProjectsSection'
-import ExperienceSection from '@/components/sections/ExperienceSection'
-import SkillsSection from '@/components/sections/SkillsSection'
-import AboutSection from '@/components/sections/AboutSection'
-import AchievementsSection from '@/components/sections/AchievementsSection'
-import ChatBot from '@/components/ChatBot'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 const Scene3D = dynamic(() => import('@/components/Scene3D'), {
   ssr: false,
   loading: () => <div className="ambient-bg" />
 })
+
+const SectionSkeleton = () => (
+  <div className="min-h-[50vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
+  </div>
+)
+
+const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'), {
+  loading: () => <SectionSkeleton />,
+})
+const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection'), {
+  loading: () => <SectionSkeleton />,
+})
+const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection'), {
+  loading: () => <SectionSkeleton />,
+})
+const AchievementsSection = dynamic(() => import('@/components/sections/AchievementsSection'), {
+  loading: () => <SectionSkeleton />,
+})
+const AboutSection = dynamic(() => import('@/components/sections/AboutSection'), {
+  loading: () => <SectionSkeleton />,
+})
+const Footer = dynamic(() => import('@/components/Footer'))
 
 export type ActiveSection = 'home' | 'projects' | 'experience' | 'skills' | 'achievements' | 'about'
 
@@ -109,41 +127,43 @@ export default function Home() {
         </section>
       </article>
 
-      <Scene3D scrollProgressRef={scrollProgressRef} />
+      <ErrorBoundary>
+        <Scene3D scrollProgressRef={scrollProgressRef} />
+      </ErrorBoundary>
       <div className="ambient-bg" />
 
       {/* All sections stacked vertically for continuous scroll */}
-      <section ref={sectionRefs.home} id="home">
+      <section ref={sectionRefs.home} id="home" className="relative">
         <LandingPage onNavigate={scrollToSection} />
       </section>
 
-      <section ref={sectionRefs.experience} id="experience">
+      <section ref={sectionRefs.experience} id="experience" className="relative">
         <ExperienceSection />
       </section>
 
-      <section ref={sectionRefs.projects} id="projects">
+      <section ref={sectionRefs.projects} id="projects" className="relative">
         <ProjectsSection />
       </section>
 
-      <section ref={sectionRefs.skills} id="skills">
+      <section ref={sectionRefs.skills} id="skills" className="relative">
         <SkillsSection />
       </section>
 
-      <section ref={sectionRefs.achievements} id="achievements">
+      <section ref={sectionRefs.achievements} id="achievements" className="relative">
         <AchievementsSection />
       </section>
 
-      <section ref={sectionRefs.about} id="about">
+      <section ref={sectionRefs.about} id="about" className="relative">
         <AboutSection />
       </section>
+
+      <Footer />
 
       <BottomNav
         activeSection={visibleSection}
         onNavigate={scrollToSection}
         isVisible={visibleSection !== 'home'}
       />
-
-      <ChatBot />
     </main>
   )
 }

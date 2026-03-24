@@ -1,5 +1,10 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
+
+const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], display: 'swap', variable: '--font-inter' })
 
 const SITE_URL = 'https://shreyaboyane.dev'
 const FULL_NAME = 'Shreya Boyane'
@@ -227,19 +232,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
-        />
-
-        {/* Preconnect to critical origins */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
         />
 
         {/* Favicon set */}
@@ -278,7 +275,20 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="overflow-x-hidden">{children}</body>
+      <body className="overflow-x-hidden">
+        <a href="#home" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-black focus:rounded-lg focus:text-sm focus:font-medium">Skip to content</a>
+        <noscript>
+          <div style={{ padding: '2rem', textAlign: 'center', color: '#f5f5f7', background: '#000', minHeight: '100vh' }}>
+            <h1>Shreya Boyane — AI/ML Engineer</h1>
+            <p>This portfolio requires JavaScript to display interactive content.</p>
+            <p>Contact: <a href="mailto:shreyaa.boyane@gmail.com" style={{ color: '#00d4ff' }}>shreyaa.boyane@gmail.com</a></p>
+            <p><a href="https://linkedin.com/in/shreya-boyane" style={{ color: '#00d4ff' }}>LinkedIn</a> | <a href="https://github.com/Sonica-B" style={{ color: '#00d4ff' }}>GitHub</a></p>
+          </div>
+        </noscript>
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   )
 }

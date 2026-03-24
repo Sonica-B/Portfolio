@@ -76,23 +76,24 @@ function Segment3D({
   return (
     <g style={{ cursor: 'pointer' }} onClick={onActivate} onMouseEnter={onHover} onMouseLeave={onLeave}>
       <motion.path d={d} fill="none" stroke={color} strokeWidth={SW + 22} strokeLinecap="round"
-        initial={{ pathLength: 0, opacity: 0 }}
+        initial={{ pathLength: 0, opacity: 0, x: 0, y: 0 }}
         animate={{ pathLength: 1, opacity: lit ? 0.4 : 0.05, x: ox, y: oy }}
         transition={{ pathLength: { duration: 1.2, delay: 0.1 + catIndex * 0.15, ease: 'easeInOut' }, opacity: { duration: 0.35 }, x: sp, y: sp }}
         style={{ filter: 'blur(12px)' }} />
       <motion.path d={d} fill="none" stroke={`url(#${gradId})`} strokeLinecap="round"
-        initial={{ pathLength: 0 }}
+        initial={{ pathLength: 0, strokeWidth: SW, opacity: 1, x: 0, y: 0 }}
         animate={{ pathLength: 1, strokeWidth: lit ? SW + 8 : SW, opacity: dim, x: ox, y: oy }}
         transition={{ pathLength: { duration: 1.2, delay: 0.1 + catIndex * 0.15, ease: 'easeInOut' }, strokeWidth: sp, opacity: { duration: 0.35 }, x: sp, y: sp }} />
       <motion.path d={arc(CX, CY, R_IN + 8, startAngle + 1.5, endAngle - 1.5)} fill="none" stroke="white" strokeWidth={4} strokeLinecap="round"
-        initial={{ pathLength: 0 }}
+        initial={{ pathLength: 0, opacity: 0.06, x: 0, y: 0 }}
         animate={{ pathLength: 1, opacity: lit ? 0.22 : 0.06, x: ox, y: oy }}
         transition={{ pathLength: { duration: 1.2, delay: 0.15 + catIndex * 0.15 }, opacity: { duration: 0.3 }, x: sp, y: sp }} />
       <motion.path d={arc(CX, CY, R_OUT + 6, startAngle + 1, endAngle - 1)} fill="none" stroke="black" strokeWidth={5} strokeLinecap="round"
-        initial={{ pathLength: 0 }}
+        initial={{ pathLength: 0, opacity: 0.08, x: 0, y: 0 }}
         animate={{ pathLength: 1, opacity: lit ? 0.25 : 0.08, x: ox, y: oy }}
         transition={{ pathLength: { duration: 1.2, delay: 0.15 + catIndex * 0.15 }, opacity: { duration: 0.3 }, x: sp, y: sp }} />
       <motion.path d={d} fill="none" stroke="transparent" strokeWidth={SW + 30} strokeLinecap="round"
+        initial={{ x: 0, y: 0 }}
         animate={{ x: ox, y: oy }} transition={{ x: sp, y: sp }} />
     </g>
   )
@@ -205,14 +206,14 @@ export default function SkillsSection() {
                 const cat = skillCategories[i], lit = di === i
                 return (
                   <g key={`c-${cat.id}`}>
-                    <motion.circle cx={c.dotX} cy={c.dotY} r={4} fill={lit ? cat.color : 'rgba(255,255,255,0.5)'}
-                      animate={{ opacity: lit ? 1 : 0.35, r: lit ? 5 : 3.5 }} transition={{ duration: 0.3 }} />
-                    <motion.path d={`M ${c.dotX} ${c.dotY} L ${c.elbX} ${c.elbY} L ${c.endX} ${c.endY}`}
+                    <circle cx={c.dotX} cy={c.dotY} r={lit ? 5 : 3.5} fill={lit ? cat.color : 'rgba(255,255,255,0.5)'}
+                      opacity={lit ? 1 : 0.35} style={{ transition: 'all 0.3s ease' }} />
+                    <path d={`M ${c.dotX} ${c.dotY} L ${c.elbX} ${c.elbY} L ${c.endX} ${c.endY}`}
                       fill="none" strokeLinecap="round"
-                      animate={{ stroke: lit ? cat.color : 'rgba(255,255,255,0.12)', strokeWidth: lit ? 1.5 : 0.8, opacity: lit ? 0.9 : 0.4 }}
-                      transition={{ duration: 0.3 }} />
-                    <motion.circle cx={c.endX} cy={c.endY} r={2} fill={lit ? cat.color : 'rgba(255,255,255,0.2)'}
-                      animate={{ opacity: lit ? 0.8 : 0.2 }} transition={{ duration: 0.3 }} />
+                      stroke={lit ? cat.color : 'rgba(255,255,255,0.12)'} strokeWidth={lit ? 1.5 : 0.8} opacity={lit ? 0.9 : 0.4}
+                      style={{ transition: 'all 0.3s ease' }} />
+                    <circle cx={c.endX} cy={c.endY} r={2} fill={lit ? cat.color : 'rgba(255,255,255,0.2)'}
+                      opacity={lit ? 0.8 : 0.2} style={{ transition: 'all 0.3s ease' }} />
                   </g>
                 )
               })}

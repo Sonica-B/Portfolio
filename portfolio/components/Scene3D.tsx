@@ -81,9 +81,11 @@ function NeuralMesh({ isMobile }: { isMobile: boolean }) {
 
   // Spawn new signal
   const spawnSignal = (startNode: number) => {
+    if (startNode < 0 || startNode >= nodes.length) return
     const neighbors = adjacencyMap.get(startNode) || []
     if (neighbors.length > 0) {
       const endNode = neighbors[Math.floor(Math.random() * neighbors.length)]
+      if (endNode < 0 || endNode >= nodes.length) return
       pulsesRef.current.push({
         startNode,
         endNode,
@@ -371,8 +373,11 @@ function SignalPulses({
     pulsesRef.current.forEach((pulse, i) => {
       if (i >= 150) return
 
-      const startPos = nodes[pulse.startNode].pos
-      const endPos = nodes[pulse.endNode].pos
+      const startNode = nodes[pulse.startNode]
+      const endNode = nodes[pulse.endNode]
+      if (!startNode || !endNode) return
+      const startPos = startNode.pos
+      const endPos = endNode.pos
 
       const x = startPos.x + (endPos.x - startPos.x) * pulse.progress
       const y = startPos.y + (endPos.y - startPos.y) * pulse.progress
