@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+// Enable these after turning on Analytics in Vercel Dashboard:
+// import { Analytics } from '@vercel/analytics/react'
+// import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], display: 'swap', variable: '--font-inter' })
@@ -286,8 +287,9 @@ export default function RootLayout({
           </div>
         </noscript>
         {children}
-        <Analytics />
-        <SpeedInsights />
+        {/* Uncomment after enabling Analytics in Vercel Dashboard */}
+        {/* <Analytics /> */}
+        {/* <SpeedInsights /> */}
       </body>
     </html>
   )
