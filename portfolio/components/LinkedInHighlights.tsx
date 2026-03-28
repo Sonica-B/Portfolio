@@ -1,95 +1,39 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-const EMBED_URL = 'https://www.linkedin.com/embed/feed/update/urn:li:share:7422436984255598592?collapsed=1'
 const POST_URL = 'https://www.linkedin.com/feed/update/urn:li:share:7422436984255598592'
 
-function LinkedInIcon({ size = 18, opacity = 1 }: { size?: number; opacity?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="#0A66C2" opacity={opacity} aria-hidden="true">
-      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-    </svg>
-  )
-}
-
-function StaticCard() {
-  return (
-    <a
-      href={POST_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block group"
-      style={{
-        background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
-        backdropFilter: 'blur(16px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-        border: '1px solid rgba(255,255,255,0.12)',
-        borderRadius: '14px',
-        padding: '14px 16px',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-      }}
-    >
-      <div className="flex items-center gap-2 mb-2">
-        <LinkedInIcon size={20} />
-        <span className="text-[10px] text-white/40 uppercase tracking-wider">Latest Post</span>
-      </div>
-      <p className="text-sm text-white/90 font-medium group-hover:text-cyan-400 transition-colors duration-300 leading-snug">
-        Data Science GQP MVP Award
-      </p>
-      <p className="text-[11px] text-white/40 mt-1.5 line-clamp-2 leading-relaxed">
-        In Dec 2025, I received the Data Science GQP MVP award for our project on immigration document validation...
-      </p>
-      <div className="flex items-center mt-2.5">
-        <span className="text-[10px] text-white/30 group-hover:text-cyan-400/60 transition-colors">
-          Read on LinkedIn
-        </span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-          className="ml-1 text-white/20 group-hover:text-cyan-400 transition-colors duration-300">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-      </div>
-    </a>
-  )
+const FALLBACK = {
+  authorName: 'Shreya Boyane',
+  authorTitle: 'Machine Learning Engineer | Computer Vision, Generative AI, LLMs, MLOps & DevOps',
+  postText: 'Still smiling about this one. 😊\n\nIn Dec 2025, I received the Data Science GQP MVP award for our project on immigration document validation.\n\nThis award means a lot because our work was not a demo. It was a real system for a real pain point.',
+  imageUrl: '/images/linkedin-post.jpg',
+  commentCount: 27,
+  timeAgo: '1mo',
+  postUrl: POST_URL,
 }
 
 export default function LinkedInHighlights() {
-  const [showFallback, setShowFallback] = useState(false)
-  const [iframeVisible, setIframeVisible] = useState(false)
-  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const [post, setPost] = useState(FALLBACK)
+  const [loaded, setLoaded] = useState(false)
 
-  const handleLoad = useCallback(() => {
-    // After iframe fires onLoad, check if it actually rendered content.
-    // Chrome's Tracking Protection can block third-party iframe content
-    // silently — onLoad fires but the iframe renders at 0x0.
-    setTimeout(() => {
-      const el = iframeRef.current
-      if (el) {
-        const rect = el.getBoundingClientRect()
-        if (rect.width > 0 && rect.height > 0) {
-          setIframeVisible(true)
-        } else {
-          setShowFallback(true)
-        }
-      }
-    }, 1500)
+  useEffect(() => {
+    fetch('/api/linkedin-post')
+      .then(r => r.ok ? r.json() : FALLBACK)
+      .then(data => { setPost(data); setLoaded(true) })
+      .catch(() => setLoaded(true))
   }, [])
 
-  const handleError = useCallback(() => setShowFallback(true), [])
-
-  if (showFallback) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.3 }}
-        className="mt-4 sm:mt-5 block max-w-md w-full"
-      >
-        <StaticCard />
-      </motion.div>
-    )
-  }
+  const text = post.postText.length > 180
+    ? post.postText.slice(0, 180).replace(/\s+\S*$/, '') + '...'
+    : post.postText
+  const firstNl = text.indexOf('\n')
+  const display = firstNl > 0
+    ? text.slice(0, firstNl) + '\n' + text.slice(firstNl + 1).replace(/\n/g, ' ')
+    : text
+  const tags = (post.postText.match(/#\w+/g) || []).slice(0, 4)
 
   return (
     <motion.div
@@ -97,56 +41,96 @@ export default function LinkedInHighlights() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.7, duration: 0.3 }}
       className="mt-4 sm:mt-5 block w-full"
-      style={{ maxWidth: 504 }}
+      style={{ maxWidth: 400 }}
     >
-      {/* LinkedIn icon + label */}
-      <div className="flex items-center gap-2 mb-2">
-        <LinkedInIcon />
-        <p className="text-[10px] text-white/40 uppercase tracking-wider">Latest Post</p>
-      </div>
-
-      {/* Iframe embed with loading skeleton */}
-      <div
-        className="relative w-full overflow-hidden"
+      <a
+        href={post.postUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block group"
         style={{
-          borderRadius: '12px',
-          border: '1px solid rgba(255,255,255,0.1)',
-          background: 'rgba(255,255,255,0.03)',
-          maxWidth: 504,
-          height: 668,
+          background: '#FFFFFF',
+          borderRadius: 16,
+          padding: 16,
+          maxWidth: 400,
+          border: '1px solid #E8E8E8',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+          transition: 'box-shadow 0.2s, transform 0.2s',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)'
+          e.currentTarget.style.transform = 'translateY(-2px)'
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)'
+          e.currentTarget.style.transform = 'translateY(0)'
         }}
       >
-        {/* Loading skeleton */}
-        {!iframeVisible && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 animate-pulse z-10">
-            <LinkedInIcon size={32} opacity={0.4} />
-            <span className="text-xs text-white/30">Loading post...</span>
+        {/* Header */}
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <div
+              className="flex-shrink-0 rounded-full flex items-center justify-center"
+              style={{ width: 40, height: 40, background: '#0A66C2' }}
+            >
+              <span className="text-white text-sm font-semibold">
+                {post.authorName.split(' ').map(n => n[0]).join('')}
+              </span>
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-[15px] text-[#1A1A1A] truncate">{post.authorName}</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="#0A66C2" className="flex-shrink-0">
+                  <path d="M8 0l2.1 2.3L13 2.6l.3 2.9L16 8l-2.7 2.5-.3 2.9-2.9.3L8 16l-2.1-2.3-2.9-.3-.3-2.9L0 8l2.7-2.5.3-2.9 2.9-.3L8 0z"/>
+                  <path d="M6.8 10.9L4.4 8.5l1-1 1.4 1.4L10.2 5.5l1 1-4.4 4.4z" fill="#fff"/>
+                </svg>
+              </div>
+              <p className="text-[13px] text-[#6B7280] truncate" style={{ maxWidth: 240 }}>{post.authorTitle}</p>
+              <p className="text-[12px] text-[#9CA3AF]">{post.timeAgo}</p>
+            </div>
           </div>
-        )}
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#0A66C2" className="flex-shrink-0 mt-0.5">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </div>
 
-        {/* LinkedIn official embed iframe */}
-        <iframe
-          ref={iframeRef}
-          src={EMBED_URL}
-          height={668}
-          width={504}
-          frameBorder={0}
-          allowFullScreen
-          title="Embedded post"
-          onLoad={handleLoad}
-          onError={handleError}
-          style={{
-            display: 'block',
-            width: '100%',
-            maxWidth: 504,
-            height: 668,
-            border: 'none',
-            borderRadius: '12px',
-            opacity: iframeVisible ? 1 : 0,
-            transition: 'opacity 0.4s ease',
-          }}
-        />
-      </div>
+        {/* Hero Image */}
+        <div className="w-full overflow-hidden mb-3" style={{ borderRadius: 12 }}>
+          <img
+            src="/images/linkedin-post.jpg"
+            alt="LinkedIn post"
+            className="w-full"
+            style={{ borderRadius: 12, maxHeight: 320, objectFit: 'cover' }}
+          />
+        </div>
+
+        {/* Engagement */}
+        <div className="flex items-center gap-5 pt-1 pb-2" style={{ color: '#9CA3AF' }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <div className="flex items-center gap-1.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span className="text-[13px]">{post.commentCount}</span>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </div>
+
+        {/* Caption */}
+        <div className="pt-1">
+          <p className="text-[14px] text-[#374151] leading-[1.4]" style={{ whiteSpace: 'pre-line' }}>
+            {display}
+            {post.postText.length > 180 && <span className="text-[#6B7280] ml-0.5">more</span>}
+          </p>
+          {tags.length > 0 && (
+            <p className="text-[13px] text-[#2563EB] mt-1.5">{tags.join(' ')}</p>
+          )}
+        </div>
+      </a>
     </motion.div>
   )
 }
