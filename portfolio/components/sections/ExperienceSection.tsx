@@ -1,7 +1,7 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef, useState, useEffect, useCallback } from 'react'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 
 interface TimelineItem {
   type: 'job' | 'education'
@@ -136,60 +136,177 @@ const timelineData: TimelineItem[] = [
   },
 ]
 
-// Extended winding S-curve road paths for 9 milestones
-const DESKTOP_PATH = 'M400 50 C200 50 150 150 400 200 C650 250 200 320 400 380 C600 440 150 500 400 560 C650 620 200 680 400 740 C600 800 150 860 400 920 C650 980 200 1040 400 1100 C600 1160 150 1220 400 1280 C650 1340 200 1400 400 1460 C600 1520 200 1600 400 1660'
-const MOBILE_PATH = 'M160 50 C80 50 60 180 160 230 C260 280 60 410 160 460 C260 510 60 640 160 690 C260 740 60 870 160 920 C260 970 60 1100 160 1150 C260 1200 60 1330 160 1380 C260 1430 60 1560 160 1610 C260 1660 60 1790 160 1840 C260 1890 60 2020 160 2070'
+// Labels for the two-column layout (matching reference style)
+const sectionLabels = [
+  'EDUCATION',
+  'FIRST STEPS',
+  'ENGINEERING',
+  'DEVOPS LEAD',
+  'GRAD SCHOOL',
+  'RESEARCH',
+  'LAB WORK',
+  'ML ENGINEER',
+  'CURRENT',
+]
+
+function TimelineRow({ item, label, index, activeIndex }: {
+  item: TimelineItem
+  label: string
+  index: number
+  activeIndex: number
+}) {
+  const distance = Math.abs(index - activeIndex)
+  const opacity = distance === 0 ? 1 : distance === 1 ? 0.55 : 0.35
+  const gap = distance === 0 ? 120 : distance === 1 ? 80 : 60
+
+  return (
+    <motion.div
+      className="flex items-start lg:items-center justify-center"
+      style={{
+        gap,
+        opacity,
+        transition: 'opacity 0.5s ease, gap 0.5s ease',
+      }}
+    >
+      {/* Left: Label */}
+      <div className="hidden lg:block w-[280px] xl:w-[340px] text-right flex-shrink-0">
+        <span
+          className="text-lg xl:text-xl font-bold tracking-[0.15em] text-gray-500"
+          style={{ fontFamily: 'inherit' }}
+        >
+          {label}
+        </span>
+      </div>
+
+      {/* Right: Content Card */}
+      <div className="w-full lg:w-[380px] xl:w-[440px] flex-shrink-0">
+        <div className={`floating-card p-3 sm:p-4 group relative overflow-hidden`}>
+          <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`} />
+
+          <div className="relative z-10">
+            {/* Mobile label */}
+            <div className="lg:hidden mb-2">
+              <span className="text-[10px] font-bold tracking-[0.2em] text-gray-600">{label}</span>
+            </div>
+
+            {/* Type badge + period */}
+            <div className="flex items-center gap-2 mb-1.5">
+              {item.type === 'education' ? (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-purple-400 flex-shrink-0">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+              ) : (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={`flex-shrink-0 ${item.current ? 'text-amber-400' : 'text-cyan-400'}`}>
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                </svg>
+              )}
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-gray-400 border border-white/10">
+                {item.period}
+              </span>
+              {item.current && (
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  Current
+                </span>
+              )}
+            </div>
+
+            {/* Title & Company */}
+            <h3 className="text-xs sm:text-sm font-bold text-white leading-tight">{item.title}</h3>
+            <p className="text-primary text-[10px] sm:text-xs">{item.company}</p>
+            <p className="text-gray-500 text-[9px] sm:text-[10px] mb-1.5">{item.location}</p>
+
+            {/* GPA */}
+            {item.gpa && (
+              <span className="inline-block text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-1.5">
+                GPA: {item.gpa}
+              </span>
+            )}
+
+            {/* Coursework */}
+            {item.coursework && (
+              <p className="text-gray-500 text-[9px] sm:text-[10px] mb-1.5">{item.coursework}</p>
+            )}
+
+            {/* Highlights */}
+            {item.highlights && (
+              <ul className="space-y-0.5 mb-1.5">
+                {item.highlights.map((h, i) => (
+                  <li key={i} className="text-gray-400 text-[9px] sm:text-[10px] flex items-start">
+                    <span className="text-primary mr-1 mt-0.5 flex-shrink-0">
+                      <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <polyline points="9 11 12 14 22 4"/>
+                      </svg>
+                    </span>
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* Tech */}
+            {item.tech && (
+              <div className="flex flex-wrap gap-1">
+                {item.tech.map((t, i) => (
+                  <span key={i} className="text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded-md border border-white/10 text-gray-500">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 export default function ExperienceSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const pathRef = useRef<SVGPathElement>(null)
-  const [milestonePositions, setMilestonePositions] = useState<{ x: number; y: number }[]>([])
-  const [isMobile, setIsMobile] = useState(false)
+  const rowsRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
 
-  const pathLength = useTransform(scrollYProgress, [0.05, 0.95], [0, 1])
+  // Progress line height
+  const lineHeight = useSpring(
+    useTransform(scrollYProgress, [0.1, 0.9], ['0%', '100%']),
+    { stiffness: 100, damping: 30 }
+  )
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
+  // Determine active row based on scroll position
+  const updateActiveIndex = useCallback(() => {
+    if (!rowsRef.current) return
+    const rows = rowsRef.current.children
+    const viewportCenter = window.innerHeight / 2
+
+    let closest = 0
+    let minDist = Infinity
+
+    for (let i = 0; i < rows.length; i++) {
+      const rect = (rows[i] as HTMLElement).getBoundingClientRect()
+      const rowCenter = rect.top + rect.height / 2
+      const dist = Math.abs(rowCenter - viewportCenter)
+      if (dist < minDist) {
+        minDist = dist
+        closest = i
+      }
+    }
+    setActiveIndex(closest)
   }, [])
 
-  // Compute milestone positions along the SVG path
   useEffect(() => {
-    const computePositions = () => {
-      const pathEl = pathRef.current
-      if (!pathEl) return
-
-      const totalLength = pathEl.getTotalLength()
-      const positions = timelineData.map((_, i) => {
-        const t = (i + 0.5) / timelineData.length
-        const point = pathEl.getPointAtLength(t * totalLength)
-        return { x: point.x, y: point.y }
-      })
-      setMilestonePositions(positions)
-    }
-
-    const timer = setTimeout(computePositions, 100)
-    window.addEventListener('resize', computePositions)
-    return () => {
-      clearTimeout(timer)
-      window.removeEventListener('resize', computePositions)
-    }
-  }, [isMobile])
-
-  const svgWidth = isMobile ? 320 : 800
-  const svgHeight = isMobile ? 2120 : 1710
-  const currentPath = isMobile ? MOBILE_PATH : DESKTOP_PATH
-  const roadWidth = isMobile ? 36 : 54
+    window.addEventListener('scroll', updateActiveIndex, { passive: true })
+    updateActiveIndex()
+    return () => window.removeEventListener('scroll', updateActiveIndex)
+  }, [updateActiveIndex])
 
   return (
-    <div ref={sectionRef} className="relative py-16 sm:py-20 px-4 sm:px-6 md:px-8">
+    <div ref={sectionRef} className="relative py-16 sm:py-20 lg:py-[120px] px-4 sm:px-6 md:px-8">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
@@ -197,7 +314,7 @@ export default function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="mb-8 sm:mb-12"
+          className="mb-10 sm:mb-16 lg:mb-20"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             <span className="gradient-text">Experience</span>
@@ -207,185 +324,41 @@ export default function ExperienceSection() {
           </p>
         </motion.div>
 
-        {/* Road Timeline */}
-        <div className="relative" style={{ minHeight: svgHeight }}>
-          {/* SVG Road */}
-          <svg
-            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-            className="absolute inset-0 w-full h-full"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            {/* Road surface */}
-            <path
-              d={currentPath}
-              fill="none"
-              stroke="rgba(30,30,40,0.8)"
-              strokeWidth={roadWidth}
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        {/* Two-column timeline */}
+        <div className="relative">
+          {/* Center vertical line (desktop only) */}
+          <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 h-full pointer-events-none">
+            {/* Track */}
+            <div className="w-[1px] h-full bg-white/[0.06]" />
+            {/* Progress glow */}
+            <motion.div
+              className="absolute top-0 left-0 w-[1px]"
+              style={{
+                height: lineHeight,
+                background: 'linear-gradient(to bottom, #06b6d4, #a855f7, #f59e0b)',
+                boxShadow: '0 0 8px rgba(6,182,212,0.3)',
+              }}
             />
+          </div>
 
-            {/* Road edge glow */}
-            <motion.path
-              d={currentPath}
-              fill="none"
-              stroke="url(#roadGlow)"
-              strokeWidth={roadWidth + 4}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ pathLength }}
-              opacity={0.3}
-            />
-
-            {/* Center dashes */}
-            <motion.path
-              d={currentPath}
-              fill="none"
-              stroke="rgba(255,255,255,0.25)"
-              strokeWidth="2"
-              strokeDasharray="12 18"
-              strokeLinecap="round"
-              style={{ pathLength }}
-            />
-
-            {/* Hidden path reference */}
-            <path ref={pathRef} d={currentPath} fill="none" stroke="transparent" strokeWidth="0" />
-
-            <defs>
-              <linearGradient id="roadGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#06b6d4" />
-                <stop offset="33%" stopColor="#a855f7" />
-                <stop offset="66%" stopColor="#10b981" />
-                <stop offset="100%" stopColor="#f59e0b" />
-              </linearGradient>
-            </defs>
-
-            {/* Milestone dots */}
-            {milestonePositions.map((pos, i) => (
-              <motion.circle
-                key={i}
-                cx={pos.x}
-                cy={pos.y}
-                r={timelineData[i].type === 'education' ? 9 : 6}
-                fill={timelineData[i].current ? '#f59e0b' : timelineData[i].type === 'education' ? '#a855f7' : '#06b6d4'}
-                stroke="rgba(255,255,255,0.3)"
-                strokeWidth="2"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 + i * 0.1, type: 'spring', stiffness: 200 }}
-              />
+          {/* Timeline rows */}
+          <div ref={rowsRef} className="flex flex-col gap-6 sm:gap-8 lg:gap-[50px]">
+            {timelineData.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+              >
+                <TimelineRow
+                  item={item}
+                  label={sectionLabels[index]}
+                  index={index}
+                  activeIndex={activeIndex}
+                />
+              </motion.div>
             ))}
-          </svg>
-
-          {/* Cards */}
-          <div className="relative" style={{ height: svgHeight }}>
-            {milestonePositions.map((pos, index) => {
-              const item = timelineData[index]
-              const isLeft = !isMobile && index % 2 === 0
-              const cardStyle: React.CSSProperties = isMobile
-                ? {
-                    position: 'absolute',
-                    top: `${(pos.y / svgHeight) * 100}%`,
-                    left: '50%',
-                    transform: 'translate(-50%, 16px)',
-                    width: '88%',
-                    maxWidth: '340px',
-                  }
-                : {
-                    position: 'absolute',
-                    top: `${(pos.y / svgHeight) * 100}%`,
-                    ...(isLeft
-                      ? { right: '55%', transform: 'translateY(-50%)' }
-                      : { left: '55%', transform: 'translateY(-50%)' }),
-                    width: '38%',
-                    maxWidth: '360px',
-                  }
-
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: isMobile ? 0 : isLeft ? -30 : 30, y: isMobile ? 20 : 0 }}
-                  whileInView={{ opacity: 1, x: 0, y: isMobile ? 20 : 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.6, delay: index * 0.08 }}
-                  style={cardStyle}
-                >
-                  <div className="floating-card p-3 sm:p-4 group">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`} />
-
-                    <div className="relative z-10">
-                      {/* Type badge + period */}
-                      <div className="flex items-center gap-2 mb-1.5">
-                        {item.type === 'education' ? (
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-purple-400 flex-shrink-0">
-                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                          </svg>
-                        ) : (
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={`flex-shrink-0 ${item.current ? 'text-amber-400' : 'text-cyan-400'}`}>
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                            <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
-                          </svg>
-                        )}
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-gray-400 border border-white/10">
-                          {item.period}
-                        </span>
-                        {item.current && (
-                          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                            Current
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Title & Company */}
-                      <h3 className="text-xs sm:text-sm font-bold text-white leading-tight">{item.title}</h3>
-                      <p className="text-primary text-[10px] sm:text-xs">{item.company}</p>
-                      <p className="text-gray-500 text-[9px] sm:text-[10px] mb-1.5">{item.location}</p>
-
-                      {/* GPA */}
-                      {item.gpa && (
-                        <span className="inline-block text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-1.5">
-                          GPA: {item.gpa}
-                        </span>
-                      )}
-
-                      {/* Coursework */}
-                      {item.coursework && (
-                        <p className="text-gray-500 text-[9px] sm:text-[10px] mb-1.5">{item.coursework}</p>
-                      )}
-
-                      {/* Highlights */}
-                      {item.highlights && (
-                        <ul className="space-y-0.5 mb-1.5">
-                          {item.highlights.map((h, i) => (
-                            <li key={i} className="text-gray-400 text-[9px] sm:text-[10px] flex items-start">
-                              <span className="text-primary mr-1 mt-0.5 flex-shrink-0">
-                                <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                  <polyline points="9 11 12 14 22 4"/>
-                                </svg>
-                              </span>
-                              {h}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-
-                      {/* Tech */}
-                      {item.tech && (
-                        <div className="flex flex-wrap gap-1">
-                          {item.tech.map((t, i) => (
-                            <span key={i} className="text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded-md border border-white/10 text-gray-500">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
           </div>
         </div>
       </div>
