@@ -5,8 +5,10 @@ import Image from 'next/image'
 
 export default function AboutSection() {
   return (
-    <div className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="relative min-h-screen py-16 sm:py-20 px-4 sm:px-6 md:px-8">
+      {/* Blur backdrop */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[6px]" />
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

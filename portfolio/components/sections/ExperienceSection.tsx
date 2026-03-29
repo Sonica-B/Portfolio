@@ -307,7 +307,9 @@ export default function ExperienceSection() {
 
   return (
     <div ref={sectionRef} className="relative py-16 sm:py-20 lg:py-[120px] px-4 sm:px-6 md:px-8">
-      <div className="max-w-5xl mx-auto">
+      {/* Blur backdrop */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[6px]" />
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
