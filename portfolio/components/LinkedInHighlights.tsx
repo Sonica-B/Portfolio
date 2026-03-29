@@ -40,8 +40,8 @@ export default function LinkedInHighlights() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.7, duration: 0.3 }}
-      className="mt-4 sm:mt-5 block w-full"
-      style={{ maxWidth: 400 }}
+      className="mt-3 sm:mt-4 block w-full"
+      style={{ maxWidth: 360 }}
     >
       <a
         href={post.postUrl}
@@ -50,9 +50,9 @@ export default function LinkedInHighlights() {
         className="block group"
         style={{
           background: '#FFFFFF',
-          borderRadius: 16,
-          padding: 16,
-          maxWidth: 400,
+          borderRadius: 14,
+          padding: 12,
+          maxWidth: 360,
           border: '1px solid #E8E8E8',
           boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
           transition: 'box-shadow 0.2s, transform 0.2s',
@@ -95,12 +95,12 @@ export default function LinkedInHighlights() {
         </div>
 
         {/* Hero Image */}
-        <div className="w-full overflow-hidden mb-3" style={{ borderRadius: 12 }}>
+        <div className="w-full overflow-hidden mb-2" style={{ borderRadius: 10 }}>
           <img
             src="/images/linkedin-post.jpg"
             alt="LinkedIn post"
             className="w-full"
-            style={{ borderRadius: 12, maxHeight: 320, objectFit: 'cover' }}
+            style={{ borderRadius: 10, maxHeight: 200, objectFit: 'cover' }}
           />
         </div>
 

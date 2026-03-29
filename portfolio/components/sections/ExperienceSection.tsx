@@ -136,30 +136,62 @@ const timelineData: TimelineItem[] = [
   },
 ]
 
-// Labels for the two-column layout (matching reference style)
+// Labels for the two-column layout — org/role specific
 const sectionLabels = [
-  'EDUCATION',
-  'FIRST STEPS',
-  'ENGINEERING',
+  'PES MCOE',
+  'FLAVALON',
+  'PERSISTENT',
   'DEVOPS LEAD',
-  'GRAD SCHOOL',
+  'WPI',
   'RESEARCH',
-  'LAB WORK',
-  'ML ENGINEER',
-  'CURRENT',
+  'LSPE LAB',
+  'CROSSING',
+  'HYPERSONICS',
 ]
 
-function TimelineRow({ item, label, index, activeIndex }: {
+// Year markers extracted from timeline data
+const yearMarkers = [
+  '2017', // PES
+  '2021', // Flavalon
+  '2022', // Persistent intern
+  '2022', // Persistent DevOps (same year, different half)
+  '2024', // WPI
+  '2025', // Research
+  '2025', // LSPE
+  '2025', // Crossing
+  '2025', // Hypersonics
+]
+
+function TimelineRow({ item, label, index, activeIndex, year, showYear }: {
   item: TimelineItem
   label: string
   index: number
   activeIndex: number
+  year: string
+  showYear: boolean
 }) {
   const distance = Math.abs(index - activeIndex)
   const opacity = distance === 0 ? 1 : distance === 1 ? 0.55 : 0.35
   const gap = distance === 0 ? 120 : distance === 1 ? 80 : 60
 
   return (
+    <div className="relative">
+      {/* Year marker on center line (desktop) */}
+      {showYear && (
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 -top-5 z-20 items-center justify-center">
+          <span
+            className="text-[10px] font-bold tracking-widest px-2.5 py-0.5 rounded-full border"
+            style={{
+              color: 'rgba(0,212,255,0.6)',
+              borderColor: 'rgba(0,212,255,0.15)',
+              background: 'rgba(0,10,20,0.8)',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            {year}
+          </span>
+        </div>
+      )}
     <motion.div
       className="flex items-start lg:items-center justify-center"
       style={{
@@ -259,6 +291,7 @@ function TimelineRow({ item, label, index, activeIndex }: {
         </div>
       </div>
     </motion.div>
+    </div>
   )
 }
 
@@ -358,6 +391,8 @@ export default function ExperienceSection() {
                   label={sectionLabels[index]}
                   index={index}
                   activeIndex={activeIndex}
+                  year={yearMarkers[index]}
+                  showYear={index === 0 || yearMarkers[index] !== yearMarkers[index - 1]}
                 />
               </motion.div>
             ))}
