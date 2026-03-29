@@ -62,10 +62,12 @@ function use3DTilt(intensity = 15) {
 // ─── 3D Enamel Pin Badge (with real badge artwork) ───────────
 
 function EnamelPinBadge({ badge, index }: {
-  badge: { name: string; image?: string; icon?: React.ReactNode; color: string; borderColor: string; shadowColor: string }
+  badge: { name: string; image?: string; icon?: React.ReactNode; color: string; borderColor: string; shadowColor: string; link?: string }
   index: number
 }) {
   const { springX, springY, handleMove, handleLeave } = use3DTilt(25)
+  const Wrapper = badge.link ? 'a' : 'div'
+  const wrapperProps = badge.link ? { href: badge.link, target: '_blank' as const, rel: 'noopener noreferrer' } : {}
 
   return (
     <motion.div
@@ -76,7 +78,7 @@ function EnamelPinBadge({ badge, index }: {
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={{ perspective: 800 }}
-      className="cursor-default"
+      className={badge.link ? 'cursor-pointer' : 'cursor-default'}
     >
       <motion.div
         style={{
@@ -88,6 +90,7 @@ function EnamelPinBadge({ badge, index }: {
         transition={{ type: 'spring', stiffness: 400, damping: 20 }}
         className="relative"
       >
+        <Wrapper {...wrapperProps} className="block">
         {/* Pin body — circular badge */}
         <div
           className="relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full flex items-center justify-center mx-auto"
@@ -156,6 +159,7 @@ function EnamelPinBadge({ badge, index }: {
             opacity: 0.5,
           }}
         />
+        </Wrapper>
       </motion.div>
     </motion.div>
   )
@@ -296,7 +300,9 @@ const awardIcons = [
   <svg key="5" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg>,
 ]
 
-// Badge data with real SVG images where available, icons as fallback
+const GDEV_PROFILE = 'https://g.dev/shreyaboyane'
+
+// Badge data — all with real SVG artwork and gdev profile links
 const badgePins = [
   {
     name: 'Deploy Faster GenAI with NVIDIA NIM on GKE',
@@ -304,6 +310,7 @@ const badgePins = [
     color: 'rgba(30,30,40,0.9)',
     borderColor: 'rgba(118,185,0,0.4)',
     shadowColor: 'rgba(118,185,0,0.15)',
+    link: GDEV_PROFILE,
   },
   {
     name: 'Intro to Inference: AI Models on GPU',
@@ -311,6 +318,7 @@ const badgePins = [
     color: 'rgba(30,30,40,0.9)',
     borderColor: 'rgba(118,185,0,0.4)',
     shadowColor: 'rgba(118,185,0,0.15)',
+    link: GDEV_PROFILE,
   },
   {
     name: 'Speed Up Data Analytics with GPUs',
@@ -318,6 +326,7 @@ const badgePins = [
     color: 'rgba(30,30,40,0.9)',
     borderColor: 'rgba(118,185,0,0.4)',
     shadowColor: 'rgba(118,185,0,0.15)',
+    link: GDEV_PROFILE,
   },
   {
     name: 'Gemini Enterprise Agent Ready',
@@ -325,41 +334,31 @@ const badgePins = [
     color: 'rgba(30,30,40,0.9)',
     borderColor: 'rgba(52,168,83,0.4)',
     shadowColor: 'rgba(52,168,83,0.15)',
+    link: GDEV_PROFILE,
   },
   {
     name: 'Google Cloud & NVIDIA Community',
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#76b900" strokeWidth="1.5">
-        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
-      </svg>
-    ),
-    color: 'rgba(30,40,30,0.9)',
-    borderColor: 'rgba(118,185,0,0.35)',
-    shadowColor: 'rgba(118,185,0,0.12)',
+    image: '/images/badges/nvidia-community.svg',
+    color: 'rgba(30,30,40,0.9)',
+    borderColor: 'rgba(118,185,0,0.4)',
+    shadowColor: 'rgba(118,185,0,0.15)',
+    link: GDEV_PROFILE,
   },
   {
     name: 'NVIDIA Developer Program',
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="#76b900">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      </svg>
-    ),
+    image: '/images/badges/nvidia-developers.svg',
     color: 'rgba(30,40,30,0.9)',
     borderColor: 'rgba(118,185,0,0.35)',
     shadowColor: 'rgba(118,185,0,0.12)',
+    link: GDEV_PROFILE,
   },
   {
     name: 'Python Gold Badge — HackerRank',
-    icon: (
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="1.5">
-        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-        <line x1="12" y1="2" x2="12" y2="22" strokeDasharray="2 3"/>
-      </svg>
-    ),
+    image: '/images/badges/python-gold-hackerrank.svg',
     color: 'rgba(40,35,20,0.9)',
-    borderColor: 'rgba(251,191,36,0.35)',
-    shadowColor: 'rgba(251,191,36,0.12)',
+    borderColor: 'rgba(212,160,23,0.4)',
+    shadowColor: 'rgba(212,160,23,0.15)',
+    link: 'https://www.hackerrank.com/profile/shreyaa_boyane',
   },
   {
     name: 'Google Developer Profile',
@@ -374,6 +373,7 @@ const badgePins = [
     color: 'rgba(30,35,45,0.9)',
     borderColor: 'rgba(66,133,244,0.35)',
     shadowColor: 'rgba(66,133,244,0.12)',
+    link: GDEV_PROFILE,
   },
 ]
 
