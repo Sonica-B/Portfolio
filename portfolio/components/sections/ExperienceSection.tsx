@@ -136,17 +136,17 @@ const timelineData: TimelineItem[] = [
   },
 ]
 
-// Labels for the two-column layout — org/role specific
+// Recruiter-friendly labels — role + domain focused
 const sectionLabels = [
-  'PES MCOE',
-  'FLAVALON',
-  'PERSISTENT',
+  'B.E. IT',
+  'WEB DEV',
+  'SDE INTERN',
   'DEVOPS LEAD',
-  'WPI',
-  'RESEARCH',
-  'LSPE LAB',
-  'CROSSING',
-  'HYPERSONICS',
+  'M.S. AI',
+  'AI RESEARCH',
+  'SPACEFLIGHT',
+  'ML ENGINEER',
+  'CURRENT ROLE',
 ]
 
 // Year markers extracted from timeline data
