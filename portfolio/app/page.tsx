@@ -133,11 +133,11 @@ export default function Home() {
       <div className="ambient-bg" />
 
       {/* All sections stacked vertically for continuous scroll */}
-      <section ref={sectionRefs.home} id="home" className="relative">
+      <section ref={sectionRefs.home} id="home" className="relative z-10">
         <LandingPage onNavigate={scrollToSection} />
       </section>
 
-      <section ref={sectionRefs.experience} id="experience" className="relative">
+      <section ref={sectionRefs.experience} id="experience" className="relative z-[5]">
         <ExperienceSection />
       </section>
 

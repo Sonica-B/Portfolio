@@ -42,7 +42,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 80])
 
   return (
-    <div ref={heroRef} className="min-h-screen relative overflow-hidden">
+    <div ref={heroRef} className="min-h-screen relative scroll-smooth size-lg">
       {/* Desktop Layout */}
       <div className="hidden lg:block">
         <motion.div
@@ -50,7 +50,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
           className="min-h-screen relative"
         >
           {/* Left Side Content - Desktop */}
-          <div className="absolute left-8 md:left-16 top-[10%] md:top-[12%] z-20 max-w-lg">
+          <div className="absolute left-8 md:left-16 top-[10%] md:top-[12%] z-30 max-w-lg">
             {/* Large Name */}
             <motion.h1
               initial={{ opacity: 0, x: -100 }}
