@@ -42,7 +42,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 80])
 
   return (
-    <div ref={heroRef} className="min-h-screen relative overflow-x-hidden">
+    <div ref={heroRef} className="min-h-screen relative overflow-hidden">
       {/* Desktop Layout */}
       <div className="hidden lg:block">
         <motion.div
