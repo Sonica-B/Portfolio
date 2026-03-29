@@ -2,6 +2,12 @@
 
 import { motion, useMotionValue, useTransform, animate, useSpring } from 'framer-motion'
 import { useEffect, useRef, useCallback, type MouseEvent } from 'react'
+import dynamic from 'next/dynamic'
+
+const CertificateCarousel = dynamic(() => import('@/components/CertificateCarousel'), {
+  ssr: false,
+  loading: () => null,
+})
 
 // ─── Animated Counter ────────────────────────────────────────
 
@@ -491,6 +497,9 @@ export default function AchievementsSection() {
             </a>
           </div>
         </motion.div>
+
+        {/* Certificates — Heap + Draggable Carousel */}
+        <CertificateCarousel />
 
         {/* Research */}
         <motion.div
