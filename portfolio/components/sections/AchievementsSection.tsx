@@ -62,7 +62,7 @@ function use3DTilt(intensity = 15) {
 // ─── 3D Enamel Pin Badge (with real badge artwork) ───────────
 
 function EnamelPinBadge({ badge, index }: {
-  badge: { name: string; image?: string; icon?: React.ReactNode; color: string; borderColor: string; shadowColor: string; link?: string }
+  badge: { name: string; image?: string; icon?: React.ReactNode; color: string; borderColor: string; shadowColor: string; link?: string; noPinStyle?: boolean }
   index: number
 }) {
   const { springX, springY, handleMove, handleLeave } = use3DTilt(25)
@@ -91,56 +91,68 @@ function EnamelPinBadge({ badge, index }: {
         className="relative"
       >
         <Wrapper {...wrapperProps} className="block">
-        {/* Pin body — circular badge */}
-        <div
-          className="relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full flex items-center justify-center mx-auto"
-          style={{
-            background: `radial-gradient(circle at 35% 35%, ${badge.color}, rgba(0,0,0,0.3))`,
-            border: `3px solid ${badge.borderColor}`,
-            boxShadow: `
-              0 8px 24px ${badge.shadowColor},
-              inset 0 2px 4px rgba(255,255,255,0.15),
-              inset 0 -2px 4px rgba(0,0,0,0.2),
-              0 2px 0 rgba(255,255,255,0.05)
-            `,
-            transform: 'translateZ(0)',
-          }}
-        >
-          {/* Enamel gloss highlight */}
-          <div
-            className="absolute inset-0 rounded-full pointer-events-none"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 30%, transparent 60%)',
-            }}
-          />
-
-          {/* Badge artwork (SVG image or icon) */}
-          {badge.image ? (
+        {badge.noPinStyle ? (
+          /* Direct badge image — no circular container (e.g. hexagonal badges) */
+          <div className="relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] flex items-center justify-center mx-auto">
             <img
               src={badge.image}
               alt={badge.name}
-              className="w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full object-cover"
+              className="w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] object-contain drop-shadow-lg"
               style={{ transform: 'translateZ(6px)' }}
             />
-          ) : (
-            <div
-              className="w-[52px] h-[52px] sm:w-[60px] sm:h-[60px] flex items-center justify-center"
-              style={{ transform: 'translateZ(6px)' }}
-            >
-              {badge.icon}
-            </div>
-          )}
-
-          {/* Pin clasp at top */}
+          </div>
+        ) : (
+          /* Pin body — circular badge */
           <div
-            className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
+            className="relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full flex items-center justify-center mx-auto"
             style={{
-              background: 'linear-gradient(135deg, #d4d4d4, #a0a0a0)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.5)',
-              transform: 'translateZ(10px)',
+              background: `radial-gradient(circle at 35% 35%, ${badge.color}, rgba(0,0,0,0.3))`,
+              border: `3px solid ${badge.borderColor}`,
+              boxShadow: `
+                0 8px 24px ${badge.shadowColor},
+                inset 0 2px 4px rgba(255,255,255,0.15),
+                inset 0 -2px 4px rgba(0,0,0,0.2),
+                0 2px 0 rgba(255,255,255,0.05)
+              `,
+              transform: 'translateZ(0)',
             }}
-          />
-        </div>
+          >
+            {/* Enamel gloss highlight */}
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 30%, transparent 60%)',
+              }}
+            />
+
+            {/* Badge artwork (SVG image or icon) */}
+            {badge.image ? (
+              <img
+                src={badge.image}
+                alt={badge.name}
+                className="w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full object-cover"
+                style={{ transform: 'translateZ(6px)' }}
+              />
+            ) : (
+              <div
+                className="w-[52px] h-[52px] sm:w-[60px] sm:h-[60px] flex items-center justify-center"
+                style={{ transform: 'translateZ(6px)' }}
+              >
+                {badge.icon}
+              </div>
+            )}
+
+            {/* Pin clasp at top */}
+            <div
+              className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, #d4d4d4, #a0a0a0)',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.5)',
+                transform: 'translateZ(10px)',
+              }}
+            />
+          </div>
+        )}
 
         {/* Name label below pin */}
         <p
@@ -345,19 +357,12 @@ const badgePins = [
     link: GDEV_PROFILE,
   },
   {
-    name: 'NVIDIA Developer Program',
-    image: '/images/badges/nvidia-developers.svg',
-    color: 'rgba(30,40,30,0.9)',
-    borderColor: 'rgba(118,185,0,0.35)',
-    shadowColor: 'rgba(118,185,0,0.12)',
-    link: GDEV_PROFILE,
-  },
-  {
     name: 'Python Gold Badge — HackerRank',
     image: '/images/badges/python-gold-hackerrank.svg',
-    color: 'rgba(40,35,20,0.9)',
-    borderColor: 'rgba(212,160,23,0.4)',
+    color: 'transparent',
+    borderColor: 'transparent',
     shadowColor: 'rgba(212,160,23,0.15)',
+    noPinStyle: true,
     link: 'https://www.hackerrank.com/profile/shreyaa_boyane',
   },
   {
@@ -450,7 +455,7 @@ export default function AchievementsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="floating-card p-4 sm:p-6 mb-6 sm:mb-8"
+          className="mb-6 sm:mb-8"
         >
           <h3 className="text-base sm:text-lg font-bold text-white mb-6 flex items-center gap-2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary">
