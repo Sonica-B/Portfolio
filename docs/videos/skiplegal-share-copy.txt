@@ -1,0 +1,1 @@
+SkipLegal: four agents turn a messy H-1B petition package into one attorney-ready QC report. Review time went from 3 to 4 days to about 5 to 10 minutes, with 99 to 100% missing-document detection. Built for Crossing on LangGraph, Amazon Bedrock, Lambda and Step Functions; named Data Science GQP MVP at WPI.

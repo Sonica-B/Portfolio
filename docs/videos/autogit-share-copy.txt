@@ -1,0 +1,1 @@
+Introducing AutoGit-AI: save a file and it stages, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. The only auto-commit extension with a built-in secret scanner, now on the VS Code Marketplace. Built on the VS Code Extension API, Apache-2.0.

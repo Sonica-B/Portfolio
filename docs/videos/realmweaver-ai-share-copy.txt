@@ -1,0 +1,1 @@
+RealmWeaver-AI: terrain tiles, props and whole biomes from Stable Diffusion with LoRA, a CVAE-GAN that learns tile structure and entropy-minimized Wave Function Collapse, placed automatically in Unity. FID 32.4 at 2.7 seconds per asset, and biome-aware prefab mapping cut manual integration effort 73%.

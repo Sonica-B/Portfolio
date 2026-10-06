@@ -1,0 +1,1 @@
+Introducing FairPrep: fairness-aware human feedback for table unionability. Is human feedback equally reliable across annotators? 6 of 10 FairEM metrics say no, with 25% vs 44% accuracy on hard questions (p = 0.031). Co-first-author paper submitted to DASHSys 2026. shreyaboyane.dev/projects/fairprep

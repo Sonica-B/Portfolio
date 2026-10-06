@@ -1,0 +1,1 @@
+Introducing RoboFusion: a robotic arm you control with hand gestures. MediaPipe hand tracking, a TensorFlow gesture model and an MPU6050 IMU fused inside ROS2, at 93% gesture accuracy and sub-500 ms gesture-to-command latency. Built with ROS2, Gazebo, TensorFlow, MediaPipe and OpenCV.

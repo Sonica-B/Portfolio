@@ -1,0 +1,1 @@
+Introducing TumorLytix: unsupervised brain tumor segmentation on 65,072 BraTS2020 MRI images, over 90% segmentation accuracy with no manual labels. CycleGAN synthesizes paired healthy and diseased scans, a conditionally guided diffusion model refines the boundaries. shreyaboyane.dev/projects/tumorlytix

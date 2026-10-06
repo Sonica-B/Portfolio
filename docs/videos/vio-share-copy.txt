@@ -1,0 +1,1 @@
+Introducing VIO: camera plus IMU fused through a Transformer encoder for deep visual-inertial odometry. Fusion cut RMSE ATE by about a third versus vision only (32% on Infinity, 34% on Random, 31% on Spiral), then shipped through TensorRT for 35% lower per-step latency. shreyaboyane.dev/projects/vio
