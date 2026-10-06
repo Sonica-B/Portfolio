@@ -38,7 +38,7 @@ void main() {
   p.x += sin(uTime * 0.7 + d * 7.0 + row * 0.02) * 0.0035 * d;
   p.y += cos(uTime * 0.6 + col * 0.015) * 0.003 * d;
   gl_Position = vec4(p, 0.0, 1.0);
-  gl_PointSize = uSize * (0.55 + d * 0.95) * (1.0 + uScroll * 0.8);
+  gl_PointSize = uSize * (1.1 + d * 0.7) * (1.0 + uScroll * 0.8);
 }`
 
 const FRAG = `#version 300 es
@@ -125,6 +125,7 @@ export function DepthPortrait({ src, depthSrc, width, height, alt }: Props) {
     const uPointer = gl.getUniformLocation(prog, 'uPointer')
     const uScroll = gl.getUniformLocation(prog, 'uScroll')
     const uTime = gl.getUniformLocation(prog, 'uTime')
+    const uSize = gl.getUniformLocation(prog, 'uSize')
 
     const upload = (unit: number, img: HTMLImageElement) => {
       const t = gl.createTexture()
@@ -151,6 +152,7 @@ export function DepthPortrait({ src, depthSrc, width, height, alt }: Props) {
       canvas.width = Math.round(el.clientWidth * dpr)
       canvas.height = Math.round(el.clientHeight * dpr)
       gl.viewport(0, 0, canvas.width, canvas.height)
+      gl.uniform1f(uSize, canvas.width / cols)
     }
     const draw = (now: number) => {
       cur.x += (target.x - cur.x) * 0.06
@@ -202,7 +204,6 @@ export function DepthPortrait({ src, depthSrc, width, height, alt }: Props) {
         gl.uniform1i(gl.getUniformLocation(prog, 'uColor'), 0)
         gl.uniform1i(gl.getUniformLocation(prog, 'uDepth'), 1)
         gl.uniform2f(gl.getUniformLocation(prog, 'uGrid'), cols, rows)
-        gl.uniform1f(gl.getUniformLocation(prog, 'uSize'), 2.5 * dpr)
         resize()
         ro.observe(el)
         io.observe(el)
