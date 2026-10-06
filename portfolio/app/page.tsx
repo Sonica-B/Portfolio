@@ -1,5 +1,14 @@
 import { Hero } from '@/components/hero/hero'
 import { ProofStrip } from '@/components/hero/proof-strip'
+import {
+  ActivitySection,
+  ContactSection,
+  ExperienceLedger,
+  FeaturedWork,
+  RecognitionSection,
+  ResearchSection,
+  SkillsSection,
+} from '@/components/sections'
 import { JsonLd, profilePageJsonLd } from '@/lib/jsonld'
 
 export default function HomePage() {
@@ -8,6 +17,13 @@ export default function HomePage() {
       <JsonLd data={profilePageJsonLd()} />
       <Hero />
       <ProofStrip />
+      <FeaturedWork />
+      <ResearchSection />
+      <ExperienceLedger />
+      <SkillsSection />
+      <RecognitionSection />
+      <ActivitySection />
+      <ContactSection />
     </>
   )
 }

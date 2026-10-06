@@ -20,7 +20,7 @@ Design read (taste skill): developer portfolio for hiring managers, editorial da
 
 Top-level keys: meta, identity (with availability and work authorization), links, education, publications, research, experience, projects, recognition, certifications, activity, leadership, recommendations, skills. Dates are ISO `YYYY-MM`; `end: null` means ongoing.
 
-Corrections baked in: M.S. completed May 2026, GPA 3.9/4.0, B.E. Jun 2017 to May 2022, "2+ years production DevOps", location San Jose CA, no BCI claim, Hypersonic Vehicles entry removed (unverified), ICML framed as a workshop poster, Golden Ticket framed as a community contest honorable mention.
+Corrections baked in: M.S. completed May 2026, GPA 3.9/4.0, B.E. Jun 2017 to May 2022, "2+ years production DevOps", location San Jose CA, no BCI claim, Hypersonic Vehicles graduate assistantship kept (verified on her LinkedIn, Jun 2025 to May 2026), ICML framed as a workshop poster, Golden Ticket framed as a community contest honorable mention.
 
 Drift guard: `scripts/check-profile.mjs` runs on `prebuild`; it fails if an entry with an end date in the past is marked ongoing, if the word "pursuing" appears, if the GPA is not 3.9, if any publication lacks a venue URL, or if an em dash appears anywhere in the content.
 

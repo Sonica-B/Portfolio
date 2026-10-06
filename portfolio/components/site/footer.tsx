@@ -15,7 +15,7 @@ const SOCIAL: { key: string; label: string }[] = [
 export function Footer() {
   const { links, identity, meta } = profile
   return (
-    <footer className="hairline mt-24 safe-bottom">
+    <footer className="hairline safe-bottom">
       <div className="container-site grid gap-10 py-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <p className="font-display text-2xl font-semibold tracking-tight">{identity.name}</p>
