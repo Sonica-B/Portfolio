@@ -140,7 +140,7 @@ export function videoJsonLd(p: Project) {
   return {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
-    name: `${p.name}: 20-second pitch`,
+    name: `${p.name}: 25-second pitch`,
     description: p.summary,
     thumbnailUrl: `${SITE_URL}${p.video.replace(/\.mp4$/, '.jpg')}`,
     contentUrl: `${SITE_URL}${p.video}`,

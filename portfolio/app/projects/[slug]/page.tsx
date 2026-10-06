@@ -183,7 +183,7 @@ export default async function ProjectPage({ params }: Props) {
                 height={1080}
                 className="w-full rounded-card bg-surface-sunken"
               />
-              <figcaption className="mt-3 text-sm text-ink-2">20-second pitch</figcaption>
+              <figcaption className="mt-3 text-sm text-ink-2">25-second pitch</figcaption>
             </figure>
           ) : null}
         </div>
