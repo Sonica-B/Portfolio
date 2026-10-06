@@ -158,5 +158,5 @@
   transform: translateY(14px);
   transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
   &[data-visible="true"] { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { opacity: 1; transform: none; transition: none; }
+  @media (prefers-reduced-motion: reduce), print { opacity: 1; transform: none; transition: none; }
 }
