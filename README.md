@@ -1,189 +1,47 @@
-<div align="center">
+# shreyaboyane.dev
 
-# Shreya Boyane | AI Developer Portfolio
+Source for Shreya Boyane's portfolio: a static Next.js 16 site for a machine learning engineer who publishes research and ships production systems. The application lives in `portfolio/`; this folder also carries the design documents.
 
-[![Live Demo](https://img.shields.io/badge/Live-shreyaboyane.dev-00d4ff?style=for-the-badge&logo=vercel&logoColor=white)](https://shreyaboyane.dev)
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
-[![Three.js](https://img.shields.io/badge/Three.js-3D-black?style=for-the-badge&logo=three.js)](https://threejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+## Repository layout
 
-<br />
+- `portfolio/`: the Next.js app. Its own README is the operating manual (stack, content model, scripts, machine surfaces).
+- `docs/superpowers/specs/2026-10-06-portfolio-rebuild-design.md`: the design spec for the 2026 rebuild.
+- `docs/superpowers/agent-brief.md`: the shared rules every contributor follows (design tokens, accessibility, real content only, no em dashes).
+- `docs/videos/`: share copy for the project pitch videos.
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" alt="-----------------------------------------------------" width="100%">
+## Stack
 
-### An immersive, interactive portfolio featuring a sci-fi neural network background, draggable glass-morphic bubbles, and AI-powered chat.
+Next.js 16 (App Router, Turbopack, every route static), React 19, TypeScript 5, Tailwind CSS 4 with OKLCH tokens, Motion for interactive islands, Phosphor icons, and `next/font` for Bricolage Grotesque, Geist and Geist Mono. There are no runtime API routes and no cookies.
 
-<br />
+## Content model
 
-[View Live Site](https://shreyaboyane.dev) · [Report Bug](https://github.com/Sonica-B/Portfolio/issues) · [Request Feature](https://github.com/Sonica-B/Portfolio/issues)
+`portfolio/content/profile.json` is the single source of truth. Every page, the JSON-LD, the sitemap, the HTML resume, `llms.txt`, `llms-full.txt` and the markdown mirrors under `portfolio/public/md/` are generated from it, so a correction is made once.
 
-</div>
+A drift guard, `portfolio/scripts/check-profile.mjs`, runs before every build and fails on stale facts: an entry marked ongoing after its end date, the word "pursuing", a GPA other than 3.9, a publication without a venue URL, an em or en dash anywhere, a duplicate project slug or a project summary over 60 words.
 
-<br />
+## Updating content
 
-## Features
+1. Edit `portfolio/content/profile.json`.
+2. Inside `portfolio/`, run `npm run check` for the drift guard.
+3. Run `node scripts/build-markdown.mjs` to regenerate `public/md/`. The build does this on its own, and the output is committed so the markdown surfaces work without a build step.
+4. Commit the JSON and the regenerated markdown together.
 
-<table>
-<tr>
-<td width="50%">
-
-### Interactive Neural Network
-- Real-time animated neural mesh with 280+ nodes
-- Signal pulses that propagate through connections
-- Mouse parallax effect for depth perception
-- Organic wave-like node movement
-- Dynamic twinkling effect simulating neural activity
-
-</td>
-<td width="50%">
-
-### Glass-Morphic Navigation Bubbles
-- Draggable bubbles with spring physics
-- Morphing blob shapes with CSS animations
-- Iridescent rim effects
-- Click or drag to navigate sections
-- 3D rotation on drag
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### AI-Powered Chat
-- Integrated Google Gemini AI
-- Context-aware responses about my background
-- Real-time streaming responses
-- Sleek glass UI design
-
-</td>
-<td width="50%">
-
-### Apple-Inspired Design
-- Minimalist dark theme
-- Smooth Framer Motion animations
-- Backdrop blur glass effects
-- Responsive layout
-- Custom Inter typography
-
-</td>
-</tr>
-</table>
-
-<br />
-
-## Tech Stack
-
-| Category | Technologies |
-|----------|-------------|
-| **Framework** | Next.js 14 (App Router) |
-| **Language** | TypeScript |
-| **Styling** | Tailwind CSS |
-| **3D Graphics** | Three.js, React Three Fiber, Drei |
-| **Animations** | Framer Motion |
-| **AI Integration** | Google Gemini API |
-| **Deployment** | Vercel |
-
-<br />
-
-## Quick Start
+## Running locally
 
 ```bash
-# Clone the repository
-git clone https://github.com/Sonica-B/Portfolio.git
-
-# Navigate to portfolio directory
-cd Portfolio/portfolio
-
-# Install dependencies
+cd portfolio
 npm install
-
-# Create environment file
-cp .env.example .env.local
-# Add your GEMINI_API_KEY to .env.local
-
-# Start development server
-npm run dev
+npm run dev      # http://localhost:3000
+npm run build    # drift guard, markdown generation, then next build
+npm run start    # serve the production build
 ```
-
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-<br />
-
-## Environment Variables
-
-Create a `.env.local` file in the `portfolio` directory:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-Get your API key from [Google AI Studio](https://aistudio.google.com/apikey)
-
-<br />
-
-## Project Structure
-
-```
-portfolio/
-├── app/
-│   ├── api/
-│   │   ├── chat/          # AI chat endpoint
-│   │   └── linkedin/      # LinkedIn integration
-│   ├── layout.tsx         # Root layout with metadata
-│   ├── page.tsx           # Main page component
-│   └── globals.css        # Global styles
-├── components/
-│   ├── Scene3D.tsx        # Neural network background
-│   ├── SoapBubbles3D.tsx  # Navigation bubbles
-│   ├── LandingPage.tsx    # Main landing section
-│   ├── ChatBot.tsx        # AI chat interface
-│   └── ...                # Section components
-└── public/
-    └── shreya.png         # Profile image
-```
-
-<br />
 
 ## Deployment
 
-This project is configured for automatic deployment on Vercel:
+Vercel builds the `portfolio/` directory. Pushes to `master` deploy to production at https://shreyaboyane.dev; every other branch and pull request gets a preview URL. `portfolio/vercel.json` only pins the framework; security headers and asset caching live in `portfolio/next.config.ts`.
 
-1. Push to `master` branch
-2. Vercel automatically builds and deploys
-3. Preview deployments for pull requests
+## Credits
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Sonica-B/Portfolio)
-
-<br />
-
-## Performance
-
-- Optimized Three.js rendering with instanced meshes
-- Lazy loading for heavy components
-- Static generation where possible
-- Edge-optimized API routes
-
-<br />
-
-## Connect
-
-<div align="center">
-
-[![Portfolio](https://img.shields.io/badge/Portfolio-shreyaboyane.dev-00d4ff?style=for-the-badge)](https://shreyaboyane.dev)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/shreyaboyane)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github)](https://github.com/Sonica-B)
-
-</div>
-
-<br />
-
----
-
-<div align="center">
-
-**Built with passion by Shreya Boyane**
-
-*MS in Artificial Intelligence @ Worcester Polytechnic Institute*
-
-</div>
+- The hero renders Shreya's portrait as a WebGL2 point cloud displaced by a depth map produced with Depth Anything V2, the same model family she used in her Einstein Vision project. Reduced motion, missing WebGL2 and `Save-Data` fall back to the flat portrait.
+- Project pitch videos are rendered with Hyperframes.
+- Fonts: Bricolage Grotesque, Geist and Geist Mono from Google Fonts.
