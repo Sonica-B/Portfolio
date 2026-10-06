@@ -95,7 +95,7 @@ export function DepthPortrait({ src, depthSrc, width, height, alt }: Props) {
     let visible = true
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    const cols = window.innerWidth < 768 ? 150 : 230
+    const cols = window.innerWidth < 768 ? 180 : 300
     const rows = Math.round((cols * height) / width)
     const target = { x: 0, y: 0 }
     const cur = { x: 0, y: 0 }
@@ -202,7 +202,7 @@ export function DepthPortrait({ src, depthSrc, width, height, alt }: Props) {
         gl.uniform1i(gl.getUniformLocation(prog, 'uColor'), 0)
         gl.uniform1i(gl.getUniformLocation(prog, 'uDepth'), 1)
         gl.uniform2f(gl.getUniformLocation(prog, 'uGrid'), cols, rows)
-        gl.uniform1f(gl.getUniformLocation(prog, 'uSize'), 2.3 * dpr)
+        gl.uniform1f(gl.getUniformLocation(prog, 'uSize'), 2.5 * dpr)
         resize()
         ro.observe(el)
         io.observe(el)
@@ -220,7 +220,6 @@ export function DepthPortrait({ src, depthSrc, width, height, alt }: Props) {
       io.disconnect()
       window.removeEventListener('pointermove', onMove)
       document.removeEventListener('visibilitychange', onVisibility)
-      gl.getExtension('WEBGL_lose_context')?.loseContext()
     }
   }, [src, depthSrc, width, height])
 
@@ -232,7 +231,7 @@ export function DepthPortrait({ src, depthSrc, width, height, alt }: Props) {
   }
 
   return (
-    <figure className="mx-auto w-full" style={{ maxWidth: 'min(520px, calc(64dvh * 0.568))' }}>
+    <figure className="mx-auto w-full" style={{ maxWidth: 'min(560px, calc(80dvh * 0.568))' }}>
       <div ref={host} className="relative w-full" style={{ aspectRatio: `${width} / ${height}` }}>
         <Image
           src={src}
