@@ -8,6 +8,9 @@ import { Nav } from '@/components/site/nav'
 import { Footer } from '@/components/site/footer'
 import { Grain } from '@/components/site/grain'
 import { SiteAnalytics } from '@/components/site/analytics'
+import { CommandPalette } from '@/components/cta/command-palette'
+import { ScrollIsland } from '@/components/cta/scroll-island'
+import { ReelProvider, pitchItems } from '@/components/reel'
 import { JsonLd, personJsonLd, websiteJsonLd } from '@/lib/jsonld'
 
 const space = Space_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--font-space', display: 'swap' })
@@ -88,7 +91,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <Nav email={{ user: emailUser, domain: emailDomain }} />
-        <main id="main">{children}</main>
+        {/* The reel provider wraps the page content so any PlayPitch or filmstrip opens the one shared lightbox. */}
+        <ReelProvider items={pitchItems()}>
+          <main id="main">{children}</main>
+        </ReelProvider>
         <Footer />
         <Grain />
         <JsonLd data={personJsonLd()} />
@@ -96,7 +102,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <SpeedInsights />
         <SiteAnalytics />
-        {/* orchestrator mounts ReelProvider, ScrollIsland and CommandPalette here */}
+        <ScrollIsland />
+        <CommandPalette />
       </body>
     </html>
   )
