@@ -119,8 +119,8 @@ export function TimelineRail({ entries, orientation, density, initialOpenId, cla
         <div aria-hidden="true" className="absolute top-[18px] bottom-0 left-0 w-px bg-rule" />
         <motion.div
           aria-hidden="true"
-          className="absolute top-[18px] bottom-0 left-0 w-px origin-top bg-accent"
-          style={{ scaleY: reduced ? 1 : scrollYProgress }}
+          className="absolute top-[18px] bottom-0 left-0 w-px origin-top bg-accent motion-reduce:transform-none!"
+          style={{ scaleY: scrollYProgress }}
         />
         <ol onKeyDown={onKeyDown} className="m-0 list-none p-0">
           {entries.map((entry, i) => (
