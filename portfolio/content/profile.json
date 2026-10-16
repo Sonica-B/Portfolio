@@ -1470,8 +1470,8 @@
       "repo": "https://github.com/Sonica-B/Buildings-Built-in-Minutes",
       "links": {},
       "visual": {
-        "src": "/projects/buildings-built-in-minutes/nerf-lego.webp",
-        "alt": "NeRF rendering of the Lego scene rotating 360 degrees"
+        "src": "/projects/buildings-built-in-minutes/lego-orbit-poster.webp",
+        "alt": "NeRF rendering of the Lego bulldozer scene from a novel viewpoint"
       },
       "video": null,
       "recognition": null,

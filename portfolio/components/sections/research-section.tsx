@@ -88,6 +88,7 @@ export function ResearchSection() {
                     alt={figure.alt}
                     width={figureSize.width}
                     height={figureSize.height}
+                    style={{ aspectRatio: `${figureSize.width} / ${figureSize.height}` }}
                     loading="lazy"
                     sizes="(min-width: 1440px) 420px, 30vw"
                     className="w-full rounded-card bg-surface-sunken"
