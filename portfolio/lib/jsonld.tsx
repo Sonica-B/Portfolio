@@ -163,3 +163,34 @@ export function itemListJsonLd(projects: Project[]) {
     })),
   }
 }
+
+/** One pitch as a VideoObject: the videoJsonLd shape with the WebP poster and the project page as url. */
+function pitchVideoObject(p: Project) {
+  const video = videoJsonLd({ ...p, video: `/videos/${p.slug}.mp4` })
+  if (!video) return null
+  const { '@context': _context, ...rest } = video
+  return {
+    ...rest,
+    '@id': `${SITE_URL}/projects/${p.slug}#pitch`,
+    url: `${SITE_URL}/projects/${p.slug}`,
+    thumbnailUrl: `${SITE_URL}/videos/${p.slug}.webp`,
+  }
+}
+
+/** ItemList of the pitch reel (home page). Pass the ordered slugs; slugs without a project entry are skipped. */
+export function reelItemListJsonLd(slugs: readonly string[]) {
+  const videos = slugs.flatMap((slug) => {
+    const p = profile.projects.find((x) => x.slug === slug)
+    const v = p ? pitchVideoObject(p) : null
+    return v ? [v] : []
+  })
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': `${SITE_URL}/#pitch-reel`,
+    name: 'Pitch reel: 25-second project pitches by Shreya Boyane',
+    numberOfItems: videos.length,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    itemListElement: videos.map((v, i) => ({ '@type': 'ListItem', position: i + 1, item: v })),
+  }
+}
