@@ -14,24 +14,31 @@ type Props = {
 /**
  * Organization logo from content/logos.json. Renders nothing when no logo was sourced,
  * so callers can place it unconditionally next to a name.
+ * Vector marks are tinted to the ink colour at rest; raster marks (photos of a crest, a
+ * screenshot of a wordmark) are only desaturated, because inverting them leaves a solid block.
  */
 export function Logo({ name, height = 20, mono = true, className }: Props) {
   const logo = getLogo(name)
   if (!logo) return null
+  const ratio = logo.width && logo.height ? logo.width / logo.height : 3
+  const width = Math.max(height, Math.round(height * ratio))
+  const vector = logo.src.endsWith('.svg')
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={logo.src}
       alt={logo.alt}
+      width={width}
       height={height}
       loading="lazy"
       decoding="async"
       className={cn(
-        'inline-block w-auto max-w-[9rem] object-contain',
-        mono && 'opacity-80 brightness-0 invert transition group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0',
+        'inline-block max-w-[9rem] object-contain object-left',
+        mono && vector && 'opacity-80 brightness-0 invert transition group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0',
+        mono && !vector && 'opacity-90 grayscale transition group-hover:opacity-100 group-hover:grayscale-0',
         className,
       )}
-      style={{ height }}
+      style={{ height, width: 'auto' }}
     />
   )
 }

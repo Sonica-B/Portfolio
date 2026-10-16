@@ -6,6 +6,9 @@ export type LogoEntry = {
   source: string
   mono: boolean
   wordmark: boolean
+  /** Intrinsic size of the file (SVG viewBox or raster pixels), used to give <img> real dimensions. */
+  width?: number
+  height?: number
 }
 
 const logos = raw as Record<string, LogoEntry>
