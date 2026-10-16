@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <div className="container-site py-16 md:py-24">
-      <p className="text-metric text-sm text-ink-2">404</p>
+      <p className="text-status">404: no route</p>
       <h1 className="text-display mt-3">Page not found</h1>
       <p className="text-lead mt-5 max-w-[48ch] text-ink-2">
         The address may have changed, or this page never existed.

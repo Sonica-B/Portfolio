@@ -17,9 +17,9 @@ export function Section({
   children: React.ReactNode
 }) {
   return (
-    <section id={id} className={cn('container-site cv-auto py-20 md:py-28', className)}>
+    <section id={id} className={cn('container-site cv-auto py-16 md:py-24', className)}>
       {(title || intro) && (
-        <div className="mb-10 max-w-[62ch] md:mb-14">
+        <div className="mb-8 max-w-[62ch] md:mb-10">
           {label && <p className="text-label mb-3 text-accent">{label}</p>}
           {title && <h2 className="text-headline">{title}</h2>}
           {intro && <p className="text-lead mt-4 text-ink-2">{intro}</p>}

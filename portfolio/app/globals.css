@@ -1,38 +1,23 @@
 @import "tailwindcss";
 
-/* ---------- Design tokens (OKLCH). Dark is the default theme. ---------- */
+/* ---------- Design tokens (OKLCH). Dark only: a mission-control console. ---------- */
 :root {
-  --surface: oklch(0.14 0.012 260);
-  --surface-raised: oklch(0.18 0.012 260);
-  --surface-sunken: oklch(0.11 0.012 260);
-  --rule: oklch(0.28 0.01 260);
-  --rule-strong: oklch(0.4 0.012 260);
-  --ink: oklch(0.96 0.006 80);
-  --ink-2: oklch(0.75 0.01 80);
-  --ink-3: oklch(0.62 0.01 80);
-  --accent: oklch(0.83 0.16 78);
-  --accent-ink: oklch(0.2 0.03 78);
-  --accent-soft: oklch(0.83 0.16 78 / 0.13);
-  --shadow: oklch(0.06 0.02 260 / 0.55);
-  --grain-opacity: 0.045;
+  --surface: oklch(0.13 0.02 255);
+  --surface-raised: oklch(0.17 0.02 255);
+  --surface-sunken: oklch(0.1 0.02 255);
+  --rule: oklch(0.27 0.02 252);
+  --rule-strong: oklch(0.42 0.03 245);
+  --ink: oklch(0.97 0.005 220);
+  --ink-2: oklch(0.72 0.01 230);
+  --ink-3: oklch(0.6 0.015 235);
+  --accent: oklch(0.86 0.12 205);
+  --accent-ink: oklch(0.18 0.03 230);
+  --accent-soft: oklch(0.86 0.12 205 / 0.14);
+  --signal: oklch(0.72 0.2 340);
+  --glow: 0 0 0 1px oklch(0.86 0.12 205 / 0.35), 0 0 24px oklch(0.86 0.12 205 / 0.18);
+  --grid-line: oklch(0.97 0.005 220 / 0.03);
+  --grain-opacity: 0.04;
   color-scheme: dark;
-}
-
-[data-theme="light"] {
-  --surface: oklch(0.985 0.004 80);
-  --surface-raised: oklch(0.955 0.006 80);
-  --surface-sunken: oklch(0.93 0.008 80);
-  --rule: oklch(0.88 0.008 80);
-  --rule-strong: oklch(0.76 0.01 80);
-  --ink: oklch(0.2 0.012 260);
-  --ink-2: oklch(0.42 0.012 260);
-  --ink-3: oklch(0.54 0.01 260);
-  --accent: oklch(0.6 0.15 68);
-  --accent-ink: oklch(0.99 0.01 80);
-  --accent-soft: oklch(0.6 0.15 68 / 0.12);
-  --shadow: oklch(0.35 0.02 60 / 0.18);
-  --grain-opacity: 0.03;
-  color-scheme: light;
 }
 
 @theme inline {
@@ -47,8 +32,9 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
+  --color-signal: var(--signal);
 
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -78,6 +64,18 @@
     overflow-x: clip;
     min-height: 100dvh;
   }
+  /* Faint 64 px grid under every page: fixed, no DOM node, painted above the ground and below content. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
   ::selection { background: var(--accent); color: var(--accent-ink); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
   h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; }
@@ -94,41 +92,48 @@
       scroll-behavior: auto !important;
     }
   }
+  @media print {
+    body::before { display: none; }
+  }
 }
 
 /* Cross-document view transitions where supported (progressive). */
 @view-transition { navigation: auto; }
 
-/* ---------- Utilities ---------- */
+/* ---------- Layout utilities ---------- */
 @utility container-site {
   width: 100%;
   max-width: 1440px;
   margin-inline: auto;
   padding-inline: clamp(1rem, 0.4rem + 3vw, 4rem);
 }
+@utility hairline { border-top: 1px solid var(--rule); }
+@utility safe-bottom { padding-bottom: max(1.25rem, env(safe-area-inset-bottom)); }
+@utility safe-top { padding-top: max(0px, env(safe-area-inset-top)); }
+@utility cv-auto { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+@utility press { transition: transform 150ms var(--ease-out-quart); &:active { transform: scale(0.98); } }
+
+/* ---------- Type: five steps plus the mono data styles. Space Grotesk has no axes. ---------- */
 @utility text-display {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(2.6rem, 1.6rem + 4.6vw, 6.4rem);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-  font-variation-settings: "opsz" 96, "wdth" 92;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
 }
 @utility text-headline {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.5rem);
-  line-height: 1.04;
-  letter-spacing: -0.025em;
-  font-variation-settings: "opsz" 48, "wdth" 94;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 @utility text-title {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.65rem);
   line-height: 1.15;
-  letter-spacing: -0.015em;
-  font-variation-settings: "opsz" 24, "wdth" 96;
+  letter-spacing: -0.02em;
 }
 @utility text-lead {
   font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.3rem);
@@ -145,12 +150,51 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
+/* Status line under instruments: "depth map: Depth Anything V2, 54,000 points". */
+@utility text-status {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
 @utility tnum { font-variant-numeric: tabular-nums; }
-@utility hairline { border-top: 1px solid var(--rule); }
-@utility safe-bottom { padding-bottom: max(1.25rem, env(safe-area-inset-bottom)); }
-@utility safe-top { padding-top: max(0px, env(safe-area-inset-top)); }
-@utility cv-auto { content-visibility: auto; contain-intrinsic-size: auto 800px; }
-@utility press { transition: transform 150ms var(--ease-out-quart); &:active { transform: scale(0.98); } }
+
+/* ---------- HUD grammar ---------- */
+/* Four 10 px corner brackets, 1 px rule-strong, drawn by one pseudo-element so the element keeps its own children. */
+@utility hud-frame {
+  position: relative;
+  &::after {
+    --bracket: linear-gradient(var(--rule-strong), var(--rule-strong));
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      var(--bracket), var(--bracket), var(--bracket), var(--bracket),
+      var(--bracket), var(--bracket), var(--bracket), var(--bracket);
+    background-size: 10px 1px, 1px 10px, 10px 1px, 1px 10px, 10px 1px, 1px 10px, 10px 1px, 1px 10px;
+    background-position:
+      left top, left top, right top, right top,
+      left bottom, left bottom, right bottom, right bottom;
+    background-repeat: no-repeat;
+  }
+}
+/* Low-alpha cyan glow for hover and focus: use as hover:glow and focus-visible:glow, or at rest on an active instrument. */
+@utility glow { box-shadow: var(--glow); }
+/* Pictures and video: square corners, one hairline, sunken ground behind letterboxing. */
+@utility frame-media {
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--surface-sunken);
+}
+/* Raised panel with 12 px corners and a rule at 60 percent. */
+@utility panel {
+  background: var(--surface-raised);
+  border-radius: var(--radius-card);
+  border: 1px solid color-mix(in oklab, var(--rule) 60%, transparent);
+}
 
 /* Reveal: respects reduced motion, and the Reveal component sets data-visible on mount if already visible. */
 @utility reveal {

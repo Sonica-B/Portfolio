@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { List, X } from '@phosphor-icons/react'
-import { ThemeToggle } from '@/components/site/theme-toggle'
+import { List, MagnifyingGlass, X } from '@phosphor-icons/react'
+import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 
 const LINKS = [
@@ -14,7 +14,68 @@ const LINKS = [
   { href: '/resume', label: 'Resume' },
 ]
 
-export function Nav() {
+/** Address split by the layout; joined here on click so no markup carries the full string. */
+export type NavEmail = { user: string; domain: string }
+
+const openPalette = () => window.dispatchEvent(new CustomEvent('palette:open'))
+
+function useCopyEmail(email: NavEmail, location: string) {
+  const [copied, setCopied] = useState(false)
+  const timer = useRef<number | undefined>(undefined)
+  useEffect(() => () => window.clearTimeout(timer.current), [])
+
+  const copy = async () => {
+    const address = `${email.user}@${email.domain}`
+    window.dispatchEvent(new CustomEvent('email:copy', { detail: { location } }))
+    track('cta_click', { id: 'email', location })
+    try {
+      await navigator.clipboard.writeText(address)
+      setCopied(true)
+      window.clearTimeout(timer.current)
+      timer.current = window.setTimeout(() => setCopied(false), 1500)
+    } catch {
+      window.location.href = `mailto:${address}`
+    }
+  }
+  return { copied, copy }
+}
+
+function EmailButton({ email, location, className }: { email: NavEmail; location: string; className?: string }) {
+  const { copied, copy } = useCopyEmail(email, location)
+  return (
+    <>
+      <button
+        type="button"
+        onClick={copy}
+        className={cn(
+          'press inline-flex h-11 min-w-28 items-center justify-center rounded-full bg-accent px-5 text-sm font-medium text-accent-ink transition-opacity hover:opacity-90',
+          className,
+        )}
+      >
+        {copied ? 'Copied' : 'Email me'}
+      </button>
+      <span aria-live="polite" className="sr-only">
+        {copied ? 'Email address copied to the clipboard' : ''}
+      </span>
+    </>
+  )
+}
+
+function SearchButton() {
+  return (
+    <button
+      type="button"
+      onClick={openPalette}
+      className="inline-flex h-11 items-center gap-2 rounded-full border border-rule-strong px-3.5 text-sm text-ink-2 transition-[color,border-color,box-shadow] duration-200 hover:border-accent/60 hover:text-ink hover:glow focus-visible:glow"
+    >
+      <MagnifyingGlass size={16} aria-hidden="true" />
+      Search
+      <kbd className="hidden font-mono text-xs text-ink-3 sm:inline">Ctrl K</kbd>
+    </button>
+  )
+}
+
+export function Nav({ email }: { email: NavEmail }) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const firstLink = useRef<HTMLAnchorElement>(null)
@@ -37,45 +98,39 @@ export function Nav() {
 
   return (
     <header className="sticky top-0 z-40 safe-top">
-      <div className="bg-surface/80 backdrop-blur-md border-b border-rule/70">
-        <nav aria-label="Primary" className="container-site flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="font-display text-[1.05rem] font-semibold tracking-tight text-ink" aria-label="Shreya Boyane, home">
+      <div className="border-b border-rule/70 bg-surface/80 backdrop-blur-md">
+        <nav aria-label="Primary" className="container-site flex h-16 items-center justify-between gap-3">
+          <Link href="/" className="font-display text-lg font-bold tracking-tight text-ink" aria-label="Shreya Boyane, home">
             Shreya Boyane
           </Link>
 
-          <div className="hidden items-center gap-1 md:flex">
+          <ul className="hidden items-center gap-1 md:flex">
             {LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                aria-current={isActive(l.href) ? 'page' : undefined}
-                className={cn(
-                  'rounded-full px-3.5 py-2 text-sm text-ink-2 transition-colors hover:bg-surface-raised hover:text-ink',
-                  isActive(l.href) && 'bg-surface-raised text-ink',
-                )}
-              >
-                {l.label}
-              </Link>
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  aria-current={isActive(l.href) ? 'page' : undefined}
+                  className={cn(
+                    'rounded-full px-3.5 py-2 text-sm text-ink-2 transition-colors hover:bg-surface-raised hover:text-ink',
+                    isActive(l.href) && 'bg-surface-raised text-ink',
+                  )}
+                >
+                  {l.label}
+                </Link>
+              </li>
             ))}
-            <span className="mx-1 h-5 w-px bg-rule" aria-hidden="true" />
-            <ThemeToggle />
-            <a
-              href="mailto:shreyaa.boyane@gmail.com"
-              className="press ml-1 inline-flex h-10 items-center rounded-full bg-accent px-4 text-sm font-medium text-accent-ink transition-opacity hover:opacity-90"
-            >
-              Email me
-            </a>
-          </div>
+          </ul>
 
-          <div className="flex items-center gap-1 md:hidden">
-            <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <SearchButton />
+            <EmailButton email={email} location="nav" className="hidden md:inline-flex" />
             <button
               type="button"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? 'Close menu' : 'Open menu'}
               onClick={() => setOpen((v) => !v)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink hover:bg-surface-raised"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink hover:bg-surface-raised md:hidden"
             >
               {open ? <X size={22} aria-hidden="true" /> : <List size={22} aria-hidden="true" />}
             </button>
@@ -100,7 +155,7 @@ export function Nav() {
                 href={l.href}
                 aria-current={isActive(l.href) ? 'page' : undefined}
                 className={cn(
-                  'block rounded-card px-4 py-4 font-display text-3xl font-semibold tracking-tight text-ink',
+                  'block rounded-card px-4 py-4 font-display text-3xl font-bold tracking-tight text-ink',
                   isActive(l.href) && 'text-accent',
                 )}
               >
@@ -109,9 +164,7 @@ export function Nav() {
             </li>
           ))}
           <li className="mt-4 px-4">
-            <a href="mailto:shreyaa.boyane@gmail.com" className="press inline-flex h-12 items-center rounded-full bg-accent px-6 text-base font-medium text-accent-ink">
-              Email me
-            </a>
+            <EmailButton email={email} location="menu" className="h-12 px-6 text-base" />
           </li>
         </ul>
       </div>
