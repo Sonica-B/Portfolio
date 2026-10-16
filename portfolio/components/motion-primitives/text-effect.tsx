@@ -2,7 +2,8 @@
 import { cn } from '@/lib/utils';
 import {
   AnimatePresence,
-  motion
+  motion,
+  useReducedMotion
 } from 'motion/react';
 import type {
   TargetAndTransition,
@@ -10,7 +11,11 @@ import type {
   Variant,
   Variants,
 } from 'motion/react'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+// Before hydration the segments carry Motion's hidden inline styles; with reduced motion these
+// keep the text visible until the static render below takes over.
+const REDUCED_VISIBLE = 'motion-reduce:opacity-100! motion-reduce:transform-none! motion-reduce:filter-none!';
 
 export type PresetType = 'blur' | 'fade-in-blur' | 'scale' | 'fade' | 'slide';
 
@@ -119,14 +124,14 @@ const AnimationComponent: React.FC<{
 }> = React.memo(({ segment, variants, per, segmentWrapperClassName }) => {
   const content =
     per === 'line' ? (
-      <motion.span variants={variants} className='block'>
+      <motion.span variants={variants} className={cn('block', REDUCED_VISIBLE)}>
         {segment}
       </motion.span>
     ) : per === 'word' ? (
       <motion.span
         aria-hidden='true'
         variants={variants}
-        className='inline-block whitespace-pre'
+        className={cn('inline-block whitespace-pre', REDUCED_VISIBLE)}
       >
         {segment}
       </motion.span>
@@ -137,7 +142,7 @@ const AnimationComponent: React.FC<{
             key={`char-${charIndex}`}
             aria-hidden='true'
             variants={variants}
-            className='inline-block whitespace-pre'
+            className={cn('inline-block whitespace-pre', REDUCED_VISIBLE)}
           >
             {char}
           </motion.span>
@@ -162,8 +167,12 @@ AnimationComponent.displayName = 'AnimationComponent';
 
 const splitText = (text: string, per: PerType) => {
   if (per === 'line') return text.split('\n');
-  return text.split(/(\s+)/);
+  return text.split(/(\s+)/).filter(Boolean);
 };
+
+// Whitespace stays an ordinary text node between the inline-block words, so a wrapped line
+// breaks at the space and never starts with a preserved space.
+const isSpace = (segment: string) => /^\s+$/.test(segment);
 
 const hasTransition = (
   variant?: Variant
@@ -224,6 +233,22 @@ export function TextEffect({
   segmentTransition,
   style,
 }: TextEffectProps) {
+  // useReducedMotion reads the media query on the first client render, so the static branch
+  // waits until after hydration to keep the server and client markup identical.
+  const reduce = useReducedMotion();
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+
+  if (reduce && hydrated) {
+    if (!trigger) return null;
+    const Tag = as as React.ElementType;
+    return (
+      <Tag className={className} style={style}>
+        {children}
+      </Tag>
+    );
+  }
+
   const segments = splitText(children, per);
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
 
@@ -272,21 +297,27 @@ export function TextEffect({
           animate='visible'
           exit='exit'
           variants={computedVariants.container}
-          className={className}
+          // Joined, not cn(): tailwind-merge reads custom type utilities such as text-lead as a
+          // colour and would drop them next to text-ink-2.
+          className={className ? `${className} ${REDUCED_VISIBLE}` : REDUCED_VISIBLE}
           onAnimationComplete={onAnimationComplete}
           onAnimationStart={onAnimationStart}
           style={style}
         >
           {per !== 'line' ? <span className='sr-only'>{children}</span> : null}
-          {segments.map((segment, index) => (
-            <AnimationComponent
-              key={`${per}-${index}-${segment}`}
-              segment={segment}
-              variants={computedVariants.item}
-              per={per}
-              segmentWrapperClassName={segmentWrapperClassName}
-            />
-          ))}
+          {segments.map((segment, index) =>
+            per !== 'line' && isSpace(segment) ? (
+              <React.Fragment key={`${per}-${index}-space`}>{' '}</React.Fragment>
+            ) : (
+              <AnimationComponent
+                key={`${per}-${index}-${segment}`}
+                segment={segment}
+                variants={computedVariants.item}
+                per={per}
+                segmentWrapperClassName={segmentWrapperClassName}
+              />
+            )
+          )}
         </MotionTag>
       )}
     </AnimatePresence>

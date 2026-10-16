@@ -10,6 +10,8 @@ import type { EmailParts } from './email'
 
 const DISMISS_KEY = 'island:dismissed'
 const FALLBACK_OFFSET = 600
+/** The island returns this long after the last scroll event. */
+const SETTLE_MS = 600
 const item =
   'press inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium text-ink transition-colors hover:bg-surface'
 
@@ -23,8 +25,12 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
   const [past, setPast] = useState(false)
   const [dismissed, setDismissed] = useState(true)
   const [overlays, setOverlays] = useState<Record<string, boolean>>({})
+  const [scrollingDown, setScrollingDown] = useState(false)
   const hasSentinel = useRef(false)
+  const toolbar = useRef<HTMLDivElement>(null)
+  const settle = useRef(0)
   useEmailCopyEvent(email)
+  useEffect(() => () => window.clearTimeout(settle.current), [])
 
   useEffect(() => {
     try {
@@ -49,8 +55,15 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
     return () => io.disconnect()
   }, [pathname])
 
+  // Out of the way while the visitor reads down the page; back on scroll up or once scrolling
+  // settles. It stays put while it holds keyboard focus so focus is never dropped.
   useMotionValueEvent(scrollY, 'change', (y) => {
     if (!hasSentinel.current) setPast(y > FALLBACK_OFFSET)
+    const delta = y - (scrollY.getPrevious() ?? y)
+    if (delta > 0 && !toolbar.current?.contains(document.activeElement)) setScrollingDown(true)
+    else if (delta < 0) setScrollingDown(false)
+    window.clearTimeout(settle.current)
+    settle.current = window.setTimeout(() => setScrollingDown(false), SETTLE_MS)
   })
 
   // Hidden while the command palette or the pitch lightbox is open.
@@ -90,7 +103,7 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
     items[(i + (e.key === 'ArrowRight' ? 1 : items.length - 1)) % items.length]?.focus()
   }
 
-  const visible = past && !dismissed && !Object.values(overlays).some(Boolean)
+  const visible = past && !dismissed && !scrollingDown && !Object.values(overlays).some(Boolean)
 
   return (
     <AnimatePresence>
@@ -103,6 +116,7 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
           className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:justify-end md:px-6 md:pb-6"
         >
           <div
+            ref={toolbar}
             role="toolbar"
             aria-label="Quick actions"
             onKeyDown={onKeyDown}

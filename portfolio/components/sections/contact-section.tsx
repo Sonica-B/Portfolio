@@ -25,8 +25,8 @@ export function ContactSection() {
       <Reveal className="container-site py-16 md:py-24">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-7">
-            <h2 id="contact-title" className="text-headline max-w-[16ch]">
-              Open to full-time roles, starting {start}
+            <h2 id="contact-title" className="text-headline max-w-[20ch]">
+              Full-time roles, starting {start}
             </h2>
             <p className="text-lead mt-5 max-w-[52ch] text-ink-2">{availability.display}.</p>
             <p className="text-status mt-4 max-w-[60ch]">

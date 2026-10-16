@@ -150,7 +150,8 @@ export function PaletteDialog({ entries, email }: Props) {
         className="panel flex max-h-[85dvh] flex-col overflow-hidden rounded-t-xl border border-rule bg-surface-raised md:max-h-[70vh] md:rounded-xl"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <div className="flex items-center gap-2 border-b border-rule px-3">
+        {/* The input drops its own outline; the bar carries the accent ring instead, inset so the panel does not clip it. */}
+        <div className="flex items-center gap-2 border-b border-rule px-3 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-accent">
           <MagnifyingGlass size={18} aria-hidden="true" className="shrink-0 text-ink-2" />
           <input
             ref={inputRef}
@@ -158,6 +159,7 @@ export function PaletteDialog({ entries, email }: Props) {
             name="palette-query"
             type="text"
             role="combobox"
+            aria-label="Search this site"
             aria-expanded={open}
             aria-controls={`${id}-list`}
             aria-activedescendant={current ? optionId(index) : undefined}
@@ -165,7 +167,7 @@ export function PaletteDialog({ entries, email }: Props) {
             autoComplete="off"
             spellCheck={false}
             enterKeyHint="go"
-            placeholder="Search projects, papers, skills, actions"
+            placeholder="Search projects, papers, skills, actions…"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value)

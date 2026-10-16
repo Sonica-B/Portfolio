@@ -3,6 +3,8 @@ import { formatMonth, formatRange, profile } from '@/lib/content'
 import { JsonLd, breadcrumbJsonLd } from '@/lib/jsonld'
 import { ButtonLink } from '@/components/ui/button'
 import { Prose, ProseList } from '@/components/glossary/prose'
+import { CopyEmail } from '@/components/cta/copy-email'
+import { splitEmail } from '@/components/cta/email'
 import { PrintButton } from './print-button'
 
 const { identity, links, experience, research, education, publications, skills, recognition } = profile
@@ -70,6 +72,8 @@ export default function ResumePage() {
           Download PDF
         </ButtonLink>
         <PrintButton />
+        {/* Copied on the client from two halves, so the address never appears in this page's HTML. */}
+        <CopyEmail parts={splitEmail(links.email)} location="resume" />
       </div>
 
       <article className="mt-10 max-w-[80ch] print:mt-0 print:max-w-none">
@@ -78,11 +82,7 @@ export default function ResumePage() {
           <p className="text-lead mt-3 text-ink-2 print:mt-1">{identity.title}</p>
           <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-ink-2 print:mt-3">
             <li>{identity.location.display}</li>
-            <li>
-              <a href={links.email} className="hover:text-ink">
-                {identity.email}
-              </a>
-            </li>
+            <li className="hidden print:list-item">Email on request via the PDF resume</li>
             <li>
               <a href={links.website} className="hover:text-ink">
                 {host(links.website)}

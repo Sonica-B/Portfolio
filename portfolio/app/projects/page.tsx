@@ -14,13 +14,21 @@ const count = projects.length
 const firstYear = projects.map((p) => year(p.start)).sort()[0]
 const pitched = projects.filter((p) => hasPitch(p.slug)).length
 
-const DESCRIPTION = `${count} machine learning projects by ${identity.name} since ${firstYear}, each with the problem, what she did and what changed, plus metrics, stack and source links; ${pitched} carry a ${PITCH_SECONDS}-second pitch video.`
+// 150 to 160 characters, counts from the content model.
+const DESCRIPTION = `${count} machine learning projects by ${identity.name} since ${firstYear}, each with the problem, what she did, what changed and the metrics; ${pitched} carry a ${PITCH_SECONDS}-second pitch video.`
 
 export const metadata: Metadata = {
   title: 'Projects',
   description: DESCRIPTION,
   alternates: { canonical: '/projects' },
-  openGraph: { title: `Projects by ${identity.name}`, description: DESCRIPTION, url: '/projects' },
+  // A page-level openGraph object replaces the layout's, so the card image is restated here.
+  openGraph: {
+    type: 'website',
+    title: `Projects by ${identity.name}`,
+    description: DESCRIPTION,
+    url: '/projects',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: `${identity.name}, ${identity.title}` }],
+  },
 }
 
 /** The metric that stands in for a picture: the first one short enough to read as a number. */

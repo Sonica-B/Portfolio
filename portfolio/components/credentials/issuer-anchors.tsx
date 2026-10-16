@@ -27,12 +27,20 @@ export function plural(n: number): string {
   return `${n} ${n === 1 ? 'credential' : 'credentials'}`
 }
 
-/** Logo when one was sourced in content/logos.json, otherwise the issuer's monogram token. */
+/** Marks wider than this read as wordmarks and cannot fit the square token. */
+const MAX_MARK_RATIO = 2.2
+
+/**
+ * Logo when one was sourced in content/logos.json and is close to square, otherwise the
+ * issuer's monogram token. A logo without intrinsic dimensions counts as a wordmark.
+ */
 function Mark({ name }: { name: string }) {
-  if (!getLogo(name)) return <Monogram name={name} />
+  const logo = getLogo(name)
+  const ratio = logo?.width && logo.height ? logo.width / logo.height : Infinity
+  if (!logo || ratio > MAX_MARK_RATIO) return <Monogram name={name} />
   return (
-    <span className="grid size-7 shrink-0 place-items-center">
-      <Logo name={name} height={18} />
+    <span className="grid size-7 shrink-0 place-items-center overflow-hidden">
+      <Logo name={name} height={18} className="max-w-full" />
     </span>
   )
 }

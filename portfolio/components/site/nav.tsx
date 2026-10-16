@@ -79,20 +79,37 @@ export function Nav({ email }: { email: NavEmail }) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const firstLink = useRef<HTMLAnchorElement>(null)
+  const toggle = useRef<HTMLButtonElement>(null)
+  const menu = useRef<HTMLDialogElement>(null)
 
   useEffect(() => setOpen(false), [pathname])
 
+  // The menu is a native modal <dialog>: showModal() makes the rest of the page inert and
+  // keeps Tab inside it, Escape fires "close", and onClose hands focus back to the toggle.
   useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
-    window.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
+    const d = menu.current
+    if (!d) return
+    if (!open) {
+      if (d.open) d.close()
+      return
+    }
+    if (!d.open) d.showModal()
     firstLink.current?.focus()
+    document.body.style.overflow = 'hidden'
+    // The menu only exists below md; widening the window past it closes the modal.
+    const wide = window.matchMedia('(min-width: 48rem)')
+    const onWide = (e: MediaQueryListEvent) => e.matches && setOpen(false)
+    wide.addEventListener('change', onWide)
     return () => {
-      window.removeEventListener('keydown', onKey)
+      wide.removeEventListener('change', onWide)
       document.body.style.overflow = ''
     }
   }, [open])
+
+  const onMenuClose = () => {
+    setOpen(false)
+    toggle.current?.focus()
+  }
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/')
 
@@ -125,6 +142,7 @@ export function Nav({ email }: { email: NavEmail }) {
             <SearchButton />
             <EmailButton email={email} location="nav" className="hidden md:inline-flex" />
             <button
+              ref={toggle}
               type="button"
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -138,36 +156,54 @@ export function Nav({ email }: { email: NavEmail }) {
         </nav>
       </div>
 
-      <div
+      {/* Full-screen in the top layer with a transparent band over the bar, so the header stays
+          visible; the band's close button sits exactly over the toggle. A tap on the band closes. */}
+      <dialog
+        ref={menu}
         id="mobile-menu"
-        role="dialog"
-        aria-modal="true"
         aria-label="Menu"
-        hidden={!open}
-        className="fixed inset-0 top-16 z-40 bg-surface md:hidden"
-        style={{ overscrollBehavior: 'contain' }}
+        onClose={onMenuClose}
+        onClick={(e) => e.target === e.currentTarget && setOpen(false)}
+        className="fixed inset-0 m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 text-ink backdrop:bg-transparent md:hidden"
       >
-        <ul className="container-site flex flex-col gap-1 py-6">
-          {LINKS.map((l, i) => (
-            <li key={l.href}>
-              <Link
-                ref={i === 0 ? firstLink : undefined}
-                href={l.href}
-                aria-current={isActive(l.href) ? 'page' : undefined}
-                className={cn(
-                  'block rounded-card px-4 py-4 font-display text-3xl font-bold tracking-tight text-ink',
-                  isActive(l.href) && 'text-accent',
-                )}
+        <div className="flex h-full flex-col">
+          <div className="pointer-events-none shrink-0 safe-top">
+            <div className="container-site flex h-16 items-center justify-end">
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+                className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full text-ink hover:bg-surface-raised"
               >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-          <li className="mt-4 px-4">
-            <EmailButton email={email} location="menu" className="h-12 px-6 text-base" />
-          </li>
-        </ul>
-      </div>
+                <X size={22} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+          <div className="min-h-0 flex-1 overflow-y-auto bg-surface" style={{ overscrollBehavior: 'contain' }}>
+            <ul className="container-site flex flex-col gap-1 py-6">
+              {LINKS.map((l, i) => (
+                <li key={l.href}>
+                  <Link
+                    ref={i === 0 ? firstLink : undefined}
+                    href={l.href}
+                    aria-current={isActive(l.href) ? 'page' : undefined}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      'block rounded-card px-4 py-4 font-display text-3xl font-bold tracking-tight text-ink',
+                      isActive(l.href) && 'text-accent',
+                    )}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+              <li className="mt-4 px-4">
+                <EmailButton email={email} location="menu" className="h-12 px-6 text-base" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </dialog>
     </header>
   )
 }

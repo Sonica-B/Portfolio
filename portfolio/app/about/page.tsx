@@ -11,12 +11,21 @@ import { Recommendations } from '@/components/about/recommendations'
 import { Availability } from '@/components/about/availability'
 
 const { identity, education, recognition, certifications, recommendations } = profile
-const { availability } = identity
+
+// 150 to 160 characters, counts from the content model. The title reaches the social card through Next's fallback.
+const masters = education.find((e) => e.abbr === 'WPI')
+const DESCRIPTION = `${identity.name}, ${identity.title} in ${identity.location.city}, ${identity.location.region}: M.S. in ${masters?.field ?? 'Artificial Intelligence'} from ${masters?.abbr ?? 'WPI'}, ${recognition.length} awards and honors, ${certifications.length} certifications, ${recommendations.length} recommendations.`
 
 export const metadata: Metadata = {
   title: 'About',
-  description: `About ${identity.name}: ${identity.headline}. Based in ${identity.location.display}. ${availability.display}. ${education.length} degrees, ${recognition.length} awards and honors, ${certifications.length} certifications and ${recommendations.length} recommendations.`,
+  description: DESCRIPTION,
   alternates: { canonical: '/about' },
+  openGraph: {
+    type: 'website',
+    url: '/about',
+    description: DESCRIPTION,
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: `${identity.name}, ${identity.title}` }],
+  },
 }
 
 /** The Person node lives in the layout (lib/jsonld.tsx); this page is a ProfilePage about it. */
@@ -82,10 +91,8 @@ export default function AboutPage() {
 
       <header className="grid gap-8 md:grid-cols-12 md:gap-x-3 md:gap-y-0">
         <div className="md:col-span-7 lg:col-span-8">
-          <h1 className="text-display">
-            About
-            <span className="text-title mt-3 block max-w-[34ch] font-medium text-ink-2">{identity.headline}</span>
-          </h1>
+          <h1 className="text-display">About</h1>
+          <p className="text-title mt-3 max-w-[34ch] font-medium text-ink-2">{identity.headline}</p>
           <Story />
         </div>
         <div className="order-first md:order-none md:col-span-5 lg:col-span-4">
