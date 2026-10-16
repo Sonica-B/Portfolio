@@ -28,14 +28,15 @@ export function Numbers({ text }: { text: string }) {
   return <>{parts}</>
 }
 
-// Same mono label as the instrument shell title, so the strip reads as instrument chrome.
-const LABEL = 'font-mono text-[13px] uppercase leading-5 tracking-[0.08em]'
+// Cell labels in the text face at 14 px, sentence case: they are words to read, not instrument chrome.
+const LABEL = 'text-sm leading-5 font-medium'
 const CELL = 'p-4 md:p-6'
-const NEXT_CELL = 'border-t border-rule md:border-t-0 md:border-l'
+// Stacked on phones, the next cell tucks up so 24 px of space, not a rule, separates the cells.
+const NEXT_CELL = 'max-md:pt-2'
 
 /**
  * The three-second strip: Problem, What she did, What changed, from `project.pitch`, in one panel row.
- * Phones stack the three cells with hairlines; from 768 px they sit side by side with vertical rules.
+ * Phones stack the three cells; from 768 px they sit side by side. Spacing separates them, no rules.
  * Pass the page's `seen` set so a glossary term is explained here once and not again below.
  */
 export function PitchStrip({ pitch, seen, className }: { pitch: Pitch; seen?: Set<string>; className?: string }) {

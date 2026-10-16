@@ -21,7 +21,7 @@ export function ContactSection() {
   const authorization = availability.workAuthorization.split('. ')[0].replace(/\.?$/, '.')
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-24 bg-accent-soft">
+    <section id="contact" aria-labelledby="contact-title" className=" bg-accent-soft">
       <Reveal className="container-site py-16 md:py-24">
         <div className="grid gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-7">

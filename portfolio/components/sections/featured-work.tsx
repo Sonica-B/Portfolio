@@ -15,8 +15,8 @@ import { InstrumentSlot } from './instrument-slot'
 // research-section.tsx and credentials/wallet-data.tsx import the helper from here; it lives in projects/figure.tsx.
 export { publicImageSize } from '@/components/projects/figure'
 
-// Same mono label as the instrument shell title and the project page strip, so the cells read as instrument chrome.
-const MONO_LABEL = 'font-mono text-[13px] uppercase leading-5 tracking-[0.08em]'
+// Cell labels in the text face at 14 px, sentence case, as on the project page strip.
+const LABEL = 'text-sm leading-5 font-medium'
 // Frame widths: 8rem on phones, 13rem from 768 px (see the grid columns in Strip).
 const SIZES = '(min-width: 768px) 208px, 128px'
 
@@ -97,15 +97,15 @@ function Cells({ pitch, seen, className }: { pitch: Pitch; seen: Set<string>; cl
   return (
     <dl className={cn('grid grid-cols-1 gap-3 md:grid-cols-3', className)}>
       <div>
-        <dt className={cn(MONO_LABEL, 'text-ink-2')}>Problem</dt>
+        <dt className={cn(LABEL, 'text-ink-2')}>Problem</dt>
         <Prose as="dd" text={pitch.problem} className="mt-1.5 text-base leading-snug text-ink-2" seen={seen} />
       </div>
       <div>
-        <dt className={cn(MONO_LABEL, 'text-ink-2')}>What she did</dt>
+        <dt className={cn(LABEL, 'text-ink-2')}>What she did</dt>
         <Prose as="dd" text={pitch.action} className="mt-1.5 text-base leading-snug text-ink-2" seen={seen} />
       </div>
       <div>
-        <dt className={cn(MONO_LABEL, 'text-accent')}>What changed</dt>
+        <dt className={cn(LABEL, 'text-accent')}>What changed</dt>
         <dd className="mt-1.5 text-base leading-snug text-ink">
           <MetricProse text={pitch.change} seen={seen} />
         </dd>
@@ -136,7 +136,7 @@ function Strip({ project, seen, lead }: { project: Project; seen: Set<string>; l
         </Link>
 
         <div className="min-w-0">
-          <p className="flex flex-wrap items-baseline gap-x-2 font-mono text-xs text-ink-2">
+          <p className="flex flex-wrap items-baseline gap-x-2 text-sm text-ink-2">
             <span>{kind}</span>
             <span className="tnum">{year(project.end ?? project.start)}</span>
           </p>
@@ -172,11 +172,10 @@ export function FeaturedWork() {
       id="work"
       title="Featured outcomes"
       intro={`${featured.length} of ${total} projects, each with the problem, what she did and what changed.`}
-      className="scroll-mt-24"
     >
-      <ol className="divide-y divide-rule border-y border-rule">
+      <ol>
         {featured.map((project, i) => (
-          <Reveal as="li" key={project.slug} delay={Math.min(i * 20, 60)} className="py-5 md:py-6">
+          <Reveal as="li" key={project.slug} delay={Math.min(i * 20, 60)} className="py-6 md:py-8">
             <Strip project={project} seen={seen} lead={i === 0} />
           </Reveal>
         ))}

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, type KeyboardEvent, type MouseEvent } f
 import { ArrowRight, CaretLeft, CaretRight, X } from '@phosphor-icons/react'
 import { track } from '@/lib/analytics'
 import { useReel } from './reel-provider'
-import { PITCH_POSTER, pitchPosterSrc, pitchVideoSrc } from './pitch-slugs'
+import { PITCH_POSTER, pitchCaptionsSrc, pitchPosterSrc, pitchVideoSrc } from './pitch-slugs'
 
 const CONTROL =
   'press inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-full border border-rule-strong px-3.5 text-sm text-ink transition-colors hover:bg-surface-raised'
@@ -104,7 +104,9 @@ export function ReelDialog() {
               height={PITCH_POSTER.height}
               onPlay={onPlay}
               className="h-full w-full object-contain"
-            />
+            >
+              <track kind="captions" srcLang="en" label="English" src={pitchCaptionsSrc(item.slug)} default />
+            </video>
           </div>
 
           <div className="flex flex-col gap-4 px-[max(1rem,env(safe-area-inset-left))] pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:flex-row md:items-start md:justify-between md:px-0 md:pt-5 md:pb-0">

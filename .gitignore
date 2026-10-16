@@ -2,3 +2,7 @@ resumes/*
 .claude
 portfolio/nul
 8CIqLj.jpg
+
+# QA screenshots (large, regenerate locally)
+docs/qa/v2/shots/
+docs/qa/v2/personas/

@@ -64,7 +64,7 @@ export function ProofStrip() {
   const items = proofItems()
   return (
     <section aria-label="Credentials" className="container-site">
-      <ul className="grid gap-3 border-y border-rule py-4 sm:grid-cols-2 lg:grid-cols-4 lg:[&>li+li]:border-l lg:[&>li+li]:border-rule lg:[&>li+li]:pl-3">
+      <ul className="grid gap-x-6 gap-y-5 py-4 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((it) => (
           <li key={it.key} className="group min-w-0">
             <p className="text-status flex flex-wrap items-center gap-2 font-mono text-sm text-ink-2">

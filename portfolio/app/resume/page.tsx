@@ -48,7 +48,7 @@ const BULLETS_CLASS = 'mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2 marker:t
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="hairline scroll-mt-24 py-8 print:py-4">
+    <section id={id} aria-labelledby={`${id}-title`} className="hairline py-8 print:py-4">
       <h2 id={`${id}-title`} className="text-title print:text-lg">
         {title}
       </h2>

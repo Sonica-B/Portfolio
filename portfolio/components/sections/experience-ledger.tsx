@@ -45,7 +45,7 @@ export function ExperienceLedger() {
   const intro = `${roles.length} roles at ${orgs} organizations, ${year(first)} to ${ongoing ? 'present' : year(last)}.`
 
   return (
-    <Section id="experience" title="Experience" intro={intro} className="scroll-mt-24">
+    <Section id="experience" title="Experience" intro={intro}>
       <Timeline items={items} initialOpen={ongoing?.id ?? 'first'} />
       <div className="mt-12">
         <ButtonLink href="/resume" variant="secondary">

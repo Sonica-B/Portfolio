@@ -1,0 +1,30 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+Terrain, props and biomes, generated
+2.7 seconds per asset
+
+3
+00:00:04.390 --> 00:00:12.020
+RealmWeaver-AI, procedural game asset generator
+Stable Diffusion, CVAE-GAN and Wave Function Collapse for Unity
+
+4
+00:00:12.020 --> 00:00:16.930
+73% less manual integration effort
+Biome-aware prefab mapping in Unity, FID 32.4, 6 biomes
+
+5
+00:00:16.930 --> 00:00:21.840
+Heightmap to biome map to tilemap
+Entropy-minimized Wave Function Collapse for biome layouts
+
+6
+00:00:21.840 --> 00:00:24.600
+Shreya Boyane
+shreyaboyane.dev/projects/realmweaver-ai

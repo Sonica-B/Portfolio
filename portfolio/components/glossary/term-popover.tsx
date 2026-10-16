@@ -123,7 +123,7 @@ export function TermPopover({
       onPointerDown={onPointerDown}
       onBlur={onBlur}
     >
-      <span className="block font-mono text-[0.75rem] leading-5 tracking-[0.1em] uppercase text-ink-2">{term}</span>
+      <span className="block text-sm leading-5 font-medium text-ink-2">{term}</span>
       <span className="mt-1 block text-[0.9375rem] leading-[1.45] text-ink">{tip}</span>
       {source ? (
         <a

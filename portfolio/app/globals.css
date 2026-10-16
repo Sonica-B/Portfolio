@@ -38,6 +38,10 @@
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
+  /* 13 px floor for reader-facing text: the smallest step, text-xs, is 13 px rather than 12. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: calc(1.125 / 0.8125);
+
   --radius-card: 12px;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -49,6 +53,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Anchors and focus land clear of the sticky nav: its 64 px bar, 1 px rule and safe area, plus 16 px. */
+    scroll-padding-top: calc(4rem + 1px + 1rem + env(safe-area-inset-top, 0px));
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -107,6 +113,7 @@
   margin-inline: auto;
   padding-inline: clamp(1rem, 0.4rem + 3vw, 4rem);
 }
+/* Rules belong inside data tables, ledgers and HUD frames only; sections are separated by space and tone. */
 @utility hairline { border-top: 1px solid var(--rule); }
 @utility safe-bottom { padding-bottom: max(1.25rem, env(safe-area-inset-bottom)); }
 @utility safe-top { padding-top: max(0px, env(safe-area-inset-top)); }
@@ -141,7 +148,7 @@
 }
 @utility text-label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -203,4 +210,6 @@
   transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
   &[data-visible="true"] { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce), print { opacity: 1; transform: none; transition: none; }
+  /* Without JavaScript nothing sets data-visible, so the content shows as is. */
+  @media (scripting: none) { opacity: 1; transform: none; transition: none; }
 }

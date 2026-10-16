@@ -1,0 +1,31 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+Where does physics live inside a vision-language model?
+Mass. Friction. Elasticity. Stability.
+
+3
+00:00:04.390 --> 00:00:08.740
+Where does physics live in vision encoders?
+Spatial probing and LoRA ablation of VLM physical reasoning
+
+4
+00:00:08.740 --> 00:00:15.290
+Physics information is richest at the encoder output and fades through the LLM.
+Mean R² for mass: 0.145 at the encoder output, 0.004 by LLM layer 16.
+
+5
+00:00:15.290 --> 00:00:20.190
+Across 12 ViT layers, mass peaks at layer 1 and stability at layer 10.
+3 vision-language models, 4 pipeline stages probed, 15 LoRA ablation runs, 3 benchmarks
+
+6
+00:00:20.190 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/vla-physics
+Independent research. Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision.

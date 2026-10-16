@@ -1,0 +1,35 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+Dash-cam footage has no 3D context.
+WPI RBE/CS 549 Computer Vision
+
+3
+00:00:04.390 --> 00:00:08.740
+Einstein Vision
+3D scene reconstruction for autonomous driving
+
+4
+00:00:08.740 --> 00:00:13.110
+Fused into one 3D scene.
+Depth, detection, segmentation, pose and optical flow, rendered in Blender
+
+5
+00:00:13.110 --> 00:00:17.470
+Across 13 Tesla Model S dash-cam sequences
++50% 3D placement accuracy, +75% scene realism
+
+6
+00:00:17.470 --> 00:00:21.840
+TorchScript, ONNX, TensorRT FP16
+1.5x multi-object throughput, -35% p95 latency
+
+7
+00:00:21.840 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/einstein-vision

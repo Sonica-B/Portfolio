@@ -1,0 +1,35 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+Scale drift degrades long-horizon odometry.
+Synthetic video and IMU streams, Blender and OysterSim.
+
+3
+00:00:04.390 --> 00:00:08.740
+VIO: deep visual-inertial odometry via multimodal fusion
+Vision-only, inertial-only and fusion models
+
+4
+00:00:08.740 --> 00:00:13.110
+Camera plus IMU, fused.
+1000 Hz IMU, 100 Hz RGB
+
+5
+00:00:13.110 --> 00:00:17.470
+RMSE ATE versus the vision-only model
+-32% Infinity, -34% Random, -31% Spiral
+
+6
+00:00:17.470 --> 00:00:21.840
+Deployed through TensorRT
+-35% per-step latency, -20% VRAM, RPE and ATE deltas within 3%
+
+7
+00:00:21.840 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/vio

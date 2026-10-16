@@ -1,0 +1,30 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+120 assets per minute
+and 120 FPS after TensorRT
+
+3
+00:00:04.390 --> 00:00:12.020
+MADWE, Multi-Agent Diffusion World Engine
+Assets mapped into Unity
+
+4
+00:00:12.020 --> 00:00:16.930
+120 FPS, up from 60, after ONNX and TensorRT kernel fusion
+p95 latency 200 to 95 ms, 1.8x throughput, FID 12.3
+
+5
+00:00:16.930 --> 00:00:21.840
+Agents coordinate over a neural world-state graph
+Peak VRAM down 41%, allocation overhead down 73%
+
+6
+00:00:21.840 --> 00:00:24.600
+Shreya Boyane
+shreyaboyane.dev/projects/madwe

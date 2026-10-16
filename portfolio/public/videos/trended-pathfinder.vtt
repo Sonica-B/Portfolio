@@ -1,0 +1,30 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:06.000
+Your courses in. Matching roles out.
+Select a department and courses to find the most relevant job postings.
+
+3
+00:00:06.000 --> 00:00:12.020
+Matched with TF-IDF and cosine similarity.
+Then it suggests the courses that close your skill gaps.
+
+4
+00:00:12.020 --> 00:00:17.470
+Scraped with BeautifulSoup and the Adzuna API
+10,000+ job descriptions, 5,000 resumes, 300+ course catalogs
+
+5
+00:00:17.470 --> 00:00:21.280
+95% match accuracy, 90% NLP precision
+1,000+ students, 50% fewer irrelevant results
+
+6
+00:00:21.280 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/trended-pathfinder

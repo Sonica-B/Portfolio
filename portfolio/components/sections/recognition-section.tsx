@@ -26,8 +26,8 @@ export function RecognitionSection() {
   const rows = honors.slice(0, ROWS)
 
   return (
-    <Section id="recognition" title="Recognition" className="scroll-mt-24">
-      <dl className="flex flex-wrap gap-x-7 gap-y-2 border-t border-rule pt-5">
+    <Section id="recognition" title="Recognition">
+      <dl className="flex flex-wrap gap-x-7 gap-y-2">
         {counts.map((c) => (
           <div key={c.label} className="flex items-baseline gap-x-1.5">
             <dt className="order-2 text-sm text-ink-2">{c.label}</dt>
@@ -38,13 +38,13 @@ export function RecognitionSection() {
         ))}
       </dl>
 
-      <ol className="mt-8 border-t border-rule">
+      <ol className="mt-8 space-y-1">
         {rows.map((r, i) => (
           <Reveal
             as="li"
             key={r.id}
             delay={Math.min(i * 15, 60)}
-            className="group grid gap-x-4 gap-y-1 border-b border-rule py-3.5 md:grid-cols-[5.5rem_minmax(0,1fr)_minmax(0,18rem)] md:items-baseline"
+            className="group grid gap-x-4 gap-y-1 py-3.5 md:grid-cols-[5.5rem_minmax(0,1fr)_minmax(0,18rem)] md:items-baseline"
           >
             <p className="text-status tnum">{formatMonth(r.date)}</p>
             <div className="min-w-0">

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef } from 'react'
 import { useState } from 'react'
 import type { Project } from '@/lib/content'
 import raw from '@/content/instruments/latent-cot.json'
+import { cn } from '@/lib/utils'
 import { Instrument, Segmented, findMetric, useInstrument } from '@/components/instruments/instrument'
 
 /**
@@ -11,7 +12,8 @@ import { Instrument, Segmented, findMetric, useInstrument } from '@/components/i
  * states. The points are PCA coordinates of the six latent steps for the same 400 GSM8K
  * problems under CODI and COCONUT (content/instruments/latent-cot.json, sampled from the
  * paper's result files). Spread is computed here, in the browser, as the mean distance of
- * the points to their centroid at the shown step.
+ * the points to their centroid at the shown step. The view is fitted to the shown step (equal
+ * scale on both axes, so the spread ring stays a circle) and the status line names its ranges.
  */
 
 type Point = [number, number]
@@ -39,25 +41,114 @@ function statOf(points: Point[]): Stat {
 
 const STATS: Stat[][] = MODELS.map((model) => model.steps.map(statOf))
 
-/** Shared axis extent over both models and every step so the scale never jumps. */
-const EXTENT = (() => {
+type Extent = { xmin: number; xmax: number; ymin: number; ymax: number }
+
+/** Bounding box of one step's points with 6 percent padding: the view is fitted to the cloud on screen. */
+function extentOf(points: Point[]): Extent {
   let xmin = Infinity
   let xmax = -Infinity
   let ymin = Infinity
   let ymax = -Infinity
-  for (const model of MODELS)
-    for (const step of model.steps)
-      for (const [x, y] of step) {
-        if (x < xmin) xmin = x
-        if (x > xmax) xmax = x
-        if (y < ymin) ymin = y
-        if (y > ymax) ymax = y
-      }
+  for (const [x, y] of points) {
+    if (x < xmin) xmin = x
+    if (x > xmax) xmax = x
+    if (y < ymin) ymin = y
+    if (y > ymax) ymax = y
+  }
   if (!Number.isFinite(xmin)) return { xmin: -1, xmax: 1, ymin: -1, ymax: 1 }
   const padX = (xmax - xmin) * 0.06 || 1
   const padY = (ymax - ymin) * 0.06 || 1
   return { xmin: xmin - padX, xmax: xmax + padX, ymin: ymin - padY, ymax: ymax + padY }
-})()
+}
+
+const EXTENTS: Extent[][] = MODELS.map((model) => model.steps.map(extentOf))
+
+const lerp = (a: number, b: number, f: number) => a + (b - a) * f
+const lerpExtent = (a: Extent, b: Extent, f: number): Extent => ({
+  xmin: lerp(a.xmin, b.xmin, f),
+  xmax: lerp(a.xmax, b.xmax, f),
+  ymin: lerp(a.ymin, b.ymin, f),
+  ymax: lerp(a.ymax, b.ymax, f),
+})
+const unionExtent = (a: Extent, b: Extent): Extent => ({
+  xmin: Math.min(a.xmin, b.xmin),
+  xmax: Math.max(a.xmax, b.xmax),
+  ymin: Math.min(a.ymin, b.ymin),
+  ymax: Math.max(a.ymax, b.ymax),
+})
+
+/**
+ * The view at a fractional step: the two neighbouring step extents blended by the fraction. Points
+ * between two steps are blended the same way, so this box always contains every drawn point.
+ */
+function extentAt(model: number, t: number): Extent {
+  const steps = EXTENTS[model] ?? []
+  const i0 = Math.max(0, Math.min(STEPS - 1, Math.floor(t)))
+  const i1 = Math.min(STEPS - 1, i0 + 1)
+  return lerpExtent(steps[i0], steps[i1], Math.min(1, Math.max(0, t - i0)))
+}
+
+/** "-49.5 to -15.8": one axis of the view, for the status line. */
+const range = (min: number, max: number) => `${min.toFixed(1)} to ${max.toFixed(1)}`
+
+/**
+ * The paper's own reading of these dynamics, verbatim (first sentence) from content/profile.json,
+ * publications[id = "latent-cot"].findings[3]. Hardcoded because profile.json stays out of the
+ * client bundle and instruments receive only the project; update both together.
+ */
+const FINDING =
+  'COCONUT shows three-attractor compression with a mid-chain direction-consistency hinge at step 3, while CODI behaves as a near period-2 oscillator with 85% of samples carrying at least one unstable DMD mode (41% for COCONUT).'
+
+/** One y scale from zero for both sparklines, so the two models compare at a glance. */
+const SPREAD_MAX = Math.max(1e-9, ...STATS.flat().map((s) => s.spread))
+const SPARK_W = 240
+const SPARK_H = 36
+const SPARK_PAD = 5
+
+/**
+ * Spread at each of the six steps as a line, one point per step centred over the values row below
+ * (six equal columns), the shown step drawn larger. CODI's alternation reads here at a glance.
+ */
+function SpreadLine({ stats, step, selected }: { stats: Stat[]; step: number; selected: boolean }) {
+  const cell = SPARK_W / Math.max(1, stats.length)
+  const points = stats.map((s, i): Point => [
+    cell * (i + 0.5),
+    SPARK_H - SPARK_PAD - (s.spread / SPREAD_MAX) * (SPARK_H - 2 * SPARK_PAD),
+  ])
+  // Stretched to the column at a fixed 36 px height; non-scaling strokes keep the line 1.5 px and the
+  // dots (zero-length round-capped lines) round at any width.
+  return (
+    <svg
+      viewBox={`0 0 ${SPARK_W} ${SPARK_H}`}
+      preserveAspectRatio="none"
+      className="block h-9 w-full overflow-visible"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <polyline
+        points={points.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')}
+        fill="none"
+        className={selected ? 'stroke-accent' : 'stroke-rule-strong'}
+        strokeWidth={1.5}
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+      />
+      {points.map(([x, y], i) => (
+        <line
+          key={i}
+          x1={x}
+          y1={y}
+          x2={x}
+          y2={y}
+          strokeLinecap="round"
+          strokeWidth={i === step ? 9 : 5}
+          vectorEffect="non-scaling-stroke"
+          className={i === step ? 'stroke-ink' : selected ? 'stroke-accent' : 'stroke-ink-2'}
+        />
+      ))}
+    </svg>
+  )
+}
 
 const TRANSITION_MS = 360
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3)
@@ -67,12 +158,15 @@ export default function LatentCot({ project }: { project: Project }) {
   const [step, setStep] = useState(0)
   const model = MODELS[modelIndex]
   const stat = STATS[modelIndex]?.[step]
+  const view = EXTENTS[modelIndex]?.[step]
   const samples = findMetric(project, /GSM8K samples/i)?.value
   const dim = findMetric(project, /dimension/i)?.value
 
+  // The view is refitted at every step, so the status line names the axis ranges on screen, and it says
+  // plainly that the picture is a projection: stability itself is measured with DMD in the paper.
   const status =
-    model && stat
-      ? `Step ${step + 1} of ${STEPS} · ${model.name} spread ${stat.spread.toFixed(1)} · PCA of ${dim ? `${dim}-dim ` : ''}latent states, ${model.steps[step].length} of ${samples ?? 'the'} GSM8K samples`
+    model && stat && view
+      ? `Step ${step + 1} of ${STEPS} · ${model.name} spread ${stat.spread.toFixed(1)} · view x ${range(view.xmin, view.xmax)}, y ${range(view.ymin, view.ymax)} · 2D PCA projection of real latent states (${dim ? `${dim}-dim, ` : ''}${model.steps[step].length} of ${samples ?? 'the'} GSM8K samples), a visual aid; stability is measured with DMD in the paper`
       : 'Trajectory data not available'
 
   return (
@@ -114,12 +208,13 @@ function Scrubber({
   const model = MODELS[modelIndex]
   const dmd = findMetric(project, /DMD/i)
 
-  const draw = useCallback((t: number) => {
+  const draw = useCallback((t: number, view?: Extent) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
     const current = MODELS[modelRef.current]
     const stats = STATS[modelRef.current]
     if (!canvas || !ctx || !current || !stats) return
+    const EXTENT = view ?? extentAt(modelRef.current, t)
 
     const { width, height } = canvas
     const dpr = window.devicePixelRatio || 1
@@ -227,7 +322,8 @@ function Scrubber({
     return () => observer.disconnect()
   }, [draw])
 
-  // Move between steps: a short eased tween, or a jump under reduced motion.
+  // Move between steps: a short eased tween of the points and the fitted view, or a jump under reduced
+  // motion. A model switch lands here too and redraws at once with that model's view.
   useEffect(() => {
     cancelAnimationFrame(raf.current)
     if (reduced || Math.abs(shown.current - step) < 0.001) {
@@ -236,26 +332,28 @@ function Scrubber({
       return
     }
     const from = shown.current
+    const m = modelIndex
+    const fromView = extentAt(m, from)
+    const toView = extentAt(m, step)
     const start = performance.now()
     const tick = (now: number) => {
-      const p = Math.min(1, (now - start) / TRANSITION_MS)
-      shown.current = from + (step - from) * easeOut(p)
-      draw(shown.current)
-      if (p < 1) raf.current = requestAnimationFrame(tick)
+      const e = easeOut(Math.min(1, (now - start) / TRANSITION_MS))
+      shown.current = from + (step - from) * e
+      // A straight camera move from view to view, widened to the points' own box on multi-step jumps
+      // so nothing in flight leaves the frame. One step apart, the two boxes are the same.
+      draw(shown.current, unionExtent(lerpExtent(fromView, toView, e), extentAt(m, shown.current)))
+      if (e < 1) raf.current = requestAnimationFrame(tick)
     }
     raf.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf.current)
-  }, [step, reduced, draw])
-
-  useEffect(() => {
-    draw(shown.current)
-  }, [modelIndex, draw])
+  }, [step, modelIndex, reduced, draw])
 
   if (!model) return null
   const pointCount = model.steps[step]?.length ?? 0
 
   return (
-    <div className="grid gap-4 md:grid-cols-[minmax(0,640px)_minmax(240px,1fr)] md:items-start">
+    <div className="grid gap-4 md:grid-cols-[minmax(0,640px)_minmax(240px,1fr)] md:grid-rows-[auto_1fr] md:items-start">
+      {/* Phones: canvas, controls, then the finding. From 768 px the finding sits under the canvas. */}
       <div
         ref={frameRef}
         className="frame-media relative aspect-[4/3] w-full overflow-hidden border border-rule bg-surface-sunken"
@@ -267,8 +365,7 @@ function Scrubber({
           aria-label={`${model.name} latent states at step ${step + 1} of ${STEPS}, projected to two PCA dimensions`}
         />
       </div>
-
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 md:col-start-2 md:row-span-2 md:row-start-1">
         <Segmented
           label="Model"
           options={MODELS.map((m, i) => ({ id: String(i), label: m.name }))}
@@ -307,17 +404,27 @@ function Scrubber({
           />
         </div>
 
-        <dl className="hairline grid grid-cols-2 gap-x-4 gap-y-1 pt-3">
+        <dl className="hairline grid gap-4 pt-3">
           {MODELS.map((m, i) => {
-            const st = STATS[i]?.[step]
-            const base = STATS[i]?.[0]?.spread || 1
-            if (!st) return null
+            const stats = STATS[i]
+            const st = stats?.[step]
+            if (!stats || !st) return null
             const selected = i === modelIndex
             return (
-              <div key={m.name} className={selected ? 'text-ink' : 'text-ink-2'}>
+              <div key={m.name} className={cn('grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3', selected ? 'text-ink' : 'text-ink-2')}>
                 <dt className="text-base">{m.name} spread</dt>
                 <dd className="text-metric text-lead">{st.spread.toFixed(1)}</dd>
-                <dd className="text-base text-ink-2">{(st.spread / base).toFixed(2)}x step 1</dd>
+                <dd className="col-span-2 mt-1">
+                  <SpreadLine stats={stats} step={step} selected={selected} />
+                  <ol aria-label={`${m.name} spread by step`} className="text-metric mt-0.5 grid grid-cols-6 text-center text-[0.8125rem] leading-5">
+                    {stats.map((s, k) => (
+                      <li key={k} aria-current={k === step ? 'step' : undefined} className={k === step ? 'text-ink' : 'text-ink-2'}>
+                        <span className="sr-only">Step {k + 1}: </span>
+                        {s.spread.toFixed(1)}
+                      </li>
+                    ))}
+                  </ol>
+                </dd>
               </div>
             )
           })}
@@ -331,6 +438,9 @@ function Scrubber({
           </p>
         ) : null}
       </div>
+      <p className="max-w-[65ch] text-base text-ink-2 md:col-start-1 md:row-start-2">
+        <span className="font-medium text-ink">What to look for.</span> The paper&rsquo;s finding: <q>{FINDING}</q>
+      </p>
     </div>
   )
 }

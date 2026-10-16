@@ -71,7 +71,7 @@ function PublicationArticle({ pub }: { pub: Publication }) {
   // Each article explains a term once, across its lead, abstract and findings.
   const seen = new Set<string>()
   return (
-    <article id={pub.id} aria-labelledby={`${pub.id}-title`} className="hairline scroll-mt-24 py-12 md:py-16">
+    <article id={pub.id} aria-labelledby={`${pub.id}-title`} className="py-12 md:py-16">
       <div className="grid gap-10 md:grid-cols-12 md:gap-x-10">
         <div className="md:col-span-8">
           <p className="text-sm text-ink-2">
@@ -117,16 +117,7 @@ function PublicationArticle({ pub }: { pub: Publication }) {
           <Prose text={pub.abstract} className="mt-3 max-w-[70ch] text-ink-2" seen={seen} />
 
           <h3 className="text-title mt-10">Findings</h3>
-          <ol className="mt-4 space-y-3">
-            {pub.findings.map((f, i) => (
-              <li key={i} className="grid grid-cols-[2.5rem_minmax(0,1fr)]">
-                <span className="text-metric pt-0.5 text-sm text-ink-3" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <Prose text={f} className="max-w-[65ch] text-ink-2" seen={seen} />
-              </li>
-            ))}
-          </ol>
+          <ProseList items={pub.findings} className="mt-4 space-y-3" itemClassName="max-w-[65ch] text-ink-2" seen={seen} />
 
           {links.length > 0 ? (
             <ul className="mt-10 flex flex-wrap gap-3">
@@ -189,11 +180,11 @@ export default function ResearchPage() {
         ))}
       </div>
 
-      <section id="roles" aria-labelledby="roles-title" className="hairline scroll-mt-24 py-12 md:py-16">
+      <section id="roles" aria-labelledby="roles-title" className="py-12 md:py-16">
         <h2 id="roles-title" className="text-headline">
           Research roles
         </h2>
-        <ol className="mt-8 divide-y divide-rule border-t border-rule">
+        <ol className="mt-8">
           {research.map((r) => {
             // Each role explains a term once, across its summary and highlights.
             const seen = new Set<string>()
@@ -233,7 +224,7 @@ export default function ResearchPage() {
                   <ProseList
                     items={r.highlights}
                     className="mt-4 space-y-3"
-                    itemClassName="relative max-w-[65ch] pl-5 text-ink-2 before:absolute before:top-[0.75em] before:left-0 before:h-px before:w-2.5 before:bg-rule-strong"
+                    itemClassName="max-w-[65ch] text-ink-2"
                     seen={seen}
                   />
                   <Link

@@ -1,0 +1,35 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+Labeled MRI datasets are expensive.
+Tumors vary widely in size, shape and position.
+
+3
+00:00:04.390 --> 00:00:08.740
+TumorLytix: unsupervised brain tumor detection and segmentation
+No manual labels.
+
+4
+00:00:08.740 --> 00:00:13.110
+Paired images from unpaired scans.
+CycleGAN on 23,180 healthy and 41,892 diseased slices from 369 patients
+
+5
+00:00:13.110 --> 00:00:17.470
+Over 90% segmentation accuracy
+65,072 MRI images, no manual labels
+
+6
+00:00:17.470 --> 00:00:21.840
+Versus a plain CycleGAN
+25% fewer artifacts, 30% higher precision, 50% faster convergence, 1.6x images per second
+
+7
+00:00:21.840 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/tumorlytix

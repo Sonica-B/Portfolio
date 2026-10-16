@@ -1,0 +1,31 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+Is human feedback equally reliable across annotators?
+Nobody had checked.
+
+3
+00:00:04.390 --> 00:00:08.740
+FairPrep: fairness-aware human feedback for table unionability
+Submitted to DASHSys 2026
+
+4
+00:00:08.740 --> 00:00:15.290
+6 of 10 FairEM metrics flag unfairness
+25% vs 44% accuracy on hard questions, non-native vs native English annotators, p = 0.031
+
+5
+00:00:15.290 --> 00:00:20.190
+By the numbers
+60 annotators, 480 rows in the dataset, 5 of 5 cleaning strategies, findings robust
+
+6
+00:00:20.190 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/fairprep
+Co-first author. Submitted to DASHSys 2026.

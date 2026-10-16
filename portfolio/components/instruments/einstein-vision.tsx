@@ -9,8 +9,8 @@ import { Instrument, findMetric, useInstrument } from '@/components/instruments/
 /**
  * Before and after: the dash-cam frame with its detections against the Blender
  * reconstruction of the same moment. Both frames come from the project's own clips
- * (dashcam-detections.mp4 and blender-twin.mp4, frame 0). Same mechanics as
- * components/motion-primitives/image-comparison.tsx (a motion value driving two
+ * (dashcam-detections.mp4 and blender-twin.mp4, frame 0). Same mechanics as the
+ * Motion-Primitives ImageComparison component (a motion value driving two
  * clip-path insets) with pointer capture and a keyboard operable handle added, since
  * the primitive exposes no way to move its handle from the keyboard.
  */

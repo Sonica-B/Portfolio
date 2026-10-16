@@ -11,7 +11,7 @@ export function NowSection() {
   // One glossary popover per term across the panel.
   const seen = new Set<string>()
   return (
-    <section id="now" className="container-site cv-auto scroll-mt-24 py-16 md:py-24">
+    <section id="now" className="container-site cv-auto py-16 md:py-24">
       {/* minmax(0, 1fr) so a long repository name cannot widen the column past the viewport. */}
       <div className="grid grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-2">
         <article aria-labelledby="now-title" className="panel p-5 md:p-6">
@@ -25,8 +25,8 @@ export function NowSection() {
           </div>
           <ProseList
             items={now.lines}
-            className="mt-4 divide-y divide-rule border-t border-rule text-ink-2"
-            itemClassName="py-2.5 leading-snug"
+            className="mt-4 space-y-3 text-ink-2"
+            itemClassName="leading-snug"
             seen={seen}
           />
         </article>

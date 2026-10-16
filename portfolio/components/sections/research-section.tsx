@@ -35,9 +35,8 @@ export function ResearchSection() {
       title="Research"
       label="Publications"
       intro={`${pubs.length} papers as co-first author, on ${listJoin(topics)}.`}
-      className="scroll-mt-16"
     >
-      <ol className="border-t border-rule">
+      <ol>
         {pubs.map((pub, i) => {
           const showFigure = i === 0
           return (
@@ -45,7 +44,7 @@ export function ResearchSection() {
               as="li"
               key={pub.id}
               delay={Math.min(i * 30, 60)}
-              className="grid gap-6 border-b border-rule py-10 md:grid-cols-12 md:gap-8"
+              className="grid gap-6 py-10 first:pt-0 md:grid-cols-12 md:gap-8"
             >
               <div className="md:col-span-3 lg:col-span-2">
                 <p className="text-sm text-ink">{pub.displayString}</p>
@@ -68,7 +67,7 @@ export function ResearchSection() {
                     </span>
                   ))}
                 </p>
-                <ul className="text-metric mt-5 grid gap-x-6 gap-y-1.5 text-[0.8rem] text-ink-2 sm:grid-cols-2">
+                <ul className="text-metric mt-5 grid gap-x-6 gap-y-1.5 text-sm text-ink-2 sm:grid-cols-2">
                   {pub.stats.map((s) => (
                     <li key={s}>{s}</li>
                   ))}

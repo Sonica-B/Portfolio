@@ -1,0 +1,30 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+One container image, three clouds
+Monitored, alerted and tested against forced crashes
+
+3
+00:00:04.390 --> 00:00:12.020
+Scene Mood Classifier, live on Hugging Face Spaces
+CLIP ViT-B/32 for frames, Wav2Vec2 base for audio, zero-shot
+
+4
+00:00:12.020 --> 00:00:16.930
+Recovery time, treated as a performance metric
+Monitoring, alerting, CI/CD and tested recovery paths
+
+5
+00:00:16.930 --> 00:00:21.840
+Tests pass, then both Spaces sync
+Local mode and inference-API mode with Hugging Face OAuth
+
+6
+00:00:21.840 --> 00:00:24.600
+Shreya Boyane
+shreyaboyane.dev/projects/scene-mood-classifier

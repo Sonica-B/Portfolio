@@ -1,0 +1,30 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:06.000
+Control a robotic arm with your hand.
+MediaPipe hand tracking, a TensorFlow gesture model and an MPU6050 IMU, fused inside ROS2.
+
+3
+00:00:06.000 --> 00:00:12.020
+Gestures in. Joint angles out.
+Gesture vocabulary, from app.py
+
+4
+00:00:12.020 --> 00:00:17.470
+Sub-500 ms from gesture to command.
+MediaPipe Hands, TensorFlow model, MPU6050 fusion, ROS2 service, Gazebo arm
+
+5
+00:00:17.470 --> 00:00:21.280
+Measured on the custom dataset
+93% gesture recognition accuracy, under 500 ms latency, 5,000+ samples, 35% better task precision
+
+6
+00:00:21.280 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/robofusion

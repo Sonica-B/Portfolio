@@ -17,7 +17,7 @@ import {
 import { JsonLd, breadcrumbJsonLd, projectJsonLd, scholarlyArticleJsonLd, videoJsonLd } from '@/lib/jsonld'
 import { cn } from '@/lib/utils'
 import { Prose, ProseList } from '@/components/glossary/prose'
-import { PITCH_POSTER, PITCH_SECONDS, hasPitch, pitchPosterSrc, pitchVideoSrc } from '@/components/reel/pitch-slugs'
+import { PITCH_POSTER, PITCH_SECONDS, hasPitch, pitchCaptionsSrc, pitchPosterSrc, pitchVideoSrc } from '@/components/reel/pitch-slugs'
 import { PlayPitch } from '@/components/reel/play-pitch'
 import { ButtonLink } from '@/components/ui/button'
 import { Logo } from '@/components/ui/logo'
@@ -56,8 +56,8 @@ const LINK_LABELS: [key: string, label: string][] = [
   ['openreview', 'OpenReview'],
 ]
 
-// Same mono label as the instrument shell title and the three-second strip.
-const MONO_LABEL = 'font-mono text-[13px] uppercase leading-5 tracking-[0.08em]'
+// The kind beside the breadcrumb: text face at 14 px, sentence case, like the strip cell labels.
+const KIND = 'text-sm leading-5 font-medium'
 const NEIGHBOUR = 'group inline-block py-1'
 const NEIGHBOUR_NAME = 'mt-1 block text-ink transition-colors group-hover:text-accent'
 
@@ -67,12 +67,13 @@ function repoLine(stats: NonNullable<ReturnType<typeof repoStats>>): string {
   return [stats.language, stars, `last push ${formatMonth(stats.pushedAt.slice(0, 7))}`].filter(Boolean).join(', ')
 }
 
+/** One block of the page body: spacing and the title step separate the blocks, and each fades in on entry. */
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="hairline py-6 md:py-8">
+    <Reveal as="section" className="py-6 md:py-8">
       <h2 className="text-title">{title}</h2>
       <div className="mt-3">{children}</div>
-    </section>
+    </Reveal>
   )
 }
 
@@ -126,7 +127,7 @@ export default async function ProjectPage({ params }: Props) {
             {p.name}
           </li>
         </ol>
-        <p className={cn(MONO_LABEL, 'shrink-0 text-accent')}>{kind}</p>
+        <p className={cn(KIND, 'shrink-0 text-accent')}>{kind}</p>
       </nav>
 
       <header className="mt-6 md:mt-8">
@@ -144,24 +145,29 @@ export default async function ProjectPage({ params }: Props) {
 
       {pitch ? (
         <section aria-labelledby="pitch-heading" className="mt-10 md:mt-14">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="pitch-heading" className="text-title">
-              {PITCH_SECONDS}-second pitch
-            </h2>
-            <PlayPitch slug={p.slug} label="Play in the reel" location="project" />
-          </div>
-          <video
-            controls
-            muted
-            playsInline
-            preload="none"
-            poster={pitchPosterSrc(p.slug)}
-            src={pitchVideoSrc(p.slug)}
-            width={PITCH_POSTER.width}
-            height={PITCH_POSTER.height}
-            aria-label={`${p.name}, ${PITCH_SECONDS}-second pitch`}
-            className="frame-media mt-4 w-full max-w-[960px]"
-          />
+          <Reveal>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 id="pitch-heading" className="text-title">
+                {PITCH_SECONDS}-second pitch
+              </h2>
+              <PlayPitch slug={p.slug} label="Play in the reel" location="project" />
+            </div>
+            {/* Music only: the captions carry a [Music] cue and each scene's on-screen headline and key line. */}
+            <video
+              controls
+              muted
+              playsInline
+              preload="none"
+              poster={pitchPosterSrc(p.slug)}
+              src={pitchVideoSrc(p.slug)}
+              width={PITCH_POSTER.width}
+              height={PITCH_POSTER.height}
+              aria-label={`${p.name}, ${PITCH_SECONDS}-second pitch`}
+              className="frame-media mt-4 w-full max-w-[960px]"
+            >
+              <track kind="captions" srcLang="en" label="English" src={pitchCaptionsSrc(p.slug)} default />
+            </video>
+          </Reveal>
         </section>
       ) : null}
 
@@ -177,8 +183,8 @@ export default async function ProjectPage({ params }: Props) {
             <Block title="Highlights">
               <ProseList
                 items={p.highlights}
-                className="max-w-[65ch] divide-y divide-rule border-y border-rule"
-                itemClassName="py-3 text-ink-2"
+                className="max-w-[65ch] space-y-3"
+                itemClassName="text-ink-2"
                 seen={seen}
               />
             </Block>
@@ -202,7 +208,7 @@ export default async function ProjectPage({ params }: Props) {
           <Block title="Stack">
             <ul className="flex flex-wrap gap-2">
               {p.tags.map((t) => (
-                <li key={t} className="rounded-full border border-rule px-3 py-1.5 font-mono text-sm text-ink-2">
+                <li key={t} className="rounded-full border border-rule px-3 py-1.5 text-sm text-ink-2">
                   {t}
                 </li>
               ))}
@@ -288,7 +294,7 @@ export default async function ProjectPage({ params }: Props) {
         </aside>
       </div>
 
-      <nav aria-label="More projects" className="hairline mt-4 grid gap-6 py-8 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+      <nav aria-label="More projects" className="mt-10 grid gap-6 py-8 sm:grid-cols-[1fr_auto_1fr] sm:items-center md:mt-14">
         <div>
           {prev ? (
             <Link href={`/projects/${prev.slug}`} className={NEIGHBOUR}>

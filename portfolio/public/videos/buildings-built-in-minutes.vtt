@@ -1,0 +1,35 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+From phone photos to a 3D asset.
+Classical geometry plus neural rendering, with modest compute.
+
+3
+00:00:04.390 --> 00:00:08.740
+Buildings Built in Minutes
+Structure from motion and NeRF
+
+4
+00:00:08.740 --> 00:00:13.110
+Reprojection error, five views.
+1.75 px down to 1.01 px after sparse bundle adjustment
+
+5
+00:00:13.110 --> 00:00:17.470
+Phase 2, NeRF end to end
++60% PSNR versus the baseline, -40% rendering artifacts
+
+6
+00:00:17.470 --> 00:00:21.840
+Photorealistic 360-degree orbits of three scenes.
+Lego, Hotdog and Ship
+
+7
+00:00:21.840 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/buildings-built-in-minutes

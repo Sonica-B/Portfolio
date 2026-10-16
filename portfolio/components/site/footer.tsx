@@ -30,7 +30,7 @@ const LIST_LINK = 'inline-flex min-h-6 items-center py-1 text-ink-2 hover:text-i
 export function Footer() {
   const { links, identity, meta } = profile
   return (
-    <footer className="hairline safe-bottom">
+    <footer className="safe-bottom bg-surface-sunken">
       <div className="container-site grid gap-10 py-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <p className="font-display text-2xl font-bold tracking-tight">{identity.name}</p>
