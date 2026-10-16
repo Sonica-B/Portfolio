@@ -37,12 +37,6 @@ function Mark({ name }: { name: string }) {
   )
 }
 
-function accessibleName(item: AnchorItem): string {
-  if (item.kind === 'all') return `Show all ${plural(item.count)}`
-  if (item.kind === 'other') return `Other issuers, ${plural(item.count)}`
-  return `${item.name}, ${plural(item.count)}`
-}
-
 /**
  * One anchor per issuer group plus "Show all". A tablist with roving tabindex: arrow keys move,
  * Enter or Space toggles. Below md the anchors wrap as chips showing the mark and the count,
@@ -110,7 +104,6 @@ export function IssuerAnchors({
             type="button"
             role="tab"
             id={tabId(item.key)}
-            aria-label={accessibleName(item)}
             aria-selected={active}
             aria-expanded={active}
             aria-controls={active ? railId : undefined}
@@ -139,7 +132,10 @@ export function IssuerAnchors({
                 item.name
               )}
             </span>
-            <span className="text-metric text-ink">{item.count}</span>
+            <span className="text-metric text-ink">
+              {item.count}
+              <span className="sr-only"> credentials</span>
+            </span>
           </button>
         )
       })}
