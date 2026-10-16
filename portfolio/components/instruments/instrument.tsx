@@ -136,7 +136,8 @@ export function Instrument({
         aria-live="polite"
         aria-atomic="true"
       >
-        {status}
+        {/* The rule spans the panel; the text keeps a 75-character measure on wide screens. */}
+        <span className="block max-w-[75ch]">{status}</span>
       </p>
     </div>
   )

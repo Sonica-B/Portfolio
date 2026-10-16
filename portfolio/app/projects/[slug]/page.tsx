@@ -22,7 +22,8 @@ import { PlayPitch } from '@/components/reel/play-pitch'
 import { ButtonLink } from '@/components/ui/button'
 import { Logo } from '@/components/ui/logo'
 import { Reveal } from '@/components/ui/reveal'
-import { publicImageSize } from '@/components/projects/figure'
+import { visualNeedsFigure } from '@/components/instruments/bespoke'
+import { Figure } from '@/components/projects/figure'
 import { InstrumentSection } from '@/components/projects/instrument-section'
 import { MetricStrip } from '@/components/projects/metric-strip'
 import { PitchStrip } from '@/components/projects/pitch-strip'
@@ -95,7 +96,10 @@ export default async function ProjectPage({ params }: Props) {
   const videoLd = video ? { ...video, thumbnailUrl: `${SITE_URL}${pitchPosterSrc(p.slug)}` } : null
   const stats = repoStats(p.repo)
   const links = LINK_LABELS.flatMap(([key, label]) => (p.links[key] ? [{ key, href: p.links[key], label }] : []))
-  const visualSize = p.visual ? publicImageSize(p.visual.src) : null
+  // Beside a bespoke instrument the visual gets its own captioned figure in the body, after the
+  // approach it illustrates, so it never sits straight above the pitch whose poster may show it too.
+  // Without one, the figure switcher shows it; the orbit instrument already plays it.
+  const figure = p.visual && visualNeedsFigure(p.slug) ? p.visual : null
   // One glossary popover per term across the strip, problem, approach and highlights.
   const seen = new Set<string>()
 
@@ -133,11 +137,11 @@ export default async function ProjectPage({ params }: Props) {
       <header className="mt-6 md:mt-8">
         <h1 className="text-headline max-w-[28ch]">{p.name}</h1>
         {p.role ? (
-          <p className="mt-3 max-w-[60ch] text-base text-ink-2">
+          <p className="mt-3 max-w-[34em] text-base text-ink-2">
             Role: <span className="text-ink">{p.role}</span>
           </p>
         ) : null}
-        <p className="text-lead mt-3 max-w-[60ch] text-ink-2">{p.subtitle}</p>
+        <p className="text-lead mt-3 max-w-[34em] text-ink-2">{p.subtitle}</p>
       </header>
 
       <PitchStrip pitch={p.pitch} seen={seen} className="mt-5 md:mt-8" />
@@ -146,49 +150,60 @@ export default async function ProjectPage({ params }: Props) {
         <MetricStrip metrics={p.metrics} />
       </Reveal>
 
-      <InstrumentSection project={p} visualSize={visualSize} />
+      <InstrumentSection project={p} />
 
-      {pitch ? (
-        <section aria-labelledby="pitch-heading" className="mt-10 md:mt-14">
-          <Reveal>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 id="pitch-heading" className="text-title">
-                {PITCH_SECONDS}-second pitch
-              </h2>
-              <PlayPitch slug={p.slug} label="Play in the reel" location="project" />
-            </div>
-            {/* Music only: the captions carry a [Music] cue and each scene's on-screen headline and key line. */}
-            <video
-              controls
-              muted
-              playsInline
-              preload="none"
-              poster={pitchPosterSrc(p.slug)}
-              src={pitchVideoSrc(p.slug)}
-              width={PITCH_POSTER.width}
-              height={PITCH_POSTER.height}
-              aria-label={`${p.name}, ${PITCH_SECONDS}-second pitch`}
-              className="frame-media mt-4 w-full max-w-[960px]"
-            >
-              <track kind="captions" srcLang="en" label="English" src={pitchCaptionsSrc(p.slug)} default />
-            </video>
-          </Reveal>
-        </section>
-      ) : null}
-
+      {/* From 768 px the pitch, problem, approach, figure and highlights share the main column and the
+          results, stack, links and details sit beside them, so no band of the page is left empty. */}
       <div className="mt-6 grid gap-x-12 md:mt-10 md:grid-cols-12">
-        <div className="md:col-span-7 lg:col-span-8">
+        <div className="min-w-0 md:col-span-7 lg:col-span-8">
+          {pitch ? (
+            <section aria-labelledby="pitch-heading" className="py-6 md:py-8">
+              <Reveal>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h2 id="pitch-heading" className="text-title">
+                    {PITCH_SECONDS}-second pitch
+                  </h2>
+                  <PlayPitch slug={p.slug} label="Play in the reel" location="project" />
+                </div>
+                {/* Music only: the captions carry a [Music] cue and each scene's on-screen headline and key line. */}
+                <video
+                  controls
+                  muted
+                  playsInline
+                  preload="none"
+                  poster={pitchPosterSrc(p.slug)}
+                  src={pitchVideoSrc(p.slug)}
+                  width={PITCH_POSTER.width}
+                  height={PITCH_POSTER.height}
+                  aria-label={`${p.name}, ${PITCH_SECONDS}-second pitch`}
+                  className="frame-media mt-4 h-auto w-full"
+                >
+                  <track kind="captions" srcLang="en" label="English" src={pitchCaptionsSrc(p.slug)} default />
+                </video>
+              </Reveal>
+            </section>
+          ) : null}
           <Block title="Problem">
-            <Prose text={p.problem} className="max-w-[65ch] text-ink-2" seen={seen} />
+            <Prose text={p.problem} className="max-w-[34em] text-ink-2" seen={seen} />
           </Block>
           <Block title="Approach">
-            <Prose text={p.approach} className="max-w-[65ch] text-ink-2" seen={seen} />
+            <Prose text={p.approach} className="max-w-[34em] text-ink-2" seen={seen} />
           </Block>
+          {figure ? (
+            <Reveal className="py-6 md:py-8">
+              <Figure
+                src={figure.src}
+                alt={figure.alt}
+                caption={figure.alt}
+                sizes="(min-width: 1024px) 60vw, (min-width: 768px) 55vw, 100vw"
+              />
+            </Reveal>
+          ) : null}
           {p.highlights.length > 0 ? (
             <Block title="Highlights">
               <ProseList
                 items={p.highlights}
-                className="max-w-[65ch] space-y-3"
+                className="max-w-[34em] space-y-3"
                 itemClassName="text-ink-2"
                 seen={seen}
               />

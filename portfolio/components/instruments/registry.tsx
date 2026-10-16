@@ -3,11 +3,15 @@
 import dynamic from 'next/dynamic'
 import type { ComponentType } from 'react'
 import type { Project } from '@/lib/content'
+import { BESPOKE_SLUGS, hasBespokeInstrument, type BespokeSlug } from './bespoke'
 
 type InstrumentComponent = ComponentType<{ project: Project }>
 
-/** Bespoke instruments by project slug. Everything else falls back to a figure switcher or the metric explorer. */
-const bespoke: Record<string, InstrumentComponent> = {
+/**
+ * Bespoke instruments by project slug, keyed by the server-safe list in ./bespoke so the two cannot
+ * drift. Everything else falls back to a figure switcher or the metric explorer.
+ */
+const bespoke: Record<BespokeSlug, InstrumentComponent> = {
   'latent-cot': dynamic(() => import('./latent-cot'), { ssr: false }),
   'einstein-vision': dynamic(() => import('./einstein-vision'), { ssr: false }),
   tumorlytix: dynamic(() => import('./tumorlytix'), { ssr: false }),
@@ -24,15 +28,11 @@ const bespoke: Record<string, InstrumentComponent> = {
 const FigureSwitcher = dynamic(() => import('./figure-switcher'), { ssr: false })
 const MetricExplorer = dynamic(() => import('./metric-explorer'), { ssr: false })
 
-export const BESPOKE_SLUGS = Object.keys(bespoke)
-
-export function hasBespokeInstrument(slug: string): boolean {
-  return slug in bespoke
-}
+export { BESPOKE_SLUGS, hasBespokeInstrument }
 
 /** The instrument for a project: bespoke when one exists, otherwise the figure switcher (when a visual exists) or the metric explorer. */
 export function InstrumentFor({ project }: { project: Project }) {
-  const Bespoke = bespoke[project.slug]
+  const Bespoke = hasBespokeInstrument(project.slug) ? bespoke[project.slug as BespokeSlug] : undefined
   if (Bespoke) return <Bespoke project={project} />
   if (project.visual) return <FigureSwitcher project={project} />
   if (project.metrics.length > 0) return <MetricExplorer project={project} />

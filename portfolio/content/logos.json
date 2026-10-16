@@ -62,24 +62,6 @@
     "width": 195.133,
     "height": 73.07
   },
-  "PES Modern College of Engineering (Savitribai Phule Pune University)": {
-    "src": "/logos/pes-modern-college.webp",
-    "alt": "PES Modern College of Engineering logo",
-    "source": "https://webweb.ams3.digitaloceanspaces.com/data/modern-college-of-eng-pune.webweb.ai.in/modernlogo.png",
-    "mono": false,
-    "wordmark": true,
-    "width": 551,
-    "height": 96
-  },
-  "PES Modern College of Engineering": {
-    "src": "/logos/pes-modern-college.webp",
-    "alt": "PES Modern College of Engineering logo",
-    "source": "https://webweb.ams3.digitaloceanspaces.com/data/modern-college-of-eng-pune.webweb.ai.in/modernlogo.png",
-    "mono": false,
-    "wordmark": true,
-    "width": 551,
-    "height": 96
-  },
   "Handshake AI": {
     "src": "/logos/handshake.svg",
     "alt": "Handshake logo",

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import peopleRaw from '@/content/people.json'
 import { getExperience, profile, type Recommendation } from '@/lib/content'
+import { portraitPosition } from '@/components/about/recommendations'
 import { Prose } from '@/components/glossary/prose'
 import { ButtonLink } from '@/components/ui/button'
 import { Logo } from '@/components/ui/logo'
@@ -45,7 +46,7 @@ function listJoin(items: string[]): string {
   return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
 }
 
-/** 3:1 band crop of the portrait, grayscale at rest and colour on hover of the entry. */
+/** 3:1 band crop of the portrait on its measured eye-to-mouth focus, grayscale at rest and colour on hover of the entry. */
 function Band({ person, name }: { person: Person | undefined; name: string }) {
   if (person?.photo) {
     return (
@@ -54,9 +55,10 @@ function Band({ person, name }: { person: Person | undefined; name: string }) {
         alt={`Portrait of ${name}`}
         width={PHOTO}
         height={PHOTO}
-        sizes="320px"
+        sizes="(min-width: 768px) 312px, 256px"
         loading="lazy"
-        className="h-full w-full object-cover [object-position:50%_38%] grayscale transition-[filter] duration-500 group-hover:grayscale-0 group-focus-within:grayscale-0"
+        className="h-full w-full object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0 group-focus-within:grayscale-0"
+        style={{ objectPosition: portraitPosition(person.slug), aspectRatio: `${PHOTO} / ${PHOTO}` }}
       />
     )
   }

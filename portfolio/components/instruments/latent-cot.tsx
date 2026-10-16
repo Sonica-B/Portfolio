@@ -429,16 +429,16 @@ function Scrubber({
             )
           })}
         </dl>
-        <p className="text-base text-ink-2">Spread is the mean distance of the points to their centroid, in PCA units.</p>
+        <p className="max-w-[34em] text-base text-ink-2">Spread is the mean distance of the points to their centroid, in PCA units.</p>
 
         {dmd ? (
-          <p className="text-base text-ink-2">
+          <p className="max-w-[34em] text-base text-ink-2">
             Reported in the paper, {dmd.label.charAt(0).toLowerCase() + dmd.label.slice(1)}:{' '}
             <span className="text-metric text-ink">{dmd.value}</span>
           </p>
         ) : null}
       </div>
-      <p className="max-w-[65ch] text-base text-ink-2 md:col-start-1 md:row-start-2">
+      <p className="max-w-[34em] text-base text-ink-2 md:col-start-1 md:row-start-2">
         <span className="font-medium text-ink">What to look for.</span> The paper&rsquo;s finding: <q>{FINDING}</q>
       </p>
     </div>

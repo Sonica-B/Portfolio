@@ -38,7 +38,9 @@ export function Logo({ name, height = 20, mono = true, className }: Props) {
         mono && !vector && 'opacity-90 grayscale transition group-hover:opacity-100 group-hover:grayscale-0',
         className,
       )}
-      style={{ height, width: 'auto' }}
+      // The CSS ratio keeps the attribute dimensions visible to Chrome's lazy-image check, which
+      // `width: auto` alone hides; the box is the same either way.
+      style={{ height, width: 'auto', aspectRatio: `${width} / ${height}` }}
     />
   )
 }

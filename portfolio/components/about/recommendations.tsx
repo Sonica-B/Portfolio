@@ -23,8 +23,30 @@ const initials = (name: string) =>
     .join('')
     .toUpperCase()
 
-/** Shallow band across eyes and shoulders: fixed height, cover crop, square corners, one hairline. */
-const BAND = 'frame-media relative h-21 w-full max-w-[21rem] overflow-hidden md:h-28'
+/**
+ * Shallow band across the face: 112 px high, a third of the 336 px square at full width, cover crop,
+ * square corners, one hairline. A third is the least that holds eyes and mouth on every portrait.
+ */
+const BAND = 'frame-media relative h-28 w-full max-w-[21rem] overflow-hidden'
+
+/**
+ * Vertical focus of each 320 px portrait in public/people, as the CSS object-position percentage that
+ * centres the band (a third of the square) on the eyes and mouth. Measured per photo: eyes and
+ * mouth sit at 40 and 48 percent (Amit), 45 and 57 (Gurdeep), 18 and 25 (Vinay), 40 and 47 (Jordan),
+ * 40 and 66 (Abhaysinh) of the image height. Shared with the home colleagues rail, which uses a 3:1 band.
+ */
+const PORTRAIT_FOCUS: Record<string, number> = {
+  'amit-shinde': 41,
+  'gurdeep-singh': 51,
+  'vinay-dandinashivara': 8,
+  'jordan-kelley': 40,
+  'abhaysinh-chavan': 54,
+}
+
+/** `object-position` for a person's portrait in a band; centre-ish for anyone not measured yet. */
+export function portraitPosition(slug: string | undefined): string {
+  return `50% ${(slug && PORTRAIT_FOCUS[slug]) ?? 38}%`
+}
 
 function Band({ person, name }: { person: Person | undefined; name: string }) {
   if (!person) {
@@ -45,7 +67,7 @@ function Band({ person, name }: { person: Person | undefined; name: string }) {
         loading="lazy"
         sizes="(min-width: 640px) 336px, 100vw"
         className="h-full w-full object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
-        style={{ objectPosition: '50% 30%' }}
+        style={{ objectPosition: portraitPosition(person.slug), aspectRatio: `${size.width} / ${size.height}` }}
       />
     </div>
   )
@@ -71,12 +93,14 @@ function Entry({ r, index }: { r: Recommendation; index: number }) {
       <blockquote className="mt-3 max-w-[21rem]">
         <Prose text={opening} seen={seen} className="text-ink" />
         {rest ? (
-          <details className="group/more">
-            <summary className="inline-flex min-h-11 cursor-pointer list-none items-center text-sm text-accent underline-offset-4 hover:underline [&::-webkit-details-marker]:hidden">
+          // A flex column with the summary ordered last: open, the toggle follows the full quote
+          // instead of splitting it. Browsers that cannot lay out details as flex keep it first.
+          <details className="group/more flex flex-col">
+            <summary className="order-last inline-flex min-h-11 cursor-pointer list-none items-center self-start text-sm text-accent underline-offset-4 hover:underline [&::-webkit-details-marker]:hidden">
               <span className="group-open/more:hidden">Read more</span>
               <span className="hidden group-open/more:inline">Read less</span>
             </summary>
-            <Prose text={rest} seen={seen} className="text-ink" />
+            <Prose text={rest} seen={seen} className="mt-3 text-ink" />
           </details>
         ) : null}
       </blockquote>

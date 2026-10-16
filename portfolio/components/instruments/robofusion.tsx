@@ -116,14 +116,23 @@ function ArmFigure({ pose }: { pose: Pose }) {
   )
 }
 
+/**
+ * The instrument opens with Open Hand selected and the wrist centred, so the arm starts where one
+ * app.py update of that gesture leaves it (gripper open 0.1 rad), not at a rest pose the selection contradicts.
+ */
+const INITIAL_GESTURE: Gesture = 'Open Hand'
+const INITIAL_WRIST_X = VIDEO_FEED_WIDTH / 2
+const INITIAL_WRIST_Y = VIDEO_FEED_HEIGHT / 2
+const INITIAL_POSE: Pose = tick(REST, INITIAL_GESTURE, INITIAL_WRIST_X, INITIAL_WRIST_Y)
+
 function Body() {
   const { reduced, interact } = useInstrument()
-  const [gesture, setGesture] = useState<Gesture>('Open Hand')
-  const [wristX, setWristX] = useState(VIDEO_FEED_WIDTH / 2)
-  const [wristY, setWristY] = useState(VIDEO_FEED_HEIGHT / 2)
-  const [pose, setPose] = useState<Pose>(REST)
-  const [shown, setShown] = useState<Pose>(REST)
-  const shownRef = useRef<Pose>(REST)
+  const [gesture, setGesture] = useState<Gesture>(INITIAL_GESTURE)
+  const [wristX, setWristX] = useState(INITIAL_WRIST_X)
+  const [wristY, setWristY] = useState(INITIAL_WRIST_Y)
+  const [pose, setPose] = useState<Pose>(INITIAL_POSE)
+  const [shown, setShown] = useState<Pose>(INITIAL_POSE)
+  const shownRef = useRef<Pose>(INITIAL_POSE)
   const xId = useId()
   const yId = useId()
 

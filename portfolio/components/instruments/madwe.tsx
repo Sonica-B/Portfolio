@@ -189,7 +189,7 @@ function CollapseBody({ tiles, rules, width, height }: { tiles: Tile[]; rules: R
                   transitionDelay: reduced ? '0ms' : `${cell.order * 8}ms`,
                 }}
               >
-                <Image src={srcOf.get(cell.tile) ?? ''} alt="" width={32} height={32} unoptimized className="h-full w-full object-cover" />
+                <Image src={srcOf.get(cell.tile) ?? ''} alt="" width={32} height={32} sizes="32px" unoptimized className="h-full w-full object-cover" />
               </div>
             ))}
           </div>
@@ -213,7 +213,7 @@ function CollapseBody({ tiles, rules, width, height }: { tiles: Tile[]; rules: R
           {counts.map(([name, count]) => (
             <div key={name} className="flex items-center justify-between gap-3 border-b border-rule py-1">
               <dt className="flex items-center gap-2 text-ink-2">
-                <Image src={srcOf.get(name) ?? ''} alt="" width={16} height={16} unoptimized className="h-4 w-4 object-cover" />
+                <Image src={srcOf.get(name) ?? ''} alt="" width={16} height={16} sizes="16px" unoptimized className="h-4 w-4 object-cover" />
                 {name}
               </dt>
               <dd className="text-metric text-ink">{count}</dd>
@@ -284,6 +284,7 @@ function GalleryBody() {
             sizes="256px"
             className="h-auto w-full"
             style={{
+              aspectRatio: '1 / 1',
               opacity: revealed ? 1 : 0,
               transform: revealed ? 'none' : 'scale(0.94)',
               transition: reduced ? 'none' : 'opacity 240ms cubic-bezier(0.25, 1, 0.5, 1), transform 240ms cubic-bezier(0.25, 1, 0.5, 1)',
