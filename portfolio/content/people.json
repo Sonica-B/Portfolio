@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Amit Shinde",
+    "slug": "amit-shinde",
+    "headline": "SDE2 @TCS | .NET, Angular, AWS SAA, Azure",
+    "title": "IT Analyst",
+    "org": "Tata Consultancy Services",
+    "linkedin": "https://www.linkedin.com/in/amit-shinde-1608751b5/",
+    "photo": "/people/amit-shinde.webp"
+  },
+  {
+    "name": "Gurdeep Singh",
+    "slug": "gurdeep-singh",
+    "headline": "SWE 2 | Backend Developer | .NET Core | REST APIs & Microservices | Cloud (AWS) | Azure DevOps",
+    "title": "Lead Software Engineer",
+    "org": "Persistent Systems",
+    "linkedin": "https://www.linkedin.com/in/gurdeep-singh-99b541240/",
+    "photo": "/people/gurdeep-singh.webp"
+  }
+]
