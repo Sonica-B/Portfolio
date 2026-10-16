@@ -4,7 +4,7 @@ Multimodal classifier shipped as an operated MLOps platform.
 
 - Problem: Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.
 - What she did: Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.
-- What changed: One image runs on GCP, AWS and Azure, standardized ports removed a class of downtime, and two Hugging Face Spaces are live.
+- What changed: One image runs on GCP, AWS and Azure, recovery is tested against crashes, wipes and network drops, and two Hugging Face Spaces are live.
 
 > A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 
@@ -28,7 +28,7 @@ Gradio UI plus an HTTP inference API with per-class probability logging and late
 - Deployed one container image to GCP, AWS and Azure with monitoring, alerting and CI/CD.
 - Built VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting.
 - Tested forced crashes, full wipes and network drops, treating recovery time as a metric.
-- Standardized port assignment, eliminating an entire class of downtime across providers.
+- Standardized port assignment across GCP, AWS and Azure with runtime-aware config.
 - Published two Hugging Face Spaces: local mode and an inference-API mode with OAuth.
 
 ## Key numbers

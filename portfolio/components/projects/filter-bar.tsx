@@ -3,6 +3,16 @@ import { cn } from '@/lib/utils'
 
 export type KindOption = { kind: string; label: string; count: number }
 
+/** Pseudo-kind for the "Shipped" chip: work with an outside user or a public release, kept in `?shipped=1`. */
+export const SHIPPED = 'shipped'
+
+/** The URL for a chip: `/projects`, `/projects?shipped=1` or `/projects?kind=<kind>`. */
+export function filterHref(pathname: string, kind: string): string {
+  if (kind === 'all') return pathname
+  if (kind === SHIPPED) return `${pathname}?shipped=1`
+  return `${pathname}?kind=${encodeURIComponent(kind)}`
+}
+
 // Mono chips in the HUD grammar: 44 px tall, uppercase 13 px, cyan fill when selected.
 const chip =
   'press inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-full border px-4 font-mono text-[13px] uppercase tracking-[0.08em] whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200'
@@ -17,7 +27,7 @@ const selectedCls = 'border-accent bg-accent text-accent-ink'
 
 /**
  * Filter chips. With `onSelect` they are buttons (client state); without it they are
- * plain links to `?kind=`, which is what the static HTML ships before hydration.
+ * plain links to `?kind=` or `?shipped=1`, which is what the static HTML ships before hydration.
  */
 export function FilterBar({
   options,
@@ -29,7 +39,7 @@ export function FilterBar({
   onSelect?: (kind: string) => void
 }) {
   return (
-    <div role="group" aria-label="Filter projects by kind" className={rail}>
+    <div role="group" aria-label="Filter projects" className={rail}>
       {options.map((o) => {
         const selected = o.kind === active
         const cls = cn(chip, selected ? selectedCls : idle)
@@ -49,7 +59,7 @@ export function FilterBar({
         return (
           <Link
             key={o.kind}
-            href={o.kind === 'all' ? '/projects' : `/projects?kind=${encodeURIComponent(o.kind)}`}
+            href={filterHref('/projects', o.kind)}
             aria-current={selected ? 'true' : undefined}
             className={cls}
           >

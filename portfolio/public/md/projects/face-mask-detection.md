@@ -4,7 +4,7 @@ MobileNet SSD on live video.
 
 - Problem: Institutions needed an automated, low-cost way to monitor face mask compliance during COVID-19.
 - What she did: Trained a custom MobileNet SSD model in TensorFlow and integrated it with live video streams for real-time inference.
-- What changed: The detector ran live with high accuracy, suitable for institutions and public venues.
+- What changed: The detector checked live video feeds for face masks in real time, aimed at institutions and public venues.
 
 > A lightweight MobileNet SSD detector that checks whether people are wearing face masks on live video feeds, built for COVID-19 compliance monitoring in public spaces.
 
@@ -22,11 +22,9 @@ Trained a custom MobileNet SSD model and integrated it with video streams for re
 
 ## Results
 
-- Deployed for live detection with high accuracy, suitable for institutions and public venues.
+- Ran real-time mask detection on live video streams.
 
 ## Key numbers
-
-- Backbone: MobileNet SSD
 
 ## Stack
 

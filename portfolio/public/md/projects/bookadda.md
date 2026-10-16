@@ -27,8 +27,6 @@ Designed and implemented the entire frontend in HTML, CSS, Bootstrap and JavaScr
 
 ## Key numbers
 
-- Team size: 4
-
 ## Stack
 
 HTML, CSS, Bootstrap, JavaScript, Flask, MySQL

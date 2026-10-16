@@ -55,17 +55,20 @@ function leadershipItem(l: Leadership): TimelineItem[] {
   ]
 }
 
+/** The home timeline keeps entries that start in this year or later; the rest live on /about. */
+const FROM_YEAR = 2025
+
 export function ActivitySection() {
-  const items = [...profile.activity.map(activityItem), ...profile.leadership.flatMap(leadershipItem)].sort((a, b) =>
-    a.start < b.start ? 1 : a.start > b.start ? -1 : 0,
-  )
+  const items = [...profile.activity.map(activityItem), ...profile.leadership.flatMap(leadershipItem)]
+    .filter((item) => Number(item.start.slice(0, 4)) >= FROM_YEAR)
+    .sort((a, b) => (a.start < b.start ? 1 : a.start > b.start ? -1 : 0))
 
   return (
-    <Section id="activity" title="Activity and leadership" className="scroll-mt-24">
+    <Section id="activity" title="Activity and leadership">
       <Timeline items={items} density="compact" />
       <div className="mt-10">
-        <ButtonLink href="/about" variant="ghost">
-          More about me
+        <ButtonLink href="/about#leadership" variant="ghost">
+          Full activity and leadership
         </ButtonLink>
       </div>
     </Section>

@@ -1,4 +1,3 @@
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 import { profile, type Project } from '@/lib/content'
 import { ButtonLink } from '@/components/ui/button'
 import { Section } from '@/components/ui/section'
@@ -29,13 +28,12 @@ export function PitchReel() {
       id="reel"
       title="Pitch reel"
       intro={`${items.length} projects, ${PITCH_SECONDS} seconds each, built from the real repos`}
-      className="scroll-mt-16"
     >
       <Filmstrip items={items} />
       <div className="mt-8">
+        {/* The ghost ButtonLink draws its own forward arrow. */}
         <ButtonLink href="/projects" variant="ghost">
           See all {total} projects
-          <ArrowRight size={16} aria-hidden="true" />
         </ButtonLink>
       </div>
     </Section>

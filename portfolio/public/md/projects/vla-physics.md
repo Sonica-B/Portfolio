@@ -4,7 +4,7 @@ Spatial probing and LoRA ablation of VLM physical reasoning.
 
 - Problem: Vision-language models show surprising physical reasoning yet fail on intuitive physics, and it was unclear where physical information lives inside them.
 - What she did: Probed per-patch activations at four stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then ran a five-condition LoRA ablation.
-- What changed: Produced physics saliency maps, degradation curves across the projection bottleneck and 15 ablation runs on three benchmarks.
+- What changed: Measured information loss across the projection bottleneck, mapped physics saliency and ran 15 LoRA ablations on three benchmarks.
 
 > Probes where physical properties such as mass, friction, elasticity and stability are encoded across the encoder, projection and LLM stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then fine-tunes five LoRA configurations to find the leverage point for physical intuition.
 

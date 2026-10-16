@@ -45,6 +45,47 @@ for (const pr of p.projects) {
   for (const [i, h] of (pr.highlights ?? []).entries()) {
     if (words(h) > 14) errors.push(`${pr.slug}: highlight ${i + 1} is ${words(h)} words (max 14)`)
   }
+  // Metrics are outcomes or measured quantities: every value carries a number, and team size is not one.
+  for (const m of pr.metrics ?? []) {
+    if (!/\d/.test(m.value)) errors.push(`${pr.slug}: metric "${m.label}" has no number ("${m.value}"); move it to a descriptive field`)
+    if (/team size/i.test(m.label)) errors.push(`${pr.slug}: team size is not a metric; say it in the approach or the pitch`)
+  }
+  // role: her role as the data states it, short. shipped: { label } for an outside user or a public release.
+  if (pr.role !== undefined && (typeof pr.role !== 'string' || !words(pr.role) || words(pr.role) > 10)) {
+    errors.push(`${pr.slug}: role must be a string of 1 to 10 words`)
+  }
+  if (pr.shipped !== undefined) {
+    if (!pr.shipped || typeof pr.shipped.label !== 'string' || !words(pr.shipped.label) || words(pr.shipped.label) > 6) {
+      errors.push(`${pr.slug}: shipped must be { label } with 1 to 6 words`)
+    }
+  }
+}
+
+// coreSkills: for every skills group, exactly five names taken from that group.
+if (!p.coreSkills || typeof p.coreSkills !== 'object') {
+  errors.push('coreSkills missing')
+} else {
+  for (const [group, list] of Object.entries(p.skills)) {
+    const core = p.coreSkills[group]
+    if (!Array.isArray(core) || core.length !== 5) errors.push(`coreSkills["${group}"] must list exactly 5 skills`)
+    else for (const name of core) if (!list.includes(name)) errors.push(`coreSkills["${group}"]: "${name}" is not in skills`)
+  }
+  for (const group of Object.keys(p.coreSkills)) if (!p.skills[group]) errors.push(`coreSkills["${group}"] has no skills group`)
+}
+
+// Glossary tips: one sentence of 12 to 25 words, no em or en dash, unique terms.
+const glossaryUrl = new URL('../content/glossary.json', import.meta.url)
+if (existsSync(glossaryUrl)) {
+  const glossaryRaw = readFileSync(glossaryUrl, 'utf8')
+  if (new RegExp('[' + String.fromCharCode(0x2014, 0x2013) + ']').test(glossaryRaw)) errors.push('em dash or en dash found in glossary.json')
+  const terms = new Set()
+  for (const g of JSON.parse(glossaryRaw)) {
+    if (terms.has(g.term)) errors.push(`glossary: duplicate term ${g.term}`)
+    terms.add(g.term)
+    const n = words(g.tip)
+    if (n < 12 || n > 25) errors.push(`glossary ${g.term}: tip is ${n} words (12 to 25)`)
+    if (/[.!?]\s+\S/.test(g.tip.trim())) errors.push(`glossary ${g.term}: tip must be one sentence`)
+  }
 }
 for (const e of p.experience) {
   for (const [i, h] of (e.highlights ?? []).entries()) {

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import peopleRaw from '@/content/people.json'
-import { profile, type Recommendation } from '@/lib/content'
+import { getExperience, profile, type Recommendation } from '@/lib/content'
 import { Prose } from '@/components/glossary/prose'
 import { ButtonLink } from '@/components/ui/button'
 import { Logo } from '@/components/ui/logo'
@@ -71,6 +71,8 @@ function Entry({ rec, seen }: { rec: Recommendation; seen: Set<string> }) {
   const person = rec.person ? PEOPLE.find((p) => p.slug === rec.person) : undefined
   const title = person ? `${person.title}, ${person.org}` : `${rec.role}, ${rec.org}`
   const org = person?.org ?? rec.org
+  // Who they were to her, as on the about page: "Colleague at Persistent Systems", "Client at Broadspire".
+  const relation = person ? [rec.role, rec.org].filter(Boolean).join(' at ') : ''
   return (
     <figure className="group panel flex h-full flex-col p-4 md:p-5">
       <figcaption>
@@ -90,6 +92,7 @@ function Entry({ rec, seen }: { rec: Recommendation; seen: Set<string> }) {
           <Logo name={org} height={14} />
           <span>{title}</span>
         </p>
+        {relation ? <p className="mt-0.5 text-sm text-ink-2">{relation}</p> : null}
       </figcaption>
       <Prose as="blockquote" text={excerpt(rec.quote)} className="mt-3 text-base leading-snug text-ink-2" seen={seen} />
       <div className="mt-auto -ml-2 pt-4">
@@ -102,6 +105,29 @@ function Entry({ rec, seen }: { rec: Recommendation; seen: Set<string> }) {
 }
 
 /**
+ * "5 recommendations on her Lead DevOps work at Persistent Systems: 4 from colleagues there and 1 from
+ * a client at Broadspire." Recommenders from the role's organization count as colleagues there;
+ * everyone else is named by their relation to her, from the recommendation's role and org.
+ */
+function intro(recs: Recommendation[]): string {
+  const total = `${recs.length} ${recs.length === 1 ? 'recommendation' : 'recommendations'}`
+  const role = getExperience('persistent-lead')
+  if (!role) return `${total}, from ${listJoin([...new Set(recs.map((r) => r.org))])}.`
+  const colleagues = recs.filter((r) => r.org === role.org).length
+  const others = recs.filter((r) => r.org !== role.org)
+  const parts: string[] = []
+  if (colleagues > 0) parts.push(`${colleagues} from ${colleagues === 1 ? 'a colleague' : 'colleagues'} there`)
+  const byRelation = new Map<string, number>()
+  for (const r of others) {
+    const key = `${r.role.toLowerCase()} at ${r.org}`
+    byRelation.set(key, (byRelation.get(key) ?? 0) + 1)
+  }
+  for (const [relation, n] of byRelation) parts.push(n === 1 ? `1 from ${/^[aeiou]/.test(relation) ? 'an' : 'a'} ${relation}` : `${n} from ${relation.replace(/^(\S+)/, '$1s')}`)
+  // "Lead DevOps Engineer" -> "her Lead DevOps work".
+  return `${total} on her ${role.role.replace(/\s+Engineer$/, '')} work at ${role.org}: ${listJoin(parts)}.`
+}
+
+/**
  * A compact band of the recommendations: one snap rail, every entry a shallow portrait band,
  * name, current title and organization from people.json, then the first 40 words of the quote.
  * Renders whatever profile.json carries; entries without a portrait show a monogram.
@@ -109,15 +135,13 @@ function Entry({ rec, seen }: { rec: Recommendation; seen: Set<string> }) {
 export function ColleaguesSection() {
   const recs = profile.recommendations
   if (recs.length === 0) return null
-  const orgs = [...new Set(recs.map((r) => r.org))]
   // One glossary popover per term across the band.
   const seen = new Set<string>()
   return (
     <Section
       id="colleagues"
       title="What colleagues say"
-      intro={`${recs.length} recommendations, from ${listJoin(orgs)}.`}
-      className="scroll-mt-24"
+      intro={intro(recs)}
     >
       <div
         role="region"

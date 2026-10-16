@@ -446,8 +446,14 @@
   {
     "term": "ICML",
     "match": ["ICML"],
-    "tip": "The International Conference on Machine Learning, one of the three most selective annual research conferences in the field.",
+    "tip": "The International Conference on Machine Learning, one of the most selective annual research conferences; its workshops review papers separately from the main conference.",
     "source": "https://icml.cc"
+  },
+  {
+    "term": "FoGen",
+    "match": ["FoGen"],
+    "tip": "An ICML 2026 workshop on the foundations of deep generative models, covering memorization, generalization and reasoning.",
+    "source": "https://openreview.net/forum?id=ZAGsOMAwBV"
   },
   {
     "term": "poster presentation",

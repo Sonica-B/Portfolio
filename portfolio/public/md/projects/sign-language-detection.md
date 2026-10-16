@@ -4,7 +4,7 @@ Custom SSD object detector.
 
 - Problem: Sign language users face communication barriers in everyday settings.
 - What she did: Trained a custom Single Shot Multibox Detector in TensorFlow on a gesture dataset and wired it to a live camera feed.
-- What changed: The system detects and translates multiple gestures into text in real time.
+- What changed: A working detector labels several signed gestures as text on a live camera feed.
 
 > An end-to-end custom object-detection system that recognizes hand gestures and translates sign language into text in real time for people with hearing impairments.
 
@@ -22,11 +22,9 @@ Trained a Single Shot Multibox Detector in TensorFlow on a custom gesture datase
 
 ## Results
 
-- Detects and translates multiple gestures to text in real time.
+- Labels several signed gestures as text on a live camera feed.
 
 ## Key numbers
-
-- Architecture: SSD
 
 ## Stack
 

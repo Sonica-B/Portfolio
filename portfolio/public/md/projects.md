@@ -1,28 +1,10 @@
 # Projects by Shreya Boyane
 
-23 projects, featured work first. Kinds: Research, Production system, Computer vision, Generative AI, MLOps, LLM systems, Developer tooling, Robotics, NLP, Machine learning, Reinforcement learning, Augmented reality, Web. Each entry opens with the three-second strip (problem, what she did, what changed) and links to a full page with the approach, results and stack. 15 projects carry a 25-second pitch video.
-
-## Interpreting Latent CoT Reasoning as Dynamical Systems
-
-Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Research, Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
-
-- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
-- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
-- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
-
-Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
-
-Key numbers: GSM8K samples: 8,792; Trajectory dimension: 768; Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%; Verified claims: 28 of 28; Reviewer rating: 6 of 6.
-
-Stack: PyTorch, Hugging Face Transformers, PEFT, LoRA, DMD, PHATE, UMAP, CUDA, HDF5, mechanistic interpretability.
-
-Pitch video (25 seconds): https://shreyaboyane.dev/videos/latent-cot.mp4 (poster: https://shreyaboyane.dev/videos/latent-cot.webp).
-
-Details: https://shreyaboyane.dev/projects/latent-cot (markdown: https://shreyaboyane.dev/md/projects/latent-cot.md). Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
+23 projects, featured work first. Kinds: LLM systems, Research, Computer vision, Generative AI, MLOps, Developer tooling, Robotics, NLP, Machine learning, Reinforcement learning, Augmented reality, Web. Each entry opens with the three-second strip (problem, what she did, what changed) and links to a full page with the approach, results and stack. 15 projects carry a 25-second pitch video.
 
 ## SkipLegal: multi-agent H-1B document intelligence
 
-Production system for Crossing, Data Science GQP MVP. Production system, Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
+Production system for Crossing, Data Science GQP MVP. LLM systems, Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
 
 - Problem: Immigration attorneys spent 3 to 4 days per H-1B petition checking Form I-129 packages for missing documents and errors.
 - What she did: Built and delivered a four-agent LLM pipeline on AWS with LangGraph that extracts schema-validated JSON and a single QC report.
@@ -38,17 +20,35 @@ Pitch video (25 seconds): https://shreyaboyane.dev/videos/skiplegal.mp4 (poster:
 
 Details: https://shreyaboyane.dev/projects/skiplegal (markdown: https://shreyaboyane.dev/md/projects/skiplegal.md). Code: https://github.com/Sonica-B/GQP-SkipLegal
 
+## Interpreting Latent CoT Reasoning as Dynamical Systems
+
+Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Research, Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
+
+- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
+- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
+- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
+
+Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
+
+Key numbers: GSM8K samples: 8,792; Trajectory dimension: 768; Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%; Claims passing her verification harness: 28 of 28; Reviewer rating: 6 of 6, confidence 3 of 3.
+
+Stack: PyTorch, Hugging Face Transformers, PEFT, LoRA, DMD, PHATE, UMAP, CUDA, HDF5, mechanistic interpretability.
+
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/latent-cot.mp4 (poster: https://shreyaboyane.dev/videos/latent-cot.webp).
+
+Details: https://shreyaboyane.dev/projects/latent-cot (markdown: https://shreyaboyane.dev/md/projects/latent-cot.md). Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
+
 ## Einstein Vision: 3D scene reconstruction for autonomous driving
 
 Perception stack plus TensorRT inference optimization. Computer vision, Mar 2025 to Apr 2025, WPI RBE/CS 549 Computer Vision.
 
 - Problem: Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.
 - What she did: Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.
-- What changed: 3D placement accuracy rose 50% and scene realism 75% across 13 sequences, with 1.5x throughput and p95 latency down 35%.
+- What changed: Rebuilt 13 dash-cam sequences as Blender 3D scenes, streaming masks and poses at 30 FPS, with 1.5x throughput and p95 latency down 35%.
 
 Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.
 
-Key numbers: 3D placement accuracy: +50%; Scene realism: +75%; Driving sequences: 13; Multi-object throughput: 1.5x; p95 latency: -35%.
+Key numbers: Driving sequences: 13; Mask and pose stream: 30 FPS; Multi-object throughput: 1.5x; p95 latency: -35%.
 
 Stack: Depth Anything, MiDaS, Mask R-CNN, Detic, OpenPifPaf, YOLO3D, RAFT, Blender Python API, TensorRT, ONNX, Nsight.
 
@@ -98,7 +98,7 @@ Multimodal classifier shipped as an operated MLOps platform. MLOps, Aug 2025 to 
 
 - Problem: Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.
 - What she did: Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.
-- What changed: One image runs on GCP, AWS and Azure, standardized ports removed a class of downtime, and two Hugging Face Spaces are live.
+- What changed: One image runs on GCP, AWS and Azure, recovery is tested against crashes, wipes and network drops, and two Hugging Face Spaces are live.
 
 A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 
@@ -134,7 +134,7 @@ Spatial probing and LoRA ablation of VLM physical reasoning. Research, Mar 2026 
 
 - Problem: Vision-language models show surprising physical reasoning yet fail on intuitive physics, and it was unclear where physical information lives inside them.
 - What she did: Probed per-patch activations at four stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then ran a five-condition LoRA ablation.
-- What changed: Produced physics saliency maps, degradation curves across the projection bottleneck and 15 ablation runs on three benchmarks.
+- What changed: Measured information loss across the projection bottleneck, mapped physics saliency and ran 15 LoRA ablations on three benchmarks.
 
 Probes where physical properties such as mass, friction, elasticity and stability are encoded across the encoder, projection and LLM stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then fine-tunes five LoRA configurations to find the leverage point for physical intuition.
 
@@ -174,7 +174,7 @@ Shipped on the VS Code Marketplace. Developer tooling, May 2025 to present, Open
 
 Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. Its built-in secret scanner blocks keys, tokens and passwords before they reach the remote.
 
-Key numbers: Secret pattern families: 10+; License: Apache-2.0; Minimum VS Code: 1.90.
+Key numbers: Secret pattern families: 10+.
 
 Stack: TypeScript, JavaScript, VS Code Extension API, GitHub Copilot, Git, secret scanning.
 
@@ -330,7 +330,7 @@ Indoor and outdoor AR wayfinding, TECHVED sponsored. Augmented reality, Jan 2021
 
 An augmented-reality navigation assistant that guides users to a destination indoors and outdoors, combining Vuforia marker detection with Unity 3D overlays and place recommendations based on user preferences.
 
-Key numbers: User satisfaction: 90%+; Team size: 4.
+Key numbers: User satisfaction: 90%+.
 
 Stack: Unity, C#, Vuforia, Autodesk Revit, Maps SDK, Firebase, Figma.
 
@@ -342,11 +342,11 @@ Custom SSD object detector. Computer vision, Apr 2021 to Oct 2021, Independent p
 
 - Problem: Sign language users face communication barriers in everyday settings.
 - What she did: Trained a custom Single Shot Multibox Detector in TensorFlow on a gesture dataset and wired it to a live camera feed.
-- What changed: The system detects and translates multiple gestures into text in real time.
+- What changed: A working detector labels several signed gestures as text on a live camera feed.
 
 An end-to-end custom object-detection system that recognizes hand gestures and translates sign language into text in real time for people with hearing impairments.
 
-Key numbers: Architecture: SSD.
+Key numbers: .
 
 Stack: TensorFlow, Python, object detection, OpenCV.
 
@@ -358,11 +358,11 @@ MobileNet SSD on live video. Computer vision, Nov 2020 to Mar 2021, Independent 
 
 - Problem: Institutions needed an automated, low-cost way to monitor face mask compliance during COVID-19.
 - What she did: Trained a custom MobileNet SSD model in TensorFlow and integrated it with live video streams for real-time inference.
-- What changed: The detector ran live with high accuracy, suitable for institutions and public venues.
+- What changed: The detector checked live video feeds for face masks in real time, aimed at institutions and public venues.
 
 A lightweight MobileNet SSD detector that checks whether people are wearing face masks on live video feeds, built for COVID-19 compliance monitoring in public spaces.
 
-Key numbers: Backbone: MobileNet SSD.
+Key numbers: .
 
 Stack: TensorFlow, OpenCV, Python.
 
@@ -378,7 +378,7 @@ Full-stack web app for students. Web, Jun 2020 to Nov 2020, PES Modern College o
 
 An online platform where students buy, rent or sell books with fellow students, with a search-first interface and a Flask backend.
 
-Key numbers: Team size: 4.
+Key numbers: .
 
 Stack: HTML, CSS, Bootstrap, JavaScript, Flask, MySQL.
 

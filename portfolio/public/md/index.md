@@ -33,25 +33,9 @@ I build production ML systems end to end, from data and training infrastructure 
 
 ## Featured projects
 
-### Interpreting Latent CoT Reasoning as Dynamical Systems
-
-Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Research, Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
-
-- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
-- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
-- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
-
-Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
-
-Key numbers: GSM8K samples: 8,792; Trajectory dimension: 768; Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%; Verified claims: 28 of 28; Reviewer rating: 6 of 6.
-
-Pitch video (25 seconds): https://shreyaboyane.dev/videos/latent-cot.mp4 (poster: https://shreyaboyane.dev/videos/latent-cot.webp).
-
-Details: https://shreyaboyane.dev/projects/latent-cot (markdown: https://shreyaboyane.dev/md/projects/latent-cot.md). Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
-
 ### SkipLegal: multi-agent H-1B document intelligence
 
-Production system for Crossing, Data Science GQP MVP. Production system, Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
+Production system for Crossing, Data Science GQP MVP. LLM systems, Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
 
 - Problem: Immigration attorneys spent 3 to 4 days per H-1B petition checking Form I-129 packages for missing documents and errors.
 - What she did: Built and delivered a four-agent LLM pipeline on AWS with LangGraph that extracts schema-validated JSON and a single QC report.
@@ -65,17 +49,33 @@ Pitch video (25 seconds): https://shreyaboyane.dev/videos/skiplegal.mp4 (poster:
 
 Details: https://shreyaboyane.dev/projects/skiplegal (markdown: https://shreyaboyane.dev/md/projects/skiplegal.md). Code: https://github.com/Sonica-B/GQP-SkipLegal
 
+### Interpreting Latent CoT Reasoning as Dynamical Systems
+
+Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Research, Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
+
+- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
+- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
+- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
+
+Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
+
+Key numbers: GSM8K samples: 8,792; Trajectory dimension: 768; Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%; Claims passing her verification harness: 28 of 28; Reviewer rating: 6 of 6, confidence 3 of 3.
+
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/latent-cot.mp4 (poster: https://shreyaboyane.dev/videos/latent-cot.webp).
+
+Details: https://shreyaboyane.dev/projects/latent-cot (markdown: https://shreyaboyane.dev/md/projects/latent-cot.md). Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
+
 ### Einstein Vision: 3D scene reconstruction for autonomous driving
 
 Perception stack plus TensorRT inference optimization. Computer vision, Mar 2025 to Apr 2025, WPI RBE/CS 549 Computer Vision.
 
 - Problem: Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.
 - What she did: Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.
-- What changed: 3D placement accuracy rose 50% and scene realism 75% across 13 sequences, with 1.5x throughput and p95 latency down 35%.
+- What changed: Rebuilt 13 dash-cam sequences as Blender 3D scenes, streaming masks and poses at 30 FPS, with 1.5x throughput and p95 latency down 35%.
 
 Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.
 
-Key numbers: 3D placement accuracy: +50%; Scene realism: +75%; Driving sequences: 13; Multi-object throughput: 1.5x; p95 latency: -35%.
+Key numbers: Driving sequences: 13; Mask and pose stream: 30 FPS; Multi-object throughput: 1.5x; p95 latency: -35%.
 
 Pitch video (25 seconds): https://shreyaboyane.dev/videos/einstein-vision.mp4 (poster: https://shreyaboyane.dev/videos/einstein-vision.webp).
 
@@ -119,7 +119,7 @@ Multimodal classifier shipped as an operated MLOps platform. MLOps, Aug 2025 to 
 
 - Problem: Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.
 - What she did: Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.
-- What changed: One image runs on GCP, AWS and Azure, standardized ports removed a class of downtime, and two Hugging Face Spaces are live.
+- What changed: One image runs on GCP, AWS and Azure, recovery is tested against crashes, wipes and network drops, and two Hugging Face Spaces are live.
 
 A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 

@@ -21,6 +21,10 @@ export type StripItem = {
   change: string
   hasPitch: boolean
   frame: StripFrame
+  /** profile.json `shipped.label` ("VS Code Marketplace"), set on the server by ProjectFilter; absent when not shipped. */
+  shipped?: string | null
+  /** Ended in EARLIER_WORK_LAST_YEAR or before (lib/content.ts isEarlierWork): folds into the "Earlier work" row. */
+  earlier?: boolean
 }
 
 // Frame widths: 8rem on phones, 13rem from 768 px (see the grid columns below).
@@ -77,7 +81,7 @@ export function ProjectStrip({ item }: { item: StripItem }) {
         <Frame frame={item.frame} />
       </div>
       <div className="min-w-0">
-        <p className="flex flex-wrap items-baseline gap-x-2 font-mono text-xs text-ink-2">
+        <p className="flex flex-wrap items-baseline gap-x-2 text-sm text-ink-2">
           <span>{item.kindLabel}</span>
           <span className="tnum">{item.year}</span>
         </p>
@@ -89,6 +93,12 @@ export function ProjectStrip({ item }: { item: StripItem }) {
             {item.name}
           </Link>
         </h2>
+        {item.shipped ? (
+          <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="rounded-full bg-accent-soft px-2.5 py-0.5 font-mono text-[13px] tracking-[0.08em] text-accent uppercase">Shipped</span>
+            <span className="text-sm text-ink-2">{item.shipped}</span>
+          </p>
+        ) : null}
       </div>
       <p className="col-span-2 text-ink-2 md:col-span-1 md:col-start-2">{item.change}</p>
       {item.hasPitch ? (

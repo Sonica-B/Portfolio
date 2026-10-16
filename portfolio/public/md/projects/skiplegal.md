@@ -8,7 +8,7 @@ Production system for Crossing, Data Science GQP MVP.
 
 > A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.
 
-- Kind: Production system
+- Kind: LLM systems
 - Period: Aug 2025 to Dec 2025 (completed)
 - Affiliation: Crossing x WPI industry-sponsored Graduate Qualifying Project
 - Team: Shreya Boyane with Mansi Rupesh Mantri, Nandini Priya Sripada, Pradyumn Tendulkar

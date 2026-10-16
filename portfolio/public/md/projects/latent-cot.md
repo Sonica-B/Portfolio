@@ -33,15 +33,16 @@ Model the six latent hidden states as a trajectory; measure step-to-step change,
 - Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.
 - Built CUDA health-polling orchestration that stabilized 14+ hour training runs.
 - Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.
-- Verified 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding, pinned dependencies.
+- Built a verification harness that passes 28 of 28 reproducible numeric claims.
+- Ran with fixed seeds, greedy decoding and pinned dependencies.
 
 ## Key numbers
 
 - GSM8K samples: 8,792
 - Trajectory dimension: 768
 - Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%
-- Verified claims: 28 of 28
-- Reviewer rating: 6 of 6
+- Claims passing her verification harness: 28 of 28
+- Reviewer rating: 6 of 6, confidence 3 of 3
 
 ## Stack
 

@@ -198,25 +198,6 @@ Honors: Honours in Artificial Intelligence and Machine Learning; Final-year proj
 
 ## Selected projects
 
-### Interpreting Latent CoT Reasoning as Dynamical Systems
-
-Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
-
-- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
-- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
-- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
-
-Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
-
-- Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.
-- Found Sim-CoT supervision tightens both systems without changing the underlying dynamics.
-- Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.
-- Built CUDA health-polling orchestration that stabilized 14+ hour training runs.
-- Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.
-- Verified 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding, pinned dependencies.
-
-Stack: PyTorch, Hugging Face Transformers, PEFT, LoRA, DMD, PHATE, UMAP, CUDA, HDF5, mechanistic interpretability. Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems. Page: https://shreyaboyane.dev/projects/latent-cot
-
 ### SkipLegal: multi-agent H-1B document intelligence
 
 Production system for Crossing, Data Science GQP MVP. Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
@@ -236,17 +217,37 @@ A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition pac
 
 Stack: LangGraph, Amazon Bedrock, AWS Lambda, Step Functions, S3, EventBridge, Textract, Pydantic, RAGAS, FastAPI, Prometheus. Code: https://github.com/Sonica-B/GQP-SkipLegal. Page: https://shreyaboyane.dev/projects/skiplegal
 
+### Interpreting Latent CoT Reasoning as Dynamical Systems
+
+Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
+
+- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
+- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
+- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
+
+Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
+
+- Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.
+- Found Sim-CoT supervision tightens both systems without changing the underlying dynamics.
+- Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.
+- Built CUDA health-polling orchestration that stabilized 14+ hour training runs.
+- Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.
+- Built a verification harness that passes 28 of 28 reproducible numeric claims.
+- Ran with fixed seeds, greedy decoding and pinned dependencies.
+
+Stack: PyTorch, Hugging Face Transformers, PEFT, LoRA, DMD, PHATE, UMAP, CUDA, HDF5, mechanistic interpretability. Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems. Page: https://shreyaboyane.dev/projects/latent-cot
+
 ### Einstein Vision: 3D scene reconstruction for autonomous driving
 
 Perception stack plus TensorRT inference optimization. Mar 2025 to Apr 2025, WPI RBE/CS 549 Computer Vision.
 
 - Problem: Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.
 - What she did: Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.
-- What changed: 3D placement accuracy rose 50% and scene realism 75% across 13 sequences, with 1.5x throughput and p95 latency down 35%.
+- What changed: Rebuilt 13 dash-cam sequences as Blender 3D scenes, streaming masks and poses at 30 FPS, with 1.5x throughput and p95 latency down 35%.
 
 Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.
 
-- Improved 3D placement accuracy 50% and scene realism 75% across 13 driving sequences.
+- Placed detections in world coordinates through a calibrated pinhole camera across 13 sequences.
 - Deployed detectors through TorchScript, ONNX and TensorRT FP16 with layer fusion.
 - Reached 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.
 - Documented failure modes: tunnel reflections, lens rain, SUV versus pickup flicker, low-speed flow errors.
@@ -299,14 +300,14 @@ Multimodal classifier shipped as an operated MLOps platform. Aug 2025 to Dec 202
 
 - Problem: Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.
 - What she did: Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.
-- What changed: One image runs on GCP, AWS and Azure, standardized ports removed a class of downtime, and two Hugging Face Spaces are live.
+- What changed: One image runs on GCP, AWS and Azure, recovery is tested against crashes, wipes and network drops, and two Hugging Face Spaces are live.
 
 A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 
 - Deployed one container image to GCP, AWS and Azure with monitoring, alerting and CI/CD.
 - Built VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting.
 - Tested forced crashes, full wipes and network drops, treating recovery time as a metric.
-- Standardized port assignment, eliminating an entire class of downtime across providers.
+- Standardized port assignment across GCP, AWS and Azure with runtime-aware config.
 - Published two Hugging Face Spaces: local mode and an inference-API mode with OAuth.
 
 Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, GitHub Actions, Hugging Face Spaces. Code: https://github.com/Sonica-B/Case-Studies. Page: https://shreyaboyane.dev/projects/scene-mood-classifier
@@ -314,7 +315,7 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 ## Other projects
 
 - FairPrep: fairness-aware human feedback for table unionability (Jan 2025 to May 2026): 6 of 10 metrics flagged bias against non-native English annotators, 25% versus 44% accuracy on hard questions, p = 0.031. Code: https://github.com/Sonica-B/FairPrep
-- Where does physics live in vision encoders? (Mar 2026 to May 2026): Produced physics saliency maps, degradation curves across the projection bottleneck and 15 ablation runs on three benchmarks. Code: https://github.com/Sonica-B/VLAs
+- Where does physics live in vision encoders? (Mar 2026 to May 2026): Measured information loss across the projection bottleneck, mapped physics saliency and ran 15 LoRA ablations on three benchmarks. Code: https://github.com/Sonica-B/VLAs
 - Medical Triage HIL: confidence-aware LLM triage (Jan 2025 to Aug 2025): Triage precision rose 20%, false escalations fell 40%, hallucinations fell 50% and early critical-case detection rose 60%. Code: https://github.com/Sonica-B/Medical-Triage-HIL
 - AutoGit-AI: VS Code extension with secret scanning (May 2025 to present): Shipped on the VS Code Marketplace under Apache-2.0, blocking 10+ families of keys, tokens and passwords before they reach the remote. Code: https://github.com/Sonica-B/AutoGit
 - VIO: deep visual-inertial odometry via multimodal fusion (Mar 2025 to May 2025): RMSE ATE fell 31 to 34% versus vision-only, and TensorRT deployment cut per-step latency 35% and VRAM 20%. Code: https://github.com/Sonica-B/VIO
@@ -326,8 +327,8 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 - Eigenfaces and latent face generation (Jan 2025 to Feb 2025): Latents kept 95%+ variance, 100 novel faces were generated, and decoder sampling cut training time 35% over dense baselines.
 - Behavioral cloning in Atari Pong (Sep 2024 to Oct 2024): The cloned agent reached 87.55% test accuracy with minimal overfitting and tracked the paddle with sub-500 ms action latency.
 - Map.AR: augmented reality navigation assistant (Jan 2021 to Jan 2022): Pilot users reported 90%+ satisfaction on a usability survey and TECHVED sponsored the project in October 2021.
-- Real-time sign language detection (Apr 2021 to Oct 2021): The system detects and translates multiple gestures into text in real time.
-- Real-time face mask detection (Nov 2020 to Mar 2021): The detector ran live with high accuracy, suitable for institutions and public venues.
+- Real-time sign language detection (Apr 2021 to Oct 2021): A working detector labels several signed gestures as text on a live camera feed.
+- Real-time face mask detection (Nov 2020 to Mar 2021): The detector checked live video feeds for face masks in real time, aimed at institutions and public venues.
 - BookADDA: peer-to-peer book rental platform (Jun 2020 to Nov 2020): Students could buy, rent or sell books through a working, search-first platform that drew positive feedback for ease of use.
 - shreyaboyane.dev: this site (Feb 2026 to present): One file now feeds 23 project pages, the JSON-LD, sitemap, llms.txt and resume, with every route static and zero runtime APIs. Code: https://github.com/Sonica-B/Portfolio
 

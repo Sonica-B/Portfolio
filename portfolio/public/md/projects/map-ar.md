@@ -19,7 +19,7 @@ Complex indoor spaces are hard to navigate with 2D maps.
 
 ## Approach
 
-Built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.
+In a four-person team, built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.
 
 ## Results
 
@@ -29,7 +29,6 @@ Built the indoor navigation feature, the recommendation logic and the entire fro
 ## Key numbers
 
 - User satisfaction: 90%+
-- Team size: 4
 
 ## Stack
 

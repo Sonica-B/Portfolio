@@ -29,12 +29,11 @@ Pattern plus entropy scanning of only the added lines (AWS, GitHub, GitLab, Goog
 - Runs CI that lints, tests and packages the extension on every push.
 - Kept pure logic in a fully unit-tested library, isolated from the VS Code wiring.
 - Added debounced batching, protected branches, status-bar control and a full output-channel log.
+- Runs on VS Code 1.90 and later.
 
 ## Key numbers
 
 - Secret pattern families: 10+
-- License: Apache-2.0
-- Minimum VS Code: 1.90
 
 ## Stack
 

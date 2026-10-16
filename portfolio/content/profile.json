@@ -595,102 +595,24 @@
   ],
   "projects": [
     {
-      "slug": "latent-cot",
-      "name": "Interpreting Latent CoT Reasoning as Dynamical Systems",
-      "subtitle": "Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster",
-      "kind": "research",
-      "featured": true,
-      "start": "2026-02",
-      "end": "2026-05",
-      "status": "completed",
-      "affiliation": "Algoverse AI Research Fellowship",
-      "team": [
-        "Sabari Iyyappan Duraipandian",
-        "Manju Nagesh",
-        "Jerome Francis",
-        "Archana Vaidheeswaran",
-        "Kevin Zhu"
-      ],
-      "summary": "Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.",
-      "pitch": {
-        "problem": "Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.",
-        "action": "Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.",
-        "change": "CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6."
-      },
-      "problem": "Latent reasoning methods such as CODI and COCONUT keep multiple superimposed candidate traces in hidden space at every step, so existing mechanistic tools reveal compression and shortcuts but cannot explain how reasoning evolves from one latent step to the next.",
-      "approach": "Model the six latent hidden states as a trajectory; measure step-to-step change, direction consistency, arc length, a Lyapunov surrogate and perturbation divergence; project with DMD, PHATE, UMAP, PCA and t-SNE across four model configurations (CODI and COCONUT, vanilla and Sim-CoT) on GPT-2-small.",
-      "highlights": [
-        "Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.",
-        "Found Sim-CoT supervision tightens both systems without changing the underlying dynamics.",
-        "Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.",
-        "Built CUDA health-polling orchestration that stabilized 14+ hour training runs.",
-        "Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.",
-        "Verified 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding, pinned dependencies."
-      ],
-      "metrics": [
-        {
-          "label": "GSM8K samples",
-          "value": "8,792"
-        },
-        {
-          "label": "Trajectory dimension",
-          "value": "768"
-        },
-        {
-          "label": "Samples with an unstable DMD mode, COCONUT vs CODI",
-          "value": "41% vs 85%"
-        },
-        {
-          "label": "Verified claims",
-          "value": "28 of 28"
-        },
-        {
-          "label": "Reviewer rating",
-          "value": "6 of 6"
-        }
-      ],
-      "tags": [
-        "PyTorch",
-        "Hugging Face Transformers",
-        "PEFT",
-        "LoRA",
-        "DMD",
-        "PHATE",
-        "UMAP",
-        "CUDA",
-        "HDF5",
-        "mechanistic interpretability"
-      ],
-      "repo": "https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems",
-      "links": {
-        "paper": "https://openreview.net/pdf?id=ZAGsOMAwBV",
-        "projectPage": "https://sabariiyyappan.github.io/Latent-CoT/",
-        "openreview": "https://openreview.net/forum?id=ZAGsOMAwBV"
-      },
-      "visual": {
-        "src": "/projects/latent-cot/trajectory-phate-3d.webp",
-        "alt": "3D PHATE embedding of COCONUT latent reasoning trajectories colored by step"
-      },
-      "video": null,
-      "recognition": "Poster, ICML 2026 FoGen Workshop",
-      "publicationId": "latent-cot",
-      "experienceId": null
-    },
-    {
       "slug": "skiplegal",
       "name": "SkipLegal: multi-agent H-1B document intelligence",
       "subtitle": "Production system for Crossing, Data Science GQP MVP",
-      "kind": "production",
+      "kind": "llm-systems",
       "featured": true,
       "start": "2025-08",
       "end": "2025-12",
       "status": "completed",
+      "shipped": {
+        "label": "Handed off to Crossing"
+      },
       "affiliation": "Crossing x WPI industry-sponsored Graduate Qualifying Project",
       "team": [
         "Mansi Rupesh Mantri",
         "Nandini Priya Sripada",
         "Pradyumn Tendulkar"
       ],
+      "role": "Machine learning engineer and client-facing project lead",
       "summary": "A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.",
       "pitch": {
         "problem": "Immigration attorneys spent 3 to 4 days per H-1B petition checking Form I-129 packages for missing documents and errors.",
@@ -755,6 +677,90 @@
       "experienceId": "crossing-gqp"
     },
     {
+      "slug": "latent-cot",
+      "name": "Interpreting Latent CoT Reasoning as Dynamical Systems",
+      "subtitle": "Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster",
+      "kind": "research",
+      "featured": true,
+      "start": "2026-02",
+      "end": "2026-05",
+      "status": "completed",
+      "affiliation": "Algoverse AI Research Fellowship",
+      "team": [
+        "Sabari Iyyappan Duraipandian",
+        "Manju Nagesh",
+        "Jerome Francis",
+        "Archana Vaidheeswaran",
+        "Kevin Zhu"
+      ],
+      "role": "Co-first author and lead pipeline engineer",
+      "summary": "Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.",
+      "pitch": {
+        "problem": "Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.",
+        "action": "Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.",
+        "change": "CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6."
+      },
+      "problem": "Latent reasoning methods such as CODI and COCONUT keep multiple superimposed candidate traces in hidden space at every step, so existing mechanistic tools reveal compression and shortcuts but cannot explain how reasoning evolves from one latent step to the next.",
+      "approach": "Model the six latent hidden states as a trajectory; measure step-to-step change, direction consistency, arc length, a Lyapunov surrogate and perturbation divergence; project with DMD, PHATE, UMAP, PCA and t-SNE across four model configurations (CODI and COCONUT, vanilla and Sim-CoT) on GPT-2-small.",
+      "highlights": [
+        "Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.",
+        "Found Sim-CoT supervision tightens both systems without changing the underlying dynamics.",
+        "Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.",
+        "Built CUDA health-polling orchestration that stabilized 14+ hour training runs.",
+        "Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.",
+        "Built a verification harness that passes 28 of 28 reproducible numeric claims.",
+        "Ran with fixed seeds, greedy decoding and pinned dependencies."
+      ],
+      "metrics": [
+        {
+          "label": "GSM8K samples",
+          "value": "8,792"
+        },
+        {
+          "label": "Trajectory dimension",
+          "value": "768"
+        },
+        {
+          "label": "Samples with an unstable DMD mode, COCONUT vs CODI",
+          "value": "41% vs 85%"
+        },
+        {
+          "label": "Claims passing her verification harness",
+          "value": "28 of 28"
+        },
+        {
+          "label": "Reviewer rating",
+          "value": "6 of 6, confidence 3 of 3"
+        }
+      ],
+      "tags": [
+        "PyTorch",
+        "Hugging Face Transformers",
+        "PEFT",
+        "LoRA",
+        "DMD",
+        "PHATE",
+        "UMAP",
+        "CUDA",
+        "HDF5",
+        "mechanistic interpretability"
+      ],
+      "repo": "https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems",
+      "links": {
+        "paper": "https://openreview.net/pdf?id=ZAGsOMAwBV",
+        "projectPage": "https://sabariiyyappan.github.io/Latent-CoT/",
+        "openreview": "https://openreview.net/forum?id=ZAGsOMAwBV"
+      },
+      "visual": {
+        "src": "/projects/latent-cot/trajectory-phate-3d.webp",
+        "alt": "3D PHATE embedding of COCONUT latent reasoning trajectories colored by step"
+      },
+      "video": null,
+      "recognition": "Poster, ICML 2026 FoGen Workshop",
+      "publicationId": "latent-cot",
+      "experienceId": null
+    },
+    {
       "slug": "einstein-vision",
       "name": "Einstein Vision: 3D scene reconstruction for autonomous driving",
       "subtitle": "Perception stack plus TensorRT inference optimization",
@@ -771,28 +777,24 @@
       "pitch": {
         "problem": "Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.",
         "action": "Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.",
-        "change": "3D placement accuracy rose 50% and scene realism 75% across 13 sequences, with 1.5x throughput and p95 latency down 35%."
+        "change": "Rebuilt 13 dash-cam sequences as Blender 3D scenes, streaming masks and poses at 30 FPS, with 1.5x throughput and p95 latency down 35%."
       },
       "problem": "Dash-cam footage lacks interpretable 3D context for perception debugging and for explaining autonomous-driving decisions to humans.",
       "approach": "Fused MiDaS and Depth Anything depth, Detic open-vocabulary detection, YOLO3D vehicle yaw and boxes, OpenPifPaf and OSX keypoints, Mask R-CNN lanes and RAFT optical flow; calibrated a pinhole camera and projected detections into world coordinates; synthesized LiDAR-like point clouds and lane contours as ground truth. Rendered through Blender EEVEE with typed asset collections, per-sequence transforms and deterministic replays across 13 Tesla Model S dash-cam sequences.",
       "highlights": [
-        "Improved 3D placement accuracy 50% and scene realism 75% across 13 driving sequences.",
+        "Placed detections in world coordinates through a calibrated pinhole camera across 13 sequences.",
         "Deployed detectors through TorchScript, ONNX and TensorRT FP16 with layer fusion.",
         "Reached 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.",
         "Documented failure modes: tunnel reflections, lens rain, SUV versus pickup flicker, low-speed flow errors."
       ],
       "metrics": [
         {
-          "label": "3D placement accuracy",
-          "value": "+50%"
-        },
-        {
-          "label": "Scene realism",
-          "value": "+75%"
-        },
-        {
           "label": "Driving sequences",
           "value": "13"
+        },
+        {
+          "label": "Mask and pose stream",
+          "value": "30 FPS"
         },
         {
           "label": "Multi-object throughput",
@@ -837,6 +839,7 @@
       "team": [
         "Ankit Gole"
       ],
+      "role": "Led the AI models and generation",
       "summary": "A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.",
       "pitch": {
         "problem": "Real-time game worlds need coherent assets and layouts under strict latency and memory budgets, and hand-authoring them does not scale.",
@@ -978,13 +981,16 @@
       "start": "2025-08",
       "end": "2025-12",
       "status": "completed",
+      "shipped": {
+        "label": "Live on Hugging Face Spaces"
+      },
       "affiliation": "WPI DS-553 Case Studies in Data Science",
       "team": [],
       "summary": "A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.",
       "pitch": {
         "problem": "Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.",
         "action": "Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.",
-        "change": "One image runs on GCP, AWS and Azure, standardized ports removed a class of downtime, and two Hugging Face Spaces are live."
+        "change": "One image runs on GCP, AWS and Azure, recovery is tested against crashes, wipes and network drops, and two Hugging Face Spaces are live."
       },
       "problem": "Most course projects stop at a model; the goal here was to prove the model can be operated reliably across clouds with measurable recovery behaviour.",
       "approach": "Gradio UI plus an HTTP inference API with per-class probability logging and latency tracking; Dockerized app and API; Prometheus, node exporter and Grafana dashboards; GitHub Actions workflow chaining with Discord deployment status; per-provider port injection with runtime-aware config.",
@@ -992,7 +998,7 @@
         "Deployed one container image to GCP, AWS and Azure with monitoring, alerting and CI/CD.",
         "Built VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting.",
         "Tested forced crashes, full wipes and network drops, treating recovery time as a metric.",
-        "Standardized port assignment, eliminating an entire class of downtime across providers.",
+        "Standardized port assignment across GCP, AWS and Azure with runtime-aware config.",
         "Published two Hugging Face Spaces: local mode and an inference-API mode with OAuth."
       ],
       "metrics": [
@@ -1047,6 +1053,7 @@
         "Nina Klimenkova",
         "Dr. Roee Shraga"
       ],
+      "role": "Co-first author and research assistant",
       "summary": "The first adaptation of the FairEM framework from entity matching to annotator-level fairness in table union search, finding statistically significant bias against non-native English annotators on hard questions.",
       "pitch": {
         "problem": "Human feedback supervises table union search in data lakes, but nobody had checked whether it is equally reliable across annotator demographics.",
@@ -1107,11 +1114,12 @@
       "status": "completed",
       "affiliation": "Independent research",
       "team": [],
+      "role": "Lead researcher",
       "summary": "Probes where physical properties such as mass, friction, elasticity and stability are encoded across the encoder, projection and LLM stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then fine-tunes five LoRA configurations to find the leverage point for physical intuition.",
       "pitch": {
         "problem": "Vision-language models show surprising physical reasoning yet fail on intuitive physics, and it was unclear where physical information lives inside them.",
         "action": "Probed per-patch activations at four stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then ran a five-condition LoRA ablation.",
-        "change": "Produced physics saliency maps, degradation curves across the projection bottleneck and 15 ablation runs on three benchmarks."
+        "change": "Measured information loss across the projection bottleneck, mapped physics saliency and ran 15 LoRA ablations on three benchmarks."
       },
       "problem": "Vision-language models trained on internet-scale data show surprising physical reasoning yet fail systematically on intuitive physics, and it was unclear where physical information lives in their pipelines.",
       "approach": "Linear and MLP probes on per-patch activations at four stages using Physion++ ground truth; physics saliency maps as 14x14 heatmaps; R-squared degradation curves across the projection bottleneck; a 3 model x 5 condition factorial LoRA ablation evaluated on PhysBench, GRASP Level 2 and ConservationBench; before-and-after attention analysis.",
@@ -1170,6 +1178,7 @@
       "status": "completed",
       "affiliation": "Worcester Polytechnic Institute",
       "team": [],
+      "role": "Graduate student researcher",
       "summary": "Local LLMs assign Emergency Severity Index levels, reason about handoff risk and track confidence as more patient questions are revealed, with human-in-the-loop review on high-risk escalations.",
       "pitch": {
         "problem": "LLM triage assistants hallucinate and escalate incorrectly, so the question was whether calibrated confidence plus human review could make them safer.",
@@ -1232,6 +1241,9 @@
       "start": "2025-05",
       "end": null,
       "status": "ongoing",
+      "shipped": {
+        "label": "VS Code Marketplace"
+      },
       "affiliation": "Open source",
       "team": [],
       "summary": "Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. Its built-in secret scanner blocks keys, tokens and passwords before they reach the remote.",
@@ -1247,20 +1259,13 @@
         "Published on the VS Code Marketplace as ShreyaBoyane.auto-git-copilot under Apache-2.0.",
         "Runs CI that lints, tests and packages the extension on every push.",
         "Kept pure logic in a fully unit-tested library, isolated from the VS Code wiring.",
-        "Added debounced batching, protected branches, status-bar control and a full output-channel log."
+        "Added debounced batching, protected branches, status-bar control and a full output-channel log.",
+        "Runs on VS Code 1.90 and later."
       ],
       "metrics": [
         {
           "label": "Secret pattern families",
           "value": "10+"
-        },
-        {
-          "label": "License",
-          "value": "Apache-2.0"
-        },
-        {
-          "label": "Minimum VS Code",
-          "value": "1.90"
         }
       ],
       "tags": [
@@ -1755,7 +1760,7 @@
         "change": "Pilot users reported 90%+ satisfaction on a usability survey and TECHVED sponsored the project in October 2021."
       },
       "problem": "Complex indoor spaces are hard to navigate with 2D maps.",
-      "approach": "Built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.",
+      "approach": "In a four-person team, built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.",
       "highlights": [
         "Piloted with college users: 90%+ satisfaction on a usability survey, robust across lighting.",
         "Secured TECHVED sponsorship in October 2021 and presented a seminar on AR development tools."
@@ -1764,10 +1769,6 @@
         {
           "label": "User satisfaction",
           "value": "90%+"
-        },
-        {
-          "label": "Team size",
-          "value": "4"
         }
       ],
       "tags": [
@@ -1802,19 +1803,14 @@
       "pitch": {
         "problem": "Sign language users face communication barriers in everyday settings.",
         "action": "Trained a custom Single Shot Multibox Detector in TensorFlow on a gesture dataset and wired it to a live camera feed.",
-        "change": "The system detects and translates multiple gestures into text in real time."
+        "change": "A working detector labels several signed gestures as text on a live camera feed."
       },
       "problem": "Communication barriers for users of sign language in everyday settings.",
       "approach": "Trained a Single Shot Multibox Detector in TensorFlow on a custom gesture dataset and integrated it with a live camera feed.",
       "highlights": [
-        "Detects and translates multiple gestures to text in real time."
+        "Labels several signed gestures as text on a live camera feed."
       ],
-      "metrics": [
-        {
-          "label": "Architecture",
-          "value": "SSD"
-        }
-      ],
+      "metrics": [],
       "tags": [
         "TensorFlow",
         "Python",
@@ -1844,19 +1840,14 @@
       "pitch": {
         "problem": "Institutions needed an automated, low-cost way to monitor face mask compliance during COVID-19.",
         "action": "Trained a custom MobileNet SSD model in TensorFlow and integrated it with live video streams for real-time inference.",
-        "change": "The detector ran live with high accuracy, suitable for institutions and public venues."
+        "change": "The detector checked live video feeds for face masks in real time, aimed at institutions and public venues."
       },
       "problem": "Institutions needed an automated, low-cost way to monitor mask compliance.",
       "approach": "Trained a custom MobileNet SSD model and integrated it with video streams for real-time inference.",
       "highlights": [
-        "Deployed for live detection with high accuracy, suitable for institutions and public venues."
+        "Ran real-time mask detection on live video streams."
       ],
-      "metrics": [
-        {
-          "label": "Backbone",
-          "value": "MobileNet SSD"
-        }
-      ],
+      "metrics": [],
       "tags": [
         "TensorFlow",
         "OpenCV",
@@ -1894,12 +1885,7 @@
       "highlights": [
         "Launched a working platform that received positive feedback for ease of use and search."
       ],
-      "metrics": [
-        {
-          "label": "Team size",
-          "value": "4"
-        }
-      ],
+      "metrics": [],
       "tags": [
         "HTML",
         "CSS",
@@ -1925,6 +1911,9 @@
       "start": "2026-02",
       "end": null,
       "status": "ongoing",
+      "shipped": {
+        "label": "Live at shreyaboyane.dev"
+      },
       "affiliation": "Personal",
       "team": [],
       "summary": "A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and the resume, with a WebGL2 hero rendering a Depth Anything V2 depth map of the portrait.",
@@ -2577,6 +2566,43 @@
       "MongoDB",
       "HDF5",
       "JSON Schema"
+    ]
+  },
+  "coreSkills": {
+    "Machine learning and AI": [
+      "PyTorch",
+      "LLMs",
+      "model evaluation and benchmarking",
+      "PEFT and LoRA fine-tuning",
+      "TensorFlow"
+    ],
+    "Computer vision and 3D": [
+      "OpenCV",
+      "object detection and segmentation (Mask R-CNN, Detic, SSD)",
+      "sensor fusion",
+      "pose estimation (OpenPifPaf, MediaPipe)",
+      "chart and document understanding"
+    ],
+    "Inference and GPU optimization": [
+      "TensorRT",
+      "ONNX",
+      "CUDA",
+      "TorchScript",
+      "Nsight Systems and Nsight Compute"
+    ],
+    "MLOps, cloud and DevOps": [
+      "AWS (Bedrock, S3, Lambda, Step Functions, EventBridge, CloudWatch, Textract, DynamoDB)",
+      "Prometheus",
+      "CI/CD (Azure Pipelines, GitHub Actions)",
+      "Docker",
+      "Grafana"
+    ],
+    "Programming and data": [
+      "Python",
+      "TypeScript and JavaScript",
+      "SQL",
+      "FastAPI",
+      "Bash"
     ]
   }
 }

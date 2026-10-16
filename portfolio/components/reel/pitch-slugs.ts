@@ -7,8 +7,8 @@
  * pitchItems() in pitch-reel.tsx re-derives the order from profile.projects at build time.
  */
 export const PITCH_SLUGS = [
-  'latent-cot',
   'skiplegal',
+  'latent-cot',
   'einstein-vision',
   'madwe',
   'tumorlytix',
@@ -40,6 +40,11 @@ export function hasPitch(slug: string): slug is PitchSlug {
 
 export function pitchVideoSrc(slug: string): string {
   return `/videos/${slug}.mp4`
+}
+
+/** WebVTT captions: a [Music] cue, then the on-screen headline and key line of each scene. */
+export function pitchCaptionsSrc(slug: string): string {
+  return `/videos/${slug}.vtt`
 }
 
 /** 960 x 540 WebP poster for the lightbox. */

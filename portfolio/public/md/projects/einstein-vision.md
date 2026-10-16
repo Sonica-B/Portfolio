@@ -4,7 +4,7 @@ Perception stack plus TensorRT inference optimization.
 
 - Problem: Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.
 - What she did: Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.
-- What changed: 3D placement accuracy rose 50% and scene realism 75% across 13 sequences, with 1.5x throughput and p95 latency down 35%.
+- What changed: Rebuilt 13 dash-cam sequences as Blender 3D scenes, streaming masks and poses at 30 FPS, with 1.5x throughput and p95 latency down 35%.
 
 > Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.
 
@@ -24,16 +24,15 @@ Fused MiDaS and Depth Anything depth, Detic open-vocabulary detection, YOLO3D ve
 
 ## Results
 
-- Improved 3D placement accuracy 50% and scene realism 75% across 13 driving sequences.
+- Placed detections in world coordinates through a calibrated pinhole camera across 13 sequences.
 - Deployed detectors through TorchScript, ONNX and TensorRT FP16 with layer fusion.
 - Reached 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.
 - Documented failure modes: tunnel reflections, lens rain, SUV versus pickup flicker, low-speed flow errors.
 
 ## Key numbers
 
-- 3D placement accuracy: +50%
-- Scene realism: +75%
 - Driving sequences: 13
+- Mask and pose stream: 30 FPS
 - Multi-object throughput: 1.5x
 - p95 latency: -35%
 
