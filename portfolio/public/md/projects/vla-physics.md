@@ -38,8 +38,12 @@ Linear and MLP probes on per-patch activations at four stages using Physion++ gr
 
 Qwen2.5-VL, InternVL, LLaVA-OneVision, LoRA, Physion++, PhysBench, probing, Hydra
 
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/vla-physics.mp4 (poster: https://shreyaboyane.dev/videos/vla-physics.webp; thumbnail: https://shreyaboyane.dev/videos/vla-physics-thumb.webp).
+
 ## Image
 
 ![Grid of physics saliency maps over Physion++ scenes](https://shreyaboyane.dev/projects/vla-physics/saliency-grid.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/vla-physics. This markdown: https://shreyaboyane.dev/md/projects/vla-physics.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/vla-physics. This markdown: https://shreyaboyane.dev/md/projects/vla-physics.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

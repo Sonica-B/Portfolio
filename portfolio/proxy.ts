@@ -3,7 +3,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 // Markdown content negotiation (Next 16 proxy, the successor of middleware).
 // A client that prefers text/markdown over text/html, such as an AI agent sending
 // `Accept: text/markdown`, is rewritten to the static mirror that scripts/build-markdown.mjs
-// generates into public/md. Browsers never list text/markdown, so HTML is untouched.
+// generates into public/md. Browsers never list text/markdown, so HTML is untouched; it only
+// gains a Link header that advertises the markdown twin, so an agent can discover it without guessing.
 
 const EXACT = new Map<string, string>([
   ['/', '/md/index.md'],
@@ -35,9 +36,14 @@ function markdownPath(pathname: string): string | null {
 }
 
 export function proxy(request: NextRequest) {
-  if (!prefersMarkdown(request.headers.get('accept'))) return NextResponse.next()
   const target = markdownPath(request.nextUrl.pathname)
   if (!target) return NextResponse.next()
+
+  if (!prefersMarkdown(request.headers.get('accept'))) {
+    const response = NextResponse.next()
+    response.headers.set('Link', `<${request.nextUrl.origin}${target}>; rel="alternate"; type="text/markdown"`)
+    return response
+  }
 
   const url = request.nextUrl.clone()
   url.pathname = target

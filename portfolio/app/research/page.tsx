@@ -9,10 +9,22 @@ import { Prose, ProseList } from '@/components/glossary/prose'
 
 const { identity, publications, research } = profile
 
+// Venues come from the content model; the two topic phrases are the paper titles shortened to fit the
+// 150 to 160 character snippet budget. Title and description reach the social card through Next's fallback.
+const latentCot = publications.find((p) => p.id === 'latent-cot')
+const fairprep = publications.find((p) => p.id === 'fairprep')
+const DESCRIPTION = `${publications.length} papers by ${identity.name}: latent CoT reasoning as dynamical systems (${latentCot?.venue ?? 'ICML 2026 FoGen Workshop'} poster) and fairness-aware table unionability (${fairprep?.venue ?? 'DASHSys 2026'}).`
+
 export const metadata: Metadata = {
-  title: 'Research',
-  description: `Publications by ${identity.name}: ${publications.map((p) => `${p.title} (${p.displayString})`).join('; ')}. Figures, author lists, findings and the research roles behind them.`,
-  alternates: { canonical: '/research' },
+  title: 'Research and publications',
+  description: DESCRIPTION,
+  keywords: [identity.name, ...publications.flatMap((p) => p.tags), ...publications.map((p) => p.venue)],
+  alternates: { canonical: '/research', types: { 'text/markdown': '/md/research.md' } },
+  openGraph: {
+    type: 'website',
+    url: '/research',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: `${identity.name}, ${identity.title}` }],
+  },
 }
 
 const LINK_LABELS: [key: string, label: string][] = [

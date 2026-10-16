@@ -3,6 +3,8 @@
 // index.md, projects.md, projects/<slug>.md, research.md, about.md and resume.md.
 // proxy.ts serves these files to clients that ask for text/markdown, /llms.txt links them
 // and /llms-full.txt concatenates them at build time. Runs on prebuild; the output is committed.
+// The mirrors never carry the email address: the contact paths are LinkedIn, the scheduling
+// link and the vCard, which is the one attachment that includes the address.
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -12,6 +14,7 @@ const OUT = join(ROOT, 'public', 'md')
 const profile = JSON.parse(readFileSync(join(ROOT, 'content', 'profile.json'), 'utf8'))
 const { identity, links, meta, now } = profile
 const SITE = links.website
+const VCARD = '/shreya-boyane.vcf'
 
 // Kept in sync with lib/content.ts, which is TypeScript and cannot be imported from a plain Node script.
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -50,6 +53,11 @@ const PROFILE_LINKS = [
   ['vscodeMarketplace', 'VS Code Marketplace'],
 ]
 
+// The nominal pitch length lives in components/reel/pitch-slugs.ts (PITCH_SECONDS); read it so the two never drift.
+const PITCH_SECONDS = Number(
+  /PITCH_SECONDS = (\d+)/.exec(readFileSync(join(ROOT, 'components', 'reel', 'pitch-slugs.ts'), 'utf8'))?.[1] ?? 25,
+)
+
 function formatMonth(ym) {
   if (!ym) return 'present'
   const [y, m] = ym.split('-')
@@ -65,9 +73,18 @@ const metrics = (p) => p.metrics.map((m) => `${m.label}: ${m.value}`)
 const pitch = (p) => list([`Problem: ${p.pitch.problem}`, `What she did: ${p.pitch.action}`, `What changed: ${p.pitch.change}`])
 const publication = (id) => profile.publications.find((p) => p.id === id)
 const experience = (id) => profile.experience.find((e) => e.id === id)
-const videoExists = (p) => Boolean(p.video) && existsSync(join(ROOT, 'public', p.video))
 const profileLinks = () => PROFILE_LINKS.map(([key, label]) => `${label}: ${links[key]}`)
 const projectPage = (p) => `${abs(`/projects/${p.slug}`)} (markdown: ${abs(`/md/projects/${p.slug}.md`)})`
+const contact = () =>
+  `Contact: LinkedIn ${links.linkedin}. Book a call: ${links.scheduling}. Contact card (vCard, includes the email address): ${abs(VCARD)}.`
+
+// Pitch videos live in public/videos/<slug>.mp4 with a WebP poster; a project lists one when the file exists.
+const pitchVideo = (p) => (existsSync(join(ROOT, 'public', 'videos', `${p.slug}.mp4`)) ? `/videos/${p.slug}.mp4` : null)
+const pitchPoster = (video) => video.replace(/\.mp4$/, '.webp')
+const videoLine = (p) => {
+  const video = pitchVideo(p)
+  return video ? `Pitch video (${PITCH_SECONDS} seconds): ${abs(video)} (poster: ${abs(pitchPoster(video))}).` : null
+}
 
 /** Joins blocks (strings or nested arrays, empty values dropped) with blank lines and adds a provenance footer. */
 function doc(title, blocks, pagePath, mdPath) {
@@ -75,7 +92,7 @@ function doc(title, blocks, pagePath, mdPath) {
     .flat(Infinity)
     .filter((block) => typeof block === 'string' && block.trim().length > 0)
     .join('\n\n')
-  const footer = `Canonical page: ${abs(pagePath)}. This markdown: ${abs(mdPath)}. Generated from the site content model, last updated ${meta.lastUpdated}.`
+  const footer = `Canonical page: ${abs(pagePath)}. This markdown: ${abs(mdPath)}. Written by ${identity.name}; generated from the site content model, last updated ${meta.lastUpdated}.`
   return `# ${title}\n\n${body}\n\n${footer}\n`
 }
 
@@ -101,7 +118,7 @@ function indexMd() {
         `Work authorization: ${a.workAuthorization}`,
         `Target roles: ${a.roles.join('; ')}`,
         `Target locations: ${a.locations.join(', ')}`,
-        `Email: ${identity.email}`,
+        `Contact: LinkedIn ${links.linkedin}; book a call ${links.scheduling}; contact card (vCard) ${abs(VCARD)}`,
         `Resume: ${abs(links.resumePdf)} (PDF), ${abs('/resume')} (HTML), ${abs('/md/resume.md')} (markdown)`,
       ]),
       '## Proof points',
@@ -113,8 +130,10 @@ function indexMd() {
       featured.map((p) => [
         `### ${p.name}`,
         `${p.subtitle}. ${kind(p)}, ${formatRange(p.start, p.end)}, ${p.affiliation}.${p.recognition ? ` ${p.recognition}.` : ''}`,
+        pitch(p),
         p.summary,
         `Key numbers: ${metrics(p).join('; ')}.`,
+        videoLine(p),
         `Details: ${projectPage(p)}.${p.repo ? ` Code: ${p.repo}` : ''}`,
       ]),
       `All ${profile.projects.length} projects: ${abs('/projects')} (markdown: ${abs('/md/projects.md')}).`,
@@ -144,7 +163,7 @@ function indexMd() {
       list(profile.recognition.map((r) => `${formatMonth(r.date)}: ${r.title}, ${r.org}`)),
       '## Elsewhere',
       list(profileLinks()),
-      `Contact: ${identity.email}. Book a call: ${links.scheduling}.`,
+      contact(),
     ],
     '/',
     '/md/index.md',
@@ -153,16 +172,19 @@ function indexMd() {
 
 function projectsMd() {
   const kinds = [...new Set(profile.projects.map(kind))]
+  const pitched = profile.projects.filter((p) => pitchVideo(p)).length
   return doc(
     `Projects by ${identity.name}`,
     [
-      `${profile.projects.length} projects, featured work first. Kinds: ${kinds.join(', ')}. Each entry links to a full page with the problem, approach, results and stack.`,
+      `${profile.projects.length} projects, featured work first. Kinds: ${kinds.join(', ')}. Each entry opens with the three-second strip (problem, what she did, what changed) and links to a full page with the approach, results and stack. ${pitched} projects carry a ${PITCH_SECONDS}-second pitch video.`,
       profile.projects.map((p) => [
         `## ${p.name}`,
         `${p.subtitle}. ${kind(p)}, ${formatRange(p.start, p.end)}, ${p.affiliation}.${p.recognition ? ` ${p.recognition}.` : ''}`,
+        pitch(p),
         p.summary,
         `Key numbers: ${metrics(p).join('; ')}.`,
         `Stack: ${p.tags.join(', ')}.`,
+        videoLine(p),
         `Details: ${projectPage(p)}.${p.repo ? ` Code: ${p.repo}` : ''}`,
       ]),
     ],
@@ -174,6 +196,7 @@ function projectsMd() {
 function projectMd(p) {
   const pub = publication(p.publicationId)
   const role = experience(p.experienceId)
+  const video = pitchVideo(p)
   const facts = [
     `Kind: ${kind(p)}`,
     `Period: ${formatRange(p.start, p.end)} (${p.status})`,
@@ -208,7 +231,12 @@ function projectMd(p) {
           ]
         : null,
       role ? ['## Role', `${role.role}, ${role.org}, ${formatRange(role.start, role.end)}. ${role.summary}`] : null,
-      videoExists(p) ? ['## Pitch video', `${abs(p.video)} (poster: ${abs(p.video.replace(/\.mp4$/, '.jpg'))})`] : null,
+      video
+        ? [
+            '## Pitch video',
+            `${PITCH_SECONDS} seconds, built from the real repository: ${abs(video)} (poster: ${abs(pitchPoster(video))}; thumbnail: ${abs(video.replace(/\.mp4$/, '-thumb.webp'))}).`,
+          ]
+        : null,
       p.visual ? ['## Image', `![${p.visual.alt}](${abs(p.visual.src)})`] : null,
     ],
     `/projects/${p.slug}`,
@@ -261,6 +289,8 @@ function aboutMd() {
       `${identity.fullName} (${identity.pronouns}), ${identity.title}, ${identity.location.display}.`,
       identity.summary,
       identity.tagline,
+      `## Now (${now.date})`,
+      list(now.lines),
       '## Availability',
       `${a.display}. Start date: ${a.startDate.toLowerCase()}. ${a.workAuthorization}`,
       `Roles: ${a.roles.join('; ')}.`,
@@ -293,7 +323,7 @@ function aboutMd() {
       identity.languages.join(', '),
       '## Elsewhere',
       list(profileLinks()),
-      `Contact: ${identity.email}. Book a call: ${links.scheduling}.`,
+      contact(),
     ],
     '/about',
     '/md/about.md',
@@ -308,7 +338,8 @@ function resumeMd() {
     identity.name,
     [
       `${identity.headline}.`,
-      `${identity.location.display}. ${identity.email}. ${SITE}`,
+      `${identity.location.display}. ${SITE}`,
+      contact(),
       list(profileLinks()),
       `${a.display}. ${a.workAuthorization} PDF version: ${abs(links.resumePdf)}.`,
       '## Summary',
@@ -348,12 +379,13 @@ function resumeMd() {
       featured.map((p) => [
         `### ${p.name}`,
         `${p.subtitle}. ${formatRange(p.start, p.end)}, ${p.affiliation}.${p.recognition ? ` ${p.recognition}.` : ''}`,
+        pitch(p),
         p.summary,
         list(p.highlights),
         `Stack: ${p.tags.join(', ')}.${p.repo ? ` Code: ${p.repo}.` : ''} Page: ${abs(`/projects/${p.slug}`)}`,
       ]),
       '## Other projects',
-      list(others.map((p) => `${p.name} (${formatRange(p.start, p.end)}): ${p.summary}${p.repo ? ` Code: ${p.repo}` : ''}`)),
+      list(others.map((p) => `${p.name} (${formatRange(p.start, p.end)}): ${p.pitch.change}${p.repo ? ` Code: ${p.repo}` : ''}`)),
       '## Skills',
       list(Object.entries(profile.skills).map(([group, items]) => `${group}: ${items.join(', ')}`)),
       '## Recognition',
@@ -388,11 +420,16 @@ const files = new Map([
 
 // En dash (U+2013) and em dash (U+2014), built from code points so this source stays free of them.
 const DASHES = new RegExp('[' + String.fromCharCode(0x2013, 0x2014) + ']')
+const EMAIL = identity.email.replace(/^mailto:/i, '')
 
 let bytes = 0
 for (const [relative, content] of files) {
   if (DASHES.test(content)) {
     console.error(`build-markdown: em or en dash in generated ${relative}`)
+    process.exit(1)
+  }
+  if (content.includes(EMAIL) || /mailto:/i.test(content)) {
+    console.error(`build-markdown: email address in generated ${relative}; the mirrors must point at LinkedIn, the scheduling link and the vCard instead`)
     process.exit(1)
   }
   writeFileSync(join(OUT, relative), content, 'utf8')

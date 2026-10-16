@@ -46,4 +46,8 @@ Asset agent on Stable Diffusion 1.5 with rank-8 LoRA adapters per biome and late
 
 PyTorch, Diffusers, Stable Diffusion, LoRA, ONNX, TensorRT, INT8, CUDA graphs, Unity, Wave Function Collapse
 
-Canonical page: https://shreyaboyane.dev/projects/madwe. This markdown: https://shreyaboyane.dev/md/projects/madwe.md. Generated from the site content model, last updated 2026-10-15.
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/madwe.mp4 (poster: https://shreyaboyane.dev/videos/madwe.webp; thumbnail: https://shreyaboyane.dev/videos/madwe-thumb.webp).
+
+Canonical page: https://shreyaboyane.dev/projects/madwe. This markdown: https://shreyaboyane.dev/md/projects/madwe.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

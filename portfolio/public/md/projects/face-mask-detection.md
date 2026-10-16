@@ -32,4 +32,4 @@ Trained a custom MobileNet SSD model and integrated it with video streams for re
 
 TensorFlow, OpenCV, Python
 
-Canonical page: https://shreyaboyane.dev/projects/face-mask-detection. This markdown: https://shreyaboyane.dev/md/projects/face-mask-detection.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/face-mask-detection. This markdown: https://shreyaboyane.dev/md/projects/face-mask-detection.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

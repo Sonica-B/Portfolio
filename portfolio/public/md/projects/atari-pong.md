@@ -34,4 +34,4 @@ Trained on expert frames for 100 epochs, validated through loss trajectories and
 
 TensorFlow, OpenCV, CNN, imitation learning, ALE
 
-Canonical page: https://shreyaboyane.dev/projects/atari-pong. This markdown: https://shreyaboyane.dev/md/projects/atari-pong.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/atari-pong. This markdown: https://shreyaboyane.dev/md/projects/atari-pong.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

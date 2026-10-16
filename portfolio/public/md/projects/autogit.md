@@ -40,8 +40,12 @@ Pattern plus entropy scanning of only the added lines (AWS, GitHub, GitLab, Goog
 
 TypeScript, JavaScript, VS Code Extension API, GitHub Copilot, Git, secret scanning
 
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/autogit.mp4 (poster: https://shreyaboyane.dev/videos/autogit.webp; thumbnail: https://shreyaboyane.dev/videos/autogit-thumb.webp).
+
 ## Image
 
 ![Diagram of the AutoGit flow: save, stage, AI message, secret scan, commit and push](https://shreyaboyane.dev/projects/autogit/how-it-works.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/autogit. This markdown: https://shreyaboyane.dev/md/projects/autogit.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/autogit. This markdown: https://shreyaboyane.dev/md/projects/autogit.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

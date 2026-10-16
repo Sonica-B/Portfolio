@@ -41,4 +41,8 @@ Fused MiDaS and Depth Anything depth, Detic open-vocabulary detection, YOLO3D ve
 
 Depth Anything, MiDaS, Mask R-CNN, Detic, OpenPifPaf, YOLO3D, RAFT, Blender Python API, TensorRT, ONNX, Nsight
 
-Canonical page: https://shreyaboyane.dev/projects/einstein-vision. This markdown: https://shreyaboyane.dev/md/projects/einstein-vision.md. Generated from the site content model, last updated 2026-10-15.
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/einstein-vision.mp4 (poster: https://shreyaboyane.dev/videos/einstein-vision.webp; thumbnail: https://shreyaboyane.dev/videos/einstein-vision-thumb.webp).
+
+Canonical page: https://shreyaboyane.dev/projects/einstein-vision. This markdown: https://shreyaboyane.dev/md/projects/einstein-vision.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

@@ -36,8 +36,12 @@ VAE-based terrain synthesis, entropy-minimized Wave Function Collapse for biome 
 
 Stable Diffusion, LoRA, CVAE-GAN, VAE, Wave Function Collapse, Unity, PyTorch
 
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/realmweaver-ai.mp4 (poster: https://shreyaboyane.dev/videos/realmweaver-ai.webp; thumbnail: https://shreyaboyane.dev/videos/realmweaver-ai-thumb.webp).
+
 ## Image
 
 ![Generated 3D terrain tile rendered from the RealmWeaver pipeline](https://shreyaboyane.dev/projects/realmweaver-ai/terrain.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/realmweaver-ai. This markdown: https://shreyaboyane.dev/md/projects/realmweaver-ai.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/realmweaver-ai. This markdown: https://shreyaboyane.dev/md/projects/realmweaver-ai.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

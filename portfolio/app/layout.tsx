@@ -18,9 +18,9 @@ const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'sw
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
 
 const { identity, links } = profile
-const TITLE = `${identity.name} | Machine Learning Engineer, Computer Vision and LLM Systems`
-const DESCRIPTION =
-  'Shreya Boyane is a Machine Learning Engineer (M.S. AI, WPI 2026) with 2+ years of production DevOps, an ICML 2026 workshop paper on latent reasoning, and shipped multi-agent, computer-vision and inference-optimization systems.'
+const TITLE = `${identity.name} | ${identity.title}, Computer Vision and LLMs`
+// Home description: role, domain and location in 150 to 160 characters (the search snippet budget).
+const DESCRIPTION = `${identity.name}, ${identity.title} in ${identity.location.city}, ${identity.location.region}: computer vision, LLMs, inference optimization. M.S. AI, WPI. ICML 2026 workshop paper. Open to roles.`
 
 // Hex twin of --surface in globals.css (oklch(0.13 0.02 255)); the browser chrome wants a plain colour.
 const GROUND = '#03080f'
@@ -28,6 +28,8 @@ const GROUND = '#03080f'
 // The nav joins the address on the client at click time, so no page carries a mailto: link in its markup.
 const [emailUser, emailDomain] = links.email.replace(/^mailto:/, '').split('@')
 
+// openGraph and twitter carry no title or description on purpose: Next fills them from each page's own
+// resolved title and description, so a route that sets neither still gets its own social card copy.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: TITLE, template: `%s | ${identity.name}` },
@@ -48,21 +50,21 @@ export const metadata: Metadata = {
     'MLOps',
     'Worcester Polytechnic Institute',
     'San Jose',
+    'San Francisco Bay Area',
     'open to work',
+    'machine learning portfolio',
   ],
-  alternates: { canonical: '/' },
+  alternates: { canonical: '/', types: { 'text/markdown': '/md/index.md' } },
   openGraph: {
     type: 'profile',
     locale: 'en_US',
     url: SITE_URL,
     siteName: 'Shreya Boyane',
-    title: TITLE,
-    description: DESCRIPTION,
     firstName: 'Shreya',
     lastName: 'Boyane',
     username: 'Sonica-B',
   },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
+  twitter: { card: 'summary_large_image' },
   robots: {
     index: true,
     follow: true,

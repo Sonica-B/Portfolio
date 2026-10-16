@@ -39,8 +39,12 @@ Phase 1 in Python and OpenCV: SIFT keypoints and matching, eight-point fundament
 
 Python, OpenCV, SfM, bundle adjustment, NeRF, PyTorch
 
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/buildings-built-in-minutes.mp4 (poster: https://shreyaboyane.dev/videos/buildings-built-in-minutes.webp; thumbnail: https://shreyaboyane.dev/videos/buildings-built-in-minutes-thumb.webp).
+
 ## Image
 
 ![NeRF rendering of the Lego scene rotating 360 degrees](https://shreyaboyane.dev/projects/buildings-built-in-minutes/nerf-lego.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/buildings-built-in-minutes. This markdown: https://shreyaboyane.dev/md/projects/buildings-built-in-minutes.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/buildings-built-in-minutes. This markdown: https://shreyaboyane.dev/md/projects/buildings-built-in-minutes.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

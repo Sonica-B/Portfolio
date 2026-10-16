@@ -46,4 +46,8 @@ Toward Fairness-Aware Human Feedback for Table Unionability. Submitted, DASHSys 
 
 - Code: https://github.com/Sonica-B/FairPrep
 
-Canonical page: https://shreyaboyane.dev/projects/fairprep. This markdown: https://shreyaboyane.dev/md/projects/fairprep.md. Generated from the site content model, last updated 2026-10-15.
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/fairprep.mp4 (poster: https://shreyaboyane.dev/videos/fairprep.webp; thumbnail: https://shreyaboyane.dev/videos/fairprep-thumb.webp).
+
+Canonical page: https://shreyaboyane.dev/projects/fairprep. This markdown: https://shreyaboyane.dev/md/projects/fairprep.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

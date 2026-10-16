@@ -6,6 +6,13 @@ Machine Learning Engineer with 2+ years of production DevOps experience and an M
 
 I build production ML systems end to end, from data and training infrastructure through inference optimization to reliability monitoring.
 
+## Now (2026-10-15)
+
+- AI Trainer Fellow at Handshake AI since April 2026, evaluating frontier LLM and vision-language model outputs.
+- Co-first author of an ICML 2026 FoGen Workshop poster on latent chain-of-thought reasoning; FairPrep submitted to DASHSys 2026.
+- Open to full-time machine learning, AI, computer vision and research engineering roles, starting immediately, remote or anywhere in the US.
+- F-1 with OPT and STEM OPT: 3 years of US work authorization, no sponsorship needed up front.
+
 ## Availability
 
 Open to full-time machine learning, AI, computer vision and research engineering roles. Start date: immediately. F-1 with OPT and STEM OPT: 3 years of US work authorization, no sponsorship needed up front. Open to H-1B sponsorship long term.
@@ -47,6 +54,18 @@ Honors: Honours in Artificial Intelligence and Machine Learning; Final-year proj
 > She grew exceptionally well in Azure DevOps and also had other talents like AI/ML and Python. She was completely familiar with all the pipelines and repositories in the project we worked on and implemented optimisations to smoothen the feature delivery from Dev to Production environments.
 >
 > Gurdeep Singh, DevOps Engineer, Persistent Systems
+
+> I have had the pleasure of working with Shreya Boyane at Persistent Systems, where she worked as Lead DevOps Engineer. First thing I would like to highlight about her is that she is a quick learner. She understood the essence of the DevOps role in the team in a very short span. Her proactive approach and her ability to collaborate effectively with cross-functional teams helped in implementing the best practices and improving the overall efficiency of the deployment cycles. I highly recommend Shreya as she would be a valuable asset to any organization.
+>
+> Vinay Dandinashivara, Architect, Persistent Systems
+
+> I had the opportunity to work with Shreya on a platform where she served as the Lead DevOps Engineer. Shreya consistently identified opportunities for improvement across our CI/CD processes, often taking the initiative to explore and implement solutions in areas we hadn't previously considered. This reduced our deployment times and significantly improved overall efficiency. Her tenacity helped us stay ahead of the curve in adopting best practices. Shreya would be a great asset to any team.
+>
+> Jordan Kelley, Client, Broadspire
+
+> I am pleased to recommend Shreya Boyane, who has excelled as a Lead DevOps Engineer over the past 2.5 years. Shreya has demonstrated exceptional proficiency in Azure DevOps, AWS EC2, SNYK, .NET, and PowerShell programming. Her expertise in Azure DevOps and AWS EC2 has significantly enhanced our development and deployment processes, while her skills with SNYK has increased our system’s security. Additionally, her .NET and PowerShell programming abilities have streamlined automation and efficiency. Shreya is known for her problem-solving acumen, innovative approach, and strong leadership. I am confident that she will continue to deliver exceptional results in any future role. She is a valuable asset to any organization, and I highly recommend her.
+>
+> Abhaysinh Chavan, Project Lead, Persistent Systems
 
 ## Activity
 
@@ -112,6 +131,6 @@ English, Hindi, Marathi
 - HackerRank: https://www.hackerrank.com/profile/shreyaa_boyane
 - VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=ShreyaBoyane.auto-git-copilot
 
-Contact: shreyaa.boyane@gmail.com. Book a call: https://zcal.co/i/4aMYgoRr.
+Contact: LinkedIn https://www.linkedin.com/in/shreya-boyane/. Book a call: https://zcal.co/i/4aMYgoRr. Contact card (vCard, includes the email address): https://shreyaboyane.dev/shreya-boyane.vcf.
 
-Canonical page: https://shreyaboyane.dev/about. This markdown: https://shreyaboyane.dev/md/about.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/about. This markdown: https://shreyaboyane.dev/md/about.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

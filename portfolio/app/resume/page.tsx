@@ -7,10 +7,20 @@ import { PrintButton } from './print-button'
 
 const { identity, links, experience, research, education, publications, skills, recognition } = profile
 
+// 150 to 160 characters, counts from the content model. Title and description reach the social card through Next's fallback.
+const wpi = education.find((e) => e.abbr === 'WPI')
+const DESCRIPTION = `Resume of ${identity.name}, ${identity.title} in ${identity.location.city}, ${identity.location.region}: ${experience.length} roles, ${research.length} research positions, ${publications.length} publications, M.S. AI from ${wpi?.abbr ?? 'WPI'}. Download the PDF or print.`
+
 export const metadata: Metadata = {
-  title: 'Resume',
-  description: `Resume of ${identity.name}, ${identity.title}: ${experience.length} roles, ${research.length} research positions, ${publications.length} publications, degrees from ${education.map((e) => e.abbr).join(' and ')}, and skills across ${Object.keys(skills).length} areas. Download the PDF or print this page.`,
-  alternates: { canonical: '/resume' },
+  title: `Resume, ${identity.title}`,
+  description: DESCRIPTION,
+  keywords: [identity.name, 'resume', 'CV', identity.title, ...identity.availability.roles, ...Object.keys(skills)],
+  alternates: { canonical: '/resume', types: { 'text/markdown': '/md/resume.md' } },
+  openGraph: {
+    type: 'website',
+    url: '/resume',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: `${identity.name}, ${identity.title}` }],
+  },
 }
 
 // Hoisted into <head> by React; forces a white page with black text and hides site chrome when printing.

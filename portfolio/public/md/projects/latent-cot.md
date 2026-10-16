@@ -56,8 +56,12 @@ Interpreting Latent CoT Reasoning as Dynamical Systems. Poster, ICML 2026 FoGen 
 - Project page: https://sabariiyyappan.github.io/Latent-CoT/
 - Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
 
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/latent-cot.mp4 (poster: https://shreyaboyane.dev/videos/latent-cot.webp; thumbnail: https://shreyaboyane.dev/videos/latent-cot-thumb.webp).
+
 ## Image
 
 ![3D PHATE embedding of COCONUT latent reasoning trajectories colored by step](https://shreyaboyane.dev/projects/latent-cot/trajectory-phate-3d.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/latent-cot. This markdown: https://shreyaboyane.dev/md/projects/latent-cot.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/latent-cot. This markdown: https://shreyaboyane.dev/md/projects/latent-cot.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

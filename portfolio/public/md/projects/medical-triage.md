@@ -44,8 +44,12 @@ Python, PyTorch, scikit-learn, Ollama, LangChain, calibration, HITL
 
 Graduate Student Researcher, Generative AI and LLMs for Healthcare, Worcester Polytechnic Institute, Jan 2025 to Aug 2025. Built a production-minded GenAI plus human-in-the-loop triage assistant with difficulty-aware reasoning, confidence calibration and auditable workflows.
 
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/medical-triage.mp4 (poster: https://shreyaboyane.dev/videos/medical-triage.webp; thumbnail: https://shreyaboyane.dev/videos/medical-triage-thumb.webp).
+
 ## Image
 
 ![ESI prediction and confidence overlay for one triage case as questions are revealed](https://shreyaboyane.dev/projects/medical-triage/esi-confidence.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/medical-triage. This markdown: https://shreyaboyane.dev/md/projects/medical-triage.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/projects/medical-triage. This markdown: https://shreyaboyane.dev/md/projects/medical-triage.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

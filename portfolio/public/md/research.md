@@ -132,4 +132,4 @@ Spatial probing of physical reasoning across the vision encoder, projection and 
 
 Methods and tools: VLMs, probing, LoRA, Physion++, PhysBench. Project page: https://shreyaboyane.dev/projects/vla-physics
 
-Canonical page: https://shreyaboyane.dev/research. This markdown: https://shreyaboyane.dev/md/research.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/research. This markdown: https://shreyaboyane.dev/md/research.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

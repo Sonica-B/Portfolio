@@ -2,7 +2,9 @@
 
 Machine Learning Engineer specializing in computer vision, LLMs, inference optimization and MLOps.
 
-San Jose, CA (San Francisco Bay Area). shreyaa.boyane@gmail.com. https://shreyaboyane.dev
+San Jose, CA (San Francisco Bay Area). https://shreyaboyane.dev
+
+Contact: LinkedIn https://www.linkedin.com/in/shreya-boyane/. Book a call: https://zcal.co/i/4aMYgoRr. Contact card (vCard, includes the email address): https://shreyaboyane.dev/shreya-boyane.vcf.
 
 - LinkedIn: https://www.linkedin.com/in/shreya-boyane/
 - GitHub: https://github.com/Sonica-B
@@ -200,6 +202,10 @@ Honors: Honours in Artificial Intelligence and Machine Learning; Final-year proj
 
 Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
 
+- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
+- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
+- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
+
 Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
 
 - Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.
@@ -214,6 +220,10 @@ Stack: PyTorch, Hugging Face Transformers, PEFT, LoRA, DMD, PHATE, UMAP, CUDA, H
 ### SkipLegal: multi-agent H-1B document intelligence
 
 Production system for Crossing, Data Science GQP MVP. Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
+
+- Problem: Immigration attorneys spent 3 to 4 days per H-1B petition checking Form I-129 packages for missing documents and errors.
+- What she did: Built and delivered a four-agent LLM pipeline on AWS with LangGraph that extracts schema-validated JSON and a single QC report.
+- What changed: Review time fell from 3 to 4 days to 5 to 10 minutes at 95 to 99% structural accuracy.
 
 A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.
 
@@ -230,6 +240,10 @@ Stack: LangGraph, Amazon Bedrock, AWS Lambda, Step Functions, S3, EventBridge, T
 
 Perception stack plus TensorRT inference optimization. Mar 2025 to Apr 2025, WPI RBE/CS 549 Computer Vision.
 
+- Problem: Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.
+- What she did: Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.
+- What changed: 3D placement accuracy rose 50% and scene realism 75% across 13 sequences, with 1.5x throughput and p95 latency down 35%.
+
 Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.
 
 - Improved 3D placement accuracy 50% and scene realism 75% across 13 driving sequences.
@@ -242,6 +256,10 @@ Stack: Depth Anything, MiDaS, Mask R-CNN, Detic, OpenPifPaf, YOLO3D, RAFT, Blend
 ### MADWE: Multi-Agent Diffusion World Engine
 
 Real-time game asset generation with optimized GPU inference. Mar 2025 to Aug 2025, Worcester Polytechnic Institute.
+
+- Problem: Real-time game worlds need coherent assets and layouts under strict latency and memory budgets, and hand-authoring them does not scale.
+- What she did: Led the AI models for a multi-agent diffusion runtime with LoRA adapters per biome, then optimized inference with ONNX, TensorRT and INT8.
+- What changed: p95 latency fell from 200 ms to 95 ms, the runtime generated 120 assets per minute and manual design time dropped 73%.
 
 A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.
 
@@ -260,6 +278,10 @@ Stack: PyTorch, Diffusers, Stable Diffusion, LoRA, ONNX, TensorRT, INT8, CUDA gr
 
 CycleGAN plus diffusion on 65,072 MRI images. Oct 2024 to Dec 2024, WPI Deep Learning.
 
+- Problem: Supervised tumor segmentation needs large labeled MRI datasets that are expensive to produce, and tumors vary widely in size, shape and position.
+- What she did: Paired CycleGAN synthesis with diffusion refinement and automated labeling to detect and segment tumors across 65,072 BraTS2020 images without labels.
+- What changed: Segmentation accuracy passed 90% with no manual labels, precision rose 15% over baseline and inference ran 1.6x faster.
+
 An unsupervised medical-imaging pipeline that pairs CycleGAN image synthesis with diffusion-based refinement to detect and segment brain tumors across 65,072 BraTS2020 MRI images with more than 90% segmentation accuracy and no manual labels.
 
 - Segmented tumors at over 90% accuracy across 65,072 MRI images, no manual labels.
@@ -275,6 +297,10 @@ Stack: PyTorch, TensorFlow, CycleGAN, diffusion models, OpenCV, TorchScript, Nsi
 
 Multimodal classifier shipped as an operated MLOps platform. Aug 2025 to Dec 2025, WPI DS-553 Case Studies in Data Science.
 
+- Problem: Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.
+- What she did: Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.
+- What changed: One image runs on GCP, AWS and Azure, standardized ports removed a class of downtime, and two Hugging Face Spaces are live.
+
 A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 
 - Deployed one container image to GCP, AWS and Azure with monitoring, alerting and CI/CD.
@@ -287,23 +313,23 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 
 ## Other projects
 
-- FairPrep: fairness-aware human feedback for table unionability (Jan 2025 to May 2026): The first adaptation of the FairEM framework from entity matching to annotator-level fairness in table union search, finding statistically significant bias against non-native English annotators on hard questions. Code: https://github.com/Sonica-B/FairPrep
-- Where does physics live in vision encoders? (Mar 2026 to May 2026): Probes where physical properties such as mass, friction, elasticity and stability are encoded across the encoder, projection and LLM stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then fine-tunes five LoRA configurations to find the leverage point for physical intuition. Code: https://github.com/Sonica-B/VLAs
-- Medical Triage HIL: confidence-aware LLM triage (Jan 2025 to Aug 2025): Local LLMs assign Emergency Severity Index levels, reason about handoff risk and track confidence as more patient questions are revealed, with human-in-the-loop review on high-risk escalations. Code: https://github.com/Sonica-B/Medical-Triage-HIL
-- AutoGit-AI: VS Code extension with secret scanning (May 2025 to present): Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. Its built-in secret scanner blocks keys, tokens and passwords before they reach the remote. Code: https://github.com/Sonica-B/AutoGit
-- VIO: deep visual-inertial odometry via multimodal fusion (Mar 2025 to May 2025): Fuses a FlowNet-style CNN over frames, a two-layer bi-LSTM over IMU windows and a Transformer fusion encoder into a pose regressor trained with an L1 translation and SO(3) geodesic rotation loss on synthetic Blender and OysterSim trajectories. Code: https://github.com/Sonica-B/VIO
-- RoboFusion: ML-driven sensor integration for motion control (Sep 2024 to Dec 2024): A real-time human-robot interface that controls a robotic arm from hand gestures by fusing MediaPipe hand tracking, a TensorFlow gesture model and MPU6050 IMU angle estimates inside ROS2, with sub-500 ms gesture-to-command latency. Code: https://github.com/Sonica-B/RoboFusion
-- Buildings Built in Minutes: structure from motion and NeRF (Feb 2025 to Mar 2025): Turns uncalibrated photographs into a metrically reliable 3D asset with a full structure-from-motion pipeline, then implements NeRF end to end to render photorealistic 360-degree orbits of the Lego, Hotdog and Ship scenes. Code: https://github.com/Sonica-B/Buildings-Built-in-Minutes
-- TrendED Pathfinder: career recommender (Sep 2024 to Nov 2024): An NLP engine that matches resumes to roles with TF-IDF and cosine similarity, calibrates rankings with supervised classifiers, and recommends courses that close the skill gaps it finds. Code: https://github.com/Sonica-B/TrendED
-- RealmWeaver-AI: procedural game asset generator (Mar 2025 to Apr 2025): A procedural 2D asset framework that generates terrain tiles and props with Stable Diffusion and LoRA, learns tile structure with a CVAE-GAN, lays out biomes with Wave Function Collapse and places prefabs automatically in Unity. Code: https://github.com/Sonica-B/RealmWeaver-AI
-- SASRec sequential recommender (Apr 2025 to May 2025): A self-attentive sequential recommender with multi-head attention, causal masking and residual feed-forward blocks for next-item ranking, tuned with hyperparameter sweeps and selected by offline metrics.
-- Eigenfaces and latent face generation (Jan 2025 to Feb 2025): Trained probabilistic PCA and beta-VAE models on 576-dimensional face vectors for unsupervised identity representation and generation, then compared reconstructions and latent interpolations.
-- Behavioral cloning in Atari Pong (Sep 2024 to Oct 2024): A supervised imitation-learning pipeline that clones an expert Pong policy from Arcade Learning Environment demonstrations with a three-layer convolutional network.
-- Map.AR: augmented reality navigation assistant (Jan 2021 to Jan 2022): An augmented-reality navigation assistant that guides users to a destination indoors and outdoors, combining Vuforia marker detection with Unity 3D overlays and place recommendations based on user preferences.
-- Real-time sign language detection (Apr 2021 to Oct 2021): An end-to-end custom object-detection system that recognizes hand gestures and translates sign language into text in real time for people with hearing impairments.
-- Real-time face mask detection (Nov 2020 to Mar 2021): A lightweight MobileNet SSD detector that checks whether people are wearing face masks on live video feeds, built for COVID-19 compliance monitoring in public spaces.
-- BookADDA: peer-to-peer book rental platform (Jun 2020 to Nov 2020): An online platform where students buy, rent or sell books with fellow students, with a search-first interface and a Flask backend.
-- shreyaboyane.dev: this site (Feb 2026 to present): A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and the resume, with a WebGL2 hero rendering a Depth Anything V2 depth map of the portrait. Code: https://github.com/Sonica-B/Portfolio
+- FairPrep: fairness-aware human feedback for table unionability (Jan 2025 to May 2026): 6 of 10 metrics flagged bias against non-native English annotators, 25% versus 44% accuracy on hard questions, p = 0.031. Code: https://github.com/Sonica-B/FairPrep
+- Where does physics live in vision encoders? (Mar 2026 to May 2026): Produced physics saliency maps, degradation curves across the projection bottleneck and 15 ablation runs on three benchmarks. Code: https://github.com/Sonica-B/VLAs
+- Medical Triage HIL: confidence-aware LLM triage (Jan 2025 to Aug 2025): Triage precision rose 20%, false escalations fell 40%, hallucinations fell 50% and early critical-case detection rose 60%. Code: https://github.com/Sonica-B/Medical-Triage-HIL
+- AutoGit-AI: VS Code extension with secret scanning (May 2025 to present): Shipped on the VS Code Marketplace under Apache-2.0, blocking 10+ families of keys, tokens and passwords before they reach the remote. Code: https://github.com/Sonica-B/AutoGit
+- VIO: deep visual-inertial odometry via multimodal fusion (Mar 2025 to May 2025): RMSE ATE fell 31 to 34% versus vision-only, and TensorRT deployment cut per-step latency 35% and VRAM 20%. Code: https://github.com/Sonica-B/VIO
+- RoboFusion: ML-driven sensor integration for motion control (Sep 2024 to Dec 2024): Gesture recognition reached 93% with task precision about 35% above the sensor-only baseline and under 500 ms gesture-to-command latency. Code: https://github.com/Sonica-B/RoboFusion
+- Buildings Built in Minutes: structure from motion and NeRF (Feb 2025 to Mar 2025): Reprojection error fell from 1.75 to 1.01 pixels, and NeRF views reached about 60% higher PSNR with roughly 40% fewer artifacts. Code: https://github.com/Sonica-B/Buildings-Built-in-Minutes
+- TrendED Pathfinder: career recommender (Sep 2024 to Nov 2024): Match accuracy reached 95% with 90% NLP precision, irrelevant results fell 50% and 1,000+ students used the recommendations. Code: https://github.com/Sonica-B/TrendED
+- RealmWeaver-AI: procedural game asset generator (Mar 2025 to Apr 2025): Assets reached FID 32.4 at 2.7 seconds each and manual integration effort fell 73%. Code: https://github.com/Sonica-B/RealmWeaver-AI
+- SASRec sequential recommender (Apr 2025 to May 2025): The best checkpoint reached nDCG@10 0.3166 and Hit@10 0.4913 at epoch 14 with two blocks and 50 dimensions.
+- Eigenfaces and latent face generation (Jan 2025 to Feb 2025): Latents kept 95%+ variance, 100 novel faces were generated, and decoder sampling cut training time 35% over dense baselines.
+- Behavioral cloning in Atari Pong (Sep 2024 to Oct 2024): The cloned agent reached 87.55% test accuracy with minimal overfitting and tracked the paddle with sub-500 ms action latency.
+- Map.AR: augmented reality navigation assistant (Jan 2021 to Jan 2022): Pilot users reported 90%+ satisfaction on a usability survey and TECHVED sponsored the project in October 2021.
+- Real-time sign language detection (Apr 2021 to Oct 2021): The system detects and translates multiple gestures into text in real time.
+- Real-time face mask detection (Nov 2020 to Mar 2021): The detector ran live with high accuracy, suitable for institutions and public venues.
+- BookADDA: peer-to-peer book rental platform (Jun 2020 to Nov 2020): Students could buy, rent or sell books through a working, search-first platform that drew positive feedback for ease of use.
+- shreyaboyane.dev: this site (Feb 2026 to present): One file now feeds 23 project pages, the JSON-LD, sitemap, llms.txt and resume, with every route static and zero runtime APIs. Code: https://github.com/Sonica-B/Portfolio
 
 ## Skills
 
@@ -379,4 +405,4 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 
 English, Hindi, Marathi
 
-Canonical page: https://shreyaboyane.dev/resume. This markdown: https://shreyaboyane.dev/md/resume.md. Generated from the site content model, last updated 2026-10-15.
+Canonical page: https://shreyaboyane.dev/resume. This markdown: https://shreyaboyane.dev/md/resume.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

@@ -39,4 +39,8 @@ Collected a custom dataset of 5,000+ hand gestures with MediaPipe, trained a ges
 
 ROS2, Gazebo, TensorFlow, MediaPipe, OpenCV, MPU6050, sensor fusion
 
-Canonical page: https://shreyaboyane.dev/projects/robofusion. This markdown: https://shreyaboyane.dev/md/projects/robofusion.md. Generated from the site content model, last updated 2026-10-15.
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/robofusion.mp4 (poster: https://shreyaboyane.dev/videos/robofusion.webp; thumbnail: https://shreyaboyane.dev/videos/robofusion-thumb.webp).
+
+Canonical page: https://shreyaboyane.dev/projects/robofusion. This markdown: https://shreyaboyane.dev/md/projects/robofusion.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.
