@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { formatMonth, formatRange, profile } from '@/lib/content'
 import { JsonLd, breadcrumbJsonLd } from '@/lib/jsonld'
 import { ButtonLink } from '@/components/ui/button'
+import { Prose, ProseList } from '@/components/glossary/prose'
 import { PrintButton } from './print-button'
 
 const { identity, links, experience, research, education, publications, skills, recognition } = profile
@@ -31,6 +32,7 @@ const PRINT_CSS = `
 
 const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
 const topRecognition = recognition.slice(0, 10)
+const BULLETS_CLASS = 'mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2 marker:text-ink-3'
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
@@ -44,6 +46,8 @@ function Section({ id, title, children }: { id: string; title: string; children:
 }
 
 export default function ResumePage() {
+  // The resume reads top to bottom, so each glossary term gets one popover per page.
+  const seen = new Set<string>()
   return (
     <div className="container-site py-16 md:py-24 print:bg-white print:py-0 print:text-black">
       <style href="resume-print" precedence="default">
@@ -88,7 +92,7 @@ export default function ResumePage() {
         </header>
 
         <Section id="summary" title="Summary">
-          <p className="text-ink-2">{identity.summary}</p>
+          <Prose text={identity.summary} className="text-ink-2" seen={seen} />
         </Section>
 
         <Section id="experience" title="Experience">
@@ -110,14 +114,8 @@ export default function ResumePage() {
                   , {e.location}. {e.type}.
                 </p>
                 {e.award ? <p className="mt-1 text-sm text-accent">{e.award}</p> : null}
-                <p className="mt-2 text-sm text-ink-2">{e.summary}</p>
-                {e.highlights.length > 0 ? (
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2 marker:text-ink-3">
-                    {e.highlights.map((h, i) => (
-                      <li key={i}>{h}</li>
-                    ))}
-                  </ul>
-                ) : null}
+                <Prose text={e.summary} className="mt-2 text-sm text-ink-2" seen={seen} />
+                {e.highlights.length > 0 ? <ProseList items={e.highlights} className={BULLETS_CLASS} seen={seen} /> : null}
                 {e.advisors?.length ? <p className="mt-2 text-sm text-ink-2">Advisors: {e.advisors.join(', ')}.</p> : null}
                 {e.presented ? <p className="mt-1 text-sm text-ink-2">Presented at the {e.presented}.</p> : null}
               </li>
@@ -138,12 +136,8 @@ export default function ResumePage() {
                   {r.advisor ? `. Advisor: ${r.advisor}` : ''}
                   {r.grant ? `. ${r.grant}` : ''}.
                 </p>
-                <p className="mt-2 text-sm text-ink-2">{r.summary}</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2 marker:text-ink-3">
-                  {r.highlights.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
+                <Prose text={r.summary} className="mt-2 text-sm text-ink-2" seen={seen} />
+                <ProseList items={r.highlights} className={BULLETS_CLASS} seen={seen} />
               </li>
             ))}
           </ol>

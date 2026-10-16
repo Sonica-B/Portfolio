@@ -4,6 +4,7 @@ import { formatMonth, profile } from '@/lib/content'
 import { ButtonLink } from '@/components/ui/button'
 import { Reveal } from '@/components/ui/reveal'
 import { Section } from '@/components/ui/section'
+import { Prose } from '@/components/glossary/prose'
 import { publicImageSize } from '@/components/sections/featured-work'
 
 const LINKS: { key: string; label: string }[] = [
@@ -25,6 +26,8 @@ export function ResearchSection() {
   const figureSize = figure ? publicImageSize(figure.src) : null
   const hasEqual = pubs.some((p) => p.equalContribution.length > 0)
   const topics = pubs.map((p) => p.tags[0]).filter(Boolean)
+  // One glossary popover per term across the section.
+  const seen = new Set<string>()
 
   return (
     <Section
@@ -55,7 +58,7 @@ export function ResearchSection() {
                     {pub.title}
                   </Link>
                 </h3>
-                <p className="mt-3 max-w-[62ch] text-ink-2">{pub.tldr}</p>
+                <Prose text={pub.tldr} className="mt-3 max-w-[62ch] text-ink-2" seen={seen} />
                 <p className="mt-4 max-w-[62ch] text-sm text-ink-2">
                   {pub.authors.map((name, j) => (
                     <span key={name}>

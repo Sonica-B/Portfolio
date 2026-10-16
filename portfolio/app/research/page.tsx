@@ -5,6 +5,7 @@ import { formatMonth, formatRange, profile, type Publication } from '@/lib/conte
 import { JsonLd, breadcrumbJsonLd, scholarlyArticleJsonLd } from '@/lib/jsonld'
 import { ButtonLink } from '@/components/ui/button'
 import { Figure } from '@/components/projects/figure'
+import { Prose, ProseList } from '@/components/glossary/prose'
 
 const { identity, publications, research } = profile
 
@@ -55,6 +56,8 @@ function Authors({ pub }: { pub: Publication }) {
 
 function PublicationArticle({ pub }: { pub: Publication }) {
   const links = LINK_LABELS.flatMap(([key, label]) => (pub.links[key] ? [{ key, href: pub.links[key], label }] : []))
+  // Each article explains a term once, across its lead, abstract and findings.
+  const seen = new Set<string>()
   return (
     <article id={pub.id} aria-labelledby={`${pub.id}-title`} className="hairline scroll-mt-24 py-12 md:py-16">
       <div className="grid gap-10 md:grid-cols-12 md:gap-x-10">
@@ -96,10 +99,10 @@ function PublicationArticle({ pub }: { pub: Publication }) {
             ) : null}
           </dl>
 
-          <p className="text-lead mt-8 max-w-[62ch] text-ink">{pub.tldr}</p>
+          <Prose text={pub.tldr} className="text-lead mt-8 max-w-[62ch] text-ink" seen={seen} />
 
           <h3 className="text-title mt-10">Abstract</h3>
-          <p className="mt-3 max-w-[70ch] text-ink-2">{pub.abstract}</p>
+          <Prose text={pub.abstract} className="mt-3 max-w-[70ch] text-ink-2" seen={seen} />
 
           <h3 className="text-title mt-10">Findings</h3>
           <ol className="mt-4 space-y-3">
@@ -108,7 +111,7 @@ function PublicationArticle({ pub }: { pub: Publication }) {
                 <span className="text-metric pt-0.5 text-sm text-ink-3" aria-hidden="true">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <p className="max-w-[65ch] text-ink-2">{f}</p>
+                <Prose text={f} className="max-w-[65ch] text-ink-2" seen={seen} />
               </li>
             ))}
           </ol>
@@ -179,59 +182,59 @@ export default function ResearchPage() {
           Research roles
         </h2>
         <ol className="mt-8 divide-y divide-rule border-t border-rule">
-          {research.map((r) => (
-            <li key={r.id} className="grid gap-6 py-8 md:grid-cols-12 md:gap-x-10">
-              <div className="md:col-span-4">
-                <h3 className="text-title">{r.title}</h3>
-                <dl className="mt-3 space-y-1.5 text-sm">
-                  <div>
-                    <dt className="sr-only">Organization</dt>
-                    <dd className="text-ink">{r.org}</dd>
-                  </div>
-                  <div>
-                    <dt className="sr-only">Role</dt>
-                    <dd className="text-ink-2">{r.role}</dd>
-                  </div>
-                  {r.advisor ? (
-                    <div className="flex gap-2">
-                      <dt className="text-ink-2">Advisor</dt>
-                      <dd className="text-ink">{r.advisor}</dd>
+          {research.map((r) => {
+            // Each role explains a term once, across its summary and highlights.
+            const seen = new Set<string>()
+            return (
+              <li key={r.id} className="grid gap-6 py-8 md:grid-cols-12 md:gap-x-10">
+                <div className="md:col-span-4">
+                  <h3 className="text-title">{r.title}</h3>
+                  <dl className="mt-3 space-y-1.5 text-sm">
+                    <div>
+                      <dt className="sr-only">Organization</dt>
+                      <dd className="text-ink">{r.org}</dd>
                     </div>
-                  ) : null}
-                  {r.grant ? (
-                    <div className="flex gap-2">
-                      <dt className="text-ink-2">Grant</dt>
-                      <dd className="text-ink">{r.grant}</dd>
+                    <div>
+                      <dt className="sr-only">Role</dt>
+                      <dd className="text-ink-2">{r.role}</dd>
                     </div>
-                  ) : null}
-                  <div>
-                    <dt className="sr-only">Dates</dt>
-                    <dd className="text-ink-2">{formatRange(r.start, r.end)}</dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="md:col-span-8">
-                <p className="max-w-[65ch] text-ink">{r.summary}</p>
-                <ul className="mt-4 space-y-3">
-                  {r.highlights.map((h, i) => (
-                    <li
-                      key={i}
-                      className="relative max-w-[65ch] pl-5 text-ink-2 before:absolute before:top-[0.75em] before:left-0 before:h-px before:w-2.5 before:bg-rule-strong"
-                    >
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/projects/${r.projectSlug}`}
-                  className="mt-4 inline-flex min-h-11 items-center gap-1 text-sm text-accent underline-offset-4 hover:underline"
-                >
-                  Project details
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              </div>
-            </li>
-          ))}
+                    {r.advisor ? (
+                      <div className="flex gap-2">
+                        <dt className="text-ink-2">Advisor</dt>
+                        <dd className="text-ink">{r.advisor}</dd>
+                      </div>
+                    ) : null}
+                    {r.grant ? (
+                      <div className="flex gap-2">
+                        <dt className="text-ink-2">Grant</dt>
+                        <dd className="text-ink">{r.grant}</dd>
+                      </div>
+                    ) : null}
+                    <div>
+                      <dt className="sr-only">Dates</dt>
+                      <dd className="text-ink-2">{formatRange(r.start, r.end)}</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div className="md:col-span-8">
+                  <Prose text={r.summary} className="max-w-[65ch] text-ink" seen={seen} />
+                  <ProseList
+                    items={r.highlights}
+                    className="mt-4 space-y-3"
+                    itemClassName="relative max-w-[65ch] pl-5 text-ink-2 before:absolute before:top-[0.75em] before:left-0 before:h-px before:w-2.5 before:bg-rule-strong"
+                    seen={seen}
+                  />
+                  <Link
+                    href={`/projects/${r.projectSlug}`}
+                    className="mt-4 inline-flex min-h-11 items-center gap-1 text-sm text-accent underline-offset-4 hover:underline"
+                  >
+                    Project details
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                </div>
+              </li>
+            )
+          })}
         </ol>
       </section>
     </div>
