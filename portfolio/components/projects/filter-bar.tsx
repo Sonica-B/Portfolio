@@ -34,35 +34,44 @@ export function FilterBar({
   active: string
   onSelect?: (kind: string) => void
 }) {
+  const renderChip = (o: KindOption) => {
+    const selected = o.kind === active
+    const cls = cn(chip, selected ? selectedCls : idle)
+    const content = (
+      <>
+        <span>{o.label}</span>
+        <span className="tnum">{o.count}</span>
+      </>
+    )
+    if (onSelect) {
+      return (
+        <button key={o.kind} type="button" aria-pressed={selected} onClick={() => onSelect(o.kind)} className={cls}>
+          {content}
+        </button>
+      )
+    }
+    return (
+      <Link key={o.kind} href={filterHref('/projects', o.kind)} aria-current={selected ? 'true' : undefined} className={cls}>
+        {content}
+      </Link>
+    )
+  }
+  // Kinds with a single project fold behind "More" so the chips stay within a few rows on a phone.
+  const main = options.filter((o) => o.kind === 'all' || o.kind === SHIPPED || o.count > 1)
+  const more = options.filter((o) => !main.includes(o))
+  const moreActive = more.some((o) => o.kind === active)
   return (
     <div role="group" aria-label="Filter projects" className={rail}>
-      {options.map((o) => {
-        const selected = o.kind === active
-        const cls = cn(chip, selected ? selectedCls : idle)
-        const content = (
-          <>
-            <span>{o.label}</span>
-            <span className="tnum">{o.count}</span>
-          </>
-        )
-        if (onSelect) {
-          return (
-            <button key={o.kind} type="button" aria-pressed={selected} onClick={() => onSelect(o.kind)} className={cls}>
-              {content}
-            </button>
-          )
-        }
-        return (
-          <Link
-            key={o.kind}
-            href={filterHref('/projects', o.kind)}
-            aria-current={selected ? 'true' : undefined}
-            className={cls}
-          >
-            {content}
-          </Link>
-        )
-      })}
+      {main.map(renderChip)}
+      {more.length > 0 && (
+        <details className="[&[open]]:w-full" open={moreActive || undefined}>
+          <summary className={cn(chip, idle, 'w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden')}>
+            <span>More kinds</span>
+            <span className="tnum">{more.length}</span>
+          </summary>
+          <div className="mt-2 flex w-full flex-wrap gap-2">{more.map(renderChip)}</div>
+        </details>
+      )}
     </div>
   )
 }

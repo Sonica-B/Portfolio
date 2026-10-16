@@ -170,6 +170,8 @@
   color: var(--ink-2);
 }
 @utility tnum { font-variant-numeric: tabular-nums; }
+/* Below-the-fold sections skip layout and paint until near the viewport. Skipped content stays in the DOM and the accessibility tree (MDN, content-visibility). */
+@utility cv-auto { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 
 /* ---------- HUD grammar ---------- */
 /* Four 10 px corner brackets, 1 px rule-strong, drawn by one pseudo-element so the element keeps its own children. */

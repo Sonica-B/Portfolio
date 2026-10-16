@@ -122,15 +122,15 @@ export default function AboutPage() {
           <ActivityTimeline />
         </Block>
 
-        <Block id="recognition" title="Recognition" intro={recognitionIntro()}>
+        <Block id="recognition" title="Recognition" intro={recognitionIntro()} className="cv-auto">
           <RecognitionTable />
         </Block>
 
-        <Block id="certifications" title="Certifications" intro={certificationsIntro()}>
+        <Block id="certifications" title="Certifications" intro={certificationsIntro()} className="cv-auto">
           <CredentialWallet />
         </Block>
 
-        <Block id="recommendations" title="What colleagues say" intro={recommendationsIntro()}>
+        <Block id="recommendations" title="What colleagues say" intro={recommendationsIntro()} className="cv-auto">
           <Recommendations />
         </Block>
 
