@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Check, Copy, WarningCircle } from '@phosphor-icons/react'
+import { Check, Copy, WarningCircle } from '@/components/ui/icons'
 import { track } from '@/lib/analytics'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 import { pill, type PillVariant } from './actions'
 import type { EmailParts } from './email'
 
@@ -101,10 +101,10 @@ export function CopyEmail({ parts, location = 'hero', variant = 'secondary', com
         type="button"
         onClick={onClick}
         aria-live="polite"
-        className={cn(
+        className={cx(
           compact
             ? 'press inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium text-ink transition-colors hover:bg-surface'
-            : cn(pill.base, pill[variant]),
+            : cx(pill.base, pill[variant]),
           className,
         )}
       >

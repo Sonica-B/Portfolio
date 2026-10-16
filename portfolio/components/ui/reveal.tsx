@@ -1,7 +1,7 @@
 'use client'
 
 import { createElement, useEffect, useRef } from 'react'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 
 /**
  * Reveals children when they enter the viewport. If already in view on mount
@@ -45,7 +45,7 @@ export function Reveal({
 
   return createElement(
     as,
-    { ref, className: cn('reveal', className), style: delay ? { transitionDelay: `${delay}ms` } : undefined },
+    { ref, className: cx('reveal', className), style: delay ? { transitionDelay: `${delay}ms` } : undefined },
     children,
   )
 }

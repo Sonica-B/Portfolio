@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PITCH_THUMB } from '@/components/reel/pitch-slugs'
 import { PlayPitch } from '@/components/reel/play-pitch'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 
 /** What fills the 16:9 frame: the pitch thumbnail, the project visual, or a typographic metric tile. */
 export type StripFrame =
@@ -60,7 +60,7 @@ function Frame({ frame }: { frame: StripFrame }) {
   const long = frame.value.length > 8
   return (
     <p className="flex h-full flex-col justify-between p-2 md:p-3">
-      <span className={cn('text-metric leading-none break-words text-ink', long ? 'text-base md:text-2xl' : 'text-xl md:text-3xl')}>
+      <span className={cx('text-metric break-words text-ink', long ? 'text-base md:text-2xl' : 'text-xl md:text-3xl')}>
         {frame.value}
       </span>
       <span className="mt-1 line-clamp-1 text-xs leading-tight text-ink-2 md:line-clamp-2">{frame.label}</span>

@@ -3,9 +3,9 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { List, MagnifyingGlass, X } from '@phosphor-icons/react'
+import { List, MagnifyingGlass, X } from '@/components/ui/icons'
 import { track } from '@/lib/analytics'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 
 const LINKS = [
   { href: '/projects', label: 'Work' },
@@ -40,18 +40,17 @@ function useCopyEmail(email: NavEmail, location: string) {
   return { copied, copy }
 }
 
-function EmailButton({ email, location, className }: { email: NavEmail; location: string; className?: string }) {
+// The two placements, written out in full (no class merging): the bar hides it below md, the menu is larger.
+const EMAIL_BUTTON = {
+  bar: 'press hidden h-11 min-w-28 items-center justify-center rounded-full bg-accent px-5 text-sm font-medium text-accent-ink transition-opacity hover:opacity-90 md:inline-flex',
+  menu: 'press inline-flex h-12 min-w-28 items-center justify-center rounded-full bg-accent px-6 text-base font-medium text-accent-ink transition-opacity hover:opacity-90',
+}
+
+function EmailButton({ email, location, placement }: { email: NavEmail; location: string; placement: keyof typeof EMAIL_BUTTON }) {
   const { copied, copy } = useCopyEmail(email, location)
   return (
     <>
-      <button
-        type="button"
-        onClick={copy}
-        className={cn(
-          'press inline-flex h-11 min-w-28 items-center justify-center rounded-full bg-accent px-5 text-sm font-medium text-accent-ink transition-opacity hover:opacity-90',
-          className,
-        )}
-      >
+      <button type="button" onClick={copy} className={EMAIL_BUTTON[placement]}>
         {copied ? 'Copied' : 'Email me'}
       </button>
       <span aria-live="polite" className="sr-only">
@@ -115,7 +114,7 @@ export function Nav({ email }: { email: NavEmail }) {
 
   return (
     <header className="sticky top-0 z-40 safe-top">
-      <div className="border-b border-rule/70 bg-surface/80 backdrop-blur-md">
+      <div className="nav-glass border-b border-rule/70 bg-surface/80">
         <nav aria-label="Primary" className="container-site flex h-16 items-center justify-between gap-3">
           <Link href="/" className="inline-flex min-h-11 items-center font-display text-lg font-bold tracking-tight text-ink" aria-label="Shreya Boyane, home">
             Shreya Boyane
@@ -127,9 +126,9 @@ export function Nav({ email }: { email: NavEmail }) {
                 <Link
                   href={l.href}
                   aria-current={isActive(l.href) ? 'page' : undefined}
-                  className={cn(
-                    'rounded-full px-3.5 py-2 text-sm text-ink-2 transition-colors hover:bg-surface-raised hover:text-ink',
-                    isActive(l.href) && 'bg-surface-raised text-ink',
+                  className={cx(
+                    'rounded-full px-3.5 py-2 text-sm transition-colors hover:bg-surface-raised hover:text-ink',
+                    isActive(l.href) ? 'bg-surface-raised text-ink' : 'text-ink-2',
                   )}
                 >
                   {l.label}
@@ -140,7 +139,7 @@ export function Nav({ email }: { email: NavEmail }) {
 
           <div className="flex items-center gap-2">
             <SearchButton />
-            <EmailButton email={email} location="nav" className="hidden md:inline-flex" />
+            <EmailButton email={email} location="nav" placement="bar" />
             <button
               ref={toggle}
               type="button"
@@ -188,9 +187,9 @@ export function Nav({ email }: { email: NavEmail }) {
                     href={l.href}
                     aria-current={isActive(l.href) ? 'page' : undefined}
                     onClick={() => setOpen(false)}
-                    className={cn(
-                      'block rounded-card px-4 py-4 font-display text-3xl font-bold tracking-tight text-ink',
-                      isActive(l.href) && 'text-accent',
+                    className={cx(
+                      'block rounded-card px-4 py-4 font-display text-3xl font-bold tracking-tight',
+                      isActive(l.href) ? 'text-accent' : 'text-ink',
                     )}
                   >
                     {l.label}
@@ -198,7 +197,7 @@ export function Nav({ email }: { email: NavEmail }) {
                 </li>
               ))}
               <li className="mt-4 px-4">
-                <EmailButton email={email} location="menu" className="h-12 px-6 text-base" />
+                <EmailButton email={email} location="menu" placement="menu" />
               </li>
             </ul>
           </div>

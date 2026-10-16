@@ -1,28 +1,26 @@
 'use client'
 
 import { useId } from 'react'
-import { motion } from 'motion/react'
-import { ArrowUpRight, CaretDown } from '@phosphor-icons/react'
+import { ArrowUpRight, CaretDown } from '@/components/ui/icons'
 import { Logo } from '@/components/ui/logo'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 import type { TimelineEntry, TimelineProps } from './timeline'
 
 type Props = {
   entry: TimelineEntry
   density: NonNullable<TimelineProps['density']>
   open: boolean
-  reduced: boolean
+  /** Play the open animation (true once the visitor has toggled a node; the panel open on load stays still). */
+  animate: boolean
   onToggle: (id: string) => void
   nodeRef: (id: string, el: HTMLElement | null) => void
 }
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 /** Fallback for the signal token until the theme defines --color-signal (spec value, magenta). */
 const SIGNAL_FALLBACK = 'var(--color-signal, oklch(0.72 0.2 340))'
 
 /** One node on the rail: marker, logo, title, org, dates, tags and a disclosure for the detail. */
-export function TimelineNode({ entry, density, open, reduced, onToggle, nodeRef }: Props) {
+export function TimelineNode({ entry, density, open, animate, onToggle, nodeRef }: Props) {
   const uid = useId()
   const headerId = `${uid}-header`
   const panelId = `${uid}-panel`
@@ -31,7 +29,7 @@ export function TimelineNode({ entry, density, open, reduced, onToggle, nodeRef 
   const expandable = entry.lines.length > 0 || metrics !== null || Boolean(entry.href)
   const logoName = entry.logoName ?? entry.org
 
-  const headerClass = cn('group flex w-full min-h-11 items-start gap-4 rounded-md py-2 text-left', expandable && 'cursor-pointer')
+  const headerClass = cx('group flex w-full min-h-11 items-start gap-4 rounded-md py-2 text-left', expandable && 'cursor-pointer')
 
   const header = (
     <>
@@ -45,10 +43,11 @@ export function TimelineNode({ entry, density, open, reduced, onToggle, nodeRef 
           ))}
         </span>
         <span
-          className={cn(
-            'mt-1 block leading-snug text-ink transition-colors duration-200',
+          className={cx(
+            'mt-1 block text-ink transition-colors duration-200',
             expandable && 'group-hover:text-accent',
-            compact ? 'font-medium' : 'font-display text-[1.15rem] font-semibold tracking-[-0.01em]',
+            // The full-size title takes its line height from the h3 (text-[1.15rem] sets the size only).
+            compact ? 'leading-snug font-medium' : 'font-display text-[1.15rem] font-semibold tracking-[-0.01em]',
           )}
         >
           {entry.title}
@@ -64,7 +63,7 @@ export function TimelineNode({ entry, density, open, reduced, onToggle, nodeRef 
         <CaretDown
           size={18}
           aria-hidden="true"
-          className={cn('mt-3 shrink-0 text-ink-2 transition-transform duration-300', open && 'rotate-180')}
+          className={cx('mt-3 shrink-0 text-ink-2 transition-transform duration-300', open && 'rotate-180')}
         />
       )}
     </>
@@ -74,7 +73,7 @@ export function TimelineNode({ entry, density, open, reduced, onToggle, nodeRef 
     <div ref={(el) => nodeRef(entry.id, el)} data-timeline-id={entry.id} className="relative pl-7 md:pl-10">
       <span
         aria-hidden="true"
-        className={cn(
+        className={cx(
           'absolute top-[11px] left-0 size-3.5 -translate-x-1/2 rounded-full border-2 border-current bg-surface',
           entry.signal ? 'text-signal' : entry.ongoing ? 'text-accent' : 'text-rule-strong',
         )}
@@ -103,12 +102,8 @@ export function TimelineNode({ entry, density, open, reduced, onToggle, nodeRef 
 
       {expandable && (
         <div id={panelId} hidden={!open} className="pb-1">
-          <motion.div
-            initial={false}
-            animate={open ? { opacity: 1, y: 0 } : { opacity: 0, y: -6 }}
-            transition={reduced ? { duration: 0 } : { duration: 0.28, ease: EASE }}
-            className="max-w-[68ch] pt-1"
-          >
+          {/* panel-in (globals.css): 280 ms fade and 6 px drop each time the panel is shown, none with reduced motion. */}
+          <div className={cx('max-w-[68ch] pt-1', animate && 'panel-in')}>
             {compact ? (
               <p className="text-ink-2">{entry.lines.join(' ')}</p>
             ) : (
@@ -141,7 +136,7 @@ export function TimelineNode({ entry, density, open, reduced, onToggle, nodeRef 
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             )}
-          </motion.div>
+          </div>
         </div>
       )}
     </div>

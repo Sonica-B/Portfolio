@@ -280,28 +280,29 @@ export function itemListJsonLd(projects: Project[]) {
   }
 }
 
-/** One pitch as a VideoObject without its own @context, for nesting inside the reel list. */
-function pitchVideoObject(p: Project) {
-  const video = videoJsonLd(p)
-  if (!video) return null
-  const { '@context': _context, ...rest } = video
-  return rest
-}
-
-/** ItemList of the pitch reel (home page). Pass the ordered slugs; slugs without a project entry are skipped. */
+/**
+ * ItemList of the pitch reel (home page). Pass the ordered slugs; slugs without a pitch video are skipped.
+ * Each entry points at the project page and references that page's VideoObject by its @id, which
+ * videoJsonLd() defines in full there, so the home page does not repeat every video's metadata.
+ */
 export function reelItemListJsonLd(slugs: readonly string[]) {
-  const videos = slugs.flatMap((slug) => {
+  const pitched = slugs.flatMap((slug) => {
     const p = profile.projects.find((x) => x.slug === slug)
-    const v = p ? pitchVideoObject(p) : null
-    return v ? [v] : []
+    return p && videoJsonLd(p) ? [p] : []
   })
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     '@id': `${SITE_URL}/#pitch-reel`,
     name: `Pitch reel: ${PITCH_SECONDS}-second project pitches by ${identity.name}`,
-    numberOfItems: videos.length,
+    numberOfItems: pitched.length,
     itemListOrder: 'https://schema.org/ItemListOrderAscending',
-    itemListElement: videos.map((v, i) => ({ '@type': 'ListItem', position: i + 1, item: v })),
+    itemListElement: pitched.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: `${p.name}: ${PITCH_SECONDS}-second pitch`,
+      url: projectUrl(p.slug),
+      item: { '@id': pitchId(p.slug) },
+    })),
   }
 }

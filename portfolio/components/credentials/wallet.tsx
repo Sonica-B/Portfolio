@@ -1,10 +1,10 @@
 'use client'
 
 import { useCallback, useId, useMemo, useRef, useState, type KeyboardEvent } from 'react'
-import { AnimatePresence, useReducedMotion } from 'motion/react'
+import dynamic from 'next/dynamic'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 import { track } from '@/lib/analytics'
 import { CredentialDialog, type WalletCredential } from './credential-card'
-import { CredentialRail } from './credential-rail'
 import { IssuerAnchors, plural, type AnchorItem, type IssuerGroup } from './issuer-anchors'
 import { PassStack } from './pass-stack'
 
@@ -22,6 +22,10 @@ export type WalletProps = {
 
 const ALL = 'all'
 
+// The rail and its fade (motion) load when the visitor first points at or focuses the wallet.
+const loadRail = () => import('./rail-presence')
+const RailPresence = dynamic(loadRail, { ssr: false })
+
 /** Instrument panel: hud-frame draws the four corner brackets, the rule and ground are ours. */
 const FRAME = 'hud-frame border border-rule bg-surface-raised/50 p-4 md:p-6'
 
@@ -31,7 +35,14 @@ const FRAME = 'hud-frame border border-rule bg-surface-raised/50 p-4 md:p-6'
  */
 export function Wallet({ credentials, groups, stack, from, to }: WalletProps) {
   const uid = useId()
-  const reduced = useReducedMotion() ?? false
+  const reduced = useReducedMotion() === true
+  // Mounted before the first selection so the first rail still fades in (AnimatePresence skips children present on its first render).
+  const [armed, setArmed] = useState(false)
+  const arm = () => {
+    if (armed) return
+    setArmed(true)
+    void loadRail()
+  }
   const [selected, setSelected] = useState<string | null>(null)
   const [viewing, setViewing] = useState<WalletCredential | null>(null)
   const stackRef = useRef<HTMLUListElement>(null)
@@ -60,6 +71,7 @@ export function Wallet({ credentials, groups, stack, from, to }: WalletProps) {
           : ''
 
   const select = (key: string | null) => {
+    arm()
     setSelected(key)
     if (!key) return
     const g = groups.find((x) => x.key === key)
@@ -79,24 +91,22 @@ export function Wallet({ credentials, groups, stack, from, to }: WalletProps) {
   const status = `${plural(credentials.length)}, ${from} to ${to}`
 
   return (
-    <div onKeyDown={onKeyDown} data-open={selected ? 'true' : 'false'} className={FRAME}>
+    <div onKeyDown={onKeyDown} onPointerEnter={arm} onFocus={arm} data-open={selected ? 'true' : 'false'} className={FRAME}>
       <div className="grid gap-5 md:grid-cols-[minmax(0,30%)_minmax(0,1fr)] md:items-start md:gap-8">
         <PassStack passes={passes} open={selected !== null} status={status} stackRef={stackRef} onView={setViewing} />
         <IssuerAnchors items={items} selected={selected} railId={railId} tabId={tabId} onSelect={select} />
       </div>
-      <AnimatePresence mode="wait" initial={false}>
-        {selected ? (
-          <CredentialRail
-            key={selected}
-            id={railId}
-            label={railLabel}
-            credentials={railCards}
-            stackRef={stackRef}
-            reduced={reduced}
-            onView={setViewing}
-          />
-        ) : null}
-      </AnimatePresence>
+      {armed ? (
+        <RailPresence
+          selected={selected}
+          railId={railId}
+          label={railLabel}
+          credentials={railCards}
+          stackRef={stackRef}
+          reduced={reduced}
+          onView={setViewing}
+        />
+      ) : null}
       <CredentialDialog credential={viewing} onClose={() => setViewing(null)} />
     </div>
   )

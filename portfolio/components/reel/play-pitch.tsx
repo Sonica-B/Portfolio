@@ -1,7 +1,7 @@
 'use client'
 
-import { Play } from '@phosphor-icons/react'
-import { cn } from '@/lib/utils'
+import { Play } from '@/components/ui/icons'
+import { cx } from '@/lib/cx'
 import { useReel } from './reel-provider'
 import { PITCH_SECONDS, hasPitch } from './pitch-slugs'
 
@@ -30,7 +30,7 @@ export function PlayPitch({
     <button
       type="button"
       onClick={() => open(slug, location)}
-      className={cn(
+      className={cx(
         'press inline-flex items-center gap-2 rounded-full border border-rule-strong font-medium whitespace-nowrap text-ink transition-colors hover:bg-surface-raised',
         SIZE[size],
         className,

@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
-import { CaretRight } from '@phosphor-icons/react'
+import { CaretRight } from '@/components/ui/icons'
 import { FilterBar, SHIPPED, filterHref, type KindOption } from '@/components/projects/filter-bar'
 import { ProjectStrip, type StripItem } from '@/components/projects/project-strip'
 

@@ -11,7 +11,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { useReducedMotion } from 'motion/react'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 import type { Metric, Project } from '@/lib/content'

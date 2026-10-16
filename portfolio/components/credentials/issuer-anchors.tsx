@@ -3,7 +3,7 @@
 import { useRef, useState, type KeyboardEvent } from 'react'
 import { getLogo } from '@/lib/logos'
 import { Logo } from '@/components/ui/logo'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 import { Monogram } from './credential-card'
 
 export type IssuerGroup = {
@@ -40,7 +40,7 @@ function Mark({ name }: { name: string }) {
   if (!logo || ratio > MAX_MARK_RATIO) return <Monogram name={name} />
   return (
     <span className="grid size-7 shrink-0 place-items-center overflow-hidden">
-      <Logo name={name} height={18} className="max-w-full" />
+      <Logo name={name} height={18} fullWidth />
     </span>
   )
 }
@@ -118,7 +118,7 @@ export function IssuerAnchors({
             tabIndex={i === cursor ? 0 : -1}
             onFocus={() => setCursor(i)}
             onClick={() => onSelect(active ? null : item.key)}
-            className={cn(
+            className={cx(
               'group press flex min-h-11 items-center gap-2 rounded-full border border-rule px-2.5 text-sm text-ink-2 transition-colors hover:border-rule-strong hover:text-ink',
               'aria-selected:border-accent aria-selected:text-ink',
               'md:w-full md:gap-3 md:rounded-none md:border-0 md:px-2 md:hover:bg-surface-sunken/60 md:aria-selected:bg-surface-sunken',
@@ -126,7 +126,7 @@ export function IssuerAnchors({
           >
             {item.kind === 'issuer' ? <Mark name={item.name} /> : null}
             <span
-              className={cn(
+              className={cx(
                 'min-w-0 md:flex-1 md:truncate md:text-left',
                 item.kind === 'issuer' && 'sr-only md:not-sr-only',
               )}

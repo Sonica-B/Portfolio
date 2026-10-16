@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, type KeyboardEvent, type MouseEvent } from 'react'
-import { ArrowRight, CaretLeft, CaretRight, X } from '@phosphor-icons/react'
+import { ArrowRight, CaretLeft, CaretRight, X } from '@/components/ui/icons'
 import { track } from '@/lib/analytics'
 import { useReel } from './reel-provider'
 import { PITCH_POSTER, pitchCaptionsSrc, pitchPosterSrc, pitchVideoSrc } from './pitch-slugs'

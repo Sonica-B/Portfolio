@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useState, type FocusEvent, type PointerEvent, type RefObject } from 'react'
 import { createPortal } from 'react-dom'
-import { ArrowUpRight } from '@phosphor-icons/react'
+import { ArrowUpRight } from '@/components/ui/icons'
 
 /**
  * The glossary popover panel. Owned by <Term>, which holds the open state and the

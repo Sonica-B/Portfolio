@@ -208,6 +208,42 @@
   border: 1px solid color-mix(in oklab, var(--rule) 60%, transparent);
 }
 
+/* ---------- Nav bar glass (components/site/nav.tsx) ---------- */
+/* The 12 px backdrop blur only shows once content scrolls under the bar, so it switches on after 1 px of
+   page scroll: the first frame skips a blur pass (about 35 ms of raster on a software GPU). Where scroll
+   timelines are unsupported the zero-length time animation fills forward, so the blur is always on. */
+@keyframes nav-glass {
+  from { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  to { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+}
+@utility nav-glass {
+  animation: nav-glass linear both;
+  animation-timeline: scroll(root block);
+  animation-range: 0 1px;
+}
+
+/* ---------- Timeline (components/timeline) ---------- */
+/* The rail names a view timeline; its progress line fills from the rail top at 70 percent of the viewport
+   to the rail end at 60 percent, on the compositor. Without scroll-driven animations, or with reduced
+   motion, the line is drawn full. */
+@keyframes rail-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@utility rail-timeline { view-timeline: --rail block; }
+@utility rail-progress {
+  transform-origin: top;
+  @supports (animation-timeline: view()) {
+    animation: rail-fill linear both;
+    animation-timeline: --rail;
+    animation-range: cover 30vh cover calc(100% - 60vh);
+  }
+  @media (prefers-reduced-motion: reduce) { animation: none; transform: none; }
+}
+/* A node's detail fades down into place when the visitor opens it (not on load). */
+@keyframes panel-in { from { opacity: 0; transform: translateY(-6px); } }
+@utility panel-in {
+  animation: panel-in 280ms var(--ease-out-expo);
+  @media (prefers-reduced-motion: reduce) { animation: none; }
+}
+
 /* Reveal: respects reduced motion, and the Reveal component sets data-visible on mount if already visible. */
 @utility reveal {
   opacity: 0;

@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { usePathname } from 'next/navigation'
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'motion/react'
-import { CalendarBlank, DownloadSimple, MagnifyingGlass, X } from '@phosphor-icons/react'
+import { useMotionValueEvent, useScroll } from 'motion/react'
+import { CalendarBlank, DownloadSimple, MagnifyingGlass, X } from '@/components/ui/icons'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 import { track } from '@/lib/analytics'
 import { CopyEmail, useEmailCopyEvent } from './copy-email'
 import type { EmailParts } from './email'
@@ -12,16 +13,24 @@ const DISMISS_KEY = 'island:dismissed'
 const FALLBACK_OFFSET = 600
 /** The island returns this long after the last scroll event. */
 const SETTLE_MS = 600
+/** Enter and exit: opacity and a 12 px rise, 280 ms (the CSS transition below). */
+const EXIT_MS = 280
 const item =
   'press inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium text-ink transition-colors hover:bg-surface'
 
 type Props = { resumeHref: string; callHref: string; email: EmailParts }
 
-/** Floating quick actions after the hero: progress ring, Resume, Email, Call, Search, dismiss. */
+/**
+ * Floating quick actions after the hero: progress ring, Resume, Email, Call, Search, dismiss.
+ * Loaded after the first paint by island-loader.tsx. Only motion's scroll values are used here;
+ * the enter and exit fade is a CSS transition (with @starting-style for the entry) so the motion
+ * component runtime stays out of every page.
+ */
 export function IslandBar({ resumeHref, callHref, email }: Props) {
   const pathname = usePathname()
-  const reduce = useReducedMotion()
+  const reduce = useReducedMotion() === true
   const { scrollY, scrollYProgress } = useScroll()
+  const ring = useRef<SVGCircleElement>(null)
   const [past, setPast] = useState(false)
   const [dismissed, setDismissed] = useState(true)
   const [overlays, setOverlays] = useState<Record<string, boolean>>({})
@@ -119,48 +128,77 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
 
   const visible = past && !dismissed && !scrollingDown && !Object.values(overlays).some(Boolean)
 
+  // Stays in the DOM through the exit fade, then unmounts (what AnimatePresence did before).
+  const [present, setPresent] = useState(visible)
+  useEffect(() => {
+    if (visible) {
+      setPresent(true)
+      return
+    }
+    if (reduce) {
+      setPresent(false)
+      return
+    }
+    const t = window.setTimeout(() => setPresent(false), EXIT_MS)
+    return () => window.clearTimeout(t)
+  }, [visible, reduce])
+
+  // Progress ring: pathLength 1, so the dash offset is the share of the page still below.
+  const paintRing = useCallback((v: number) => {
+    ring.current?.style.setProperty('stroke-dashoffset', String(1 - Math.min(1, Math.max(0, v))))
+  }, [])
+  useMotionValueEvent(scrollYProgress, 'change', paintRing)
+  useEffect(() => {
+    if (present) paintRing(scrollYProgress.get())
+  }, [present, scrollYProgress, paintRing])
+
+  if (!present) return null
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 12 }}
-          transition={{ duration: reduce ? 0 : 0.28, ease: [0.25, 1, 0.5, 1] }}
-          className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:justify-end md:px-6 md:pb-6"
-        >
-          <div
-            ref={toolbar}
-            role="toolbar"
-            aria-label="Quick actions"
-            onKeyDown={onKeyDown}
-            className="panel pointer-events-auto relative flex items-center gap-1 rounded-xl border border-rule bg-surface-raised/95 p-1.5 backdrop-blur-md"
-          >
-            <span aria-hidden="true" className="mx-1 inline-flex h-7 w-7 shrink-0 items-center justify-center">
-              <svg viewBox="0 0 28 28" className="h-7 w-7 -rotate-90">
-                <circle cx="14" cy="14" r="12" className="fill-none stroke-rule" strokeWidth="2" />
-                <motion.circle cx="14" cy="14" r="12" className="fill-none stroke-accent" strokeWidth="2" strokeLinecap="round" style={{ pathLength: scrollYProgress }} />
-              </svg>
-            </span>
-            <a href={resumeHref} download onClick={() => track('cta_click', { id: 'resume', location: 'island' })} className={item}>
-              <DownloadSimple size={18} aria-hidden="true" />
-              <span className="sr-only md:not-sr-only">Resume</span>
-            </a>
-            <CopyEmail parts={email} location="island" compact />
-            <a href={callHref} target="_blank" rel="noopener noreferrer" onClick={() => track('cta_click', { id: 'call', location: 'island' })} className={item}>
-              <CalendarBlank size={18} aria-hidden="true" />
-              <span className="sr-only md:not-sr-only">Call</span>
-            </a>
-            <button type="button" onClick={openSearch} className={item}>
-              <MagnifyingGlass size={18} aria-hidden="true" />
-              <span className="sr-only md:not-sr-only">Search</span>
-            </button>
-            <button type="button" onClick={dismiss} aria-label="Hide quick actions" className={item}>
-              <X size={18} aria-hidden="true" />
-            </button>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div
+      data-open={visible}
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-[opacity,translate] duration-[280ms] ease-[cubic-bezier(0.25,1,0.5,1)] data-[open=false]:translate-y-3 data-[open=false]:opacity-0 starting:translate-y-3 starting:opacity-0 motion-reduce:transition-none md:justify-end md:px-6 md:pb-6"
+    >
+      <div
+        ref={toolbar}
+        role="toolbar"
+        aria-label="Quick actions"
+        onKeyDown={onKeyDown}
+        className="panel pointer-events-auto relative flex items-center gap-1 rounded-xl border border-rule bg-surface-raised/95 p-1.5 backdrop-blur-md"
+      >
+        <span aria-hidden="true" className="mx-1 inline-flex h-7 w-7 shrink-0 items-center justify-center">
+          <svg viewBox="0 0 28 28" className="h-7 w-7 -rotate-90">
+            <circle cx="14" cy="14" r="12" className="fill-none stroke-rule" strokeWidth="2" />
+            <circle
+              ref={ring}
+              cx="14"
+              cy="14"
+              r="12"
+              pathLength={1}
+              strokeDasharray="1 1"
+              strokeDashoffset={1}
+              className="fill-none stroke-accent"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
+        <a href={resumeHref} download onClick={() => track('cta_click', { id: 'resume', location: 'island' })} className={item}>
+          <DownloadSimple size={18} aria-hidden="true" />
+          <span className="sr-only md:not-sr-only">Resume</span>
+        </a>
+        <CopyEmail parts={email} location="island" compact />
+        <a href={callHref} target="_blank" rel="noopener noreferrer" onClick={() => track('cta_click', { id: 'call', location: 'island' })} className={item}>
+          <CalendarBlank size={18} aria-hidden="true" />
+          <span className="sr-only md:not-sr-only">Call</span>
+        </a>
+        <button type="button" onClick={openSearch} className={item}>
+          <MagnifyingGlass size={18} aria-hidden="true" />
+          <span className="sr-only md:not-sr-only">Search</span>
+        </button>
+        <button type="button" onClick={dismiss} aria-label="Hide quick actions" className={item}>
+          <X size={18} aria-hidden="true" />
+        </button>
+      </div>
+    </div>
   )
 }

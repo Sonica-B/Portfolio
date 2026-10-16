@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
-import { motion, useReducedMotion, useScroll } from 'motion/react'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 import { track } from '@/lib/analytics'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 import { Reveal } from '@/components/ui/reveal'
 import type { TimelineEntry, TimelineProps } from './timeline'
 import { TimelineNode } from './timeline-node'
@@ -25,15 +25,16 @@ const NAV_KEYS = new Set(['ArrowDown', 'ArrowUp', 'Home', 'End'])
  */
 const VIEW_BAND = '0px 0px -50% 0px'
 
-/** Client half of Timeline: disclosure state, scroll-linked rail, year in view, keyboard roving. */
+/** Client half of Timeline: disclosure state, scroll-linked rail (CSS view timeline, globals.css), year in view, keyboard roving. */
 export function TimelineRail({ entries, orientation, density, initialOpenId, className }: Props) {
-  const reduced = useReducedMotion() ?? false
+  const reduced = useReducedMotion() === true
   const [open, setOpen] = useState<ReadonlySet<string>>(() => new Set(initialOpenId ? [initialOpenId] : []))
   const years = useMemo(() => Array.from(new Set(entries.map((e) => e.yearText))), [entries])
   const [currentYear, setCurrentYear] = useState<string | null>(years[0] ?? null)
   const railRef = useRef<HTMLDivElement>(null)
   const nodes = useRef(new Map<string, HTMLElement>())
-  const { scrollYProgress } = useScroll({ target: railRef, offset: ['start 70%', 'end 60%'] })
+  // Nodes the visitor has toggled: only their panels animate open; the node open on load stays still.
+  const [touched, setTouched] = useState<ReadonlySet<string>>(() => new Set())
   const scrubber = orientation === 'auto' && years.length > 1
 
   useEffect(() => {
@@ -70,6 +71,7 @@ export function TimelineRail({ entries, orientation, density, initialOpenId, cla
 
   const toggle = (id: string) => {
     if (!open.has(id)) track('timeline_expand', { id })
+    setTouched((prev) => (prev.has(id) ? prev : new Set(prev).add(id)))
     setOpen((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
@@ -103,7 +105,7 @@ export function TimelineRail({ entries, orientation, density, initialOpenId, cla
 
   return (
     <div
-      className={cn(
+      className={cx(
         scrubber && 'md:grid md:grid-cols-[6.5rem_minmax(0,1fr)] md:gap-x-8 lg:grid-cols-[8rem_minmax(0,1fr)] lg:gap-x-12',
         className,
       )}
@@ -114,27 +116,23 @@ export function TimelineRail({ entries, orientation, density, initialOpenId, cla
         </div>
       )}
 
-      <div ref={railRef} className="relative">
-        {/* Rail track and the progress line that fills as the visitor scrolls past the nodes. */}
+      <div ref={railRef} className="rail-timeline relative">
+        {/* Rail track and the progress line that fills as the visitor scrolls past the nodes (a CSS view timeline). */}
         <div aria-hidden="true" className="absolute top-[18px] bottom-0 left-0 w-px bg-rule" />
-        <motion.div
-          aria-hidden="true"
-          className="absolute top-[18px] bottom-0 left-0 w-px origin-top bg-accent motion-reduce:transform-none!"
-          style={{ scaleY: scrollYProgress }}
-        />
+        <div aria-hidden="true" className="rail-progress absolute top-[18px] bottom-0 left-0 w-px bg-accent" />
         <ol onKeyDown={onKeyDown} className="m-0 list-none p-0">
           {entries.map((entry, i) => (
             <Reveal
               as="li"
               key={entry.id}
               delay={Math.min(i * 20, 60)}
-              className={cn('relative', density === 'compact' ? 'pb-5 last:pb-0' : 'pb-8 last:pb-0 md:pb-10')}
+              className={cx('relative', density === 'compact' ? 'pb-5 last:pb-0' : 'pb-8 last:pb-0 md:pb-10')}
             >
               <TimelineNode
                 entry={entry}
                 density={density}
                 open={open.has(entry.id)}
-                reduced={reduced}
+                animate={touched.has(entry.id)}
                 onToggle={toggle}
                 nodeRef={setNodeRef}
               />

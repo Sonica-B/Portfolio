@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import type { CSSProperties, RefObject } from 'react'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 import { Monogram, type WalletCredential } from './credential-card'
 
 /** Each pass behind the top one peeks out by this much, like cards in a wallet. */
@@ -14,7 +14,7 @@ function Pass({ credential }: { credential: WalletCredential }) {
   if (!image) {
     return (
       <span className="grid h-full w-full place-items-center">
-        <Monogram name={issuer} className="size-12 text-xl" />
+        <Monogram name={issuer} size="md" />
         <span className="sr-only">
           {title}, {issuer}
         </span>
@@ -29,7 +29,7 @@ function Pass({ credential }: { credential: WalletCredential }) {
       height={image.height}
       loading="lazy"
       sizes="(min-width: 768px) 30vw, 100vw"
-      className={cn('h-full w-full', image.badge ? 'object-contain p-3' : 'object-cover object-top')}
+      className={cx('h-full w-full', image.badge ? 'object-contain p-3' : 'object-cover object-top')}
     />
   )
 }
@@ -79,7 +79,7 @@ export function PassStack({
                   <button
                     type="button"
                     onClick={() => onView(credential)}
-                    className={cn(
+                    className={cx(
                       frame,
                       'block transition-[border-color,box-shadow] duration-200 hover:glow hover:border-accent/60 focus-visible:glow focus-visible:border-accent',
                     )}

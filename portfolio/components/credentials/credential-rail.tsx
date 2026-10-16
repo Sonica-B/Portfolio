@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useLayoutEffect, useRef, type RefObject } from 'react'
 import { motion, useAnimate } from 'motion/react'
-import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { CaretLeft, CaretRight } from '@/components/ui/icons'
 import { CredentialCard, type WalletCredential } from './credential-card'
 
 const FAN_MS = 0.24

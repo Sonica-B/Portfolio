@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowSquareOut, MagnifyingGlass, X } from '@phosphor-icons/react'
+import { ArrowSquareOut, MagnifyingGlass, X } from '@/components/ui/icons'
 import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 import { copyEmail } from './copy-email'
 import type { EmailParts } from './email'
-import { PALETTE_GROUPS, type PaletteEntry } from './palette-index'
+import { PALETTE_GROUPS, type PaletteEntry } from './palette-types'
 
 const PER_GROUP = 6
 const MAX = 24
@@ -32,10 +32,15 @@ function dispatch(name: string, detail?: unknown) {
   window.dispatchEvent(new CustomEvent(name, { detail }))
 }
 
-type Props = { entries: PaletteEntry[]; email: EmailParts }
+type Props = {
+  entries: PaletteEntry[]
+  email: EmailParts
+  /** Open right after mounting: the visitor asked for the palette before its code had loaded (palette-loader.tsx). */
+  openOnMount?: boolean
+}
 
 /** Native <dialog> command palette. Opens on Ctrl K, Cmd K or the "palette:open" event; mirrors "palette:state". */
-export function PaletteDialog({ entries, email }: Props) {
+export function PaletteDialog({ entries, email, openOnMount = false }: Props) {
   const router = useRouter()
   const id = useId()
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -81,6 +86,14 @@ export function PaletteDialog({ entries, email }: Props) {
       window.removeEventListener('palette:open', openPalette)
     }
   }, [openPalette, closePalette])
+
+  // Mount-time only: a later prop change never reopens a palette the visitor closed.
+  const openedOnMount = useRef(false)
+  useEffect(() => {
+    if (!openOnMount || openedOnMount.current) return
+    openedOnMount.current = true
+    openPalette()
+  }, [openOnMount, openPalette])
 
   // The page behind the modal must not scroll.
   useEffect(() => {

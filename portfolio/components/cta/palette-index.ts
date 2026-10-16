@@ -1,24 +1,8 @@
 import { formatRange, KIND_LABEL, profile } from '@/lib/content'
+import type { PaletteEntry } from './palette-types'
 
-export type PaletteGroup = 'Sections' | 'Actions' | 'Work' | 'Research' | 'Experience' | 'Skills' | 'Certifications'
-
-export type PaletteEntry = {
-  id: string
-  group: PaletteGroup
-  title: string
-  /** Secondary line under the title. */
-  hint?: string
-  /** Lowercased extra text the query is matched against. */
-  keywords: string
-  /** Internal path, a hash on "/", or an http(s) URL. */
-  href?: string
-  /** Client-side actions with no destination. */
-  action?: 'email' | 'pitch'
-  download?: boolean
-}
-
-/** Result order in the palette. */
-export const PALETTE_GROUPS: PaletteGroup[] = ['Sections', 'Actions', 'Work', 'Research', 'Experience', 'Skills', 'Certifications']
+// Server only: reads profile.json. Client code imports the types and group order from ./palette-types.
+export { PALETTE_GROUPS, type PaletteEntry, type PaletteGroup } from './palette-types'
 
 const SECTIONS: [string, string][] = [
   ['Work', '/#work'],
@@ -33,8 +17,9 @@ const SECTIONS: [string, string][] = [
 const text = (parts: (string | null | undefined)[]) => parts.filter(Boolean).join(' ').toLowerCase()
 
 /**
- * Built on the server from profile.json, once per process. The client receives only these
- * compact rows, so the full profile (and its phone number) never enters the browser bundle.
+ * Built on the server from profile.json at build time and served as the static
+ * /palette-index.json route. The client fetches only these compact rows when the palette is
+ * first needed, so the full profile (and its phone number) never enters the browser bundle.
  */
 export function buildPaletteIndex(): PaletteEntry[] {
   const { projects, publications, experience, certifications, skills, links } = profile

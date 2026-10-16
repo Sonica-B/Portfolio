@@ -1,5 +1,5 @@
 import { getLogo } from '@/lib/logos'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 
 type Props = {
   /** Organization name exactly as written in profile.json. */
@@ -8,6 +8,9 @@ type Props = {
   height?: number
   /** Monochrome at rest (ink tint), colour on hover of the nearest `group`. */
   mono?: boolean
+  /** Let the mark fill its container instead of capping it at 9rem. */
+  fullWidth?: boolean
+  /** Extra classes that must not set the max width (use fullWidth): joined without tailwind-merge, since timeline nodes render this on the client. */
   className?: string
 }
 
@@ -17,7 +20,7 @@ type Props = {
  * Vector marks are tinted to the ink colour at rest; raster marks (photos of a crest, a
  * screenshot of a wordmark) are only desaturated, because inverting them leaves a solid block.
  */
-export function Logo({ name, height = 20, mono = true, className }: Props) {
+export function Logo({ name, height = 20, mono = true, fullWidth = false, className }: Props) {
   const logo = getLogo(name)
   if (!logo) return null
   const ratio = logo.width && logo.height ? logo.width / logo.height : 3
@@ -32,8 +35,9 @@ export function Logo({ name, height = 20, mono = true, className }: Props) {
       height={height}
       loading="lazy"
       decoding="async"
-      className={cn(
-        'inline-block max-w-[9rem] object-contain object-left',
+      className={cx(
+        'inline-block object-contain object-left',
+        fullWidth ? 'max-w-full' : 'max-w-[9rem]',
         mono && vector && 'opacity-80 brightness-0 invert transition group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0',
         mono && !vector && 'opacity-90 grayscale transition group-hover:opacity-100 group-hover:grayscale-0',
         className,

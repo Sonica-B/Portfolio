@@ -1,9 +1,9 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { ArrowUpRight, Play } from '@phosphor-icons/react'
+import { ArrowUpRight, Play } from '@/components/ui/icons'
 import { track } from '@/lib/analytics'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 
 export type PillVariant = 'primary' | 'secondary'
 
@@ -36,7 +36,7 @@ export function TrackLink({ href, id, location, variant = 'primary', download, c
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
       onClick={() => track('cta_click', { id, location })}
-      className={cn(pill.base, pill[variant], className)}
+      className={cx(pill.base, pill[variant], className)}
     >
       {children}
       {external && <ArrowUpRight size={16} aria-hidden="true" />}
@@ -59,7 +59,7 @@ export function WatchPitch({ slug, location, label = 'Watch the 25 s pitch', var
     window.dispatchEvent(new CustomEvent('reel:open', { detail: { slug, location } }))
   }
   return (
-    <button type="button" onClick={open} className={cn(pill.base, pill[variant], className)}>
+    <button type="button" onClick={open} className={cx(pill.base, pill[variant], className)}>
       <Play size={16} aria-hidden="true" />
       {label}
     </button>

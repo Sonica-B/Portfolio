@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { profile, SITE_URL } from '@/lib/content'
 import { Nav } from '@/components/site/nav'
 import { Footer } from '@/components/site/footer'
 import { Grain } from '@/components/site/grain'
 import { SiteAnalytics } from '@/components/site/analytics'
+import { DeferredAnalytics } from '@/components/site/deferred-analytics'
 import { CommandPalette } from '@/components/cta/command-palette'
 import { ScrollIsland } from '@/components/cta/scroll-island'
 import { ReelProvider, pitchItems } from '@/components/reel'
@@ -101,8 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Grain />
         <JsonLd data={personJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
-        <Analytics />
-        <SpeedInsights />
+        <DeferredAnalytics />
         <SiteAnalytics />
         <ScrollIsland />
         <CommandPalette />

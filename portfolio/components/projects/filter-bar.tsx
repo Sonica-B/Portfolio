@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 
 export type KindOption = { kind: string; label: string; count: number }
 
@@ -36,7 +36,7 @@ export function FilterBar({
 }) {
   const renderChip = (o: KindOption) => {
     const selected = o.kind === active
-    const cls = cn(chip, selected ? selectedCls : idle)
+    const cls = cx(chip, selected ? selectedCls : idle)
     const content = (
       <>
         <span>{o.label}</span>
@@ -65,7 +65,7 @@ export function FilterBar({
       {main.map(renderChip)}
       {more.length > 0 && (
         <details className="[&[open]]:w-full" open={moreActive || undefined}>
-          <summary className={cn(chip, idle, 'w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden')}>
+          <summary className={cx(chip, idle, 'w-fit cursor-pointer list-none [&::-webkit-details-marker]:hidden')}>
             <span>More kinds</span>
             <span className="tnum">{more.length}</span>
           </summary>

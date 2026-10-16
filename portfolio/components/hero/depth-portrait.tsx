@@ -2,72 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { Pause, Play } from '@phosphor-icons/react'
-import { cn } from '@/lib/utils'
+import { Pause, Play } from '@/components/ui/icons'
+import { afterPaintIdle } from '@/lib/idle'
+import { cx } from '@/lib/cx'
+import type { PointCloud } from './point-cloud'
 
-// Vertex shader: one point per grid cell. Position comes from gl_VertexID, so no
-// vertex buffer is needed. Depth displaces each point toward the pointer and explodes
-// the cloud outward on scroll. uResolve runs the opening move: 0 is fully scattered
-// (hashed offsets up to 0.6 of the frame), 1 is the settled portrait.
-const VERT = `#version 300 es
-precision highp float;
-uniform sampler2D uColor;
-uniform sampler2D uDepth;
-uniform vec2 uGrid;
-uniform vec2 uPointer;
-uniform float uScroll;
-uniform float uTime;
-uniform float uSize;
-uniform float uResolve;
-out vec2 vUv;
-out float vAlpha;
-out float vDepth;
-float hash(vec2 s) { return fract(sin(dot(s, vec2(12.9898, 78.233))) * 43758.5453); }
-void main() {
-  float id = float(gl_VertexID);
-  float col = mod(id, uGrid.x);
-  float row = floor(id / uGrid.x);
-  vec2 uv = (vec2(col, row) + 0.5) / uGrid;
-  vec4 c = texture(uColor, uv);
-  float d = texture(uDepth, uv).r;
-  vUv = uv;
-  vAlpha = c.a;
-  vDepth = d;
-  vec2 p = uv * 2.0 - 1.0;
-  float z = d - 0.45;
-  p.x += uPointer.x * z * 0.10;
-  p.y += uPointer.y * z * 0.07;
-  p += (uv - 0.5) * uScroll * (0.3 + d * 0.5);
-  p.x += sin(uTime * 0.7 + d * 7.0 + row * 0.02) * 0.0035 * d;
-  p.y += cos(uTime * 0.6 + col * 0.015) * 0.003 * d;
-  vec2 scatter = vec2(hash(vec2(col, row)), hash(vec2(row, col) + 7.0)) * 2.0 - 1.0;
-  p += scatter * 1.2 * (1.0 - uResolve);
-  gl_Position = vec4(p, 0.0, 1.0);
-  gl_PointSize = uSize * (1.1 + d * 0.7) * (1.0 + uScroll * 0.8);
-}`
-
-// Fragment shader: round points. The photo colour is cooled toward the accent cyan as
-// depth falls away: far points carry up to a 25 percent mix, near points keep their colour.
-const FRAG = `#version 300 es
-precision highp float;
-uniform sampler2D uColor;
-uniform float uScroll;
-uniform float uResolve;
-in vec2 vUv;
-in float vAlpha;
-in float vDepth;
-out vec4 outColor;
-void main() {
-  if (vAlpha < 0.5) discard;
-  vec2 c = gl_PointCoord - 0.5;
-  if (dot(c, c) > 0.25) discard;
-  vec3 col = texture(uColor, vUv).rgb;
-  float lum = dot(col, vec3(0.299, 0.587, 0.114));
-  vec3 cool = vec3(0.47, 0.89, 0.98) * (0.35 + 0.65 * lum);
-  col = mix(col, cool, (1.0 - vDepth) * 0.25);
-  float a = (1.0 - uScroll * 0.85) * (0.78 + vDepth * 0.22) * (0.4 + 0.6 * uResolve);
-  outColor = vec4(col * a, a);
-}`
+// The WebGL2 point cloud (shaders, setup, draw loop) lives in ./point-cloud and loads once the first
+// paint is on screen and the page is idle; until then, and wherever WebGL2 is missing, the portrait
+// image below is what the visitor sees.
 
 type Variant = 'hero' | 'hologram'
 
@@ -108,9 +50,6 @@ const HOLO_CSS = `
 @media (prefers-reduced-motion: reduce) { .dp-float, .dp-scan { animation: none; transition: none; } }
 `
 
-const SESSION_KEY = 'depth-portrait:resolved'
-const INTRO_MS = 1100
-
 type Props = {
   variant?: Variant
   src?: string
@@ -131,7 +70,7 @@ export function DepthPortrait({ variant = 'hero', alt, className, ...overrides }
 
   const host = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const resumeRef = useRef<() => void>(() => {})
+  const engineRef = useRef<PointCloud | null>(null)
   const pausedRef = useRef(false)
   const [ready, setReady] = useState(false)
   const [supported, setSupported] = useState(true)
@@ -148,176 +87,37 @@ export function DepthPortrait({ variant = 'hero', alt, className, ...overrides }
       setSupported(false)
       return
     }
-    const gl = canvas.getContext('webgl2', { alpha: true, antialias: false, premultipliedAlpha: true, powerPreference: 'low-power' })
-    if (!gl) {
-      setSupported(false)
-      return
-    }
-    const range = gl.getParameter(gl.ALIASED_POINT_SIZE_RANGE) as Float32Array | null
-    if (!range || range[1] < 4) {
-      setSupported(false)
-      return
-    }
-
-    let raf = 0
+    let engine: PointCloud | null = null
     let disposed = false
-    let visible = true
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    const cols = window.innerWidth < 768 ? cfg.cols.phone : cfg.cols.desktop
-    const rows = Math.round((cols * height) / width)
-    const target = { x: 0, y: 0 }
-    const cur = { x: 0, y: 0 }
-    // The scatter-to-portrait move plays once per session.
-    let skipIntro = false
-    try {
-      skipIntro = sessionStorage.getItem(SESSION_KEY) === '1'
-    } catch {
-      // Storage blocked: play it every time.
-    }
-    const intro = { active: false, start: 0 }
-
-    const compile = (type: number, code: string) => {
-      const s = gl.createShader(type)
-      if (!s) throw new Error('shader')
-      gl.shaderSource(s, code)
-      gl.compileShader(s)
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) ?? 'compile')
-      return s
-    }
-    let prog: WebGLProgram
-    try {
-      const p = gl.createProgram()
-      if (!p) throw new Error('program')
-      gl.attachShader(p, compile(gl.VERTEX_SHADER, VERT))
-      gl.attachShader(p, compile(gl.FRAGMENT_SHADER, FRAG))
-      gl.linkProgram(p)
-      if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error('link')
-      prog = p
-    } catch {
-      setSupported(false)
-      return
-    }
-    gl.useProgram(prog)
-    const uPointer = gl.getUniformLocation(prog, 'uPointer')
-    const uScroll = gl.getUniformLocation(prog, 'uScroll')
-    const uTime = gl.getUniformLocation(prog, 'uTime')
-    const uSize = gl.getUniformLocation(prog, 'uSize')
-    const uResolve = gl.getUniformLocation(prog, 'uResolve')
-
-    const upload = (unit: number, img: HTMLImageElement) => {
-      const t = gl.createTexture()
-      gl.activeTexture(gl.TEXTURE0 + unit)
-      gl.bindTexture(gl.TEXTURE_2D, t)
-      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
-      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false)
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img)
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
-    }
-    const load = (url: string) =>
-      new Promise<HTMLImageElement>((resolve, reject) => {
-        const img = new window.Image()
-        img.decoding = 'async'
-        img.onload = () => resolve(img)
-        img.onerror = reject
-        img.src = url
-      })
-
-    const resize = () => {
-      canvas.width = Math.round(el.clientWidth * dpr)
-      canvas.height = Math.round(el.clientHeight * dpr)
-      gl.viewport(0, 0, canvas.width, canvas.height)
-      gl.uniform1f(uSize, canvas.width / cols)
-    }
-    const draw = (now: number) => {
-      cur.x += (target.x - cur.x) * 0.06
-      cur.y += (target.y - cur.y) * 0.06
-      const scroll = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.9)))
-      let resolve = 1
-      if (intro.active) {
-        const t = Math.max(0, Math.min(1, (now - intro.start) / INTRO_MS))
-        resolve = t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)
-        if (t >= 1) {
-          intro.active = false
-          try {
-            sessionStorage.setItem(SESSION_KEY, '1')
-          } catch {
-            // Storage blocked: nothing to remember.
-          }
-        }
-      }
-      gl.clear(gl.COLOR_BUFFER_BIT)
-      gl.uniform2f(uPointer, cur.x, cur.y)
-      gl.uniform1f(uScroll, scroll)
-      gl.uniform1f(uTime, now / 1000)
-      gl.uniform1f(uResolve, resolve)
-      gl.drawArrays(gl.POINTS, 0, cols * rows)
-    }
-    const loop = () => {
-      if (raf) return
-      raf = requestAnimationFrame((now) => {
-        raf = 0
-        if (disposed) return
-        draw(now)
-        if (!pausedRef.current && visible && !document.hidden) loop()
-      })
-    }
-    resumeRef.current = loop
-
-    const ro = new ResizeObserver(() => {
-      resize()
-      loop()
-    })
-    const io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting
-      if (visible) loop()
-    })
-    const onMove = (e: PointerEvent) => {
-      target.x = (e.clientX / window.innerWidth) * 2 - 1
-      target.y = -((e.clientY / window.innerHeight) * 2 - 1)
-    }
-    const onVisibility = () => {
-      if (!document.hidden) loop()
-    }
-
-    gl.enable(gl.BLEND)
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
-    gl.disable(gl.DEPTH_TEST)
-    gl.clearColor(0, 0, 0, 0)
-
-    Promise.all([load(src), load(depthSrc)])
-      .then(([color, depth]) => {
-        if (disposed) return
-        upload(0, color)
-        upload(1, depth)
-        gl.uniform1i(gl.getUniformLocation(prog, 'uColor'), 0)
-        gl.uniform1i(gl.getUniformLocation(prog, 'uDepth'), 1)
-        gl.uniform2f(gl.getUniformLocation(prog, 'uGrid'), cols, rows)
-        resize()
-        ro.observe(el)
-        io.observe(el)
-        if (fine) window.addEventListener('pointermove', onMove, { passive: true })
-        document.addEventListener('visibilitychange', onVisibility)
-        if (!skipIntro) {
-          intro.active = true
-          intro.start = performance.now()
-        }
-        setGrid({ cols, rows })
-        setReady(true)
-        loop()
-      })
-      .catch(() => setSupported(false))
-
+    const cancelIdle = afterPaintIdle(() => {
+      import('./point-cloud').then(
+        ({ startPointCloud }) => {
+          if (disposed) return
+          engine = startPointCloud({
+            canvas,
+            host: el,
+            src,
+            depthSrc,
+            width,
+            height,
+            cols: cfg.cols,
+            paused: pausedRef.current,
+            onReady: (g) => {
+              setGrid(g)
+              setReady(true)
+            },
+            onUnsupported: () => setSupported(false),
+          })
+          engineRef.current = engine
+        },
+        () => setSupported(false),
+      )
+    }, 2500)
     return () => {
       disposed = true
-      if (raf) cancelAnimationFrame(raf)
-      ro.disconnect()
-      io.disconnect()
-      window.removeEventListener('pointermove', onMove)
-      document.removeEventListener('visibilitychange', onVisibility)
+      cancelIdle()
+      engine?.dispose()
+      engineRef.current = null
     }
   }, [src, depthSrc, width, height, cfg])
 
@@ -357,7 +157,7 @@ export function DepthPortrait({ variant = 'hero', alt, className, ...overrides }
     const next = !paused
     pausedRef.current = next
     setPaused(next)
-    if (!next) resumeRef.current()
+    engineRef.current?.setPaused(next)
   }
 
   // Status line from real values: the grid this component allocated.
@@ -365,8 +165,8 @@ export function DepthPortrait({ variant = 'hero', alt, className, ...overrides }
   const status = !supported ? 'Static portrait' : points ? `Depth Anything V2 · ${points} points` : 'Depth Anything V2 · loading'
 
   return (
-    <figure className={cn('mx-auto w-full', cfg.frame, className)} style={{ maxWidth: cfg.maxWidth }} data-paused={paused || undefined}>
-      <div ref={host} className={cn('relative w-full', hologram && 'dp-float')} style={{ aspectRatio: `${width} / ${height}` }}>
+    <figure className={cx('mx-auto w-full', cfg.frame, className)} style={{ maxWidth: cfg.maxWidth }} data-paused={paused || undefined}>
+      <div ref={host} className={cx('relative w-full', hologram && 'dp-float')} style={{ aspectRatio: `${width} / ${height}` }}>
         {/* No preload link for the portrait: the speculative preload and the img resolved different
             candidates on phones, so one download went unused. React adds a preload for every eager
             img outside a <picture>, so the wrapper opts out; the img stays eager and high priority in
@@ -380,14 +180,14 @@ export function DepthPortrait({ variant = 'hero', alt, className, ...overrides }
             loading={hologram ? 'lazy' : 'eager'}
             fetchPriority={hologram ? undefined : 'high'}
             sizes={cfg.sizes}
-            className={cn('absolute inset-0 h-full w-full object-contain transition-opacity duration-700', ready && 'opacity-0')}
+            className={cx('absolute inset-0 h-full w-full object-contain transition-opacity duration-700', ready && 'opacity-0')}
           />
         </picture>
         <canvas
           ref={canvasRef}
           aria-hidden="true"
           hidden={!supported}
-          className={cn('absolute inset-0 h-full w-full transition-opacity duration-700', ready ? 'opacity-100' : 'opacity-0')}
+          className={cx('absolute inset-0 h-full w-full transition-opacity duration-700', ready ? 'opacity-100' : 'opacity-0')}
         />
         {hologram && (
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">

@@ -11,7 +11,7 @@ import {
   type ReactNode,
 } from 'react'
 import { track } from '@/lib/analytics'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 import { TermPopover, type TermMode } from './term-popover'
 
 /**
@@ -46,7 +46,7 @@ let current: (() => void) | null = null
 /** term_open already sent for "<path>#<id>" during this page load. */
 const reported = new Set<string>()
 
-const BUTTON_CLASS = cn(
+const BUTTON_CLASS = cx(
   // Reads as text. The ::before block extends the hit area to 44 px without touching the line box,
   // and the focus ring stays on the word because outlines ignore pseudo-elements.
   'relative inline-block cursor-help appearance-none border-0 bg-transparent p-0 text-left align-baseline',
@@ -177,7 +177,7 @@ export function Term({ id, term, tip, source = null, className, children }: Term
         data-term={id}
         aria-describedby={popoverId}
         aria-expanded={mode !== null}
-        className={cn(BUTTON_CLASS, className)}
+        className={cx(BUTTON_CLASS, className)}
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
         onClick={onClick}

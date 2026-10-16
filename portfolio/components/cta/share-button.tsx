@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Check, ShareNetwork } from '@phosphor-icons/react'
+import { Check, ShareNetwork } from '@/components/ui/icons'
 import { track } from '@/lib/analytics'
-import { cn } from '@/lib/utils'
+import { cx } from '@/lib/cx'
 import { pill, type PillVariant } from './actions'
 
 type Props = {
@@ -48,7 +48,7 @@ export function ShareButton({ text, title, url, location = 'page', variant = 'se
 
   const Icon = copied ? Check : ShareNetwork
   return (
-    <button type="button" onClick={() => void share()} aria-live="polite" className={cn(pill.base, pill[variant], className)}>
+    <button type="button" onClick={() => void share()} aria-live="polite" className={cx(pill.base, pill[variant], className)}>
       <Icon size={16} aria-hidden="true" />
       {copied ? 'Link copied' : 'Share'}
     </button>

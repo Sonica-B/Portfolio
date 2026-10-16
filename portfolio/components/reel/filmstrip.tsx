@@ -2,8 +2,8 @@
 
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react'
-import { CaretLeft, CaretRight, Play } from '@phosphor-icons/react'
-import { useReducedMotion } from 'motion/react'
+import { CaretLeft, CaretRight, Play } from '@/components/ui/icons'
+import { useReducedMotion } from '@/hooks/use-reduced-motion'
 import { useReel } from './reel-provider'
 import { PITCH_SECONDS, PITCH_THUMB, pitchThumbSrc, pitchVideoSrc, type PitchItem } from './pitch-slugs'
 

@@ -45,6 +45,6 @@ Python, OpenCV, SfM, bundle adjustment, NeRF, PyTorch
 
 ## Image
 
-![NeRF rendering of the Lego scene rotating 360 degrees](https://shreyaboyane.dev/projects/buildings-built-in-minutes/nerf-lego.webp)
+![NeRF rendering of the Lego bulldozer scene from a novel viewpoint](https://shreyaboyane.dev/projects/buildings-built-in-minutes/lego-orbit-poster.webp)
 
 Canonical page: https://shreyaboyane.dev/projects/buildings-built-in-minutes. This markdown: https://shreyaboyane.dev/md/projects/buildings-built-in-minutes.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

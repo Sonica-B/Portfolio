@@ -2,8 +2,8 @@
 
 import { useEffect, useId, useRef } from 'react'
 import Image from 'next/image'
-import { ArrowUpRight, X } from '@phosphor-icons/react'
-import { cn } from '@/lib/utils'
+import { ArrowUpRight, X } from '@/components/ui/icons'
+import { cx } from '@/lib/cx'
 
 export type WalletImage = {
   src: string
@@ -30,15 +30,14 @@ export type WalletCredential = {
 /** Rail cards are 72vw on a phone and 288 px from the md breakpoint up. */
 const CARD_SIZES = '(min-width: 768px) 288px, 72vw'
 
+const MONOGRAM_SIZE = { sm: 'size-7 text-sm', md: 'size-12 text-xl', lg: 'size-16 text-3xl' } as const
+
 /** First letter of the issuer, the stand-in for a logo that has not been sourced. */
-export function Monogram({ name, className }: { name: string; className?: string }) {
+export function Monogram({ name, size = 'sm' }: { name: string; size?: keyof typeof MONOGRAM_SIZE }) {
   return (
     <span
       aria-hidden="true"
-      className={cn(
-        'panel grid size-7 shrink-0 place-items-center font-display text-sm font-semibold text-ink-2',
-        className,
-      )}
+      className={cx('panel grid shrink-0 place-items-center font-display font-semibold text-ink-2', MONOGRAM_SIZE[size])}
     >
       {name.trim().charAt(0).toUpperCase()}
     </span>
@@ -49,8 +48,8 @@ function Media({ credential, sizes, className }: { credential: WalletCredential;
   const { image, title, issuer } = credential
   if (!image) {
     return (
-      <span className={cn('grid aspect-[16/11] w-full place-items-center', className)}>
-        <Monogram name={issuer} className="size-12 text-xl" />
+      <span className={cx('grid aspect-[16/11] w-full place-items-center', className)}>
+        <Monogram name={issuer} size="md" />
         <span className="sr-only">
           {title}, {issuer}
         </span>
@@ -65,7 +64,7 @@ function Media({ credential, sizes, className }: { credential: WalletCredential;
       height={image.height}
       loading="lazy"
       sizes={sizes}
-      className={cn('aspect-[16/11] w-full', image.badge ? 'object-contain p-4' : 'object-cover object-top', className)}
+      className={cx('aspect-[16/11] w-full', image.badge ? 'object-contain p-4' : 'object-cover object-top', className)}
     />
   )
 }
@@ -82,7 +81,7 @@ export function CredentialCard({
   onView: (credential: WalletCredential) => void
 }) {
   const { title, issuer, year, url, credentialId } = credential
-  const control = cn(
+  const control = cx(
     'frame-media block w-full overflow-hidden transition-[border-color,box-shadow] duration-200',
     "after:absolute after:inset-0 after:content-['']",
     'group-hover:glow group-hover:border-accent/60 focus-visible:glow focus-visible:border-accent',
@@ -177,11 +176,11 @@ export function CredentialDialog({
                 width={credential.image.width}
                 height={credential.image.height}
                 sizes="(min-width: 1024px) 960px, 96vw"
-                className={cn('h-auto w-full', credential.image.badge && 'max-w-[24rem] p-6')}
+                className={cx('h-auto w-full', credential.image.badge && 'max-w-[24rem] p-6')}
               />
             ) : (
               <span className="grid aspect-[16/11] w-full place-items-center">
-                <Monogram name={credential.issuer} className="size-16 text-3xl" />
+                <Monogram name={credential.issuer} size="lg" />
               </span>
             )}
           </div>
