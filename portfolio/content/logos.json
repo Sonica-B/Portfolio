@@ -1,1 +1,373 @@
-{}
+{
+  "Worcester Polytechnic Institute": {
+    "src": "/logos/wpi.svg",
+    "alt": "Worcester Polytechnic Institute logo",
+    "source": "https://commons.wikimedia.org/wiki/File:WPI_wordmark.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "Worcester Polytechnic Institute, BSF Grant 2024022": {
+    "src": "/logos/wpi.svg",
+    "alt": "Worcester Polytechnic Institute logo",
+    "source": "https://commons.wikimedia.org/wiki/File:WPI_wordmark.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "Crossing x WPI, industry-sponsored Graduate Qualifying Project": {
+    "src": "/logos/wpi.svg",
+    "alt": "Worcester Polytechnic Institute logo",
+    "source": "https://commons.wikimedia.org/wiki/File:WPI_wordmark.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "Crossing x WPI industry-sponsored Graduate Qualifying Project": {
+    "src": "/logos/wpi.svg",
+    "alt": "Worcester Polytechnic Institute logo",
+    "source": "https://commons.wikimedia.org/wiki/File:WPI_wordmark.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "WPI RBE/CS 549 Computer Vision": {
+    "src": "/logos/wpi.svg",
+    "alt": "Worcester Polytechnic Institute logo",
+    "source": "https://commons.wikimedia.org/wiki/File:WPI_wordmark.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "WPI Deep Learning": {
+    "src": "/logos/wpi.svg",
+    "alt": "Worcester Polytechnic Institute logo",
+    "source": "https://commons.wikimedia.org/wiki/File:WPI_wordmark.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "WPI DS-553 Case Studies in Data Science": {
+    "src": "/logos/wpi.svg",
+    "alt": "Worcester Polytechnic Institute logo",
+    "source": "https://commons.wikimedia.org/wiki/File:WPI_wordmark.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "PES Modern College of Engineering (Savitribai Phule Pune University)": {
+    "src": "/logos/pes-modern-college.webp",
+    "alt": "PES Modern College of Engineering logo",
+    "source": "https://webweb.ams3.digitaloceanspaces.com/data/modern-college-of-eng-pune.webweb.ai.in/modernlogo.png",
+    "mono": false,
+    "wordmark": true
+  },
+  "PES Modern College of Engineering": {
+    "src": "/logos/pes-modern-college.webp",
+    "alt": "PES Modern College of Engineering logo",
+    "source": "https://webweb.ams3.digitaloceanspaces.com/data/modern-college-of-eng-pune.webweb.ai.in/modernlogo.png",
+    "mono": false,
+    "wordmark": true
+  },
+  "Handshake AI": {
+    "src": "/logos/handshake.svg",
+    "alt": "Handshake logo",
+    "source": "https://cdn.simpleicons.org/handshake",
+    "mono": true,
+    "wordmark": false
+  },
+  "Persistent Systems": {
+    "src": "/logos/persistent-systems.svg",
+    "alt": "Persistent Systems logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Persistent_Systems_Logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "Persistent Systems annual awards": {
+    "src": "/logos/persistent-systems.svg",
+    "alt": "Persistent Systems logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Persistent_Systems_Logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "Algoverse AI Research Fellowship": {
+    "src": "/logos/algoverse.webp",
+    "alt": "Algoverse logo",
+    "source": "https://algoverseairesearch.org/apple-touch-icon.png",
+    "mono": false,
+    "wordmark": false
+  },
+  "ICML 2026 FoGen Workshop": {
+    "src": "/logos/icml.svg",
+    "alt": "ICML logo",
+    "source": "https://icml.cc/static/core/img/ICML-logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "ICML 2026 Workshop on Foundations of Deep Generative Models": {
+    "src": "/logos/icml.svg",
+    "alt": "ICML logo",
+    "source": "https://icml.cc/static/core/img/ICML-logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "Google Cloud x NVIDIA developer community": {
+    "src": "/logos/googlecloud.svg",
+    "alt": "Google Cloud logo",
+    "source": "https://cdn.simpleicons.org/googlecloud",
+    "mono": true,
+    "wordmark": false
+  },
+  "Google Cloud x NVIDIA learning pathway": {
+    "src": "/logos/googlecloud.svg",
+    "alt": "Google Cloud logo",
+    "source": "https://cdn.simpleicons.org/googlecloud",
+    "mono": true,
+    "wordmark": false
+  },
+  "Google Cloud and NVIDIA": {
+    "src": "/logos/googlecloud.svg",
+    "alt": "Google Cloud logo",
+    "source": "https://cdn.simpleicons.org/googlecloud",
+    "mono": true,
+    "wordmark": false
+  },
+  "Google Cloud": {
+    "src": "/logos/googlecloud.svg",
+    "alt": "Google Cloud logo",
+    "source": "https://cdn.simpleicons.org/googlecloud",
+    "mono": true,
+    "wordmark": false
+  },
+  "NVIDIA": {
+    "src": "/logos/nvidia.svg",
+    "alt": "NVIDIA logo",
+    "source": "https://cdn.simpleicons.org/nvidia",
+    "mono": true,
+    "wordmark": false
+  },
+  "TECHVED Consulting": {
+    "src": "/logos/techved.svg",
+    "alt": "TECHVED logo",
+    "source": "https://www.techved.com/images/header/techved-logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "Spoken Tutorial Project, IIT Bombay (MHRD, Government of India)": {
+    "src": "/logos/iit-bombay.webp",
+    "alt": "IIT Bombay logo",
+    "source": "https://spoken-tutorial.org/static/spoken/images/iitb-logo.png",
+    "mono": false,
+    "wordmark": false
+  },
+  "Spoken Tutorial Project, IIT Bombay": {
+    "src": "/logos/iit-bombay.webp",
+    "alt": "IIT Bombay logo",
+    "source": "https://spoken-tutorial.org/static/spoken/images/iitb-logo.png",
+    "mono": false,
+    "wordmark": false
+  },
+  "HackerRank": {
+    "src": "/logos/hackerrank.svg",
+    "alt": "HackerRank logo",
+    "source": "https://cdn.simpleicons.org/hackerrank",
+    "mono": true,
+    "wordmark": false
+  },
+  "Computer Society of India x TechGig": {
+    "src": "/logos/csi.webp",
+    "alt": "Computer Society of India logo",
+    "source": "http://csi-india.org/images/CSIFINALLOGO.png",
+    "mono": false,
+    "wordmark": true
+  },
+  "SNJB College of Engineering; Computer Society of India x TechGig": {
+    "src": "/logos/csi.webp",
+    "alt": "Computer Society of India logo",
+    "source": "http://csi-india.org/images/CSIFINALLOGO.png",
+    "mono": false,
+    "wordmark": true
+  },
+  "PICT IEEE Student Branch": {
+    "src": "/logos/ieee.svg",
+    "alt": "IEEE logo",
+    "source": "https://cdn.simpleicons.org/ieee",
+    "mono": true,
+    "wordmark": true
+  },
+  "DeepLearning.AI on Coursera": {
+    "src": "/logos/deeplearning-ai.webp",
+    "alt": "DeepLearning.AI logo",
+    "source": "https://www.deeplearning.ai/dlai/assets/dlai-logo.png",
+    "mono": false,
+    "wordmark": true
+  },
+  "Coursera": {
+    "src": "/logos/coursera.svg",
+    "alt": "Coursera logo",
+    "source": "https://cdn.simpleicons.org/coursera",
+    "mono": true,
+    "wordmark": false
+  },
+  "LinkedIn Learning": {
+    "src": "/logos/linkedin.svg",
+    "alt": "LinkedIn logo",
+    "source": "https://commons.wikimedia.org/wiki/File:LinkedIn_icon.svg",
+    "mono": false,
+    "wordmark": false
+  },
+  "Microsoft x NASSCOM": {
+    "src": "/logos/microsoft.svg",
+    "alt": "Microsoft logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Microsoft_icon.svg",
+    "mono": false,
+    "wordmark": false
+  },
+  "NASSCOM": {
+    "src": "/logos/nasscom.svg",
+    "alt": "NASSCOM logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Nasscom-logo-svg.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "Internshala (Flavalon IT)": {
+    "src": "/logos/internshala.svg",
+    "alt": "Internshala logo",
+    "source": "https://internshala.com/static/images/common/new_internshala_logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "Internshala Trainings": {
+    "src": "/logos/internshala.svg",
+    "alt": "Internshala logo",
+    "source": "https://internshala.com/static/images/common/new_internshala_logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "University of London, Goldsmiths on Coursera": {
+    "src": "/logos/goldsmiths.svg",
+    "alt": "Goldsmiths, University of London logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Goldsmith_University-logo.svg",
+    "mono": true,
+    "wordmark": true
+  },
+  "University System of Georgia (Kennesaw State) on Coursera": {
+    "src": "/logos/university-system-of-georgia.svg",
+    "alt": "University System of Georgia logo",
+    "source": "https://commons.wikimedia.org/wiki/File:University_System_of_Georgia_logo.svg",
+    "mono": true,
+    "wordmark": false
+  },
+  "Technogeeks, Pune": {
+    "src": "/logos/technogeeks.webp",
+    "alt": "Technogeeks logo",
+    "source": "https://technogeekscs.com/static/images/logo-1x.f1169eacb3cd.webp",
+    "mono": false,
+    "wordmark": true
+  },
+  "github": {
+    "src": "/logos/github.svg",
+    "alt": "GitHub logo",
+    "source": "https://cdn.simpleicons.org/github",
+    "mono": true,
+    "wordmark": false
+  },
+  "GitHub": {
+    "src": "/logos/github.svg",
+    "alt": "GitHub logo",
+    "source": "https://cdn.simpleicons.org/github",
+    "mono": true,
+    "wordmark": false
+  },
+  "linkedin": {
+    "src": "/logos/linkedin.svg",
+    "alt": "LinkedIn logo",
+    "source": "https://commons.wikimedia.org/wiki/File:LinkedIn_icon.svg",
+    "mono": false,
+    "wordmark": false
+  },
+  "LinkedIn": {
+    "src": "/logos/linkedin.svg",
+    "alt": "LinkedIn logo",
+    "source": "https://commons.wikimedia.org/wiki/File:LinkedIn_icon.svg",
+    "mono": false,
+    "wordmark": false
+  },
+  "orcid": {
+    "src": "/logos/orcid.svg",
+    "alt": "ORCID logo",
+    "source": "https://cdn.simpleicons.org/orcid",
+    "mono": true,
+    "wordmark": false
+  },
+  "ORCID": {
+    "src": "/logos/orcid.svg",
+    "alt": "ORCID logo",
+    "source": "https://cdn.simpleicons.org/orcid",
+    "mono": true,
+    "wordmark": false
+  },
+  "huggingface": {
+    "src": "/logos/huggingface.svg",
+    "alt": "Hugging Face logo",
+    "source": "https://cdn.simpleicons.org/huggingface",
+    "mono": true,
+    "wordmark": false
+  },
+  "Hugging Face": {
+    "src": "/logos/huggingface.svg",
+    "alt": "Hugging Face logo",
+    "source": "https://cdn.simpleicons.org/huggingface",
+    "mono": true,
+    "wordmark": false
+  },
+  "googleDev": {
+    "src": "/logos/google-developers.svg",
+    "alt": "Google Developers logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Google_Developers_text_logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "Google Developers": {
+    "src": "/logos/google-developers.svg",
+    "alt": "Google Developers logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Google_Developers_text_logo.svg",
+    "mono": false,
+    "wordmark": true
+  },
+  "devto": {
+    "src": "/logos/devdotto.svg",
+    "alt": "dev.to logo",
+    "source": "https://cdn.simpleicons.org/devdotto",
+    "mono": true,
+    "wordmark": false
+  },
+  "Dev.to": {
+    "src": "/logos/devdotto.svg",
+    "alt": "dev.to logo",
+    "source": "https://cdn.simpleicons.org/devdotto",
+    "mono": true,
+    "wordmark": false
+  },
+  "hackerrank": {
+    "src": "/logos/hackerrank.svg",
+    "alt": "HackerRank logo",
+    "source": "https://cdn.simpleicons.org/hackerrank",
+    "mono": true,
+    "wordmark": false
+  },
+  "vscodeMarketplace": {
+    "src": "/logos/vscode.svg",
+    "alt": "Visual Studio Code logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Visual_Studio_Code_1.35_icon.svg",
+    "mono": false,
+    "wordmark": false
+  },
+  "VS Code Marketplace": {
+    "src": "/logos/vscode.svg",
+    "alt": "Visual Studio Code logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Visual_Studio_Code_1.35_icon.svg",
+    "mono": false,
+    "wordmark": false
+  },
+  "Visual Studio Marketplace": {
+    "src": "/logos/vscode.svg",
+    "alt": "Visual Studio Code logo",
+    "source": "https://commons.wikimedia.org/wiki/File:Visual_Studio_Code_1.35_icon.svg",
+    "mono": false,
+    "wordmark": false
+  }
+}
