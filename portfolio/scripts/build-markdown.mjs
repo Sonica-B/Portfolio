@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT = join(ROOT, 'public', 'md')
 const profile = JSON.parse(readFileSync(join(ROOT, 'content', 'profile.json'), 'utf8'))
-const { identity, links, meta } = profile
+const { identity, links, meta, now } = profile
 const SITE = links.website
 
 // Kept in sync with lib/content.ts, which is TypeScript and cannot be imported from a plain Node script.
@@ -62,6 +62,7 @@ const list = (items) => items.map((item) => `- ${item}`).join('\n')
 const kind = (p) => KIND_LABEL[p.kind] ?? p.kind
 const linkList = (obj) => Object.entries(obj).map(([key, url]) => `${LINK_LABEL[key] ?? key}: ${url}`)
 const metrics = (p) => p.metrics.map((m) => `${m.label}: ${m.value}`)
+const pitch = (p) => list([`Problem: ${p.pitch.problem}`, `What she did: ${p.pitch.action}`, `What changed: ${p.pitch.change}`])
 const publication = (id) => profile.publications.find((p) => p.id === id)
 const experience = (id) => profile.experience.find((e) => e.id === id)
 const videoExists = (p) => Boolean(p.video) && existsSync(join(ROOT, 'public', p.video))
@@ -90,6 +91,8 @@ function indexMd() {
       `${identity.headline}.`,
       `> ${identity.summary}`,
       identity.tagline,
+      `## Now (${now.date})`,
+      list(now.lines),
       '## At a glance',
       list([
         `Title: ${identity.title}`,
@@ -184,6 +187,7 @@ function projectMd(p) {
     p.name,
     [
       `${p.subtitle}.`,
+      pitch(p),
       `> ${p.summary}`,
       list(facts),
       '## Problem',

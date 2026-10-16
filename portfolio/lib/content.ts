@@ -1,6 +1,9 @@
 import raw from '@/content/profile.json'
+import githubRaw from '@/content/github.json'
 
 export type Metric = { label: string; value: string }
+/** Three-second strip: one sentence each, 24 words or fewer, enforced by scripts/check-profile.mjs. */
+export type Pitch = { problem: string; action: string; change: string }
 export type Figure = { src: string; alt: string; caption: string }
 export type Visual = { src: string; alt: string } | null
 
@@ -92,6 +95,7 @@ export type Project = {
   affiliation: string
   team: string[]
   summary: string
+  pitch: Pitch
   problem: string
   approach: string
   highlights: string[]
@@ -110,7 +114,9 @@ export type Recognition = { id: string; kind: string; title: string; org: string
 export type Certification = { title: string; issuer: string; date: string; image: string | null; credentialId: string | null }
 export type Activity = { date: string; type: string; title: string; location: string | null; note: string | null }
 export type Leadership = { title: string; org: string; date: string; note: string }
-export type Recommendation = { name: string; role: string; org: string; quote: string }
+export type Recommendation = { name: string; role: string; org: string; quote: string; person?: string }
+/** Dated "what is true today" lines for the home page and the markdown index. */
+export type Now = { date: string; lines: string[] }
 
 export type Profile = {
   meta: { version: string; lastUpdated: string; sources: string[] }
@@ -136,6 +142,7 @@ export type Profile = {
     }
   }
   links: Record<string, string>
+  now: Now
   education: Education[]
   publications: Publication[]
   research: Research[]
@@ -151,6 +158,27 @@ export type Profile = {
 
 export const profile = raw as unknown as Profile
 export const SITE_URL = profile.links.website
+
+export type GithubRepoStats = { stars: number; pushedAt: string; language: string | null; description: string | null }
+/** Build-time snapshot written by scripts/sync-github.mjs; keys are "owner/name". */
+export type GithubSnapshot = {
+  fetchedAt: string
+  user: { publicRepos: number; followers: number }
+  repos: Record<string, GithubRepoStats>
+}
+export const github = githubRaw as GithubSnapshot
+
+/** Stars, last push and language for a GitHub repo URL, or undefined when the snapshot lacks it. */
+export function repoStats(repoUrl: string | null | undefined): { stars: number; pushedAt: string; language: string | null } | undefined {
+  if (!repoUrl) return undefined
+  const match = repoUrl.match(/github\.com\/([^/]+)\/([^/#?]+)/i)
+  if (!match) return undefined
+  const key = `${match[1]}/${match[2].replace(/\.git$/, '')}`.toLowerCase()
+  for (const [name, stats] of Object.entries(github.repos)) {
+    if (name.toLowerCase() === key) return { stars: stats.stars, pushedAt: stats.pushedAt, language: stats.language }
+  }
+  return undefined
+}
 
 export const featuredProjects = profile.projects.filter((p) => p.featured)
 export const projectSlugs = profile.projects.map((p) => p.slug)

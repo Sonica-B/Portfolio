@@ -27,9 +27,12 @@ Handshake AI, San Francisco, CA (remote). Contract fellowship. Apr 2026 to prese
 
 Selected as a domain-expert fellow improving frontier LLMs and vision-language models for leading AI labs.
 
-- Evaluated 40+ structured tasks, each a side-by-side assessment of two frontier models (80+ LLM and VLM outputs graded for correctness, code quality, technical depth and reasoning soundness), delivering rubric-based expert feedback.
-- Authored challenging visual and compositional reasoning benchmark items with verified ground-truth answers over real-world charts, diagrams, infographics and scientific figures for chart and diagram VQA.
-- Developed domain-specific prompts for frontier LLMs across software engineering, machine learning and agentic reasoning, and conducted independent research to inform prompt design and rubric construction.
+- Evaluated 40+ side-by-side tasks comparing two frontier models, grading 80+ LLM and VLM outputs.
+- Graded for correctness, code quality, technical depth and reasoning soundness with rubric-based expert feedback.
+- Authored visual and compositional reasoning items for chart and diagram VQA benchmarks.
+- Verified ground-truth answers over real-world charts, diagrams, infographics and scientific figures.
+- Developed domain-specific prompts for frontier LLMs across software engineering, machine learning and agentic reasoning.
+- Conducted independent research to inform prompt design and rubric construction.
 
 Tools: LLM evaluation, VLMs, VQA, benchmark authoring, prompt engineering, AI alignment.
 
@@ -39,11 +42,17 @@ Crossing x WPI, industry-sponsored Graduate Qualifying Project, Worcester, MA (h
 
 Owned client-facing delivery of a production multi-agent document-intelligence system for H-1B immigration workflows.
 
-- Ran requirements discovery with the sponsor's engineers, translated ambiguous legal-workflow needs into acceptance tests, led weekly stakeholder demos, and owned end-to-end integration and handoff.
-- Built a four-agent LLM pipeline on AWS (Amazon Bedrock, S3 ingest, Lambda, Step Functions, event-driven triggers) that extracts structured fields into schema-validated canonical JSON and generates unified QC reports for Form I-129 evidence.
-- Normalized 45+ critical fields and executed 50+ deterministic rules per case with severity-tagged issues and traceable field-level decisions.
-- Cut petition processing from 3 to 4 days to about 5 to 10 minutes at 95 to 99% structural accuracy and 99 to 100% missing-document detection, with 85 to 95% of repeatable checks automated, manual verification reduced 70 to 90% and cost reduced 50 to 70%, freeing about 2,000 hours per mid-size firm per season.
-- Added a RAG fallback with RAGAS evaluation loops (faithfulness, context recall) and regression gating, plus a FastAPI evaluation service with Prometheus latency and error-budget metrics.
+- Ran requirements discovery with the sponsor's engineers and translated ambiguous legal-workflow needs into acceptance tests.
+- Led weekly stakeholder demos and owned end-to-end integration and handoff.
+- Built a four-agent LLM pipeline on AWS: Amazon Bedrock, S3 ingest, Lambda, Step Functions, event-driven triggers.
+- Extracted structured fields into schema-validated canonical JSON and generated unified QC reports for Form I-129 evidence.
+- Normalized 45+ critical fields and ran 50+ deterministic rules per case with severity-tagged, traceable decisions.
+- Cut petition processing from 3 to 4 days to about 5 to 10 minutes.
+- Reached 95 to 99% structural accuracy and 99 to 100% missing-document detection.
+- Automated 85 to 95% of repeatable checks and cut manual verification 70 to 90%.
+- Cut cost 50 to 70%, freeing about 2,000 hours per mid-size firm per season.
+- Added a RAG fallback with RAGAS evaluation loops (faithfulness, context recall) and regression gating.
+- Shipped a FastAPI evaluation service with Prometheus latency and error-budget metrics.
 
 Team: Mansi Rupesh Mantri, Nandini Priya Sripada, Pradyumn Tendulkar. Advisors: Prof. Bahman Moraffah, Prof. Chun-Kit Ngan, Prof. Fatemeh Emdad. Presented at the WPI 2025-26 GQP GRIE Showcase, 24 April 2026.
 
@@ -61,10 +70,15 @@ Worcester Polytechnic Institute, Worcester, MA (hybrid). Credit-based directed r
 
 Built a production-minded GenAI plus human-in-the-loop triage assistant with difficulty-aware reasoning, confidence calibration and auditable workflows.
 
-- Built confidence-aware triage orchestration in Python, PyTorch and scikit-learn with human-in-the-loop review, raising triage precision 20%, ESI assignment accuracy 25%, and cutting false escalations 40%.
-- Engineered a dual-channel decision flow separating high-risk escalation from routine guidance, reducing LLM hallucinations and miscommunication 50%, unnecessary handoffs 30%, and improving patient-provider alignment 2.3x.
-- Implemented difficulty-weighted training and GPT-style calibration scoring: errors down 30%, reliability up 35%, early critical-case detection up 60%, non-critical misclassification down 70%.
-- Added LLM guardrails, escalation rules, slice tests, calibration curves, drift checks and error-taxonomy trending; enforced reproducible runs with fixed seeds and deterministic loaders; partnered with clinicians to turn findings into decision guidelines and SOPs.
+- Built confidence-aware triage orchestration in Python, PyTorch and scikit-learn with human-in-the-loop review.
+- Raised triage precision 20% and ESI assignment accuracy 25% while cutting false escalations 40%.
+- Engineered a dual-channel decision flow separating high-risk escalation from routine guidance.
+- Reduced LLM hallucinations and miscommunication 50%, unnecessary handoffs 30%, and improved patient-provider alignment 2.3x.
+- Implemented difficulty-weighted training and GPT-style calibration scoring: errors down 30%, reliability up 35%.
+- Raised early critical-case detection 60% and cut non-critical misclassification 70%.
+- Added LLM guardrails, escalation rules, slice tests, calibration curves, drift checks and error-taxonomy trending.
+- Enforced reproducible runs with fixed seeds and deterministic loaders.
+- Partnered with clinicians to turn findings into decision guidelines and SOPs.
 
 Tools: PyTorch, scikit-learn, OpenAI GPT, Ollama, FastAPI, HITL, calibration.
 
@@ -85,10 +99,15 @@ Persistent Systems, Pune, India (hybrid). Full-time. Jun 2022 to Jul 2024. Award
 
 Owned CI/CD and cloud infrastructure across 20+ production projects.
 
-- Accelerated software delivery 95% by building CI/CD pipelines in Azure DevOps, Docker and Terraform with integrated automated testing and gated approvals across 20+ projects.
-- Standardized VM provisioning and cluster setup with Ansible and Terraform infrastructure as code, cutting manual configuration 70% and provisioning time 40%, including AWS S3, Lambda and DynamoDB codified in Terraform.
-- Improved system uptime 25% by deploying Prometheus and Grafana observability dashboards monitoring latency, queue time and build health in real time; cut cloud operating costs 30%.
-- Integrated ML-Ops into existing workflows, streamlining model deployment 50% through automation; shortened integration cycles 70% by coordinating release tooling across Angular and React frontend teams; reduced critical vulnerabilities with Snyk scans in CI/CD gates.
+- Accelerated software delivery 95% with CI/CD pipelines in Azure DevOps, Docker and Terraform across 20+ projects.
+- Integrated automated testing and gated approvals into the pipelines.
+- Standardized VM provisioning and cluster setup with Ansible and Terraform infrastructure as code.
+- Cut manual configuration 70% and provisioning time 40%; codified AWS S3, Lambda and DynamoDB in Terraform.
+- Improved system uptime 25% with Prometheus and Grafana dashboards for latency, queue time and build health.
+- Cut cloud operating costs 30%.
+- Integrated ML-Ops into existing workflows, streamlining model deployment 50% through automation.
+- Shortened integration cycles 70% by coordinating release tooling across Angular and React frontend teams.
+- Reduced critical vulnerabilities with Snyk scans in CI/CD gates.
 - Restructured release pipelines and variable groups to manage more than 10 code repositories cleanly.
 
 Tools: Azure DevOps, Docker, Terraform, Ansible, Prometheus, Grafana, AWS, Snyk, PowerShell, Bash.
@@ -99,8 +118,10 @@ Persistent Systems, Pune, India (on-site). Internship. Jan 2022 to Jul 2022. Awa
 
 Built ASP.NET Web APIs and integrated Azure Machine Learning for predictive analytics.
 
-- Engineered scalable ASP.NET Web APIs with .NET Core and ADO.NET and optimized Microsoft SQL Server and MySQL queries for 30% faster load times.
-- Integrated Azure Machine Learning for predictive analytics; completed the GEMS (Graduate Engineers with Multidimensional Skills) training program.
+- Engineered scalable ASP.NET Web APIs with .NET Core and ADO.NET.
+- Optimized Microsoft SQL Server and MySQL queries for 30% faster load times.
+- Integrated Azure Machine Learning for predictive analytics.
+- Completed the GEMS (Graduate Engineers with Multidimensional Skills) training program.
 
 Tools: .NET Core, ASP.NET, ADO.NET, SQL Server, MySQL, Azure ML, Git.
 
@@ -111,7 +132,9 @@ Flavalon IT Solution LLP, Mumbai, India (remote). Internship. Mar 2021 to May 20
 Built and launched brand websites with chatbots and learned SEO fundamentals.
 
 - Developed and launched five interactive websites per quarter on WordPress with CSS and JavaScript.
-- Integrated a chatbot on each site, increasing real-time engagement 40%; optimized MySQL structures and queries for faster load times; added ML-based personalized recommendations; performed website analysis and SEO optimization.
+- Integrated a chatbot on each site, increasing real-time engagement 40%.
+- Optimized MySQL structures and queries for faster load times and added ML-based personalized recommendations.
+- Performed website analysis and SEO optimization.
 
 Tools: WordPress, JavaScript, CSS, MySQL, SEO.
 
@@ -179,10 +202,12 @@ Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Feb 2026 to
 
 Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
 
-- CODI behaves as a stable attractor while COCONUT behaves as an unstable expanding system; Sim-CoT supervision tightens both without changing the dynamics.
-- Reproduced CODI self-distillation and the COCONUT four-stage latent curriculum end to end as rank-128 LoRA adapters with PyTorch, Transformers and PEFT.
-- Built the reliability layer: CUDA health-polling orchestration for 14+ hour runs, HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and a byte-exact safetensors checkpoint repair.
-- Verification harness passes 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding and pinned dependencies throughout.
+- Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.
+- Found Sim-CoT supervision tightens both systems without changing the underlying dynamics.
+- Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.
+- Built CUDA health-polling orchestration that stabilized 14+ hour training runs.
+- Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.
+- Verified 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding, pinned dependencies.
 
 Stack: PyTorch, Hugging Face Transformers, PEFT, LoRA, DMD, PHATE, UMAP, CUDA, HDF5, mechanistic interpretability. Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems. Page: https://shreyaboyane.dev/projects/latent-cot
 
@@ -192,10 +217,12 @@ Production system for Crossing, Data Science GQP MVP. Aug 2025 to Dec 2025, Cros
 
 A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.
 
-- Owned client-facing delivery: requirements discovery with Crossing engineers, acceptance tests, weekly demos, integration and handoff.
+- Cut petition review from 3 to 4 days to 5 to 10 minutes.
+- Owned client-facing delivery: requirements discovery, acceptance tests, weekly demos, integration and handoff.
 - Built the computer-vision grouping, API schema and the Pydantic-validated canonical JSON contract consumed downstream.
-- RAG evaluation loops with RAGAS (faithfulness, context recall) and threshold-based regression gating across prompt and retriever changes.
-- Presented to eleven industry judges at the WPI GRIE Showcase in April 2026; recognized with the Data Science GQP MVP award.
+- Added RAGAS evaluation loops (faithfulness, context recall) with threshold-based regression gating.
+- Presented to eleven industry judges at the WPI GRIE Showcase, April 2026.
+- Recognized with the Data Science GQP MVP award, December 2025.
 
 Stack: LangGraph, Amazon Bedrock, AWS Lambda, Step Functions, S3, EventBridge, Textract, Pydantic, RAGAS, FastAPI, Prometheus. Code: https://github.com/Sonica-B/GQP-SkipLegal. Page: https://shreyaboyane.dev/projects/skiplegal
 
@@ -206,8 +233,9 @@ Perception stack plus TensorRT inference optimization. Mar 2025 to Apr 2025, WPI
 Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.
 
 - Improved 3D placement accuracy 50% and scene realism 75% across 13 driving sequences.
-- Deployed detectors through TorchScript to ONNX to TensorRT FP16 with layer fusion: 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.
-- Documented failure modes honestly: tunnel reflections, rain on the lens, class flicker between SUV and pickup, and optical-flow direction errors at low speed.
+- Deployed detectors through TorchScript, ONNX and TensorRT FP16 with layer fusion.
+- Reached 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.
+- Documented failure modes: tunnel reflections, lens rain, SUV versus pickup flicker, low-speed flow errors.
 
 Stack: Depth Anything, MiDaS, Mask R-CNN, Detic, OpenPifPaf, YOLO3D, RAFT, Blender Python API, TensorRT, ONNX, Nsight. Code: https://github.com/Sonica-B/EinsteinVision. Page: https://shreyaboyane.dev/projects/einstein-vision
 
@@ -217,10 +245,14 @@ Real-time game asset generation with optimized GPU inference. Mar 2025 to Aug 20
 
 A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.
 
-- Optimized GPU inference with ONNX and TensorRT kernel fusion: p95 latency 200 ms to 95 ms, FPS 60 to 120, binary size down 38%.
-- Designed a neural world-state graph for coordination, a predictive generation protocol that pre-warms likely branches, and memory pooling that cut allocation overhead about 73% and peak VRAM about 41%.
-- Mixed precision, INT8 quantization and CUDA graphs delivered 1.8x throughput and 24% less memory while holding FID 12.3 and CLIP similarity 0.89 under 2 GB VRAM.
-- Orchestration layer sustained 31 FPS at 6.2 GB VRAM with PSNR 30.1 dB and 94% tileability across large variant sets.
+- Generated 120 game assets per minute and cut manual design time 73%.
+- Cut p95 latency 200 ms to 95 ms with ONNX and TensorRT kernel fusion.
+- Raised FPS from 60 to 120 and shrank binary size 38%.
+- Designed a neural world-state graph and a predictive protocol that pre-warms likely branches.
+- Added memory pooling that cut allocation overhead about 73% and peak VRAM about 41%.
+- Reached 1.8x throughput and 24% less memory with mixed precision, INT8 and CUDA graphs.
+- Held FID 12.3 and CLIP similarity 0.89 under 2 GB VRAM.
+- Sustained 31 FPS at 6.2 GB VRAM with PSNR 30.1 dB and 94% tileability.
 
 Stack: PyTorch, Diffusers, Stable Diffusion, LoRA, ONNX, TensorRT, INT8, CUDA graphs, Unity, Wave Function Collapse. Code: https://github.com/Sonica-B/RealmWeaver-MADWE. Page: https://shreyaboyane.dev/projects/madwe
 
@@ -230,10 +262,12 @@ CycleGAN plus diffusion on 65,072 MRI images. Oct 2024 to Dec 2024, WPI Deep Lea
 
 An unsupervised medical-imaging pipeline that pairs CycleGAN image synthesis with diffusion-based refinement to detect and segment brain tumors across 65,072 BraTS2020 MRI images with more than 90% segmentation accuracy and no manual labels.
 
-- Processed 23,180 healthy and 41,892 diseased slices across T1, T2, T1CE and FLAIR modalities from 369 patients.
-- Automated labeling improved baseline precision 15% and stabilized performance across modalities.
+- Segmented tumors at over 90% accuracy across 65,072 MRI images, no manual labels.
+- Processed 23,180 healthy and 41,892 diseased slices (T1, T2, T1CE, FLAIR) from 369 patients.
+- Improved baseline precision 15% with automated labeling and stabilized performance across modalities.
 - Packaged TorchScript batched mixed-precision inference for 1.6x images per second, profiled with Nsight Compute.
-- Synthetic pairing reached 88.2% accuracy on tumor image creation and 73.7% on healthy reconstruction over 75 epochs; versus a plain CycleGAN, 25% fewer artifacts, 30% higher precision and 50% faster convergence.
+- Reached 88.2% accuracy creating tumor images and 73.7% reconstructing healthy ones over 75 epochs.
+- Cut artifacts 25%, raised precision 30% and converged 50% faster than plain CycleGAN.
 
 Stack: PyTorch, TensorFlow, CycleGAN, diffusion models, OpenCV, TorchScript, Nsight Compute, BraTS2020. Code: https://github.com/Sonica-B/TumorLytix. Page: https://shreyaboyane.dev/projects/tumorlytix
 
@@ -243,9 +277,11 @@ Multimodal classifier shipped as an operated MLOps platform. Aug 2025 to Dec 202
 
 A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 
-- VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting, tested against forced crashes, full wipes and network drops with recovery time treated as a performance metric.
-- Standardized port assignment eliminated an entire class of downtime across providers.
-- Published as two Hugging Face Spaces (local mode and inference-API mode with Hugging Face OAuth).
+- Deployed one container image to GCP, AWS and Azure with monitoring, alerting and CI/CD.
+- Built VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting.
+- Tested forced crashes, full wipes and network drops, treating recovery time as a metric.
+- Standardized port assignment, eliminating an entire class of downtime across providers.
+- Published two Hugging Face Spaces: local mode and an inference-API mode with OAuth.
 
 Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, GitHub Actions, Hugging Face Spaces. Code: https://github.com/Sonica-B/Case-Studies. Page: https://shreyaboyane.dev/projects/scene-mood-classifier
 
@@ -254,7 +290,7 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 - FairPrep: fairness-aware human feedback for table unionability (Jan 2025 to May 2026): The first adaptation of the FairEM framework from entity matching to annotator-level fairness in table union search, finding statistically significant bias against non-native English annotators on hard questions. Code: https://github.com/Sonica-B/FairPrep
 - Where does physics live in vision encoders? (Mar 2026 to May 2026): Probes where physical properties such as mass, friction, elasticity and stability are encoded across the encoder, projection and LLM stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then fine-tunes five LoRA configurations to find the leverage point for physical intuition. Code: https://github.com/Sonica-B/VLAs
 - Medical Triage HIL: confidence-aware LLM triage (Jan 2025 to Aug 2025): Local LLMs assign Emergency Severity Index levels, reason about handoff risk and track confidence as more patient questions are revealed, with human-in-the-loop review on high-risk escalations. Code: https://github.com/Sonica-B/Medical-Triage-HIL
-- AutoGit-AI: VS Code extension with secret scanning (May 2025 to present): Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. The only auto-commit extension with a built-in secret scanner that blocks keys, tokens and passwords before they reach the remote. Code: https://github.com/Sonica-B/AutoGit
+- AutoGit-AI: VS Code extension with secret scanning (May 2025 to present): Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. Its built-in secret scanner blocks keys, tokens and passwords before they reach the remote. Code: https://github.com/Sonica-B/AutoGit
 - VIO: deep visual-inertial odometry via multimodal fusion (Mar 2025 to May 2025): Fuses a FlowNet-style CNN over frames, a two-layer bi-LSTM over IMU windows and a Transformer fusion encoder into a pose regressor trained with an L1 translation and SO(3) geodesic rotation loss on synthetic Blender and OysterSim trajectories. Code: https://github.com/Sonica-B/VIO
 - RoboFusion: ML-driven sensor integration for motion control (Sep 2024 to Dec 2024): A real-time human-robot interface that controls a robotic arm from hand gestures by fusing MediaPipe hand tracking, a TensorFlow gesture model and MPU6050 IMU angle estimates inside ROS2, with sub-500 ms gesture-to-command latency. Code: https://github.com/Sonica-B/RoboFusion
 - Buildings Built in Minutes: structure from motion and NeRF (Feb 2025 to Mar 2025): Turns uncalibrated photographs into a metrically reliable 3D asset with a full structure-from-motion pipeline, then implements NeRF end to end to render photorealistic 360-degree orbits of the Lego, Hotdog and Ship scenes. Code: https://github.com/Sonica-B/Buildings-Built-in-Minutes
@@ -267,7 +303,7 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 - Real-time sign language detection (Apr 2021 to Oct 2021): An end-to-end custom object-detection system that recognizes hand gestures and translates sign language into text in real time for people with hearing impairments.
 - Real-time face mask detection (Nov 2020 to Mar 2021): A lightweight MobileNet SSD detector that checks whether people are wearing face masks on live video feeds, built for COVID-19 compliance monitoring in public spaces.
 - BookADDA: peer-to-peer book rental platform (Jun 2020 to Nov 2020): An online platform where students buy, rent or sell books with fellow students, with a search-first interface and a Flask backend.
-- shreyaboyane.dev: this site (Feb 2026 to present): A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and an HTML resume, with a WebGL2 hero that renders a depth map of the portrait produced by Depth Anything V2. Code: https://github.com/Sonica-B/Portfolio
+- shreyaboyane.dev: this site (Feb 2026 to present): A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and the resume, with a WebGL2 hero rendering a Depth Anything V2 depth map of the portrait. Code: https://github.com/Sonica-B/Portfolio
 
 ## Skills
 
@@ -343,4 +379,4 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 
 English, Hindi, Marathi
 
-Canonical page: https://shreyaboyane.dev/resume. This markdown: https://shreyaboyane.dev/md/resume.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/resume. This markdown: https://shreyaboyane.dev/md/resume.md. Generated from the site content model, last updated 2026-10-15.

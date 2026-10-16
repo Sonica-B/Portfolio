@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "2026.10.06",
-    "lastUpdated": "2026-10-06",
+    "version": "2026.10.15",
+    "lastUpdated": "2026-10-15",
     "sources": [
       "ShreyaBoyaneResume.pdf (July 2026)",
       "linkedin.com/in/shreya-boyane (logged-in view, October 2026)",
@@ -72,6 +72,15 @@
     "scheduling": "https://zcal.co/i/4aMYgoRr",
     "email": "mailto:shreyaa.boyane@gmail.com",
     "resumePdf": "/ShreyaBoyaneResume.pdf"
+  },
+  "now": {
+    "date": "2026-10-15",
+    "lines": [
+      "AI Trainer Fellow at Handshake AI since April 2026, evaluating frontier LLM and vision-language model outputs.",
+      "Co-first author of an ICML 2026 FoGen Workshop poster on latent chain-of-thought reasoning; FairPrep submitted to DASHSys 2026.",
+      "Open to full-time machine learning, AI, computer vision and research engineering roles, starting immediately, remote or anywhere in the US.",
+      "F-1 with OPT and STEM OPT: 3 years of US work authorization, no sponsorship needed up front."
+    ]
   },
   "education": [
     {
@@ -356,9 +365,12 @@
       "award": null,
       "summary": "Selected as a domain-expert fellow improving frontier LLMs and vision-language models for leading AI labs.",
       "highlights": [
-        "Evaluated 40+ structured tasks, each a side-by-side assessment of two frontier models (80+ LLM and VLM outputs graded for correctness, code quality, technical depth and reasoning soundness), delivering rubric-based expert feedback.",
-        "Authored challenging visual and compositional reasoning benchmark items with verified ground-truth answers over real-world charts, diagrams, infographics and scientific figures for chart and diagram VQA.",
-        "Developed domain-specific prompts for frontier LLMs across software engineering, machine learning and agentic reasoning, and conducted independent research to inform prompt design and rubric construction."
+        "Evaluated 40+ side-by-side tasks comparing two frontier models, grading 80+ LLM and VLM outputs.",
+        "Graded for correctness, code quality, technical depth and reasoning soundness with rubric-based expert feedback.",
+        "Authored visual and compositional reasoning items for chart and diagram VQA benchmarks.",
+        "Verified ground-truth answers over real-world charts, diagrams, infographics and scientific figures.",
+        "Developed domain-specific prompts for frontier LLMs across software engineering, machine learning and agentic reasoning.",
+        "Conducted independent research to inform prompt design and rubric construction."
       ],
       "tags": [
         "LLM evaluation",
@@ -382,11 +394,17 @@
       "award": "Data Science GQP Most Valuable Player (MVP)",
       "summary": "Owned client-facing delivery of a production multi-agent document-intelligence system for H-1B immigration workflows.",
       "highlights": [
-        "Ran requirements discovery with the sponsor's engineers, translated ambiguous legal-workflow needs into acceptance tests, led weekly stakeholder demos, and owned end-to-end integration and handoff.",
-        "Built a four-agent LLM pipeline on AWS (Amazon Bedrock, S3 ingest, Lambda, Step Functions, event-driven triggers) that extracts structured fields into schema-validated canonical JSON and generates unified QC reports for Form I-129 evidence.",
-        "Normalized 45+ critical fields and executed 50+ deterministic rules per case with severity-tagged issues and traceable field-level decisions.",
-        "Cut petition processing from 3 to 4 days to about 5 to 10 minutes at 95 to 99% structural accuracy and 99 to 100% missing-document detection, with 85 to 95% of repeatable checks automated, manual verification reduced 70 to 90% and cost reduced 50 to 70%, freeing about 2,000 hours per mid-size firm per season.",
-        "Added a RAG fallback with RAGAS evaluation loops (faithfulness, context recall) and regression gating, plus a FastAPI evaluation service with Prometheus latency and error-budget metrics."
+        "Ran requirements discovery with the sponsor's engineers and translated ambiguous legal-workflow needs into acceptance tests.",
+        "Led weekly stakeholder demos and owned end-to-end integration and handoff.",
+        "Built a four-agent LLM pipeline on AWS: Amazon Bedrock, S3 ingest, Lambda, Step Functions, event-driven triggers.",
+        "Extracted structured fields into schema-validated canonical JSON and generated unified QC reports for Form I-129 evidence.",
+        "Normalized 45+ critical fields and ran 50+ deterministic rules per case with severity-tagged, traceable decisions.",
+        "Cut petition processing from 3 to 4 days to about 5 to 10 minutes.",
+        "Reached 95 to 99% structural accuracy and 99 to 100% missing-document detection.",
+        "Automated 85 to 95% of repeatable checks and cut manual verification 70 to 90%.",
+        "Cut cost 50 to 70%, freeing about 2,000 hours per mid-size firm per season.",
+        "Added a RAG fallback with RAGAS evaluation loops (faithfulness, context recall) and regression gating.",
+        "Shipped a FastAPI evaluation service with Prometheus latency and error-budget metrics."
       ],
       "team": [
         "Mansi Rupesh Mantri",
@@ -440,10 +458,15 @@
       "award": null,
       "summary": "Built a production-minded GenAI plus human-in-the-loop triage assistant with difficulty-aware reasoning, confidence calibration and auditable workflows.",
       "highlights": [
-        "Built confidence-aware triage orchestration in Python, PyTorch and scikit-learn with human-in-the-loop review, raising triage precision 20%, ESI assignment accuracy 25%, and cutting false escalations 40%.",
-        "Engineered a dual-channel decision flow separating high-risk escalation from routine guidance, reducing LLM hallucinations and miscommunication 50%, unnecessary handoffs 30%, and improving patient-provider alignment 2.3x.",
-        "Implemented difficulty-weighted training and GPT-style calibration scoring: errors down 30%, reliability up 35%, early critical-case detection up 60%, non-critical misclassification down 70%.",
-        "Added LLM guardrails, escalation rules, slice tests, calibration curves, drift checks and error-taxonomy trending; enforced reproducible runs with fixed seeds and deterministic loaders; partnered with clinicians to turn findings into decision guidelines and SOPs."
+        "Built confidence-aware triage orchestration in Python, PyTorch and scikit-learn with human-in-the-loop review.",
+        "Raised triage precision 20% and ESI assignment accuracy 25% while cutting false escalations 40%.",
+        "Engineered a dual-channel decision flow separating high-risk escalation from routine guidance.",
+        "Reduced LLM hallucinations and miscommunication 50%, unnecessary handoffs 30%, and improved patient-provider alignment 2.3x.",
+        "Implemented difficulty-weighted training and GPT-style calibration scoring: errors down 30%, reliability up 35%.",
+        "Raised early critical-case detection 60% and cut non-critical misclassification 70%.",
+        "Added LLM guardrails, escalation rules, slice tests, calibration curves, drift checks and error-taxonomy trending.",
+        "Enforced reproducible runs with fixed seeds and deterministic loaders.",
+        "Partnered with clinicians to turn findings into decision guidelines and SOPs."
       ],
       "tags": [
         "PyTorch",
@@ -491,10 +514,15 @@
       "award": "Top Talent 2024, Bravo Individual Award, Team Excellence Award FY2023, Bravo Team Award",
       "summary": "Owned CI/CD and cloud infrastructure across 20+ production projects.",
       "highlights": [
-        "Accelerated software delivery 95% by building CI/CD pipelines in Azure DevOps, Docker and Terraform with integrated automated testing and gated approvals across 20+ projects.",
-        "Standardized VM provisioning and cluster setup with Ansible and Terraform infrastructure as code, cutting manual configuration 70% and provisioning time 40%, including AWS S3, Lambda and DynamoDB codified in Terraform.",
-        "Improved system uptime 25% by deploying Prometheus and Grafana observability dashboards monitoring latency, queue time and build health in real time; cut cloud operating costs 30%.",
-        "Integrated ML-Ops into existing workflows, streamlining model deployment 50% through automation; shortened integration cycles 70% by coordinating release tooling across Angular and React frontend teams; reduced critical vulnerabilities with Snyk scans in CI/CD gates.",
+        "Accelerated software delivery 95% with CI/CD pipelines in Azure DevOps, Docker and Terraform across 20+ projects.",
+        "Integrated automated testing and gated approvals into the pipelines.",
+        "Standardized VM provisioning and cluster setup with Ansible and Terraform infrastructure as code.",
+        "Cut manual configuration 70% and provisioning time 40%; codified AWS S3, Lambda and DynamoDB in Terraform.",
+        "Improved system uptime 25% with Prometheus and Grafana dashboards for latency, queue time and build health.",
+        "Cut cloud operating costs 30%.",
+        "Integrated ML-Ops into existing workflows, streamlining model deployment 50% through automation.",
+        "Shortened integration cycles 70% by coordinating release tooling across Angular and React frontend teams.",
+        "Reduced critical vulnerabilities with Snyk scans in CI/CD gates.",
         "Restructured release pipelines and variable groups to manage more than 10 code repositories cleanly."
       ],
       "tags": [
@@ -523,8 +551,10 @@
       "award": "Best Intern of the 2022 batch among 20,000+ new joiners across India",
       "summary": "Built ASP.NET Web APIs and integrated Azure Machine Learning for predictive analytics.",
       "highlights": [
-        "Engineered scalable ASP.NET Web APIs with .NET Core and ADO.NET and optimized Microsoft SQL Server and MySQL queries for 30% faster load times.",
-        "Integrated Azure Machine Learning for predictive analytics; completed the GEMS (Graduate Engineers with Multidimensional Skills) training program."
+        "Engineered scalable ASP.NET Web APIs with .NET Core and ADO.NET.",
+        "Optimized Microsoft SQL Server and MySQL queries for 30% faster load times.",
+        "Integrated Azure Machine Learning for predictive analytics.",
+        "Completed the GEMS (Graduate Engineers with Multidimensional Skills) training program."
       ],
       "tags": [
         ".NET Core",
@@ -550,7 +580,9 @@
       "summary": "Built and launched brand websites with chatbots and learned SEO fundamentals.",
       "highlights": [
         "Developed and launched five interactive websites per quarter on WordPress with CSS and JavaScript.",
-        "Integrated a chatbot on each site, increasing real-time engagement 40%; optimized MySQL structures and queries for faster load times; added ML-based personalized recommendations; performed website analysis and SEO optimization."
+        "Integrated a chatbot on each site, increasing real-time engagement 40%.",
+        "Optimized MySQL structures and queries for faster load times and added ML-based personalized recommendations.",
+        "Performed website analysis and SEO optimization."
       ],
       "tags": [
         "WordPress",
@@ -580,13 +612,20 @@
         "Kevin Zhu"
       ],
       "summary": "Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.",
+      "pitch": {
+        "problem": "Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.",
+        "action": "Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.",
+        "change": "CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6."
+      },
       "problem": "Latent reasoning methods such as CODI and COCONUT keep multiple superimposed candidate traces in hidden space at every step, so existing mechanistic tools reveal compression and shortcuts but cannot explain how reasoning evolves from one latent step to the next.",
       "approach": "Model the six latent hidden states as a trajectory; measure step-to-step change, direction consistency, arc length, a Lyapunov surrogate and perturbation divergence; project with DMD, PHATE, UMAP, PCA and t-SNE across four model configurations (CODI and COCONUT, vanilla and Sim-CoT) on GPT-2-small.",
       "highlights": [
-        "CODI behaves as a stable attractor while COCONUT behaves as an unstable expanding system; Sim-CoT supervision tightens both without changing the dynamics.",
-        "Reproduced CODI self-distillation and the COCONUT four-stage latent curriculum end to end as rank-128 LoRA adapters with PyTorch, Transformers and PEFT.",
-        "Built the reliability layer: CUDA health-polling orchestration for 14+ hour runs, HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and a byte-exact safetensors checkpoint repair.",
-        "Verification harness passes 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding and pinned dependencies throughout."
+        "Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.",
+        "Found Sim-CoT supervision tightens both systems without changing the underlying dynamics.",
+        "Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.",
+        "Built CUDA health-polling orchestration that stabilized 14+ hour training runs.",
+        "Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.",
+        "Verified 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding, pinned dependencies."
       ],
       "metrics": [
         {
@@ -653,13 +692,20 @@
         "Pradyumn Tendulkar"
       ],
       "summary": "A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.",
+      "pitch": {
+        "problem": "Immigration attorneys spent 3 to 4 days per H-1B petition checking Form I-129 packages for missing documents and errors.",
+        "action": "Built and delivered a four-agent LLM pipeline on AWS with LangGraph that extracts schema-validated JSON and a single QC report.",
+        "change": "Review time fell from 3 to 4 days to 5 to 10 minutes at 95 to 99% structural accuracy."
+      },
       "problem": "Immigration attorneys spent days per petition manually checking Form I-129 packages and supporting evidence for missing documents, inconsistent fields and structural errors.",
       "approach": "Agent 1 (intake and vision) collapses PDFs into a unified schema with Textract OCR; Agent 2A canonicalizes I-129 fields through a deterministic logic engine; Agent 2B runs LLM semantic validation on supporting evidence; Agent 2C is a cross-document comparator with an Amazon Bedrock RAG fallback for cases the rules cannot resolve. Orchestrated with LangGraph on S3, Lambda, Step Functions and EventBridge.",
       "highlights": [
-        "Owned client-facing delivery: requirements discovery with Crossing engineers, acceptance tests, weekly demos, integration and handoff.",
+        "Cut petition review from 3 to 4 days to 5 to 10 minutes.",
+        "Owned client-facing delivery: requirements discovery, acceptance tests, weekly demos, integration and handoff.",
         "Built the computer-vision grouping, API schema and the Pydantic-validated canonical JSON contract consumed downstream.",
-        "RAG evaluation loops with RAGAS (faithfulness, context recall) and threshold-based regression gating across prompt and retriever changes.",
-        "Presented to eleven industry judges at the WPI GRIE Showcase in April 2026; recognized with the Data Science GQP MVP award."
+        "Added RAGAS evaluation loops (faithfulness, context recall) with threshold-based regression gating.",
+        "Presented to eleven industry judges at the WPI GRIE Showcase, April 2026.",
+        "Recognized with the Data Science GQP MVP award, December 2025."
       ],
       "metrics": [
         {
@@ -722,12 +768,18 @@
         "Divam Trivedi"
       ],
       "summary": "Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.",
+      "pitch": {
+        "problem": "Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.",
+        "action": "Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.",
+        "change": "3D placement accuracy rose 50% and scene realism 75% across 13 sequences, with 1.5x throughput and p95 latency down 35%."
+      },
       "problem": "Dash-cam footage lacks interpretable 3D context for perception debugging and for explaining autonomous-driving decisions to humans.",
-      "approach": "Fused MiDaS and Depth Anything monocular depth, Detic open-vocabulary detection with a custom vocabulary, YOLO3D vehicle yaw and boxes, OpenPifPaf and OSX body keypoints, Mask R-CNN lanes and road markings, and RAFT optical flow; calibrated a pinhole camera model and projected detections into world coordinates; synthesized LiDAR-like point clouds and lane contours as ground truth. Rendered through Blender EEVEE with typed asset collections, per-sequence transforms and deterministic replays for side-by-side comparison; input was 13 Tesla Model S dash-cam sequences.",
+      "approach": "Fused MiDaS and Depth Anything depth, Detic open-vocabulary detection, YOLO3D vehicle yaw and boxes, OpenPifPaf and OSX keypoints, Mask R-CNN lanes and RAFT optical flow; calibrated a pinhole camera and projected detections into world coordinates; synthesized LiDAR-like point clouds and lane contours as ground truth. Rendered through Blender EEVEE with typed asset collections, per-sequence transforms and deterministic replays across 13 Tesla Model S dash-cam sequences.",
       "highlights": [
         "Improved 3D placement accuracy 50% and scene realism 75% across 13 driving sequences.",
-        "Deployed detectors through TorchScript to ONNX to TensorRT FP16 with layer fusion: 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.",
-        "Documented failure modes honestly: tunnel reflections, rain on the lens, class flicker between SUV and pickup, and optical-flow direction errors at low speed."
+        "Deployed detectors through TorchScript, ONNX and TensorRT FP16 with layer fusion.",
+        "Reached 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.",
+        "Documented failure modes: tunnel reflections, lens rain, SUV versus pickup flicker, low-speed flow errors."
       ],
       "metrics": [
         {
@@ -786,13 +838,22 @@
         "Ankit Gole"
       ],
       "summary": "A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.",
+      "pitch": {
+        "problem": "Real-time game worlds need coherent assets and layouts under strict latency and memory budgets, and hand-authoring them does not scale.",
+        "action": "Led the AI models for a multi-agent diffusion runtime with LoRA adapters per biome, then optimized inference with ONNX, TensorRT and INT8.",
+        "change": "p95 latency fell from 200 ms to 95 ms, the runtime generated 120 assets per minute and manual design time dropped 73%."
+      },
       "problem": "Real-time game worlds need coherent assets, layouts and styles under strict latency and memory budgets, and hand-authoring them does not scale.",
       "approach": "Asset agent on Stable Diffusion 1.5 with rank-8 LoRA adapters per biome and latent-consistency few-step inference; Wave Function Collapse for layout constraints; evaluator agent scoring quality; biome-aware prefab mapping into Unity. Shreya led AI models and generation. Unity bridge with batched prefab transfers, caching and request prioritization.",
       "highlights": [
-        "Optimized GPU inference with ONNX and TensorRT kernel fusion: p95 latency 200 ms to 95 ms, FPS 60 to 120, binary size down 38%.",
-        "Designed a neural world-state graph for coordination, a predictive generation protocol that pre-warms likely branches, and memory pooling that cut allocation overhead about 73% and peak VRAM about 41%.",
-        "Mixed precision, INT8 quantization and CUDA graphs delivered 1.8x throughput and 24% less memory while holding FID 12.3 and CLIP similarity 0.89 under 2 GB VRAM.",
-        "Orchestration layer sustained 31 FPS at 6.2 GB VRAM with PSNR 30.1 dB and 94% tileability across large variant sets."
+        "Generated 120 game assets per minute and cut manual design time 73%.",
+        "Cut p95 latency 200 ms to 95 ms with ONNX and TensorRT kernel fusion.",
+        "Raised FPS from 60 to 120 and shrank binary size 38%.",
+        "Designed a neural world-state graph and a predictive protocol that pre-warms likely branches.",
+        "Added memory pooling that cut allocation overhead about 73% and peak VRAM about 41%.",
+        "Reached 1.8x throughput and 24% less memory with mixed precision, INT8 and CUDA graphs.",
+        "Held FID 12.3 and CLIP similarity 0.89 under 2 GB VRAM.",
+        "Sustained 31 FPS at 6.2 GB VRAM with PSNR 30.1 dB and 94% tileability."
       ],
       "metrics": [
         {
@@ -857,13 +918,20 @@
         "Sarthak Mehta"
       ],
       "summary": "An unsupervised medical-imaging pipeline that pairs CycleGAN image synthesis with diffusion-based refinement to detect and segment brain tumors across 65,072 BraTS2020 MRI images with more than 90% segmentation accuracy and no manual labels.",
+      "pitch": {
+        "problem": "Supervised tumor segmentation needs large labeled MRI datasets that are expensive to produce, and tumors vary widely in size, shape and position.",
+        "action": "Paired CycleGAN synthesis with diffusion refinement and automated labeling to detect and segment tumors across 65,072 BraTS2020 images without labels.",
+        "change": "Segmentation accuracy passed 90% with no manual labels, precision rose 15% over baseline and inference ran 1.6x faster."
+      },
       "problem": "Supervised tumor segmentation needs large labeled MRI datasets that are expensive to produce, while tumors vary widely in size, shape and position.",
       "approach": "Train CycleGAN on unpaired scans to synthesize paired healthy and diseased images and flag anomalies where reconstruction fails; refine boundaries with a conditionally guided diffusion model; automate labeling with OpenCV morphological operations and entropy-based filtering.",
       "highlights": [
-        "Processed 23,180 healthy and 41,892 diseased slices across T1, T2, T1CE and FLAIR modalities from 369 patients.",
-        "Automated labeling improved baseline precision 15% and stabilized performance across modalities.",
+        "Segmented tumors at over 90% accuracy across 65,072 MRI images, no manual labels.",
+        "Processed 23,180 healthy and 41,892 diseased slices (T1, T2, T1CE, FLAIR) from 369 patients.",
+        "Improved baseline precision 15% with automated labeling and stabilized performance across modalities.",
         "Packaged TorchScript batched mixed-precision inference for 1.6x images per second, profiled with Nsight Compute.",
-        "Synthetic pairing reached 88.2% accuracy on tumor image creation and 73.7% on healthy reconstruction over 75 epochs; versus a plain CycleGAN, 25% fewer artifacts, 30% higher precision and 50% faster convergence."
+        "Reached 88.2% accuracy creating tumor images and 73.7% reconstructing healthy ones over 75 epochs.",
+        "Cut artifacts 25%, raised precision 30% and converged 50% faster than plain CycleGAN."
       ],
       "metrics": [
         {
@@ -913,12 +981,19 @@
       "affiliation": "WPI DS-553 Case Studies in Data Science",
       "team": [],
       "summary": "A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.",
+      "pitch": {
+        "problem": "Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.",
+        "action": "Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.",
+        "change": "One image runs on GCP, AWS and Azure, standardized ports removed a class of downtime, and two Hugging Face Spaces are live."
+      },
       "problem": "Most course projects stop at a model; the goal here was to prove the model can be operated reliably across clouds with measurable recovery behaviour.",
       "approach": "Gradio UI plus an HTTP inference API with per-class probability logging and latency tracking; Dockerized app and API; Prometheus, node exporter and Grafana dashboards; GitHub Actions workflow chaining with Discord deployment status; per-provider port injection with runtime-aware config.",
       "highlights": [
-        "VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting, tested against forced crashes, full wipes and network drops with recovery time treated as a performance metric.",
-        "Standardized port assignment eliminated an entire class of downtime across providers.",
-        "Published as two Hugging Face Spaces (local mode and inference-API mode with Hugging Face OAuth)."
+        "Deployed one container image to GCP, AWS and Azure with monitoring, alerting and CI/CD.",
+        "Built VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting.",
+        "Tested forced crashes, full wipes and network drops, treating recovery time as a metric.",
+        "Standardized port assignment, eliminating an entire class of downtime across providers.",
+        "Published two Hugging Face Spaces: local mode and an inference-API mode with OAuth."
       ],
       "metrics": [
         {
@@ -973,12 +1048,18 @@
         "Dr. Roee Shraga"
       ],
       "summary": "The first adaptation of the FairEM framework from entity matching to annotator-level fairness in table union search, finding statistically significant bias against non-native English annotators on hard questions.",
+      "pitch": {
+        "problem": "Human feedback supervises table union search in data lakes, but nobody had checked whether it is equally reliable across annotator demographics.",
+        "action": "Adapted the FairEM framework to annotator-level fairness with 10 metrics, permutation tests, bootstrap intervals and FDR correction on 60 annotators.",
+        "change": "6 of 10 metrics flagged bias against non-native English annotators, 25% versus 44% accuracy on hard questions, p = 0.031."
+      },
       "problem": "Human feedback supervises table union search in modern data lakes, but nobody had checked whether that feedback is equally reliable across annotator demographics.",
       "approach": "Nine source modules across five experimental phases on a 480-row dataset; 10 FairEM confusion-matrix metrics, 10,000-shuffle permutation tests, 10,000-resample stratified bootstrap intervals, Fisher exact tests, Benjamini-Hochberg FDR correction and dual-track logistic regression.",
       "highlights": [
-        "6 of 10 FairEM metrics flag unfairness; 25% versus 44% accuracy on hard questions (p = 0.031).",
-        "Triple intersection of non-native, lower-education and young annotators persists at p_BH = 0.037 after FDR correction.",
-        "Findings robust across 5 of 5 orthogonal cleaning strategies; behavioral disparities exceed demographic ones."
+        "6 of 10 FairEM metrics flag unfairness against non-native English annotators.",
+        "25% versus 44% accuracy on hard questions, Fisher exact p = 0.031.",
+        "Found the non-native, lower-education, young intersection persists at p_BH = 0.037 after FDR correction.",
+        "Held across 5 of 5 orthogonal cleaning strategies; behavioral disparities exceed demographic ones."
       ],
       "metrics": [
         {
@@ -1027,11 +1108,17 @@
       "affiliation": "Independent research",
       "team": [],
       "summary": "Probes where physical properties such as mass, friction, elasticity and stability are encoded across the encoder, projection and LLM stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then fine-tunes five LoRA configurations to find the leverage point for physical intuition.",
+      "pitch": {
+        "problem": "Vision-language models show surprising physical reasoning yet fail on intuitive physics, and it was unclear where physical information lives inside them.",
+        "action": "Probed per-patch activations at four stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then ran a five-condition LoRA ablation.",
+        "change": "Produced physics saliency maps, degradation curves across the projection bottleneck and 15 ablation runs on three benchmarks."
+      },
       "problem": "Vision-language models trained on internet-scale data show surprising physical reasoning yet fail systematically on intuitive physics, and it was unclear where physical information lives in their pipelines.",
       "approach": "Linear and MLP probes on per-patch activations at four stages using Physion++ ground truth; physics saliency maps as 14x14 heatmaps; R-squared degradation curves across the projection bottleneck; a 3 model x 5 condition factorial LoRA ablation evaluated on PhysBench, GRASP Level 2 and ConservationBench; before-and-after attention analysis.",
       "highlights": [
-        "Four research questions covering spatial encoding, pipeline degradation, architectural leverage points and fine-tuning effects.",
-        "Hydra-configured codebase with probing, visualization, evaluation and ablation modules."
+        "Probed four stages of three VLMs; ran 15 LoRA ablations across three benchmarks.",
+        "Framed four research questions: spatial encoding, pipeline degradation, leverage points and fine-tuning effects.",
+        "Built a Hydra-configured codebase with probing, visualization, evaluation and ablation modules."
       ],
       "metrics": [
         {
@@ -1084,13 +1171,19 @@
       "affiliation": "Worcester Polytechnic Institute",
       "team": [],
       "summary": "Local LLMs assign Emergency Severity Index levels, reason about handoff risk and track confidence as more patient questions are revealed, with human-in-the-loop review on high-risk escalations.",
+      "pitch": {
+        "problem": "LLM triage assistants hallucinate and escalate incorrectly, so the question was whether calibrated confidence plus human review could make them safer.",
+        "action": "Built confidence-aware triage on Ollama-served models with incremental confidence tracking, a dual-channel decision flow and human-in-the-loop review.",
+        "change": "Triage precision rose 20%, false escalations fell 40%, hallucinations fell 50% and early critical-case detection rose 60%."
+      },
       "problem": "LLM triage assistants hallucinate and escalate incorrectly; the question was whether calibrated confidence plus human review could make them safer.",
       "approach": "Ollama-served models (Mistral by default) with risk-factor extraction, incremental QA-based confidence tracking, and elicitation strategies (vanilla, chain of thought, self-probing, top-k, misleading and paraphrased sampling, aggregation); dual-channel decision flow separating escalation from routine guidance; reliability diagrams and calibration plots.",
       "highlights": [
         "Raised triage precision 20% and ESI accuracy 25% while cutting false escalations 40%.",
         "Reduced hallucinations 50% and improved patient-provider alignment 2.3x through the dual-channel flow.",
-        "Difficulty-weighted training and GPT-style calibration scoring: errors down 30%, reliability up 35%, early critical-case detection up 60%, non-critical misclassification down 70%.",
-        "Research prototype, explicitly not a clinical decision tool."
+        "Cut errors 30% and raised reliability 35% with difficulty-weighted training and calibration scoring.",
+        "Raised early critical-case detection 60% and cut non-critical misclassification 70%.",
+        "Built as a research prototype, explicitly not a clinical decision tool."
       ],
       "metrics": [
         {
@@ -1141,13 +1234,20 @@
       "status": "ongoing",
       "affiliation": "Open source",
       "team": [],
-      "summary": "Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. The only auto-commit extension with a built-in secret scanner that blocks keys, tokens and passwords before they reach the remote.",
+      "summary": "Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. Its built-in secret scanner blocks keys, tokens and passwords before they reach the remote.",
+      "pitch": {
+        "problem": "Auto-commit removes the human review step between saving and pushing, which is exactly when secrets leak.",
+        "action": "Built a VS Code extension that stages, writes a Copilot commit message, scans added lines for secrets and pushes.",
+        "change": "Shipped on the VS Code Marketplace under Apache-2.0, blocking 10+ families of keys, tokens and passwords before they reach the remote."
+      },
       "problem": "Auto-commit removes the human review step between saving and pushing, which is exactly when secrets leak; AI-assisted commits leak at roughly twice the baseline rate.",
       "approach": "Pattern plus entropy scanning of only the added lines (AWS, GitHub, GitLab, Google, Slack, Stripe, npm, SendGrid, OpenAI and Anthropic keys, JWTs, private-key blocks, connection strings); fails closed on oversized diffs; fingerprint-bound overrides; gitignore-style excludes enforced at staging time; skips merges, rebases and detached HEAD; git invoked with argument arrays, never shell strings.",
       "highlights": [
-        "Published on the VS Code Marketplace as ShreyaBoyane.auto-git-copilot under Apache-2.0, with CI that lints, tests and packages on every push.",
-        "Pure logic lives in a fully unit-tested library; VS Code wiring is isolated in the extension entry point.",
-        "Debounced batching, protected branches, status-bar control and a full output-channel log."
+        "Blocks keys, tokens and passwords across 10+ secret pattern families before every push.",
+        "Published on the VS Code Marketplace as ShreyaBoyane.auto-git-copilot under Apache-2.0.",
+        "Runs CI that lints, tests and packages the extension on every push.",
+        "Kept pure logic in a fully unit-tested library, isolated from the VS Code wiring.",
+        "Added debounced batching, protected branches, status-bar control and a full output-channel log."
       ],
       "metrics": [
         {
@@ -1198,12 +1298,19 @@
         "Divam Trivedi"
       ],
       "summary": "Fuses a FlowNet-style CNN over frames, a two-layer bi-LSTM over IMU windows and a Transformer fusion encoder into a pose regressor trained with an L1 translation and SO(3) geodesic rotation loss on synthetic Blender and OysterSim trajectories.",
+      "pitch": {
+        "problem": "Synthetic video and IMU streams showed scale drift and domain shift that degraded long-horizon odometry.",
+        "action": "Fused a FlowNet-style CNN, a bi-LSTM over IMU windows and a Transformer encoder into a pose regressor with SO(3) geodesic loss.",
+        "change": "RMSE ATE fell 31 to 34% versus vision-only, and TensorRT deployment cut per-step latency 35% and VRAM 20%."
+      },
       "problem": "Synthetic video and IMU streams showed scale drift and domain shift that degraded long-horizon odometry.",
       "approach": "Automated dataset creation and alignment with OysterSim physics and EVO Umeyama evaluation across six training and three test trajectories at 1000 Hz IMU and 100 Hz RGB; compared vision-only, inertial-only and fusion models.",
       "highlights": [
-        "Fusion cut RMSE ATE versus the vision-only model by about 32% on the Infinity trajectory, 34% on Random and 31% on Spiral, with median RPE holding near two units.",
-        "Delivered RMSE ATE 7.9 to 12.1 and median 7.2 to 8.6 with the SO(3) geodesic loss.",
-        "Deployed inference through TorchScript and ONNX to TensorRT: 35% lower per-step latency and 20% less VRAM with RPE and ATE deltas within 3%."
+        "Cut RMSE ATE versus vision-only about 32% (Infinity), 34% (Random), 31% (Spiral).",
+        "Held median RPE near two units across trajectories.",
+        "Reached RMSE ATE 7.9 to 12.1, median 7.2 to 8.6, with SO(3) geodesic loss.",
+        "Deployed through TorchScript, ONNX and TensorRT: 35% lower per-step latency, 20% less VRAM.",
+        "Kept RPE and ATE deltas within 3% after TensorRT deployment."
       ],
       "metrics": [
         {
@@ -1262,12 +1369,18 @@
         "Simran Chauhan"
       ],
       "summary": "A real-time human-robot interface that controls a robotic arm from hand gestures by fusing MediaPipe hand tracking, a TensorFlow gesture model and MPU6050 IMU angle estimates inside ROS2, with sub-500 ms gesture-to-command latency.",
+      "pitch": {
+        "problem": "Sensor data alone is too noisy and inconsistent for precise robotic arm control in hazardous, manufacturing and medical settings.",
+        "action": "Fused MediaPipe hand tracking, a TensorFlow gesture model trained on 5,000+ gestures and MPU6050 IMU angles inside ROS2.",
+        "change": "Gesture recognition reached 93% with task precision about 35% above the sensor-only baseline and under 500 ms gesture-to-command latency."
+      },
       "problem": "Sensor data alone is noisy and inconsistent for precise arm control, which matters in hazardous remote operations, manufacturing and medical robotics.",
       "approach": "Collected a custom dataset of 5,000+ hand gestures with MediaPipe, trained a gesture-and-angle model, fused predictions with MPU6050 readings to cancel noise, and validated in a Gazebo simulation of the arm.",
       "highlights": [
-        "93% gesture recognition accuracy on the custom dataset and about 35% better task precision than the sensor-only baseline.",
-        "Sub-500 ms gesture-to-command latency across the full pipeline.",
-        "Production-style ROS2 nodes with deterministic message contracts reusable in downstream robotics projects."
+        "93% gesture recognition accuracy on a custom dataset of 5,000+ gestures.",
+        "Improved task precision about 35% over the sensor-only baseline.",
+        "Held gesture-to-command latency under 500 ms across the full pipeline.",
+        "Built production-style ROS2 nodes with deterministic message contracts for reuse downstream."
       ],
       "metrics": [
         {
@@ -1314,12 +1427,18 @@
         "Divam Trivedi"
       ],
       "summary": "Turns uncalibrated photographs into a metrically reliable 3D asset with a full structure-from-motion pipeline, then implements NeRF end to end to render photorealistic 360-degree orbits of the Lego, Hotdog and Ship scenes.",
+      "pitch": {
+        "problem": "Reconstructing a building from phone photos for AR and VR needs classical geometry and neural rendering while keeping compute modest.",
+        "action": "Built a full structure-from-motion pipeline in OpenCV with bundle adjustment, then implemented NeRF end to end with hierarchical sampling.",
+        "change": "Reprojection error fell from 1.75 to 1.01 pixels, and NeRF views reached about 60% higher PSNR with roughly 40% fewer artifacts."
+      },
       "problem": "Reconstructing a building from phone photos for AR and VR needs both classical geometry and neural rendering while keeping compute modest.",
       "approach": "Phase 1 in Python and OpenCV: SIFT keypoints and matching, eight-point fundamental and essential matrix estimation with RANSAC, PnP camera poses, linear and nonlinear triangulation and bundle adjustment. Phase 2: NeRF with positional encoding and hierarchical coarse-to-fine volume sampling, evaluated with PSNR and SSIM.",
       "highlights": [
-        "Average reprojection error improved from 1.75 to 1.01 pixels across five views after sparse bundle adjustment in SciPy.",
-        "NeRF novel views reached about 60% higher PSNR than the baseline with roughly 40% fewer rendering artifacts; coordinates aligned to SfM poses for consistent scale.",
-        "Reproducibility guards: fixed seeds, deterministic loaders, metric scripts and result caching."
+        "Cut average reprojection error 1.75 to 1.01 pixels across five views via bundle adjustment.",
+        "Rendered NeRF novel views at about 60% higher PSNR with roughly 40% fewer artifacts.",
+        "Aligned NeRF coordinates to SfM poses for consistent scale.",
+        "Added reproducibility guards: fixed seeds, deterministic loaders, metric scripts and result caching."
       ],
       "metrics": [
         {
@@ -1371,12 +1490,19 @@
         "Ankit"
       ],
       "summary": "An NLP engine that matches resumes to roles with TF-IDF and cosine similarity, calibrates rankings with supervised classifiers, and recommends courses that close the skill gaps it finds.",
+      "pitch": {
+        "problem": "Job boards filter on job type and company, not on what a specific student can do and should learn next.",
+        "action": "Built a TF-IDF and cosine-similarity matcher over 10,000+ job descriptions, 5,000 resumes and 300+ catalogs with supervised ranking.",
+        "change": "Match accuracy reached 95% with 90% NLP precision, irrelevant results fell 50% and 1,000+ students used the recommendations."
+      },
       "problem": "Job boards filter on job type and company, not on what a specific student can do and should learn next.",
       "approach": "Scraped job boards and university catalogs with BeautifulSoup, built the matching and ranking models in TensorFlow and scikit-learn, and generated top-k role plus coursework recommendations from unified text features.",
       "highlights": [
         "Scaled to 10,000+ job descriptions, 5,000 resumes and 300+ course catalogs.",
-        "95% match accuracy with 90% NLP precision; irrelevant results down 50% and data preparation time down 65%.",
-        "Used by 1,000+ students for tailored course suggestions; LDA topic modeling on job and catalog text."
+        "95% match accuracy and 90% NLP precision; irrelevant results down 50%.",
+        "Cut data preparation time 65%.",
+        "Used by 1,000+ students for tailored course suggestions.",
+        "Applied LDA topic modeling to job and catalog text."
       ],
       "metrics": [
         {
@@ -1420,11 +1546,16 @@
       "affiliation": "Worcester Polytechnic Institute",
       "team": [],
       "summary": "A procedural 2D asset framework that generates terrain tiles and props with Stable Diffusion and LoRA, learns tile structure with a CVAE-GAN, lays out biomes with Wave Function Collapse and places prefabs automatically in Unity.",
+      "pitch": {
+        "problem": "Indie developers spend most of their time building game worlds by hand.",
+        "action": "Combined Stable Diffusion with LoRA, a CVAE-GAN for tile structure and Wave Function Collapse layouts, placing prefabs automatically in Unity.",
+        "change": "Assets reached FID 32.4 at 2.7 seconds each and manual integration effort fell 73%."
+      },
       "problem": "Indie developers spend most of their time building game worlds by hand.",
       "approach": "VAE-based terrain synthesis, entropy-minimized Wave Function Collapse for biome layouts, LoRA-enhanced latent diffusion for assets, and a classifier-discriminator extension of the CVAE-GAN tuned by ablation for stability and style coherence.",
       "highlights": [
-        "FID 32.4 at 2.7 seconds per asset, surpassing baseline procedural methods in realism and diversity.",
-        "Biome-aware prefab mapping in Unity reduced manual integration effort 73%."
+        "Beat baseline procedural methods on realism and diversity: FID 32.4, 2.7 s per asset.",
+        "Cut manual integration effort 73% with biome-aware prefab mapping in Unity."
       ],
       "metrics": [
         {
@@ -1472,10 +1603,16 @@
       "affiliation": "Worcester Polytechnic Institute",
       "team": [],
       "summary": "A self-attentive sequential recommender with multi-head attention, causal masking and residual feed-forward blocks for next-item ranking, tuned with hyperparameter sweeps and selected by offline metrics.",
+      "pitch": {
+        "problem": "Sparse interaction histories make next-item prediction unstable, so the goal was a compact model that holds up under sparsity.",
+        "action": "Built a self-attentive sequential recommender in PyTorch and swept dropout, attention heads and hidden size across five variants.",
+        "change": "The best checkpoint reached nDCG@10 0.3166 and Hit@10 0.4913 at epoch 14 with two blocks and 50 dimensions."
+      },
       "problem": "Sparse interaction histories make next-item prediction unstable; the goal was a compact model that holds up under sparsity.",
       "approach": "Swept dropout 0.05 to 0.5, attention heads 1 to 2 and hidden dimensions 5 to 50, visualized stability across five variants and picked the best checkpoint by nDCG and hit rate.",
       "highlights": [
-        "nDCG@10 of 0.3166 and Hit@10 of 0.4913 at epoch 14 with a two-block, 50-dimensional configuration."
+        "Reached nDCG@10 0.3166 and Hit@10 0.4913 at epoch 14 with two blocks, 50 dimensions.",
+        "Compared five variants by nDCG and hit rate after sweeping dropout, heads and width."
       ],
       "metrics": [
         {
@@ -1512,10 +1649,17 @@
       "affiliation": "Worcester Polytechnic Institute",
       "team": [],
       "summary": "Trained probabilistic PCA and beta-VAE models on 576-dimensional face vectors for unsupervised identity representation and generation, then compared reconstructions and latent interpolations.",
+      "pitch": {
+        "problem": "How much of a face survives a 16-, 32- or 64-dimensional latent, and which model interpolates more smoothly.",
+        "action": "Trained probabilistic PCA and beta-VAE on 576-dimensional face vectors, then compared reconstructions, latent interpolations and 10x10 sample grids.",
+        "change": "Latents kept 95%+ variance, 100 novel faces were generated, and decoder sampling cut training time 35% over dense baselines."
+      },
       "problem": "How much of a face survives a 16-, 32- or 64-dimensional latent, and which model interpolates more smoothly.",
       "approach": "Reduced to latent spaces of 16, 32 and 64 dimensions with 95%+ variance retained, generated 100 novel faces by decoder sampling, and compared models through PCA-projected visualizations and 10x10 output grids.",
       "highlights": [
-        "VAE showed stronger feature continuity and expressiveness; decoder sampling cut training time 35% over dense baselines."
+        "Retained 95%+ variance in 16-, 32- and 64-dimensional latents and generated 100 novel faces.",
+        "Found the VAE showed stronger feature continuity and expressiveness.",
+        "Cut training time 35% over dense baselines with decoder sampling."
       ],
       "metrics": [
         {
@@ -1553,10 +1697,16 @@
       "affiliation": "Worcester Polytechnic Institute",
       "team": [],
       "summary": "A supervised imitation-learning pipeline that clones an expert Pong policy from Arcade Learning Environment demonstrations with a three-layer convolutional network.",
+      "pitch": {
+        "problem": "Can a small CNN reproduce expert paddle control from demonstrations alone, without reward signals.",
+        "action": "Trained a three-layer CNN on expert Arcade Learning Environment frames for 100 epochs and validated with gameplay video logs.",
+        "change": "The cloned agent reached 87.55% test accuracy with minimal overfitting and tracked the paddle with sub-500 ms action latency."
+      },
       "problem": "Can a small CNN reproduce expert paddle control from demonstrations alone without reward signals.",
       "approach": "Trained on expert frames for 100 epochs, validated through loss trajectories and gameplay video logs, and measured action latency.",
       "highlights": [
-        "87.55% test accuracy with minimal overfitting; the cloned agent tracks the paddle with sub-500 ms action latency."
+        "87.55% test accuracy with minimal overfitting after 100 epochs.",
+        "Tracks the paddle with sub-500 ms action latency."
       ],
       "metrics": [
         {
@@ -1599,11 +1749,16 @@
         "one more teammate"
       ],
       "summary": "An augmented-reality navigation assistant that guides users to a destination indoors and outdoors, combining Vuforia marker detection with Unity 3D overlays and place recommendations based on user preferences.",
+      "pitch": {
+        "problem": "Complex indoor spaces are hard to navigate with 2D maps.",
+        "action": "Built the indoor navigation, recommendation logic and full Unity and C# frontend with Vuforia markers, Revit models, Maps SDK and Firebase.",
+        "change": "Pilot users reported 90%+ satisfaction on a usability survey and TECHVED sponsored the project in October 2021."
+      },
       "problem": "Complex indoor spaces are hard to navigate with 2D maps.",
       "approach": "Built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.",
       "highlights": [
-        "Piloted with college users at 90%+ satisfaction on a usability survey; robust across lighting conditions.",
-        "Secured industry sponsorship from TECHVED in October 2021 and presented a seminar on AR development tools."
+        "Piloted with college users: 90%+ satisfaction on a usability survey, robust across lighting.",
+        "Secured TECHVED sponsorship in October 2021 and presented a seminar on AR development tools."
       ],
       "metrics": [
         {
@@ -1644,10 +1799,15 @@
       "affiliation": "Independent project",
       "team": [],
       "summary": "An end-to-end custom object-detection system that recognizes hand gestures and translates sign language into text in real time for people with hearing impairments.",
+      "pitch": {
+        "problem": "Sign language users face communication barriers in everyday settings.",
+        "action": "Trained a custom Single Shot Multibox Detector in TensorFlow on a gesture dataset and wired it to a live camera feed.",
+        "change": "The system detects and translates multiple gestures into text in real time."
+      },
       "problem": "Communication barriers for users of sign language in everyday settings.",
       "approach": "Trained a Single Shot Multibox Detector in TensorFlow on a custom gesture dataset and integrated it with a live camera feed.",
       "highlights": [
-        "Accurate real-time detection and translation of multiple gestures."
+        "Detects and translates multiple gestures to text in real time."
       ],
       "metrics": [
         {
@@ -1681,6 +1841,11 @@
       "affiliation": "Independent project",
       "team": [],
       "summary": "A lightweight MobileNet SSD detector that checks whether people are wearing face masks on live video feeds, built for COVID-19 compliance monitoring in public spaces.",
+      "pitch": {
+        "problem": "Institutions needed an automated, low-cost way to monitor face mask compliance during COVID-19.",
+        "action": "Trained a custom MobileNet SSD model in TensorFlow and integrated it with live video streams for real-time inference.",
+        "change": "The detector ran live with high accuracy, suitable for institutions and public venues."
+      },
       "problem": "Institutions needed an automated, low-cost way to monitor mask compliance.",
       "approach": "Trained a custom MobileNet SSD model and integrated it with video streams for real-time inference.",
       "highlights": [
@@ -1719,6 +1884,11 @@
         "three teammates"
       ],
       "summary": "An online platform where students buy, rent or sell books with fellow students, with a search-first interface and a Flask backend.",
+      "pitch": {
+        "problem": "Textbooks are expensive and campus book exchange was informal and slow.",
+        "action": "Designed and built the entire frontend in HTML, CSS, Bootstrap and JavaScript over a Flask and MySQL backend with a four-person team.",
+        "change": "Students could buy, rent or sell books through a working, search-first platform that drew positive feedback for ease of use."
+      },
       "problem": "Textbooks are expensive and campus book exchange was informal and slow.",
       "approach": "Designed and implemented the entire frontend in HTML, CSS, Bootstrap and JavaScript and integrated it with a Python Flask and MySQL backend.",
       "highlights": [
@@ -1757,12 +1927,18 @@
       "status": "ongoing",
       "affiliation": "Personal",
       "team": [],
-      "summary": "A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and an HTML resume, with a WebGL2 hero that renders a depth map of the portrait produced by Depth Anything V2.",
+      "summary": "A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and the resume, with a WebGL2 hero rendering a Depth Anything V2 depth map of the portrait.",
+      "pitch": {
+        "problem": "The previous site drifted a full degree-completion behind reality because content was hardcoded in four places.",
+        "action": "Rebuilt on Next.js 16 with one JSON content graph, a build-time drift guard and a WebGL2 depth-map hero.",
+        "change": "One file now feeds 23 project pages, the JSON-LD, sitemap, llms.txt and resume, with every route static and zero runtime APIs."
+      },
       "problem": "The previous version drifted a full degree-completion behind reality because content was hardcoded in four places, and its particle background read as a template.",
       "approach": "Single source of truth in content/profile.json with a build-time drift guard; Tailwind 4 OKLCH tokens; Motion-Primitives for interactive islands; raw WebGL2 point cloud displaced by depth; static generation for all routes; markdown content negotiation and llms.txt for AI agents; pitch videos rendered with Hyperframes.",
       "highlights": [
-        "Every route is static; no runtime API.",
-        "One h1 per page, Person and ProfilePage JSON-LD with full sameAs, VideoObject schema per pitch video."
+        "Serves every route statically with no runtime API.",
+        "Emits Person and ProfilePage JSON-LD with full sameAs and VideoObject per pitch video.",
+        "Keeps one h1 per page and a build-time drift guard on the content graph."
       ],
       "metrics": [
         {
@@ -2275,12 +2451,14 @@
   "recommendations": [
     {
       "name": "Amit Shinde",
+      "person": "amit-shinde",
       "role": "Colleague",
       "org": "Persistent Systems",
       "quote": "She is an exceptional Lead DevOps Engineer with deep expertise in Azure, AWS, and robust experience in designing and maintaining reliable CI/CD pipelines. One of her standout achievements was her outstanding work in segregating variable groups and restructuring the release pipelines to efficiently manage more than 10 code repositories."
     },
     {
       "name": "Gurdeep Singh",
+      "person": "gurdeep-singh",
       "role": "DevOps Engineer",
       "org": "Persistent Systems",
       "quote": "She grew exceptionally well in Azure DevOps and also had other talents like AI/ML and Python. She was completely familiar with all the pipelines and repositories in the project we worked on and implemented optimisations to smoothen the feature delivery from Dev to Production environments."

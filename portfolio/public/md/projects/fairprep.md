@@ -2,6 +2,10 @@
 
 Co-first-author paper submitted to DASHSys 2026.
 
+- Problem: Human feedback supervises table union search in data lakes, but nobody had checked whether it is equally reliable across annotator demographics.
+- What she did: Adapted the FairEM framework to annotator-level fairness with 10 metrics, permutation tests, bootstrap intervals and FDR correction on 60 annotators.
+- What changed: 6 of 10 metrics flagged bias against non-native English annotators, 25% versus 44% accuracy on hard questions, p = 0.031.
+
 > The first adaptation of the FairEM framework from entity matching to annotator-level fairness in table union search, finding statistically significant bias against non-native English annotators on hard questions.
 
 - Kind: Research
@@ -20,9 +24,10 @@ Nine source modules across five experimental phases on a 480-row dataset; 10 Fai
 
 ## Results
 
-- 6 of 10 FairEM metrics flag unfairness; 25% versus 44% accuracy on hard questions (p = 0.031).
-- Triple intersection of non-native, lower-education and young annotators persists at p_BH = 0.037 after FDR correction.
-- Findings robust across 5 of 5 orthogonal cleaning strategies; behavioral disparities exceed demographic ones.
+- 6 of 10 FairEM metrics flag unfairness against non-native English annotators.
+- 25% versus 44% accuracy on hard questions, Fisher exact p = 0.031.
+- Found the non-native, lower-education, young intersection persists at p_BH = 0.037 after FDR correction.
+- Held across 5 of 5 orthogonal cleaning strategies; behavioral disparities exceed demographic ones.
 
 ## Key numbers
 
@@ -41,4 +46,4 @@ Toward Fairness-Aware Human Feedback for Table Unionability. Submitted, DASHSys 
 
 - Code: https://github.com/Sonica-B/FairPrep
 
-Canonical page: https://shreyaboyane.dev/projects/fairprep. This markdown: https://shreyaboyane.dev/md/projects/fairprep.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/fairprep. This markdown: https://shreyaboyane.dev/md/projects/fairprep.md. Generated from the site content model, last updated 2026-10-15.

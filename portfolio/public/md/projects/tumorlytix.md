@@ -2,6 +2,10 @@
 
 CycleGAN plus diffusion on 65,072 MRI images.
 
+- Problem: Supervised tumor segmentation needs large labeled MRI datasets that are expensive to produce, and tumors vary widely in size, shape and position.
+- What she did: Paired CycleGAN synthesis with diffusion refinement and automated labeling to detect and segment tumors across 65,072 BraTS2020 images without labels.
+- What changed: Segmentation accuracy passed 90% with no manual labels, precision rose 15% over baseline and inference ran 1.6x faster.
+
 > An unsupervised medical-imaging pipeline that pairs CycleGAN image synthesis with diffusion-based refinement to detect and segment brain tumors across 65,072 BraTS2020 MRI images with more than 90% segmentation accuracy and no manual labels.
 
 - Kind: Computer vision
@@ -20,10 +24,12 @@ Train CycleGAN on unpaired scans to synthesize paired healthy and diseased image
 
 ## Results
 
-- Processed 23,180 healthy and 41,892 diseased slices across T1, T2, T1CE and FLAIR modalities from 369 patients.
-- Automated labeling improved baseline precision 15% and stabilized performance across modalities.
+- Segmented tumors at over 90% accuracy across 65,072 MRI images, no manual labels.
+- Processed 23,180 healthy and 41,892 diseased slices (T1, T2, T1CE, FLAIR) from 369 patients.
+- Improved baseline precision 15% with automated labeling and stabilized performance across modalities.
 - Packaged TorchScript batched mixed-precision inference for 1.6x images per second, profiled with Nsight Compute.
-- Synthetic pairing reached 88.2% accuracy on tumor image creation and 73.7% on healthy reconstruction over 75 epochs; versus a plain CycleGAN, 25% fewer artifacts, 30% higher precision and 50% faster convergence.
+- Reached 88.2% accuracy creating tumor images and 73.7% reconstructing healthy ones over 75 epochs.
+- Cut artifacts 25%, raised precision 30% and converged 50% faster than plain CycleGAN.
 
 ## Key numbers
 
@@ -36,4 +42,4 @@ Train CycleGAN on unpaired scans to synthesize paired healthy and diseased image
 
 PyTorch, TensorFlow, CycleGAN, diffusion models, OpenCV, TorchScript, Nsight Compute, BraTS2020
 
-Canonical page: https://shreyaboyane.dev/projects/tumorlytix. This markdown: https://shreyaboyane.dev/md/projects/tumorlytix.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/tumorlytix. This markdown: https://shreyaboyane.dev/md/projects/tumorlytix.md. Generated from the site content model, last updated 2026-10-15.

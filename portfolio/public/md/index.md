@@ -6,6 +6,13 @@ Machine Learning Engineer specializing in computer vision, LLMs, inference optim
 
 I build production ML systems end to end, from data and training infrastructure through inference optimization to reliability monitoring.
 
+## Now (2026-10-15)
+
+- AI Trainer Fellow at Handshake AI since April 2026, evaluating frontier LLM and vision-language model outputs.
+- Co-first author of an ICML 2026 FoGen Workshop poster on latent chain-of-thought reasoning; FairPrep submitted to DASHSys 2026.
+- Open to full-time machine learning, AI, computer vision and research engineering roles, starting immediately, remote or anywhere in the US.
+- F-1 with OPT and STEM OPT: 3 years of US work authorization, no sponsorship needed up front.
+
 ## At a glance
 
 - Title: Machine Learning Engineer
@@ -154,4 +161,4 @@ Full detail: https://shreyaboyane.dev/research (markdown: https://shreyaboyane.d
 
 Contact: shreyaa.boyane@gmail.com. Book a call: https://zcal.co/i/4aMYgoRr.
 
-Canonical page: https://shreyaboyane.dev/. This markdown: https://shreyaboyane.dev/md/index.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/. This markdown: https://shreyaboyane.dev/md/index.md. Generated from the site content model, last updated 2026-10-15.

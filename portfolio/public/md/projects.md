@@ -114,7 +114,7 @@ Details: https://shreyaboyane.dev/projects/medical-triage (markdown: https://shr
 
 Shipped on the VS Code Marketplace. Developer tooling, May 2025 to present, Open source.
 
-Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. The only auto-commit extension with a built-in secret scanner that blocks keys, tokens and passwords before they reach the remote.
+Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. Its built-in secret scanner blocks keys, tokens and passwords before they reach the remote.
 
 Key numbers: Secret pattern families: 10+; License: Apache-2.0; Minimum VS Code: 1.90.
 
@@ -270,7 +270,7 @@ Details: https://shreyaboyane.dev/projects/bookadda (markdown: https://shreyaboy
 
 Content-graph-driven portfolio with a depth-map hero. Web, Feb 2026 to present, Personal.
 
-A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and an HTML resume, with a WebGL2 hero that renders a depth map of the portrait produced by Depth Anything V2.
+A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and the resume, with a WebGL2 hero rendering a Depth Anything V2 depth map of the portrait.
 
 Key numbers: Project pages: 23; Runtime APIs: 0.
 
@@ -278,4 +278,4 @@ Stack: Next.js, React, TypeScript, Tailwind CSS, Motion, WebGL2, Depth Anything 
 
 Details: https://shreyaboyane.dev/projects/portfolio-site (markdown: https://shreyaboyane.dev/md/projects/portfolio-site.md). Code: https://github.com/Sonica-B/Portfolio
 
-Canonical page: https://shreyaboyane.dev/projects. This markdown: https://shreyaboyane.dev/md/projects.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects. This markdown: https://shreyaboyane.dev/md/projects.md. Generated from the site content model, last updated 2026-10-15.
