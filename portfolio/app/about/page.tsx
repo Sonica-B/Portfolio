@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { profile, SITE_URL, year } from '@/lib/content'
+import { RECOGNITION_KINDS, profile, recognitionCounts, recognitionTotal, SITE_URL, year } from '@/lib/content'
 import { JsonLd, breadcrumbJsonLd } from '@/lib/jsonld'
 import { CredentialWallet } from '@/components/credentials'
 import { Block } from '@/components/about/block'
 import { HologramCard } from '@/components/about/hologram-card'
 import { Story } from '@/components/about/story'
-import { EducationTimeline, LeadershipTimeline } from '@/components/about/timelines'
+import { ActivityTimeline, EducationTimeline, LeadershipTimeline } from '@/components/about/timelines'
 import { RecognitionTable } from '@/components/about/recognition-table'
 import { Recommendations } from '@/components/about/recommendations'
 import { Availability } from '@/components/about/availability'
@@ -14,7 +14,7 @@ const { identity, education, recognition, certifications, recommendations } = pr
 
 // 150 to 160 characters, counts from the content model. The title reaches the social card through Next's fallback.
 const masters = education.find((e) => e.abbr === 'WPI')
-const DESCRIPTION = `${identity.name}, ${identity.title} in ${identity.location.city}, ${identity.location.region}: M.S. in ${masters?.field ?? 'Artificial Intelligence'} from ${masters?.abbr ?? 'WPI'}, ${recognition.length} awards and honors, ${certifications.length} certifications, ${recommendations.length} recommendations.`
+const DESCRIPTION = `${identity.name}, ${identity.title} in ${identity.location.city}, ${identity.location.region}: M.S. in ${masters?.field ?? 'Artificial Intelligence'} from ${masters?.abbr ?? 'WPI'}, ${recognitionTotal()} awards and honors, ${certifications.length} certifications, ${recommendations.length} recommendations.`
 
 export const metadata: Metadata = {
   title: 'About',
@@ -41,29 +41,33 @@ function aboutPageJsonLd() {
   }
 }
 
-/** Plural labels for the recognition kinds in profile.json; unknown kinds fall back to the kind itself. */
-const KIND_PLURAL: Record<string, string> = {
-  award: 'awards',
-  honor: 'honors',
-  fellowship: 'fellowships',
-  publication: 'publications',
-  competition: 'contest results',
-  certification: 'certifications',
+/** Labels for the kinds the shared grouping leaves out; they still appear as rows in the table. */
+const OTHER_KIND: Record<string, { one: string; many: string }> = {
+  publication: { one: 'publication', many: 'publications' },
+  certification: { one: 'certification', many: 'certifications' },
 }
 
-/** "6 awards, 4 honors, 4 contest results, 2 fellowships, 2 certifications and 1 publication, 2017 to 2026." */
+const andList = (parts: string[]) =>
+  parts.length > 1 ? `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}` : (parts[0] ?? '')
+
+/**
+ * "16 awards and honors, 2017 to 2026: 6 awards, 4 honors, 2 fellowships and 4 contest results. The table also
+ * lists 1 publication and 2 certifications." Totals come from recognitionCounts(), the same grouping the home page uses.
+ */
 function recognitionIntro(): string {
-  const counts = new Map<string, number>()
-  for (const r of recognition) counts.set(r.kind, (counts.get(r.kind) ?? 0) + 1)
-  const parts = [...counts.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(([kind, n]) => {
-      const label = KIND_PLURAL[kind] ?? kind
-      return `${n} ${n === 1 ? label.replace(/s$/, '') : label}`
-    })
-  const list = parts.length > 1 ? `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}` : (parts[0] ?? '')
-  const years = recognition.map((r) => year(r.date)).sort()
-  return `${list}, ${years[0]} to ${years[years.length - 1]}.`
+  const counted = new Set<string>(RECOGNITION_KINDS.map((k) => k.kind))
+  const list = andList(recognitionCounts().map((c) => `${c.count} ${c.label}`))
+  const years = recognition.filter((r) => counted.has(r.kind)).map((r) => year(r.date)).sort()
+  const others = new Map<string, number>()
+  for (const r of recognition) if (!counted.has(r.kind)) others.set(r.kind, (others.get(r.kind) ?? 0) + 1)
+  const extra = andList(
+    [...others.entries()].map(([kind, n]) => {
+      const label = OTHER_KIND[kind] ?? { one: kind, many: kind }
+      return `${n} ${n === 1 ? label.one : label.many}`
+    }),
+  )
+  const head = `${recognitionTotal()} awards and honors, ${years[0]} to ${years[years.length - 1]}: ${list}.`
+  return extra ? `${head} The table also lists ${extra}.` : head
 }
 
 function educationIntro(): string {
@@ -108,6 +112,10 @@ export default function AboutPage() {
 
         <Block id="leadership" title="Leadership">
           <LeadershipTimeline />
+        </Block>
+
+        <Block id="activity" title="Activity">
+          <ActivityTimeline />
         </Block>
 
         <Block id="recognition" title="Recognition" intro={recognitionIntro()} className="cv-auto">

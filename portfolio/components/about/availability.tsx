@@ -59,7 +59,7 @@ export function Availability() {
           <IdentificationCard size={16} aria-hidden="true" />
           Download vCard
         </TrackLink>
-        <PlayPitch slug="latent-cot" label={`Watch a ${PITCH_SECONDS} s pitch`} location={LOCATION} />
+        <PlayPitch slug="skiplegal" label={`Watch a ${PITCH_SECONDS} s pitch`} location={LOCATION} />
       </div>
     </div>
   )

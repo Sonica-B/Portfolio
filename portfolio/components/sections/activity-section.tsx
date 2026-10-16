@@ -67,7 +67,7 @@ export function ActivitySection() {
     <Section id="activity" title="Activity and leadership">
       <Timeline items={items} density="compact" />
       <div className="mt-10">
-        <ButtonLink href="/about#leadership" variant="ghost">
+        <ButtonLink href="/about#activity" variant="ghost">
           Full activity and leadership
         </ButtonLink>
       </div>

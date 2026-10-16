@@ -1,4 +1,4 @@
-import { profile, type Education, type Leadership } from '@/lib/content'
+import { profile, type Activity, type Education, type Leadership } from '@/lib/content'
 import { Timeline, type TimelineItem } from '@/components/timeline'
 
 const slug = (s: string) =>
@@ -7,6 +7,9 @@ const slug = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
     .slice(0, 48)
+
+/** "conference" -> "Conference"; the type words in profile.json are lowercase. */
+const sentenceCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 const newestFirst = (a: TimelineItem, b: TimelineItem) => (a.start < b.start ? 1 : a.start > b.start ? -1 : 0)
 
@@ -65,5 +68,24 @@ function leadershipItem(l: Leadership): TimelineItem[] {
 
 export function LeadershipTimeline() {
   const items = profile.leadership.flatMap(leadershipItem).sort(newestFirst)
+  return <Timeline items={items} density="compact" orientation="vertical" />
+}
+
+/** A talk, workshop, post or event as a node, mapped the same way as the home Activity timeline. */
+function activityItem(a: Activity): TimelineItem {
+  return {
+    id: `activity-${a.date}-${slug(a.title)}`,
+    start: a.date,
+    end: a.date,
+    title: a.title,
+    org: a.location ?? '',
+    lines: a.note ? [a.note] : [],
+    tags: [sentenceCase(a.type)],
+  }
+}
+
+/** Every activity entry, newest first; the home page shows only the recent ones and links here. */
+export function ActivityTimeline() {
+  const items = profile.activity.map(activityItem).sort(newestFirst)
   return <Timeline items={items} density="compact" orientation="vertical" />
 }

@@ -132,6 +132,11 @@ export default async function ProjectPage({ params }: Props) {
 
       <header className="mt-6 md:mt-8">
         <h1 className="text-headline max-w-[28ch]">{p.name}</h1>
+        {p.role ? (
+          <p className="mt-3 max-w-[60ch] text-base text-ink-2">
+            Role: <span className="text-ink">{p.role}</span>
+          </p>
+        ) : null}
         <p className="text-lead mt-3 max-w-[60ch] text-ink-2">{p.subtitle}</p>
       </header>
 
@@ -239,6 +244,12 @@ export default async function ProjectPage({ params }: Props) {
 
           <Block title="Details">
             <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-2">
+              {p.role ? (
+                <>
+                  <dt className="text-ink-2">Role</dt>
+                  <dd className="text-ink">{p.role}</dd>
+                </>
+              ) : null}
               <dt className="text-ink-2">Timeline</dt>
               <dd className="tnum text-ink">{formatRange(p.start, p.end)}</dd>
               <dt className="text-ink-2">Affiliation</dt>

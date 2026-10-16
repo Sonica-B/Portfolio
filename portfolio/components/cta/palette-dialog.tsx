@@ -11,7 +11,7 @@ import { PALETTE_GROUPS, type PaletteEntry } from './palette-index'
 
 const PER_GROUP = 6
 const MAX = 24
-const PITCH_SLUG = 'latent-cot'
+const PITCH_SLUG = 'skiplegal'
 const EXTERNAL = /^https?:/i
 
 /** Substring match on title and keywords, grouped in PALETTE_GROUPS order, title hits first. */

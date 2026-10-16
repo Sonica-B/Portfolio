@@ -1,27 +1,18 @@
-import { formatMonth, profile } from '@/lib/content'
+import { formatMonth, profile, recognitionCounts } from '@/lib/content'
 import { ButtonLink } from '@/components/ui/button'
 import { Logo } from '@/components/ui/logo'
 import { Reveal } from '@/components/ui/reveal'
 import { Section } from '@/components/ui/section'
 import { CountUp } from '@/components/sections/count-up'
 
-/** Count labels by recognition kind, in display order; the poster is listed as a row but counted with the papers elsewhere. */
-const KINDS: { kind: string; one: string; many: string }[] = [
-  { kind: 'award', one: 'award', many: 'awards' },
-  { kind: 'honor', one: 'honor', many: 'honors' },
-  { kind: 'fellowship', one: 'fellowship', many: 'fellowships' },
-  { kind: 'competition', one: 'contest', many: 'contests' },
-]
 const ROWS = 8
 
 export function RecognitionSection() {
   const { recognition, certifications } = profile
-  // Certificates live in the wallet on the about page; here only the honors.
+  // Certificates live in the wallet on the about page; here only the honors. The poster is listed as a row
+  // but counted with the papers, so the counts come from the shared grouping in lib/content.ts.
   const honors = recognition.filter((r) => r.kind !== 'certification')
-  const counts = KINDS.flatMap(({ kind, one, many }) => {
-    const n = honors.filter((r) => r.kind === kind).length
-    return n > 0 ? [{ label: n === 1 ? one : many, value: n }] : []
-  })
+  const counts = recognitionCounts().map((c) => ({ label: c.label, value: c.count }))
   counts.push({ label: certifications.length === 1 ? 'certification' : 'certifications', value: certifications.length })
   const rows = honors.slice(0, ROWS)
 
