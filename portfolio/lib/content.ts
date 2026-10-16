@@ -1,6 +1,9 @@
 import raw from '@/content/profile.json'
+import githubRaw from '@/content/github.json'
 
 export type Metric = { label: string; value: string }
+/** Three-second strip: one sentence each, 24 words or fewer, enforced by scripts/check-profile.mjs. */
+export type Pitch = { problem: string; action: string; change: string }
 export type Figure = { src: string; alt: string; caption: string }
 export type Visual = { src: string; alt: string } | null
 
@@ -91,7 +94,12 @@ export type Project = {
   status: string
   affiliation: string
   team: string[]
+  /** Her role, set only where the data states it (publication, research or experience role). */
+  role?: string
+  /** An outside user or a public release: the sponsor handoff, a marketplace listing, a live Space or site. */
+  shipped?: { label: string }
   summary: string
+  pitch: Pitch
   problem: string
   approach: string
   highlights: string[]
@@ -110,7 +118,9 @@ export type Recognition = { id: string; kind: string; title: string; org: string
 export type Certification = { title: string; issuer: string; date: string; image: string | null; credentialId: string | null }
 export type Activity = { date: string; type: string; title: string; location: string | null; note: string | null }
 export type Leadership = { title: string; org: string; date: string; note: string }
-export type Recommendation = { name: string; role: string; org: string; quote: string }
+export type Recommendation = { name: string; role: string; org: string; quote: string; person?: string }
+/** Dated "what is true today" lines for the home page and the markdown index. */
+export type Now = { date: string; lines: string[] }
 
 export type Profile = {
   meta: { version: string; lastUpdated: string; sources: string[] }
@@ -136,6 +146,7 @@ export type Profile = {
     }
   }
   links: Record<string, string>
+  now: Now
   education: Education[]
   publications: Publication[]
   research: Research[]
@@ -147,10 +158,33 @@ export type Profile = {
   leadership: Leadership[]
   recommendations: Recommendation[]
   skills: Record<string, string[]>
+  /** The five skills per group she would defend first, a subset of `skills`, checked by scripts/check-profile.mjs. */
+  coreSkills: Record<string, string[]>
 }
 
 export const profile = raw as unknown as Profile
 export const SITE_URL = profile.links.website
+
+export type GithubRepoStats = { stars: number; pushedAt: string; language: string | null; description: string | null }
+/** Build-time snapshot written by scripts/sync-github.mjs; keys are "owner/name". */
+export type GithubSnapshot = {
+  fetchedAt: string
+  user: { publicRepos: number; followers: number }
+  repos: Record<string, GithubRepoStats>
+}
+export const github = githubRaw as GithubSnapshot
+
+/** Stars, last push and language for a GitHub repo URL, or undefined when the snapshot lacks it. */
+export function repoStats(repoUrl: string | null | undefined): { stars: number; pushedAt: string; language: string | null } | undefined {
+  if (!repoUrl) return undefined
+  const match = repoUrl.match(/github\.com\/([^/]+)\/([^/#?]+)/i)
+  if (!match) return undefined
+  const key = `${match[1]}/${match[2].replace(/\.git$/, '')}`.toLowerCase()
+  for (const [name, stats] of Object.entries(github.repos)) {
+    if (name.toLowerCase() === key) return { stars: stats.stars, pushedAt: stats.pushedAt, language: stats.language }
+  }
+  return undefined
+}
 
 export const featuredProjects = profile.projects.filter((p) => p.featured)
 export const projectSlugs = profile.projects.map((p) => p.slug)
@@ -198,7 +232,6 @@ export function allProjectTags(): string[] {
 
 export const KIND_LABEL: Record<string, string> = {
   research: 'Research',
-  production: 'Production system',
   'computer-vision': 'Computer vision',
   'generative-ai': 'Generative AI',
   mlops: 'MLOps',
@@ -210,4 +243,50 @@ export const KIND_LABEL: Record<string, string> = {
   'reinforcement-learning': 'Reinforcement learning',
   ar: 'Augmented reality',
   web: 'Web',
+}
+
+/** Projects that ended in this year or earlier fold into the "Earlier work" row on /projects. */
+export const EARLIER_WORK_LAST_YEAR = 2021
+
+/** True for finished projects whose end date falls in EARLIER_WORK_LAST_YEAR or before. */
+export function isEarlierWork(p: Pick<Project, 'end'>): boolean {
+  return p.end !== null && Number(p.end.slice(0, 4)) <= EARLIER_WORK_LAST_YEAR
+}
+
+export type SkillItem = { name: string; core: boolean }
+export type SkillGroup = { name: string; items: SkillItem[] }
+
+/** Skills by group with the five core skills first, then the rest in profile.json order. */
+export function skillGroups(): SkillGroup[] {
+  return Object.entries(profile.skills).map(([name, list]) => {
+    const core = new Set(profile.coreSkills?.[name] ?? [])
+    const items = list.map((skill) => ({ name: skill, core: core.has(skill) }))
+    return { name, items: [...items.filter((s) => s.core), ...items.filter((s) => !s.core)] }
+  })
+}
+
+/**
+ * The one grouping of profile.recognition every surface counts from, in display order. The poster is
+ * counted with the papers and the certificates with the wallet, so neither kind is in here.
+ */
+export const RECOGNITION_KINDS = [
+  { kind: 'award', one: 'award', many: 'awards' },
+  { kind: 'honor', one: 'honor', many: 'honors' },
+  { kind: 'fellowship', one: 'fellowship', many: 'fellowships' },
+  { kind: 'competition', one: 'contest result', many: 'contest results' },
+] as const
+
+export type RecognitionCount = { kind: string; label: string; count: number }
+
+/** Count per kind in RECOGNITION_KINDS order, kinds with no entries left out: "6 awards", "4 honors", ... */
+export function recognitionCounts(): RecognitionCount[] {
+  return RECOGNITION_KINDS.flatMap(({ kind, one, many }) => {
+    const count = profile.recognition.filter((r) => r.kind === kind).length
+    return count > 0 ? [{ kind, label: count === 1 ? one : many, count }] : []
+  })
+}
+
+/** Sum of recognitionCounts(): awards, honors, fellowships and contest results. */
+export function recognitionTotal(): number {
+  return recognitionCounts().reduce((sum, c) => sum + c.count, 0)
 }

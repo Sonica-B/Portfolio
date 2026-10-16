@@ -2,6 +2,10 @@
 
 Multimodal classifier shipped as an operated MLOps platform.
 
+- Problem: Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.
+- What she did: Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.
+- What changed: One image runs on GCP, AWS and Azure, recovery is tested against crashes, wipes and network drops, and two Hugging Face Spaces are live.
+
 > A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 
 - Kind: MLOps
@@ -21,9 +25,11 @@ Gradio UI plus an HTTP inference API with per-class probability logging and late
 
 ## Results
 
-- VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting, tested against forced crashes, full wipes and network drops with recovery time treated as a performance metric.
-- Standardized port assignment eliminated an entire class of downtime across providers.
-- Published as two Hugging Face Spaces (local mode and inference-API mode with Hugging Face OAuth).
+- Deployed one container image to GCP, AWS and Azure with monitoring, alerting and CI/CD.
+- Built VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting.
+- Tested forced crashes, full wipes and network drops, treating recovery time as a metric.
+- Standardized port assignment across GCP, AWS and Azure with runtime-aware config.
+- Published two Hugging Face Spaces: local mode and an inference-API mode with OAuth.
 
 ## Key numbers
 
@@ -35,4 +41,8 @@ Gradio UI plus an HTTP inference API with per-class probability logging and late
 
 CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, GitHub Actions, Hugging Face Spaces
 
-Canonical page: https://shreyaboyane.dev/projects/scene-mood-classifier. This markdown: https://shreyaboyane.dev/md/projects/scene-mood-classifier.md. Generated from the site content model, last updated 2026-10-06.
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/scene-mood-classifier.mp4 (poster: https://shreyaboyane.dev/videos/scene-mood-classifier.webp; thumbnail: https://shreyaboyane.dev/videos/scene-mood-classifier-thumb.webp).
+
+Canonical page: https://shreyaboyane.dev/projects/scene-mood-classifier. This markdown: https://shreyaboyane.dev/md/projects/scene-mood-classifier.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

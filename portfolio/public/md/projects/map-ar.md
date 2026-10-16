@@ -2,6 +2,10 @@
 
 Indoor and outdoor AR wayfinding, TECHVED sponsored.
 
+- Problem: Complex indoor spaces are hard to navigate with 2D maps.
+- What she did: Built the indoor navigation, recommendation logic and full Unity and C# frontend with Vuforia markers, Revit models, Maps SDK and Firebase.
+- What changed: Pilot users reported 90%+ satisfaction on a usability survey and TECHVED sponsored the project in October 2021.
+
 > An augmented-reality navigation assistant that guides users to a destination indoors and outdoors, combining Vuforia marker detection with Unity 3D overlays and place recommendations based on user preferences.
 
 - Kind: Augmented reality
@@ -15,20 +19,19 @@ Complex indoor spaces are hard to navigate with 2D maps.
 
 ## Approach
 
-Built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.
+In a four-person team, built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.
 
 ## Results
 
-- Piloted with college users at 90%+ satisfaction on a usability survey; robust across lighting conditions.
-- Secured industry sponsorship from TECHVED in October 2021 and presented a seminar on AR development tools.
+- Piloted with college users: 90%+ satisfaction on a usability survey, robust across lighting.
+- Secured TECHVED sponsorship in October 2021 and presented a seminar on AR development tools.
 
 ## Key numbers
 
 - User satisfaction: 90%+
-- Team size: 4
 
 ## Stack
 
 Unity, C#, Vuforia, Autodesk Revit, Maps SDK, Firebase, Figma
 
-Canonical page: https://shreyaboyane.dev/projects/map-ar. This markdown: https://shreyaboyane.dev/md/projects/map-ar.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/map-ar. This markdown: https://shreyaboyane.dev/md/projects/map-ar.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

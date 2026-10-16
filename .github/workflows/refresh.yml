@@ -1,0 +1,29 @@
+name: Refresh site
+
+# Weekly rebuild so the GitHub snapshot (content/github.json, fetched during prebuild) stays
+# current. Calls the Vercel deploy hook stored in the VERCEL_DEPLOY_HOOK_URL repository secret.
+# Secrets cannot be read in a job-level "if", so the step checks the value in the shell instead.
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger the Vercel deploy hook
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL is not set; nothing to do."
+            exit 0
+          fi
+          curl -fsS -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          echo
+          echo "Deploy hook called."

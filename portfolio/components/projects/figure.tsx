@@ -68,18 +68,25 @@ export function publicImageSize(src: string): Size {
   return size
 }
 
+/**
+ * A responsive picture with its real dimensions. The CSS aspect ratio is spelled out because the
+ * `height: auto` that keeps the picture responsive otherwise hides the attribute ratio from Chrome's
+ * lazy-image check, which then reports the image as having no explicit dimensions.
+ */
 export function Figure({
   src,
   alt,
   caption,
   sizes = '(min-width: 768px) 60vw, 100vw',
   className,
+  imageClassName,
 }: {
   src: string
   alt: string
   caption?: string
   sizes?: string
   className?: string
+  imageClassName?: string
 }) {
   const { width, height } = publicImageSize(src)
   return (
@@ -91,8 +98,8 @@ export function Figure({
         height={height}
         sizes={sizes}
         loading="lazy"
-        className="w-full rounded-card bg-surface-raised"
-        style={{ height: 'auto' }}
+        className={imageClassName ? `frame-media w-full ${imageClassName}` : 'frame-media w-full'}
+        style={{ height: 'auto', aspectRatio: `${width} / ${height}` }}
       />
       {caption ? <figcaption className="mt-3 text-sm text-ink-2">{caption}</figcaption> : null}
     </figure>

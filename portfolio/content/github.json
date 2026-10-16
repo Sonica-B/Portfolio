@@ -1,0 +1,123 @@
+{
+  "fetchedAt": "2026-10-16T06:44:55.364Z",
+  "user": {
+    "publicRepos": 19,
+    "followers": 15
+  },
+  "repos": {
+    "Sonica-B/Sonica-B": {
+      "stars": 0,
+      "pushedAt": "2026-10-16T04:08:12Z",
+      "language": null,
+      "description": null
+    },
+    "Sonica-B/RealmWeaver-MADWE": {
+      "stars": 0,
+      "pushedAt": "2026-10-07T00:36:33Z",
+      "language": "Python",
+      "description": null
+    },
+    "Sonica-B/Portfolio": {
+      "stars": 0,
+      "pushedAt": "2026-10-06T09:53:19Z",
+      "language": "TypeScript",
+      "description": null
+    },
+    "Sonica-B/handshake-project-dynamo": {
+      "stars": 0,
+      "pushedAt": "2026-07-18T22:00:51Z",
+      "language": "Python",
+      "description": "Handshake Project Dynamo - repaired log-report Harbor (TB2) task"
+    },
+    "Sonica-B/AutoGit": {
+      "stars": 0,
+      "pushedAt": "2026-07-08T05:56:59Z",
+      "language": "JavaScript",
+      "description": "A VS Code extension that automatically stages, commits, and pushes your changes with AI-generated commit messages using GitHub Copilot."
+    },
+    "Sonica-B/Latent-CoT-Reasoning-as-Dynamical-Systems": {
+      "stars": 0,
+      "pushedAt": "2026-06-16T01:01:24Z",
+      "language": null,
+      "description": null
+    },
+    "Sonica-B/FairPrep": {
+      "stars": 0,
+      "pushedAt": "2026-06-02T04:41:40Z",
+      "language": "Python",
+      "description": null
+    },
+    "Sonica-B/VLAs": {
+      "stars": 0,
+      "pushedAt": "2026-05-06T00:26:58Z",
+      "language": "Python",
+      "description": null
+    },
+    "Sonica-B/GQP-SkipLegal": {
+      "stars": 0,
+      "pushedAt": "2026-04-23T23:41:50Z",
+      "language": "Python",
+      "description": null
+    },
+    "Sonica-B/RoboFusion": {
+      "stars": 2,
+      "pushedAt": "2026-02-18T21:49:23Z",
+      "language": "Jupyter Notebook",
+      "description": "RoboFusion: Machine Learning-Driven Sensor Integration for Motion Control"
+    },
+    "Sonica-B/brainstorm-track1-public": {
+      "stars": 0,
+      "pushedAt": "2026-01-24T19:52:31Z",
+      "language": "Python",
+      "description": "Brainstorm 2026 Track1"
+    },
+    "Sonica-B/Medical-Triage-HIL": {
+      "stars": 0,
+      "pushedAt": "2025-12-15T04:08:21Z",
+      "language": "Python",
+      "description": null
+    },
+    "Sonica-B/Case-Studies": {
+      "stars": 0,
+      "pushedAt": "2025-12-02T01:43:20Z",
+      "language": "Python",
+      "description": null
+    },
+    "Sonica-B/RealmWeaver-AI": {
+      "stars": 0,
+      "pushedAt": "2025-06-25T05:33:31Z",
+      "language": "Python",
+      "description": null
+    },
+    "Sonica-B/Buildings-Built-in-Minutes": {
+      "stars": 0,
+      "pushedAt": "2025-06-06T11:05:29Z",
+      "language": "Python",
+      "description": "Buildings Built in Minutes: Structure from Motion (SfM) and NeRF"
+    },
+    "Sonica-B/EinsteinVision": {
+      "stars": 0,
+      "pushedAt": "2025-06-06T10:46:45Z",
+      "language": "Python",
+      "description": "EinsteinVision: 3D Visualization for Autonomous Vehicles "
+    },
+    "Sonica-B/VIO": {
+      "stars": 0,
+      "pushedAt": "2025-06-06T09:14:08Z",
+      "language": "Python",
+      "description": "Visual-Inertial Odometry via Deep Multimodal Fusion"
+    },
+    "Sonica-B/TrendED": {
+      "stars": 1,
+      "pushedAt": "2024-12-14T21:41:51Z",
+      "language": "CSS",
+      "description": null
+    },
+    "Sonica-B/TumorLytix": {
+      "stars": 2,
+      "pushedAt": "2024-12-13T05:00:18Z",
+      "language": "Python",
+      "description": null
+    }
+  }
+}

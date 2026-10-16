@@ -1,0 +1,488 @@
+[
+  {
+    "term": "Transformer",
+    "match": ["Transformer", "Transformers"],
+    "tip": "A neural network design from 2017 that uses attention to relate every part of an input to every other part, powering modern language models.",
+    "source": "https://arxiv.org/abs/1706.03762"
+  },
+  {
+    "term": "LSTM",
+    "match": ["LSTM", "bi-LSTM"],
+    "tip": "Long short-term memory, a recurrent neural network that processes sequences step by step while keeping a memory of earlier inputs.",
+    "source": "https://en.wikipedia.org/wiki/Long_short-term_memory"
+  },
+  {
+    "term": "CNN",
+    "match": ["CNN", "convolutional network"],
+    "tip": "Convolutional neural network, a model that scans images with small learned filters to pick out edges, textures and larger shapes.",
+    "source": "https://en.wikipedia.org/wiki/Convolutional_neural_network"
+  },
+  {
+    "term": "diffusion model",
+    "match": ["diffusion model", "diffusion models", "diffusion-based", "diffusion"],
+    "tip": "A generative model that learns to turn random noise into realistic images or other data by reversing a gradual noising process.",
+    "source": "https://en.wikipedia.org/wiki/Diffusion_model"
+  },
+  {
+    "term": "Stable Diffusion",
+    "match": ["Stable Diffusion"],
+    "tip": "An open-source text-to-image diffusion model released in 2022 that generates pictures from written prompts on a single consumer GPU.",
+    "source": "https://arxiv.org/abs/2112.10752"
+  },
+  {
+    "term": "CycleGAN",
+    "match": ["CycleGAN"],
+    "tip": "A model that learns to translate images between two styles, such as healthy and diseased scans, without needing matched pairs of examples.",
+    "source": "https://arxiv.org/abs/1703.10593"
+  },
+  {
+    "term": "NeRF",
+    "match": ["NeRF"],
+    "tip": "Neural radiance field, a method that learns a 3D scene from ordinary photos so new viewpoints can be rendered photorealistically.",
+    "source": "https://arxiv.org/abs/2003.08934"
+  },
+  {
+    "term": "LLM",
+    "match": ["LLM", "LLMs", "Large Language Models"],
+    "tip": "Large language model, an AI system trained on vast amounts of text to understand and generate human-like writing and code.",
+    "source": "https://en.wikipedia.org/wiki/Large_language_model"
+  },
+  {
+    "term": "vision-language model",
+    "match": ["vision-language models", "VLM", "VLMs"],
+    "tip": "An AI model that takes both images and text as input, so it can describe pictures, answer questions about them or read charts.",
+    "source": "https://en.wikipedia.org/wiki/Vision-language_model"
+  },
+  {
+    "term": "frontier model",
+    "match": ["frontier models", "frontier LLMs", "frontier LLM"],
+    "tip": "One of the most capable AI models available at a given time, typically a very large system built by a major AI lab.",
+    "source": null
+  },
+  {
+    "term": "LoRA",
+    "match": ["LoRA", "PEFT"],
+    "tip": "Low-rank adaptation: fine-tuning a large model by training small add-on matrices instead of all its weights; PEFT is the library implementing it.",
+    "source": "https://arxiv.org/abs/2106.09685"
+  },
+  {
+    "term": "fine-tuning",
+    "match": ["fine-tuning", "fine-tunes"],
+    "tip": "Continuing to train an already trained model on a smaller, task-specific dataset so it adapts to a new job.",
+    "source": "https://en.wikipedia.org/wiki/Fine-tuning_(deep_learning)"
+  },
+  {
+    "term": "quantization",
+    "match": ["INT8 quantization", "quantization", "INT8"],
+    "tip": "Storing a model's numbers with fewer bits, such as 8-bit integers instead of 32-bit decimals, to make it smaller and faster.",
+    "source": "https://pytorch.org/docs/stable/quantization.html"
+  },
+  {
+    "term": "mixed precision",
+    "match": ["mixed precision", "mixed-precision", "FP16"],
+    "tip": "Running most calculations in 16-bit floating point (FP16) and only sensitive steps in 32-bit, which cuts memory use and speeds up GPUs.",
+    "source": "https://docs.nvidia.com/deeplearning/performance/mixed-precision-training/index.html"
+  },
+  {
+    "term": "distillation",
+    "match": ["self-distillation", "distillation"],
+    "tip": "Training a student model to match the outputs of a teacher model; in self-distillation the same network plays both roles.",
+    "source": "https://arxiv.org/abs/1503.02531"
+  },
+  {
+    "term": "chain-of-thought",
+    "match": ["chain-of-thought", "chain of thought", "CoT"],
+    "tip": "A prompting technique in which a language model writes out intermediate reasoning steps before giving its final answer.",
+    "source": "https://arxiv.org/abs/2201.11903"
+  },
+  {
+    "term": "latent reasoning",
+    "match": ["latent reasoning", "latent chain-of-thought", "latent CoT", "latent-reasoning"],
+    "tip": "Reasoning carried out inside a model as continuous hidden vectors rather than as written words, so the steps are not directly readable.",
+    "source": "https://arxiv.org/abs/2412.06769"
+  },
+  {
+    "term": "CODI",
+    "match": ["CODI"],
+    "tip": "A 2025 method that compresses a model's written reasoning into continuous hidden states by having the model teach itself (self-distillation).",
+    "source": "https://arxiv.org/abs/2502.21074"
+  },
+  {
+    "term": "COCONUT",
+    "match": ["COCONUT"],
+    "tip": "Chain of continuous thought, a 2024 Meta method that lets a language model reason by feeding its hidden states back into itself.",
+    "source": "https://arxiv.org/abs/2412.06769"
+  },
+  {
+    "term": "Sim-CoT",
+    "match": ["Sim-CoT"],
+    "tip": "Supervised implicit chain-of-thought, a 2025 training add-on that supervises each hidden reasoning step to make latent reasoning more stable.",
+    "source": "https://arxiv.org/abs/2509.20317"
+  },
+  {
+    "term": "mechanistic interpretability",
+    "match": ["mechanistic interpretability"],
+    "tip": "A research field that reverse-engineers what is happening inside a neural network to explain how it produces its outputs.",
+    "source": "https://en.wikipedia.org/wiki/Mechanistic_interpretability"
+  },
+  {
+    "term": "dynamical systems",
+    "match": ["dynamical systems", "dynamical-systems"],
+    "tip": "The mathematics of how a state changes over time under fixed rules, used here to study how reasoning evolves step by step.",
+    "source": "https://en.wikipedia.org/wiki/Dynamical_system"
+  },
+  {
+    "term": "attractor",
+    "match": ["attractor"],
+    "tip": "A region that a changing system settles into over time; nearby trajectories are pulled toward it and stay there.",
+    "source": "https://en.wikipedia.org/wiki/Attractor"
+  },
+  {
+    "term": "dynamic mode decomposition",
+    "match": ["Dynamic Mode Decomposition", "DMD"],
+    "tip": "A technique that breaks a sequence of measurements into patterns that each grow, shrink or oscillate at a fixed rate over time.",
+    "source": "https://en.wikipedia.org/wiki/Dynamic_mode_decomposition"
+  },
+  {
+    "term": "PHATE",
+    "match": ["PHATE"],
+    "tip": "A visualization method that maps high-dimensional data into two or three dimensions while preserving both local clusters and gradual transitions.",
+    "source": "https://doi.org/10.1038/s41587-019-0336-3"
+  },
+  {
+    "term": "dimensionality reduction",
+    "match": ["UMAP", "t-SNE", "PCA"],
+    "tip": "UMAP, t-SNE and PCA are methods that squeeze data with hundreds of dimensions down to two or three so it can be plotted.",
+    "source": "https://en.wikipedia.org/wiki/Dimensionality_reduction"
+  },
+  {
+    "term": "probing",
+    "match": ["probing", "probes"],
+    "tip": "A diagnostic technique that trains a small classifier on a model's internal activations to test what information those activations encode.",
+    "source": "https://arxiv.org/abs/1610.01644"
+  },
+  {
+    "term": "ablation",
+    "match": ["ablation"],
+    "tip": "An experiment that removes or swaps one component of a system at a time to measure how much that component contributes.",
+    "source": "https://en.wikipedia.org/wiki/Ablation_(artificial_intelligence)"
+  },
+  {
+    "term": "embedding",
+    "match": ["embedding", "embeddings"],
+    "tip": "A list of numbers that represents an item such as a word, image or data point so that similar items end up close together.",
+    "source": "https://developers.google.com/machine-learning/crash-course/embeddings"
+  },
+  {
+    "term": "attention",
+    "match": ["attention", "multi-head attention"],
+    "tip": "A mechanism that lets a neural network weigh which parts of its input matter most when it produces each piece of output.",
+    "source": "https://en.wikipedia.org/wiki/Attention_(machine_learning)"
+  },
+  {
+    "term": "inference",
+    "match": ["inference"],
+    "tip": "The stage where a trained model is run on new inputs to produce predictions, as opposed to the training stage.",
+    "source": null
+  },
+  {
+    "term": "RAG",
+    "match": ["RAG"],
+    "tip": "Retrieval-augmented generation: the model first looks up relevant documents and then writes its answer using them, which reduces made-up facts.",
+    "source": "https://arxiv.org/abs/2005.11401"
+  },
+  {
+    "term": "RAGAS",
+    "match": ["RAGAS"],
+    "tip": "An open-source toolkit that scores retrieval-augmented systems on measures such as faithfulness and context recall without needing human-written labels.",
+    "source": "https://docs.ragas.io"
+  },
+  {
+    "term": "LangGraph",
+    "match": ["LangGraph"],
+    "tip": "An open-source framework for building multi-step AI agents as a graph of nodes, with state that persists between steps.",
+    "source": "https://github.com/langchain-ai/langgraph"
+  },
+  {
+    "term": "multi-agent",
+    "match": ["multi-agent"],
+    "tip": "A system design in which several specialized AI programs each handle one part of a task and hand results to one another.",
+    "source": "https://en.wikipedia.org/wiki/Multi-agent_system"
+  },
+  {
+    "term": "hallucination",
+    "match": ["hallucinations", "hallucinate"],
+    "tip": "When an AI model states something false or invented as if it were fact, often fluently and with apparent confidence.",
+    "source": "https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)"
+  },
+  {
+    "term": "human-in-the-loop",
+    "match": ["human-in-the-loop", "HITL", "HIL"],
+    "tip": "A workflow in which a person reviews or approves an AI system's decisions, especially the high-risk ones, before they take effect.",
+    "source": "https://en.wikipedia.org/wiki/Human-in-the-loop"
+  },
+  {
+    "term": "calibration",
+    "match": ["calibration"],
+    "tip": "How well a model's stated confidence matches reality; a calibrated model that says 80% confident is right about 80% of the time.",
+    "source": "https://arxiv.org/abs/1706.04599"
+  },
+  {
+    "term": "TF-IDF",
+    "match": ["TF-IDF"],
+    "tip": "A classic text scoring method that weights a word by how often it appears in one document relative to how common it is overall.",
+    "source": "https://en.wikipedia.org/wiki/Tf-idf"
+  },
+  {
+    "term": "cosine similarity",
+    "match": ["cosine similarity"],
+    "tip": "A score from -1 to 1 for how closely two lists of numbers point in the same direction, used to compare documents or embeddings.",
+    "source": "https://en.wikipedia.org/wiki/Cosine_similarity"
+  },
+  {
+    "term": "LDA",
+    "match": ["LDA"],
+    "tip": "Latent Dirichlet allocation, a statistical method that discovers the topics running through a collection of documents from the words they share.",
+    "source": "https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation"
+  },
+  {
+    "term": "Wave Function Collapse",
+    "match": ["Wave Function Collapse"],
+    "tip": "A procedural generation algorithm that fills a grid tile by tile, always choosing tiles that fit their neighbors under given adjacency rules.",
+    "source": "https://github.com/mxgmn/WaveFunctionCollapse"
+  },
+  {
+    "term": "structure from motion",
+    "match": ["structure from motion", "structure-from-motion", "SfM"],
+    "tip": "Recovering a 3D model of a scene and the camera positions from a set of ordinary overlapping 2D photographs.",
+    "source": "https://en.wikipedia.org/wiki/Structure_from_motion"
+  },
+  {
+    "term": "reprojection error",
+    "match": ["reprojection error"],
+    "tip": "The pixel distance between where a reconstructed 3D point lands when projected back into a photo and where it was actually observed.",
+    "source": "https://en.wikipedia.org/wiki/Reprojection_error"
+  },
+  {
+    "term": "visual-inertial odometry",
+    "match": ["visual-inertial odometry", "VIO", "odometry"],
+    "tip": "Estimating how a camera has moved through space by combining its video frames with readings from a motion sensor (IMU).",
+    "source": "https://en.wikipedia.org/wiki/Visual_odometry"
+  },
+  {
+    "term": "optical flow",
+    "match": ["optical flow", "optical-flow"],
+    "tip": "The apparent motion of each pixel between two consecutive video frames, used to track how objects and the camera are moving.",
+    "source": "https://en.wikipedia.org/wiki/Optical_flow"
+  },
+  {
+    "term": "segmentation",
+    "match": ["segmentation"],
+    "tip": "Labeling every pixel of an image by what it belongs to, such as tumor versus healthy tissue or road versus car.",
+    "source": "https://en.wikipedia.org/wiki/Image_segmentation"
+  },
+  {
+    "term": "TensorRT",
+    "match": ["TensorRT"],
+    "tip": "NVIDIA's software that rewrites a trained model into a form that runs as fast as possible on its GPUs, often several times faster.",
+    "source": "https://developer.nvidia.com/tensorrt"
+  },
+  {
+    "term": "ONNX",
+    "match": ["ONNX"],
+    "tip": "Open Neural Network Exchange, a common file format for trained models so one built in PyTorch can run in other tools.",
+    "source": "https://onnx.ai"
+  },
+  {
+    "term": "TorchScript",
+    "match": ["TorchScript"],
+    "tip": "A way to save a PyTorch model as a self-contained program that can run without Python, typically as the first step toward deployment.",
+    "source": "https://pytorch.org/docs/stable/jit.html"
+  },
+  {
+    "term": "CUDA",
+    "match": ["CUDA"],
+    "tip": "NVIDIA's platform for writing programs that run on its graphics processors, which is how most deep learning gets its speed.",
+    "source": "https://developer.nvidia.com/cuda-toolkit"
+  },
+  {
+    "term": "p95 latency",
+    "match": ["p95 latency", "p95"],
+    "tip": "The response time that 95 out of 100 requests finish within; it captures how slow the worst typical cases are, not the average.",
+    "source": "https://en.wikipedia.org/wiki/Percentile"
+  },
+  {
+    "term": "Docker",
+    "match": ["Docker", "Dockerized"],
+    "tip": "A tool that packages an application with everything it needs into a container, so it runs the same on any machine or cloud.",
+    "source": "https://docs.docker.com/get-started/docker-overview/"
+  },
+  {
+    "term": "Kubernetes",
+    "match": ["Kubernetes"],
+    "tip": "An open-source system that runs and manages many containers across a cluster of machines, restarting and scaling them automatically.",
+    "source": "https://kubernetes.io/docs/concepts/overview/"
+  },
+  {
+    "term": "CI/CD",
+    "match": ["CI/CD"],
+    "tip": "Continuous integration and delivery: automatically building, testing and releasing software every time code changes, instead of doing it by hand.",
+    "source": "https://en.wikipedia.org/wiki/CI/CD"
+  },
+  {
+    "term": "MLOps",
+    "match": ["MLOps", "ML-Ops"],
+    "tip": "The practice of deploying, monitoring and maintaining machine learning models in production, borrowing automation habits from software operations.",
+    "source": "https://en.wikipedia.org/wiki/MLOps"
+  },
+  {
+    "term": "Prometheus and Grafana",
+    "match": ["Prometheus", "Grafana"],
+    "tip": "Open-source monitoring tools: Prometheus collects time-stamped metrics from running services and Grafana turns them into live dashboards.",
+    "source": "https://prometheus.io/docs/introduction/overview/"
+  },
+  {
+    "term": "Terraform",
+    "match": ["Terraform"],
+    "tip": "A tool that creates and updates cloud infrastructure from configuration files, so servers and networks are defined in code rather than clicked together.",
+    "source": "https://developer.hashicorp.com/terraform/intro"
+  },
+  {
+    "term": "Textract",
+    "match": ["Textract"],
+    "tip": "An Amazon cloud service that reads text, tables and form fields out of scanned documents and PDFs automatically.",
+    "source": "https://aws.amazon.com/textract/"
+  },
+  {
+    "term": "Amazon Bedrock",
+    "match": ["Amazon Bedrock", "Bedrock"],
+    "tip": "Amazon's cloud service for calling large language models from several providers through one interface, without managing any model servers.",
+    "source": "https://aws.amazon.com/bedrock/"
+  },
+  {
+    "term": "AWS Lambda",
+    "match": ["AWS Lambda", "Lambda"],
+    "tip": "Amazon's service for running small pieces of code on demand, billed per execution, with no server to set up or maintain.",
+    "source": "https://aws.amazon.com/lambda/"
+  },
+  {
+    "term": "ROS2",
+    "match": ["ROS2"],
+    "tip": "Robot Operating System 2, an open-source framework in which robot software is built as separate programs that exchange messages.",
+    "source": "https://www.ros.org/"
+  },
+  {
+    "term": "MediaPipe",
+    "match": ["MediaPipe"],
+    "tip": "Google's open-source toolkit for real-time perception tasks such as tracking hands, faces and body poses from a live camera.",
+    "source": "https://developers.google.com/edge/mediapipe/solutions/guide"
+  },
+  {
+    "term": "OpenCV",
+    "match": ["OpenCV"],
+    "tip": "The most widely used open-source library of image and video processing functions, from reading frames to detecting shapes.",
+    "source": "https://opencv.org/about/"
+  },
+  {
+    "term": "Blender Python API",
+    "match": ["Blender Python API"],
+    "tip": "The scripting interface of Blender, a free 3D modeling program, which lets code build, animate and render scenes automatically.",
+    "source": "https://docs.blender.org/api/current/"
+  },
+  {
+    "term": "WebGL2",
+    "match": ["WebGL2"],
+    "tip": "A browser technology that draws hardware-accelerated 2D and 3D graphics directly on a web page without any plugin.",
+    "source": "https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API"
+  },
+  {
+    "term": "Gradio",
+    "match": ["Gradio"],
+    "tip": "An open-source Python library for wrapping a machine learning model in a simple web interface that anyone can try in a browser.",
+    "source": "https://www.gradio.app/docs"
+  },
+  {
+    "term": "CLIP",
+    "match": ["CLIP"],
+    "tip": "A model from OpenAI that maps images and text into the same numerical space, so it can judge how well a caption fits a picture.",
+    "source": "https://arxiv.org/abs/2103.00020"
+  },
+  {
+    "term": "CLIP similarity",
+    "match": ["CLIP similarity"],
+    "tip": "A score for how closely a generated image matches its text prompt, computed by comparing the two with the CLIP model.",
+    "source": "https://arxiv.org/abs/2104.08718"
+  },
+  {
+    "term": "FID",
+    "match": ["FID"],
+    "tip": "Fréchet inception distance, a score for how close generated images are to real ones in statistical terms; lower is better.",
+    "source": "https://arxiv.org/abs/1706.08500"
+  },
+  {
+    "term": "PSNR and SSIM",
+    "match": ["PSNR", "SSIM"],
+    "tip": "Two image quality scores against a reference picture: PSNR measures raw pixel error and SSIM measures perceived structural similarity.",
+    "source": "https://en.wikipedia.org/wiki/Structural_similarity_index_measure"
+  },
+  {
+    "term": "ATE and RPE",
+    "match": ["ATE", "RPE"],
+    "tip": "Absolute trajectory error is the overall gap between an estimated path and the true path; relative pose error measures drift over short segments.",
+    "source": "https://github.com/MichaelGrupp/evo/wiki/Metrics"
+  },
+  {
+    "term": "BraTS2020",
+    "match": ["BraTS2020"],
+    "tip": "The 2020 edition of the Brain Tumor Segmentation challenge, a public set of labeled MRI scans used to benchmark tumor detection.",
+    "source": "https://www.med.upenn.edu/cbica/brats2020/"
+  },
+  {
+    "term": "GSM8K and MATH",
+    "match": ["GSM8K", "MATH"],
+    "tip": "Two standard test sets of math word problems, grade-school level and competition level, used to measure how well language models reason.",
+    "source": "https://arxiv.org/abs/2110.14168"
+  },
+  {
+    "term": "ICML",
+    "match": ["ICML"],
+    "tip": "The International Conference on Machine Learning, one of the most selective annual research conferences; its workshops review papers separately from the main conference.",
+    "source": "https://icml.cc"
+  },
+  {
+    "term": "FoGen",
+    "match": ["FoGen"],
+    "tip": "An ICML 2026 workshop on the foundations of deep generative models, covering memorization, generalization and reasoning.",
+    "source": "https://openreview.net/forum?id=ZAGsOMAwBV"
+  },
+  {
+    "term": "poster presentation",
+    "match": ["poster"],
+    "tip": "A conference format in which accepted research is presented on a large printed sheet and discussed with attendees one on one.",
+    "source": "https://en.wikipedia.org/wiki/Poster_session"
+  },
+  {
+    "term": "DASHSys",
+    "match": ["DASHSys"],
+    "tip": "A 2026 research venue; the FairPrep paper was submitted to its regular paper track, the track for complete full-length studies.",
+    "source": null
+  },
+  {
+    "term": "GQP",
+    "match": ["GQP", "Graduate Qualifying Project"],
+    "tip": "Graduate Qualifying Project, the capstone of WPI's data science master's degree, in which a student team solves a problem for an outside sponsor.",
+    "source": "https://www.wpi.edu/academics/departments/data-science/graduate-qualifying-project"
+  },
+  {
+    "term": "graduate assistant",
+    "match": ["graduate assistant"],
+    "tip": "A part-time paid university position in which a graduate student supports a professor's research or teaching alongside their own degree.",
+    "source": "https://en.wikipedia.org/wiki/Graduate_assistant"
+  },
+  {
+    "term": "OPT and STEM OPT",
+    "match": ["OPT", "STEM OPT", "F-1"],
+    "tip": "Optional Practical Training lets F-1 student visa holders work in the US for 12 months after graduating, plus 24 more months for STEM degrees.",
+    "source": "https://www.uscis.gov/working-in-the-united-states/students-and-exchange-visitors/optional-practical-training-opt-for-f-1-students"
+  }
+]

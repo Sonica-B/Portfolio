@@ -1,7 +1,9 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  images: { formats: ['image/avif', 'image/webp'] },
+  // 448 and 512 sit between the default 384 and the 640 device size, so a phone hero portrait
+  // (about 390 px wide at 1.75x) fetches a 448 px file instead of jumping to 640.
+  images: { formats: ['image/avif', 'image/webp'], imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 448, 512] },
   poweredByHeader: false,
   compress: true,
   async headers() {

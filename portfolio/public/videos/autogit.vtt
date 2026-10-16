@@ -1,0 +1,30 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:06.000
+Save a file.
+AutoGit stages it, writes the commit message, scans for secrets and pushes.
+
+3
+00:00:06.000 --> 00:00:12.550
+How it works: save, stage, AI message, secret scan, commit and push.
+No secret ever reaches your remote.
+
+4
+00:00:12.550 --> 00:00:17.470
+Scans every staged diff before it commits.
+Secret blocked: commit blocked by secret scan.
+
+5
+00:00:17.470 --> 00:00:21.280
+AutoGit-AI, shipped on the VS Code Marketplace
+v1.4.0, Apache-2.0, VS Code 1.90+
+
+6
+00:00:21.280 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/autogit

@@ -5,13 +5,26 @@ import { formatMonth, formatRange, profile, type Publication } from '@/lib/conte
 import { JsonLd, breadcrumbJsonLd, scholarlyArticleJsonLd } from '@/lib/jsonld'
 import { ButtonLink } from '@/components/ui/button'
 import { Figure } from '@/components/projects/figure'
+import { Prose, ProseList } from '@/components/glossary/prose'
 
 const { identity, publications, research } = profile
 
+// Venues come from the content model; the two topic phrases are the paper titles shortened to fit the
+// 150 to 160 character snippet budget. Title and description reach the social card through Next's fallback.
+const latentCot = publications.find((p) => p.id === 'latent-cot')
+const fairprep = publications.find((p) => p.id === 'fairprep')
+const DESCRIPTION = `${publications.length} papers by ${identity.name}: latent CoT reasoning as dynamical systems (${latentCot?.venue ?? 'ICML 2026 FoGen Workshop'} poster) and fairness-aware table unionability (${fairprep?.venue ?? 'DASHSys 2026'}).`
+
 export const metadata: Metadata = {
-  title: 'Research',
-  description: `Publications by ${identity.name}: ${publications.map((p) => `${p.title} (${p.displayString})`).join('; ')}. Figures, author lists, findings and the research roles behind them.`,
-  alternates: { canonical: '/research' },
+  title: 'Research and publications',
+  description: DESCRIPTION,
+  keywords: [identity.name, ...publications.flatMap((p) => p.tags), ...publications.map((p) => p.venue)],
+  alternates: { canonical: '/research', types: { 'text/markdown': '/md/research.md' } },
+  openGraph: {
+    type: 'website',
+    url: '/research',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: `${identity.name}, ${identity.title}` }],
+  },
 }
 
 const LINK_LABELS: [key: string, label: string][] = [
@@ -55,8 +68,10 @@ function Authors({ pub }: { pub: Publication }) {
 
 function PublicationArticle({ pub }: { pub: Publication }) {
   const links = LINK_LABELS.flatMap(([key, label]) => (pub.links[key] ? [{ key, href: pub.links[key], label }] : []))
+  // Each article explains a term once, across its lead, abstract and findings.
+  const seen = new Set<string>()
   return (
-    <article id={pub.id} aria-labelledby={`${pub.id}-title`} className="hairline scroll-mt-24 py-12 md:py-16">
+    <article id={pub.id} aria-labelledby={`${pub.id}-title`} className="py-12 md:py-16">
       <div className="grid gap-10 md:grid-cols-12 md:gap-x-10">
         <div className="md:col-span-8">
           <p className="text-sm text-ink-2">
@@ -74,7 +89,7 @@ function PublicationArticle({ pub }: { pub: Publication }) {
               href={pub.venueUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-start gap-1 text-ink underline-offset-4 hover:text-accent hover:underline"
+              className="-my-2.5 inline-flex items-start gap-1 py-2.5 text-ink underline-offset-4 hover:text-accent hover:underline"
             >
               <span>{pub.venueFull}</span>
               <ArrowUpRight size={16} className="mt-1 shrink-0" aria-hidden="true" />
@@ -96,22 +111,13 @@ function PublicationArticle({ pub }: { pub: Publication }) {
             ) : null}
           </dl>
 
-          <p className="text-lead mt-8 max-w-[62ch] text-ink">{pub.tldr}</p>
+          <Prose text={pub.tldr} className="text-lead mt-8 max-w-[62ch] text-ink" seen={seen} />
 
           <h3 className="text-title mt-10">Abstract</h3>
-          <p className="mt-3 max-w-[70ch] text-ink-2">{pub.abstract}</p>
+          <Prose text={pub.abstract} className="mt-3 max-w-[70ch] text-ink-2" seen={seen} />
 
           <h3 className="text-title mt-10">Findings</h3>
-          <ol className="mt-4 space-y-3">
-            {pub.findings.map((f, i) => (
-              <li key={i} className="grid grid-cols-[2.5rem_minmax(0,1fr)]">
-                <span className="text-metric pt-0.5 text-sm text-ink-3" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <p className="max-w-[65ch] text-ink-2">{f}</p>
-              </li>
-            ))}
-          </ol>
+          <ProseList items={pub.findings} className="mt-4 space-y-3" itemClassName="max-w-[65ch] text-ink-2" seen={seen} />
 
           {links.length > 0 ? (
             <ul className="mt-10 flex flex-wrap gap-3">
@@ -174,64 +180,64 @@ export default function ResearchPage() {
         ))}
       </div>
 
-      <section id="roles" aria-labelledby="roles-title" className="hairline scroll-mt-24 py-12 md:py-16">
+      <section id="roles" aria-labelledby="roles-title" className="py-12 md:py-16">
         <h2 id="roles-title" className="text-headline">
           Research roles
         </h2>
-        <ol className="mt-8 divide-y divide-rule border-t border-rule">
-          {research.map((r) => (
-            <li key={r.id} className="grid gap-6 py-8 md:grid-cols-12 md:gap-x-10">
-              <div className="md:col-span-4">
-                <h3 className="text-title">{r.title}</h3>
-                <dl className="mt-3 space-y-1.5 text-sm">
-                  <div>
-                    <dt className="sr-only">Organization</dt>
-                    <dd className="text-ink">{r.org}</dd>
-                  </div>
-                  <div>
-                    <dt className="sr-only">Role</dt>
-                    <dd className="text-ink-2">{r.role}</dd>
-                  </div>
-                  {r.advisor ? (
-                    <div className="flex gap-2">
-                      <dt className="text-ink-2">Advisor</dt>
-                      <dd className="text-ink">{r.advisor}</dd>
+        <ol className="mt-8">
+          {research.map((r) => {
+            // Each role explains a term once, across its summary and highlights.
+            const seen = new Set<string>()
+            return (
+              <li key={r.id} className="grid gap-6 py-8 md:grid-cols-12 md:gap-x-10">
+                <div className="md:col-span-4">
+                  <h3 className="text-title">{r.title}</h3>
+                  <dl className="mt-3 space-y-1.5 text-sm">
+                    <div>
+                      <dt className="sr-only">Organization</dt>
+                      <dd className="text-ink">{r.org}</dd>
                     </div>
-                  ) : null}
-                  {r.grant ? (
-                    <div className="flex gap-2">
-                      <dt className="text-ink-2">Grant</dt>
-                      <dd className="text-ink">{r.grant}</dd>
+                    <div>
+                      <dt className="sr-only">Role</dt>
+                      <dd className="text-ink-2">{r.role}</dd>
                     </div>
-                  ) : null}
-                  <div>
-                    <dt className="sr-only">Dates</dt>
-                    <dd className="text-ink-2">{formatRange(r.start, r.end)}</dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="md:col-span-8">
-                <p className="max-w-[65ch] text-ink">{r.summary}</p>
-                <ul className="mt-4 space-y-3">
-                  {r.highlights.map((h, i) => (
-                    <li
-                      key={i}
-                      className="relative max-w-[65ch] pl-5 text-ink-2 before:absolute before:top-[0.75em] before:left-0 before:h-px before:w-2.5 before:bg-rule-strong"
-                    >
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/projects/${r.projectSlug}`}
-                  className="mt-4 inline-flex min-h-11 items-center gap-1 text-sm text-accent underline-offset-4 hover:underline"
-                >
-                  Project details
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              </div>
-            </li>
-          ))}
+                    {r.advisor ? (
+                      <div className="flex gap-2">
+                        <dt className="text-ink-2">Advisor</dt>
+                        <dd className="text-ink">{r.advisor}</dd>
+                      </div>
+                    ) : null}
+                    {r.grant ? (
+                      <div className="flex gap-2">
+                        <dt className="text-ink-2">Grant</dt>
+                        <dd className="text-ink">{r.grant}</dd>
+                      </div>
+                    ) : null}
+                    <div>
+                      <dt className="sr-only">Dates</dt>
+                      <dd className="text-ink-2">{formatRange(r.start, r.end)}</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div className="md:col-span-8">
+                  <Prose text={r.summary} className="max-w-[65ch] text-ink" seen={seen} />
+                  <ProseList
+                    items={r.highlights}
+                    className="mt-4 space-y-3"
+                    itemClassName="max-w-[65ch] text-ink-2"
+                    seen={seen}
+                  />
+                  <Link
+                    href={`/projects/${r.projectSlug}`}
+                    className="mt-4 inline-flex min-h-11 items-center gap-1 text-sm text-accent underline-offset-4 hover:underline"
+                  >
+                    Project details
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                </div>
+              </li>
+            )
+          })}
         </ol>
       </section>
     </div>

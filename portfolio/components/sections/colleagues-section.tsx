@@ -1,0 +1,165 @@
+import Image from 'next/image'
+import peopleRaw from '@/content/people.json'
+import { getExperience, profile, type Recommendation } from '@/lib/content'
+import { portraitPosition } from '@/components/about/recommendations'
+import { Prose } from '@/components/glossary/prose'
+import { ButtonLink } from '@/components/ui/button'
+import { Logo } from '@/components/ui/logo'
+import { Reveal } from '@/components/ui/reveal'
+import { Section } from '@/components/ui/section'
+
+type Person = {
+  name: string
+  slug: string
+  headline: string
+  title: string
+  org: string
+  linkedin: string
+  photo: string | null
+}
+
+const PEOPLE = peopleRaw as Person[]
+/** Portraits under public/people are 320 x 320. */
+const PHOTO = 320
+const EXCERPT_WORDS = 40
+
+/** The first 40 words of the quote, with an ellipsis when it goes on. */
+function excerpt(quote: string): string {
+  const words = quote.trim().split(/\s+/)
+  return words.length <= EXCERPT_WORDS ? words.join(' ') : `${words.slice(0, EXCERPT_WORDS).join(' ')}...`
+}
+
+/** "Amit Shinde" -> "AS", for entries without a photo. */
+function monogram(name: string): string {
+  return name
+    .split(/\s+/)
+    .map((w) => w.charAt(0))
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+}
+
+/** "a, b and c" without a serial comma, matching the site's house style. */
+function listJoin(items: string[]): string {
+  if (items.length <= 1) return items.join('')
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
+}
+
+/** 3:1 band crop of the portrait on its measured eye-to-mouth focus, grayscale at rest and colour on hover of the entry. */
+function Band({ person, name }: { person: Person | undefined; name: string }) {
+  if (person?.photo) {
+    return (
+      <Image
+        src={person.photo}
+        alt={`Portrait of ${name}`}
+        width={PHOTO}
+        height={PHOTO}
+        sizes="(min-width: 768px) 312px, 256px"
+        loading="lazy"
+        className="h-full w-full object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0 group-focus-within:grayscale-0"
+        style={{ objectPosition: portraitPosition(person.slug), aspectRatio: `${PHOTO} / ${PHOTO}` }}
+      />
+    )
+  }
+  return (
+    <span aria-hidden="true" className="text-metric flex h-full w-full items-center justify-center text-2xl text-ink-2">
+      {monogram(name)}
+    </span>
+  )
+}
+
+function Entry({ rec, seen }: { rec: Recommendation; seen: Set<string> }) {
+  const person = rec.person ? PEOPLE.find((p) => p.slug === rec.person) : undefined
+  const title = person ? `${person.title}, ${person.org}` : `${rec.role}, ${rec.org}`
+  const org = person?.org ?? rec.org
+  // Who they were to her, as on the about page: "Colleague at Persistent Systems", "Client at Broadspire".
+  const relation = person ? [rec.role, rec.org].filter(Boolean).join(' at ') : ''
+  return (
+    <figure className="group panel flex h-full flex-col p-4 md:p-5">
+      <figcaption>
+        <div className="frame-media aspect-[3/1] w-full overflow-hidden">
+          <Band person={person} name={rec.name} />
+        </div>
+        <p className="mt-4 font-medium text-ink">
+          {person?.linkedin ? (
+            <a href={person.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
+              {rec.name}
+            </a>
+          ) : (
+            rec.name
+          )}
+        </p>
+        <p className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm text-ink-2">
+          <Logo name={org} height={14} />
+          <span>{title}</span>
+        </p>
+        {relation ? <p className="mt-0.5 text-sm text-ink-2">{relation}</p> : null}
+      </figcaption>
+      <Prose as="blockquote" text={excerpt(rec.quote)} className="mt-3 text-base leading-snug text-ink-2" seen={seen} />
+      <div className="mt-auto -ml-2 pt-4">
+        <ButtonLink href="/about#recommendations" variant="ghost">
+          Read in full
+        </ButtonLink>
+      </div>
+    </figure>
+  )
+}
+
+/**
+ * "5 recommendations on her Lead DevOps work at Persistent Systems: 4 from colleagues there and 1 from
+ * a client at Broadspire." Recommenders from the role's organization count as colleagues there;
+ * everyone else is named by their relation to her, from the recommendation's role and org.
+ */
+function intro(recs: Recommendation[]): string {
+  const total = `${recs.length} ${recs.length === 1 ? 'recommendation' : 'recommendations'}`
+  const role = getExperience('persistent-lead')
+  if (!role) return `${total}, from ${listJoin([...new Set(recs.map((r) => r.org))])}.`
+  const colleagues = recs.filter((r) => r.org === role.org).length
+  const others = recs.filter((r) => r.org !== role.org)
+  const parts: string[] = []
+  if (colleagues > 0) parts.push(`${colleagues} from ${colleagues === 1 ? 'a colleague' : 'colleagues'} there`)
+  const byRelation = new Map<string, number>()
+  for (const r of others) {
+    const key = `${r.role.toLowerCase()} at ${r.org}`
+    byRelation.set(key, (byRelation.get(key) ?? 0) + 1)
+  }
+  for (const [relation, n] of byRelation) parts.push(n === 1 ? `1 from ${/^[aeiou]/.test(relation) ? 'an' : 'a'} ${relation}` : `${n} from ${relation.replace(/^(\S+)/, '$1s')}`)
+  // "Lead DevOps Engineer" -> "her Lead DevOps work".
+  return `${total} on her ${role.role.replace(/\s+Engineer$/, '')} work at ${role.org}: ${listJoin(parts)}.`
+}
+
+/**
+ * A compact band of the recommendations: one snap rail, every entry a shallow portrait band,
+ * name, current title and organization from people.json, then the first 40 words of the quote.
+ * Renders whatever profile.json carries; entries without a portrait show a monogram.
+ */
+export function ColleaguesSection() {
+  const recs = profile.recommendations
+  if (recs.length === 0) return null
+  // One glossary popover per term across the band.
+  const seen = new Set<string>()
+  return (
+    <Section
+      id="colleagues"
+      title="What colleagues say"
+      intro={intro(recs)}
+    >
+      <div
+        role="region"
+        aria-label={`Recommendations, ${recs.length} entries`}
+        tabIndex={0}
+        className="[--gutter:clamp(1rem,0.4rem+3vw,4rem)] mx-[calc(-1*var(--gutter))] snap-x snap-mandatory scroll-px-[var(--gutter)] overflow-x-auto px-[var(--gutter)] pb-3 [scrollbar-width:thin]"
+      >
+        {/* The ::after item restores the end gutter, which overflowing flex children would otherwise drop. */}
+        <ul className="flex items-stretch gap-3 after:block after:w-[calc(var(--gutter)-0.75rem)] after:shrink-0 after:content-['']">
+          {recs.map((rec, i) => (
+            <Reveal as="li" key={`${rec.person ?? rec.name}-${i}`} delay={Math.min(i * 20, 60)} className="w-[18rem] shrink-0 snap-start md:w-[22rem]">
+              <Entry rec={rec} seen={seen} />
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </Section>
+  )
+}

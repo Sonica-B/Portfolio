@@ -2,9 +2,13 @@
 
 Production system for Crossing, Data Science GQP MVP.
 
+- Problem: Immigration attorneys spent 3 to 4 days per H-1B petition checking Form I-129 packages for missing documents and errors.
+- What she did: Built and delivered a four-agent LLM pipeline on AWS with LangGraph that extracts schema-validated JSON and a single QC report.
+- What changed: Review time fell from 3 to 4 days to 5 to 10 minutes at 95 to 99% structural accuracy.
+
 > A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.
 
-- Kind: Production system
+- Kind: LLM systems
 - Period: Aug 2025 to Dec 2025 (completed)
 - Affiliation: Crossing x WPI industry-sponsored Graduate Qualifying Project
 - Team: Shreya Boyane with Mansi Rupesh Mantri, Nandini Priya Sripada, Pradyumn Tendulkar
@@ -21,10 +25,12 @@ Agent 1 (intake and vision) collapses PDFs into a unified schema with Textract O
 
 ## Results
 
-- Owned client-facing delivery: requirements discovery with Crossing engineers, acceptance tests, weekly demos, integration and handoff.
+- Cut petition review from 3 to 4 days to 5 to 10 minutes.
+- Owned client-facing delivery: requirements discovery, acceptance tests, weekly demos, integration and handoff.
 - Built the computer-vision grouping, API schema and the Pydantic-validated canonical JSON contract consumed downstream.
-- RAG evaluation loops with RAGAS (faithfulness, context recall) and threshold-based regression gating across prompt and retriever changes.
-- Presented to eleven industry judges at the WPI GRIE Showcase in April 2026; recognized with the Data Science GQP MVP award.
+- Added RAGAS evaluation loops (faithfulness, context recall) with threshold-based regression gating.
+- Presented to eleven industry judges at the WPI GRIE Showcase, April 2026.
+- Recognized with the Data Science GQP MVP award, December 2025.
 
 ## Key numbers
 
@@ -43,4 +49,8 @@ LangGraph, Amazon Bedrock, AWS Lambda, Step Functions, S3, EventBridge, Textract
 
 Machine Learning Engineer, Crossing x WPI, industry-sponsored Graduate Qualifying Project, Aug 2025 to Dec 2025. Owned client-facing delivery of a production multi-agent document-intelligence system for H-1B immigration workflows.
 
-Canonical page: https://shreyaboyane.dev/projects/skiplegal. This markdown: https://shreyaboyane.dev/md/projects/skiplegal.md. Generated from the site content model, last updated 2026-10-06.
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/skiplegal.mp4 (poster: https://shreyaboyane.dev/videos/skiplegal.webp; thumbnail: https://shreyaboyane.dev/videos/skiplegal-thumb.webp).
+
+Canonical page: https://shreyaboyane.dev/projects/skiplegal. This markdown: https://shreyaboyane.dev/md/projects/skiplegal.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

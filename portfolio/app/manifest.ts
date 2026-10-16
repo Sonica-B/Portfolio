@@ -8,8 +8,9 @@ export default function manifest(): MetadataRoute.Manifest {
     description: profile.identity.headline,
     start_url: '/',
     display: 'standalone',
-    background_color: '#121218',
-    theme_color: '#121218',
+    // Hex twin of --surface in globals.css (oklch(0.13 0.02 255)).
+    background_color: '#03080f',
+    theme_color: '#03080f',
     icons: [
       { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
       { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },

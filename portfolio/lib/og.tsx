@@ -12,13 +12,14 @@ export type OgProps = {
   kicker?: string
 }
 
-// Hex twins of the dark tokens in globals.css: next/og renders outside the CSS cascade.
-const SURFACE = '#121218'
-const INK = '#f4f1ea'
-const INK_2 = '#b9b4a8'
-const INK_3 = '#8a867c'
-const RULE = '#2c2c37'
-const ACCENT = '#f0b35c'
+// Hex twins of the tokens in globals.css: next/og renders outside the CSS cascade.
+const SURFACE = '#03080f'
+const INK = '#f2f6f7'
+const INK_2 = '#9fa6aa'
+const INK_3 = '#788288'
+const RULE = '#1f2730'
+const RULE_STRONG = '#404f5d'
+const ACCENT = '#5de8f6'
 
 const HOST = SITE_URL.replace(/^https?:\/\//, '')
 
@@ -29,13 +30,29 @@ function titleSize(title: string) {
   return 96
 }
 
-/** Shared 1200x630 Open Graph card: dark surface, amber rule, title, subtitle, up to three metrics. */
+/**
+ * One corner bracket of the HUD frame, 2 px so it survives preview downscaling.
+ * Satori reads the style object directly (no ReactDOM), so only set the keys that apply:
+ * an undefined border value crashes its shorthand parser.
+ */
+function Bracket({ top, left }: { top: boolean; left: boolean }) {
+  const edge = `2px solid ${RULE_STRONG}`
+  const style: Record<string, string | number> = { position: 'absolute', width: 28, height: 28 }
+  style[top ? 'top' : 'bottom'] = 24
+  style[left ? 'left' : 'right'] = 24
+  style[top ? 'borderTop' : 'borderBottom'] = edge
+  style[left ? 'borderLeft' : 'borderRight'] = edge
+  return <div style={style as React.CSSProperties} />
+}
+
+/** Shared 1200x630 Open Graph card: ink-blue ground, cyan rule, corner brackets, title, subtitle, up to three metrics. */
 export function renderOg({ title, subtitle, metrics = [], kicker }: OgProps) {
   const shown = metrics.slice(0, 3)
   return new ImageResponse(
     (
       <div
         style={{
+          position: 'relative',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -46,8 +63,13 @@ export function renderOg({ title, subtitle, metrics = [], kicker }: OgProps) {
           fontFamily: 'Geist, sans-serif',
         }}
       >
+        <Bracket top left />
+        <Bracket top left={false} />
+        <Bracket top={false} left />
+        <Bracket top={false} left={false} />
+
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <div style={{ width: 72, height: 6, background: ACCENT, borderRadius: 3 }} />
+          <div style={{ width: 72, height: 6, background: ACCENT }} />
           {kicker ? (
             <div style={{ fontSize: 22, letterSpacing: 3, textTransform: 'uppercase', color: ACCENT }}>{kicker}</div>
           ) : null}

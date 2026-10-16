@@ -4,6 +4,7 @@ import { formatMonth, profile } from '@/lib/content'
 import { ButtonLink } from '@/components/ui/button'
 import { Reveal } from '@/components/ui/reveal'
 import { Section } from '@/components/ui/section'
+import { Prose } from '@/components/glossary/prose'
 import { publicImageSize } from '@/components/sections/featured-work'
 
 const LINKS: { key: string; label: string }[] = [
@@ -25,6 +26,8 @@ export function ResearchSection() {
   const figureSize = figure ? publicImageSize(figure.src) : null
   const hasEqual = pubs.some((p) => p.equalContribution.length > 0)
   const topics = pubs.map((p) => p.tags[0]).filter(Boolean)
+  // One glossary popover per term across the section.
+  const seen = new Set<string>()
 
   return (
     <Section
@@ -32,9 +35,8 @@ export function ResearchSection() {
       title="Research"
       label="Publications"
       intro={`${pubs.length} papers as co-first author, on ${listJoin(topics)}.`}
-      className="scroll-mt-16"
     >
-      <ol className="border-t border-rule">
+      <ol>
         {pubs.map((pub, i) => {
           const showFigure = i === 0
           return (
@@ -42,7 +44,7 @@ export function ResearchSection() {
               as="li"
               key={pub.id}
               delay={Math.min(i * 30, 60)}
-              className="grid gap-6 border-b border-rule py-10 md:grid-cols-12 md:gap-8"
+              className="grid gap-6 py-10 first:pt-0 md:grid-cols-12 md:gap-8"
             >
               <div className="md:col-span-3 lg:col-span-2">
                 <p className="text-sm text-ink">{pub.displayString}</p>
@@ -55,7 +57,7 @@ export function ResearchSection() {
                     {pub.title}
                   </Link>
                 </h3>
-                <p className="mt-3 max-w-[62ch] text-ink-2">{pub.tldr}</p>
+                <Prose text={pub.tldr} className="mt-3 max-w-[62ch] text-ink-2" seen={seen} />
                 <p className="mt-4 max-w-[62ch] text-sm text-ink-2">
                   {pub.authors.map((name, j) => (
                     <span key={name}>
@@ -65,7 +67,7 @@ export function ResearchSection() {
                     </span>
                   ))}
                 </p>
-                <ul className="text-metric mt-5 grid gap-x-6 gap-y-1.5 text-[0.8rem] text-ink-2 sm:grid-cols-2">
+                <ul className="text-metric mt-5 grid gap-x-6 gap-y-1.5 text-sm text-ink-2 sm:grid-cols-2">
                   {pub.stats.map((s) => (
                     <li key={s}>{s}</li>
                   ))}
@@ -86,6 +88,7 @@ export function ResearchSection() {
                     alt={figure.alt}
                     width={figureSize.width}
                     height={figureSize.height}
+                    style={{ aspectRatio: `${figureSize.width} / ${figureSize.height}` }}
                     loading="lazy"
                     sizes="(min-width: 1440px) 420px, 30vw"
                     className="w-full rounded-card bg-surface-sunken"

@@ -1,180 +1,188 @@
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import type { ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
-import { featuredProjects, KIND_LABEL, profile, year, type Metric, type Project } from '@/lib/content'
+import { featuredProjects, KIND_LABEL, profile, year, type Pitch, type Project } from '@/lib/content'
+import { cn } from '@/lib/utils'
+import { Prose } from '@/components/glossary/prose'
+import { PITCH_THUMB, hasPitch, pitchThumbSrc } from '@/components/reel/pitch-slugs'
+import { PlayPitch } from '@/components/reel/play-pitch'
 import { ButtonLink } from '@/components/ui/button'
 import { Reveal } from '@/components/ui/reveal'
 import { Section } from '@/components/ui/section'
-import { Spotlight } from '@/components/motion-primitives/spotlight'
+import { publicImageSize } from '@/components/projects/figure'
+import { InstrumentSlot } from './instrument-slot'
+
+// research-section.tsx and credentials/wallet-data.tsx import the helper from here; it lives in projects/figure.tsx.
+export { publicImageSize } from '@/components/projects/figure'
+
+// Cell labels in the text face at 14 px, sentence case, as on the project page strip.
+const LABEL = 'text-sm leading-5 font-medium'
+// Frame widths: 8rem on phones, 13rem from 768 px (see the grid columns in Strip).
+const SIZES = '(min-width: 768px) 208px, 128px'
 
 /**
- * Intrinsic pixel size of a WebP or PNG under public/, read from the file header at
- * build time so next/image gets a real width and height for assets named in profile.json.
- * Falls back to a 16:10 box; the image still renders at its natural ratio through height: auto.
+ * A number in a sentence, with its %, x or + suffix when attached: "93%", "1.5x", "5,000+".
+ * The first group captures the boundary character, so digits glued to letters or hyphens
+ * (p95, 3D, GPT-2, INT8) stay part of their word.
  */
-export function publicImageSize(src: string): { width: number; height: number } {
-  try {
-    const b = readFileSync(join(process.cwd(), 'public', src))
-    if (b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
-      const chunk = b.toString('ascii', 12, 16)
-      if (chunk === 'VP8X') return { width: 1 + b.readUIntLE(24, 3), height: 1 + b.readUIntLE(27, 3) }
-      if (chunk === 'VP8L') {
-        const bits = b.readUInt32LE(21)
-        return { width: 1 + (bits & 0x3fff), height: 1 + ((bits >>> 14) & 0x3fff) }
-      }
-      if (chunk === 'VP8 ') return { width: b.readUInt16LE(26) & 0x3fff, height: b.readUInt16LE(28) & 0x3fff }
-    }
-    if (b.readUInt32BE(0) === 0x89504e47) return { width: b.readUInt32BE(16), height: b.readUInt32BE(20) }
-  } catch {
-    // Missing or unreadable file: use the fallback box below.
+const NUMBER = /(^|[^\w.-])(\d+(?:[.,]\d+)*(?:%|x(?!\d))?\+?)(?!\w)/g
+
+/** The metric that stands in for a picture: the first one short enough to read as a number. */
+function tileMetric(p: Project) {
+  return p.metrics.find((m) => m.value.length <= 12) ?? p.metrics[0]
+}
+
+/** The outcome sentence with every number in `text-metric` and the words between them through the glossary. */
+function MetricProse({ text, seen }: { text: string; seen: Set<string> }) {
+  const parts: ReactNode[] = []
+  let last = 0
+  for (const m of text.matchAll(NUMBER)) {
+    const start = (m.index ?? 0) + m[1].length
+    if (start > last) parts.push(<Prose key={`t${last}`} as="span" text={text.slice(last, start)} seen={seen} />)
+    parts.push(
+      <span key={`n${start}`} className="text-metric text-ink">
+        {m[2]}
+      </span>,
+    )
+    last = start + m[2].length
   }
-  return { width: 1600, height: 1000 }
+  if (last < text.length) parts.push(<Prose key={`t${last}`} as="span" text={text.slice(last)} seen={seen} />)
+  return <>{parts}</>
 }
 
-/** Pointer-follow glow in the accent instead of the primitive's zinc default, so it reads on both themes. */
-const GLOW =
-  'bg-[radial-gradient(circle_at_center,color-mix(in_oklab,var(--accent)_32%,transparent),transparent_70%)]'
-
-/** Column spans and reveal delays for the five projects after the lead: a 7/5 pair, then thirds. */
-const LAYOUT = [
-  { span: 'md:col-span-7', delay: 0 },
-  { span: 'md:col-span-5', delay: 40 },
-  { span: 'md:col-span-6 lg:col-span-4', delay: 0 },
-  { span: 'md:col-span-6 lg:col-span-4', delay: 30 },
-  { span: 'md:col-span-12 lg:col-span-4', delay: 60 },
-]
-
-/** The metric that stands in for a visual: the first one short enough to read as a number. */
-function heroMetric(metrics: Metric[]): Metric | undefined {
-  return metrics.find((m) => m.value.length <= 12) ?? metrics[0]
-}
-
-function Meta({ project }: { project: Project }) {
+/** 16:9 frame: the pitch thumbnail when a video exists, else the project visual, else a typographic metric tile. */
+function Frame({ project }: { project: Project }) {
+  if (hasPitch(project.slug)) {
+    return (
+      <Image
+        src={pitchThumbSrc(project.slug)}
+        alt=""
+        width={PITCH_THUMB.width}
+        height={PITCH_THUMB.height}
+        sizes={SIZES}
+        loading="lazy"
+        className="h-full w-full object-cover"
+      />
+    )
+  }
+  if (project.visual) {
+    const size = publicImageSize(project.visual.src)
+    return (
+      <Image
+        src={project.visual.src}
+        alt={project.visual.alt}
+        width={size.width}
+        height={size.height}
+        sizes={SIZES}
+        loading="lazy"
+        className="h-full w-full object-cover"
+      />
+    )
+  }
+  const metric = tileMetric(project)
+  const value = metric?.value ?? year(project.start)
+  const label = metric?.label ?? (KIND_LABEL[project.kind] ?? project.kind)
   return (
-    <p className="flex flex-wrap items-baseline gap-x-3 text-xs text-ink-3">
-      <span>{KIND_LABEL[project.kind] ?? project.kind}</span>
-      <span className="text-metric">{year(project.end ?? project.start)}</span>
+    <p className="flex h-full flex-col justify-between p-2 md:p-3">
+      <span className={cn('text-metric leading-none break-words text-ink', value.length > 8 ? 'text-base md:text-2xl' : 'text-xl md:text-3xl')}>
+        {value}
+      </span>
+      <span className="mt-1 line-clamp-1 text-xs leading-tight text-ink-2 md:line-clamp-2">{label}</span>
     </p>
   )
 }
 
-/** The whole panel is the tap target: the link's pseudo-element stretches over the positioned article. */
-function ProjectLink({ project }: { project: Project }) {
+/** The three-second strip as three short cells. Phones stack them; from 768 px they sit in a row. */
+function Cells({ pitch, seen, className }: { pitch: Pitch; seen: Set<string>; className?: string }) {
   return (
-    <Link
-      href={`/projects/${project.slug}`}
-      className="transition-colors after:absolute after:inset-0 after:content-[''] hover:text-accent"
-    >
-      {project.name}
-    </Link>
-  )
-}
-
-function Lead({ project }: { project: Project }) {
-  const visual = project.visual
-  const size = visual ? publicImageSize(visual.src) : null
-  return (
-    <article className="relative grid gap-6 overflow-hidden rounded-card md:grid-cols-12 md:gap-10">
-      <Spotlight className={GLOW} size={420} />
-      {visual && size && (
-        <figure className="md:col-span-7">
-          <Image
-            src={visual.src}
-            alt={visual.alt}
-            width={size.width}
-            height={size.height}
-            loading="lazy"
-            sizes="(min-width: 1440px) 760px, (min-width: 768px) 56vw, 100vw"
-            className="w-full rounded-card bg-surface-sunken"
-          />
-        </figure>
-      )}
-      <div className={visual ? 'flex flex-col justify-center md:col-span-5' : 'md:col-span-12'}>
-        <Meta project={project} />
-        <h3 className="mt-3 font-display text-[length:clamp(1.5rem,1.15rem+1.5vw,2.4rem)] leading-[1.08] font-semibold tracking-[-0.02em]">
-          <ProjectLink project={project} />
-        </h3>
-        {project.recognition && <p className="mt-3 text-sm text-accent">{project.recognition}</p>}
-        <p className="mt-4 max-w-[52ch] text-ink-2">{project.summary}</p>
-        <dl className="mt-6 divide-y divide-rule border-t border-rule">
-          {project.metrics.slice(0, 3).map((m) => (
-            <div key={m.label} className="flex items-baseline justify-between gap-4 py-2.5">
-              <dt className="text-sm text-ink-2">{m.label}</dt>
-              <dd className="text-metric shrink-0 text-ink">{m.value}</dd>
-            </div>
-          ))}
-        </dl>
+    <dl className={cn('grid grid-cols-1 gap-3 md:grid-cols-3', className)}>
+      <div>
+        <dt className={cn(LABEL, 'text-ink-2')}>Problem</dt>
+        <Prose as="dd" text={pitch.problem} className="mt-1.5 text-base leading-snug text-ink-2" seen={seen} />
       </div>
-    </article>
+      <div>
+        <dt className={cn(LABEL, 'text-ink-2')}>What she did</dt>
+        <Prose as="dd" text={pitch.action} className="mt-1.5 text-base leading-snug text-ink-2" seen={seen} />
+      </div>
+      <div>
+        <dt className={cn(LABEL, 'text-accent')}>What changed</dt>
+        <dd className="mt-1.5 text-base leading-snug text-ink">
+          <MetricProse text={pitch.change} seen={seen} />
+        </dd>
+      </div>
+    </dl>
   )
 }
 
-function Panel({ project }: { project: Project }) {
-  const hero = heroMetric(project.metrics)
-  const rest = project.metrics.filter((m) => m !== hero).slice(0, 2)
+/**
+ * One strip: frame, name and meta, the three cells, the actions, 12 px gutters throughout.
+ * Phones: frame beside the name, cells in one column, actions below. From 768 px the frame grows
+ * and the cells sit in a row. From 1024 px it is one horizontal strip: the frame spans both rows,
+ * the actions sit at the right of the name row and the cells run under both.
+ */
+function Strip({ project, seen, lead }: { project: Project; seen: Set<string>; lead?: boolean }) {
+  const href = `/projects/${project.slug}`
+  const kind = KIND_LABEL[project.kind] ?? project.kind
   return (
-    <article className="relative flex h-full flex-col overflow-hidden rounded-card bg-surface-raised p-6 md:p-7">
-      <Spotlight className={GLOW} size={300} />
-      <Meta project={project} />
-      {hero && (
-        <p className="mt-6 flex flex-col-reverse">
-          <span className="mt-2 text-sm text-ink-2">{hero.label}</span>
-          <span className="text-metric text-[length:clamp(2.4rem,1.7rem+2.2vw,4rem)] leading-none font-medium tracking-tight text-ink">
-            {hero.value}
-          </span>
-        </p>
-      )}
-      <h3 className="text-title mt-7">
-        <ProjectLink project={project} />
-      </h3>
-      {project.recognition && <p className="mt-2 text-sm text-accent">{project.recognition}</p>}
-      <p className="mt-3 max-w-[52ch] text-[0.95rem] text-ink-2">{project.summary}</p>
-      {rest.length > 0 && (
-        <div className="mt-auto pt-7">
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-rule pt-5">
-            {rest.map((m) => (
-              <div key={m.label} className="flex flex-col-reverse">
-                <dt className="mt-1 text-xs text-ink-2">{m.label}</dt>
-                <dd className="text-metric text-lg leading-tight text-ink">{m.value}</dd>
-              </div>
-            ))}
-          </dl>
+    <>
+      <div className="grid grid-cols-[8rem_minmax(0,1fr)] gap-3 md:grid-cols-[13rem_minmax(0,1fr)] lg:grid-cols-[13rem_minmax(0,1fr)_auto]">
+        <Link
+          href={href}
+          tabIndex={-1}
+          aria-hidden="true"
+          className="frame-media aspect-video self-start overflow-hidden transition-[border-color,box-shadow] duration-200 hover:border-rule-strong hover:glow lg:row-span-2"
+        >
+          <Frame project={project} />
+        </Link>
+
+        <div className="min-w-0">
+          <p className="flex flex-wrap items-baseline gap-x-2 text-sm text-ink-2">
+            <span>{kind}</span>
+            <span className="tnum">{year(project.end ?? project.start)}</span>
+          </p>
+          <h3 className="text-title mt-1">
+            <Link href={href} className="text-ink transition-colors hover:text-accent">
+              {project.name}
+            </Link>
+          </h3>
+          {project.recognition ? <p className="mt-1 text-sm text-ink-2">{project.recognition}</p> : null}
         </div>
-      )}
-    </article>
+
+        <Cells pitch={project.pitch} seen={seen} className="col-span-2 lg:col-start-2 lg:row-start-2" />
+
+        <div className="col-span-2 flex flex-wrap items-center gap-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:flex-col lg:items-end">
+          <PlayPitch slug={project.slug} label="Play the pitch" location="home" />
+          <ButtonLink href={href} variant="ghost">
+            Open
+          </ButtonLink>
+        </div>
+      </div>
+      {lead ? <InstrumentSlot project={project} className="mt-4" /> : null}
+    </>
   )
 }
 
 export function FeaturedWork() {
-  const [lead, ...rest] = featuredProjects
-  if (!lead) return null
   const total = profile.projects.length
+  const featured = featuredProjects
+  // One glossary popover per term across the whole section.
+  const seen = new Set<string>()
   return (
     <Section
       id="work"
-      title="Selected work"
-      intro={`${featuredProjects.length} of ${total} projects, chosen for measured results across research, production systems and inference optimization.`}
-      className="scroll-mt-16"
+      title="Featured outcomes"
+      intro={`${featured.length} of ${total} projects, each with the problem, what she did and what changed.`}
     >
-      <ul className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
-        <Reveal as="li" className="md:col-span-12">
-          <Lead project={lead} />
-        </Reveal>
-        {rest.map((project, i) => {
-          const layout = LAYOUT[i % LAYOUT.length]
-          return (
-            <Reveal as="li" key={project.slug} delay={layout.delay} className={layout.span}>
-              <Panel project={project} />
-            </Reveal>
-          )
-        })}
-      </ul>
-      <div className="mt-10">
+      <ol>
+        {featured.map((project, i) => (
+          <Reveal as="li" key={project.slug} delay={Math.min(i * 20, 60)} className="py-6 md:py-8">
+            <Strip project={project} seen={seen} lead={i === 0} />
+          </Reveal>
+        ))}
+      </ol>
+      <div className="mt-8">
         <ButtonLink href="/projects" variant="ghost">
           All {total} projects
-          <ArrowRight size={16} aria-hidden="true" />
         </ButtonLink>
       </div>
     </Section>

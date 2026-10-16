@@ -1,6 +1,6 @@
 'use client'
 
-import { Printer } from '@phosphor-icons/react'
+import { Printer } from '@/components/ui/icons'
 
 export function PrintButton() {
   return (

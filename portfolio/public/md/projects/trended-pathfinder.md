@@ -2,6 +2,10 @@
 
 NLP role matching and skill-gap learning paths.
 
+- Problem: Job boards filter on job type and company, not on what a specific student can do and should learn next.
+- What she did: Built a TF-IDF and cosine-similarity matcher over 10,000+ job descriptions, 5,000 resumes and 300+ catalogs with supervised ranking.
+- What changed: Match accuracy reached 95% with 90% NLP precision, irrelevant results fell 50% and 1,000+ students used the recommendations.
+
 > An NLP engine that matches resumes to roles with TF-IDF and cosine similarity, calibrates rankings with supervised classifiers, and recommends courses that close the skill gaps it finds.
 
 - Kind: NLP
@@ -21,8 +25,10 @@ Scraped job boards and university catalogs with BeautifulSoup, built the matchin
 ## Results
 
 - Scaled to 10,000+ job descriptions, 5,000 resumes and 300+ course catalogs.
-- 95% match accuracy with 90% NLP precision; irrelevant results down 50% and data preparation time down 65%.
-- Used by 1,000+ students for tailored course suggestions; LDA topic modeling on job and catalog text.
+- 95% match accuracy and 90% NLP precision; irrelevant results down 50%.
+- Cut data preparation time 65%.
+- Used by 1,000+ students for tailored course suggestions.
+- Applied LDA topic modeling to job and catalog text.
 
 ## Key numbers
 
@@ -34,4 +40,8 @@ Scraped job boards and university catalogs with BeautifulSoup, built the matchin
 
 Python, TF-IDF, scikit-learn, TensorFlow, BeautifulSoup, NLP
 
-Canonical page: https://shreyaboyane.dev/projects/trended-pathfinder. This markdown: https://shreyaboyane.dev/md/projects/trended-pathfinder.md. Generated from the site content model, last updated 2026-10-06.
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/trended-pathfinder.mp4 (poster: https://shreyaboyane.dev/videos/trended-pathfinder.webp; thumbnail: https://shreyaboyane.dev/videos/trended-pathfinder-thumb.webp).
+
+Canonical page: https://shreyaboyane.dev/projects/trended-pathfinder. This markdown: https://shreyaboyane.dev/md/projects/trended-pathfinder.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

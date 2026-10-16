@@ -2,14 +2,27 @@ import type { Metadata } from 'next'
 import { formatMonth, formatRange, profile } from '@/lib/content'
 import { JsonLd, breadcrumbJsonLd } from '@/lib/jsonld'
 import { ButtonLink } from '@/components/ui/button'
+import { Prose, ProseList } from '@/components/glossary/prose'
+import { CopyEmail } from '@/components/cta/copy-email'
+import { splitEmail } from '@/components/cta/email'
 import { PrintButton } from './print-button'
 
 const { identity, links, experience, research, education, publications, skills, recognition } = profile
 
+// 150 to 160 characters, counts from the content model. Title and description reach the social card through Next's fallback.
+const wpi = education.find((e) => e.abbr === 'WPI')
+const DESCRIPTION = `Resume of ${identity.name}, ${identity.title} in ${identity.location.city}, ${identity.location.region}: ${experience.length} roles, ${research.length} research positions, ${publications.length} publications, M.S. AI from ${wpi?.abbr ?? 'WPI'}. Download the PDF or print.`
+
 export const metadata: Metadata = {
-  title: 'Resume',
-  description: `Resume of ${identity.name}, ${identity.title}: ${experience.length} roles, ${research.length} research positions, ${publications.length} publications, degrees from ${education.map((e) => e.abbr).join(' and ')}, and skills across ${Object.keys(skills).length} areas. Download the PDF or print this page.`,
-  alternates: { canonical: '/resume' },
+  title: `Resume, ${identity.title}`,
+  description: DESCRIPTION,
+  keywords: [identity.name, 'resume', 'CV', identity.title, ...identity.availability.roles, ...Object.keys(skills)],
+  alternates: { canonical: '/resume', types: { 'text/markdown': '/md/resume.md' } },
+  openGraph: {
+    type: 'website',
+    url: '/resume',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: `${identity.name}, ${identity.title}` }],
+  },
 }
 
 // Hoisted into <head> by React; forces a white page with black text and hides site chrome when printing.
@@ -31,10 +44,11 @@ const PRINT_CSS = `
 
 const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
 const topRecognition = recognition.slice(0, 10)
+const BULLETS_CLASS = 'mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2 marker:text-ink-3'
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="hairline scroll-mt-24 py-8 print:py-4">
+    <section id={id} aria-labelledby={`${id}-title`} className="hairline py-8 print:py-4">
       <h2 id={`${id}-title`} className="text-title print:text-lg">
         {title}
       </h2>
@@ -44,6 +58,8 @@ function Section({ id, title, children }: { id: string; title: string; children:
 }
 
 export default function ResumePage() {
+  // The resume reads top to bottom, so each glossary term gets one popover per page.
+  const seen = new Set<string>()
   return (
     <div className="container-site py-16 md:py-24 print:bg-white print:py-0 print:text-black">
       <style href="resume-print" precedence="default">
@@ -56,6 +72,8 @@ export default function ResumePage() {
           Download PDF
         </ButtonLink>
         <PrintButton />
+        {/* Copied on the client from two halves, so the address never appears in this page's HTML. */}
+        <CopyEmail parts={splitEmail(links.email)} location="resume" />
       </div>
 
       <article className="mt-10 max-w-[80ch] print:mt-0 print:max-w-none">
@@ -64,11 +82,7 @@ export default function ResumePage() {
           <p className="text-lead mt-3 text-ink-2 print:mt-1">{identity.title}</p>
           <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-ink-2 print:mt-3">
             <li>{identity.location.display}</li>
-            <li>
-              <a href={links.email} className="hover:text-ink">
-                {identity.email}
-              </a>
-            </li>
+            <li className="hidden print:list-item">Email on request via the PDF resume</li>
             <li>
               <a href={links.website} className="hover:text-ink">
                 {host(links.website)}
@@ -88,7 +102,7 @@ export default function ResumePage() {
         </header>
 
         <Section id="summary" title="Summary">
-          <p className="text-ink-2">{identity.summary}</p>
+          <Prose text={identity.summary} className="text-ink-2" seen={seen} />
         </Section>
 
         <Section id="experience" title="Experience">
@@ -110,14 +124,8 @@ export default function ResumePage() {
                   , {e.location}. {e.type}.
                 </p>
                 {e.award ? <p className="mt-1 text-sm text-accent">{e.award}</p> : null}
-                <p className="mt-2 text-sm text-ink-2">{e.summary}</p>
-                {e.highlights.length > 0 ? (
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2 marker:text-ink-3">
-                    {e.highlights.map((h, i) => (
-                      <li key={i}>{h}</li>
-                    ))}
-                  </ul>
-                ) : null}
+                <Prose text={e.summary} className="mt-2 text-sm text-ink-2" seen={seen} />
+                {e.highlights.length > 0 ? <ProseList items={e.highlights} className={BULLETS_CLASS} seen={seen} /> : null}
                 {e.advisors?.length ? <p className="mt-2 text-sm text-ink-2">Advisors: {e.advisors.join(', ')}.</p> : null}
                 {e.presented ? <p className="mt-1 text-sm text-ink-2">Presented at the {e.presented}.</p> : null}
               </li>
@@ -138,12 +146,8 @@ export default function ResumePage() {
                   {r.advisor ? `. Advisor: ${r.advisor}` : ''}
                   {r.grant ? `. ${r.grant}` : ''}.
                 </p>
-                <p className="mt-2 text-sm text-ink-2">{r.summary}</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2 marker:text-ink-3">
-                  {r.highlights.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
+                <Prose text={r.summary} className="mt-2 text-sm text-ink-2" seen={seen} />
+                <ProseList items={r.highlights} className={BULLETS_CLASS} seen={seen} />
               </li>
             ))}
           </ol>

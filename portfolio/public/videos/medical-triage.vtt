@@ -1,0 +1,31 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+LLM triage assistants hallucinate and escalate incorrectly.
+Could calibrated confidence plus human review make them safer?
+
+3
+00:00:04.390 --> 00:00:08.740
+Medical Triage HIL: confidence-aware LLM triage
+Research prototype, not a clinical decision tool
+
+4
+00:00:08.740 --> 00:00:15.290
+Confidence-aware triage with a human in the loop
+Extract risk factors, track confidence, escalate to a human
+
+5
+00:00:15.290 --> 00:00:20.190
+By the numbers
++20% triage precision, -40% false escalations, -50% hallucinations, +60% early critical-case detection
+
+6
+00:00:20.190 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/medical-triage
+Research prototype, not a clinical decision tool.

@@ -2,6 +2,10 @@
 
 Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster.
 
+- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
+- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
+- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
+
 > Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
 
 - Kind: Research
@@ -24,18 +28,21 @@ Model the six latent hidden states as a trajectory; measure step-to-step change,
 
 ## Results
 
-- CODI behaves as a stable attractor while COCONUT behaves as an unstable expanding system; Sim-CoT supervision tightens both without changing the dynamics.
-- Reproduced CODI self-distillation and the COCONUT four-stage latent curriculum end to end as rank-128 LoRA adapters with PyTorch, Transformers and PEFT.
-- Built the reliability layer: CUDA health-polling orchestration for 14+ hour runs, HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and a byte-exact safetensors checkpoint repair.
-- Verification harness passes 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding and pinned dependencies throughout.
+- Showed CODI acts as a stable attractor and COCONUT as an unstable expanding system.
+- Found Sim-CoT supervision tightens both systems without changing the underlying dynamics.
+- Reproduced CODI self-distillation and the COCONUT four-stage curriculum as rank-128 LoRA adapters with PEFT.
+- Built CUDA health-polling orchestration that stabilized 14+ hour training runs.
+- Added HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and byte-exact safetensors repair.
+- Built a verification harness that passes 28 of 28 reproducible numeric claims.
+- Ran with fixed seeds, greedy decoding and pinned dependencies.
 
 ## Key numbers
 
 - GSM8K samples: 8,792
 - Trajectory dimension: 768
 - Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%
-- Verified claims: 28 of 28
-- Reviewer rating: 6 of 6
+- Claims passing her verification harness: 28 of 28
+- Reviewer rating: 6 of 6, confidence 3 of 3
 
 ## Stack
 
@@ -50,8 +57,12 @@ Interpreting Latent CoT Reasoning as Dynamical Systems. Poster, ICML 2026 FoGen 
 - Project page: https://sabariiyyappan.github.io/Latent-CoT/
 - Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
 
+## Pitch video
+
+25 seconds, built from the real repository: https://shreyaboyane.dev/videos/latent-cot.mp4 (poster: https://shreyaboyane.dev/videos/latent-cot.webp; thumbnail: https://shreyaboyane.dev/videos/latent-cot-thumb.webp).
+
 ## Image
 
 ![3D PHATE embedding of COCONUT latent reasoning trajectories colored by step](https://shreyaboyane.dev/projects/latent-cot/trajectory-phate-3d.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/latent-cot. This markdown: https://shreyaboyane.dev/md/projects/latent-cot.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/latent-cot. This markdown: https://shreyaboyane.dev/md/projects/latent-cot.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

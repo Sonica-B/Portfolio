@@ -6,6 +6,13 @@ Machine Learning Engineer specializing in computer vision, LLMs, inference optim
 
 I build production ML systems end to end, from data and training infrastructure through inference optimization to reliability monitoring.
 
+## Now (2026-10-15)
+
+- AI Trainer Fellow at Handshake AI since April 2026, evaluating frontier LLM and vision-language model outputs.
+- Co-first author of an ICML 2026 FoGen Workshop poster on latent chain-of-thought reasoning; FairPrep submitted to DASHSys 2026.
+- Open to full-time machine learning, AI, computer vision and research engineering roles, starting immediately, remote or anywhere in the US.
+- F-1 with OPT and STEM OPT: 3 years of US work authorization, no sponsorship needed up front.
+
 ## At a glance
 
 - Title: Machine Learning Engineer
@@ -14,7 +21,7 @@ I build production ML systems end to end, from data and training infrastructure 
 - Work authorization: F-1 with OPT and STEM OPT: 3 years of US work authorization, no sponsorship needed up front. Open to H-1B sponsorship long term.
 - Target roles: ML Engineer (inference, performance, platform); AI Engineer / Applied AI; GenAI / LLM Engineer; Computer Vision / Multimodal Engineer; Research Engineer; Forward Deployed Engineer (AI); MLOps / ML Platform Engineer
 - Target locations: Remote (US), San Francisco Bay Area, Seattle, New York, Boston, Austin, Los Angeles, San Diego, open to relocation anywhere in the US
-- Email: shreyaa.boyane@gmail.com
+- Contact: LinkedIn https://www.linkedin.com/in/shreya-boyane/; book a call https://zcal.co/i/4aMYgoRr; contact card (vCard) https://shreyaboyane.dev/shreya-boyane.vcf
 - Resume: https://shreyaboyane.dev/ShreyaBoyaneResume.pdf (PDF), https://shreyaboyane.dev/resume (HTML), https://shreyaboyane.dev/md/resume.md (markdown)
 
 ## Proof points
@@ -26,33 +33,51 @@ I build production ML systems end to end, from data and training infrastructure 
 
 ## Featured projects
 
-### Interpreting Latent CoT Reasoning as Dynamical Systems
-
-Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Research, Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
-
-Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
-
-Key numbers: GSM8K samples: 8,792; Trajectory dimension: 768; Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%; Verified claims: 28 of 28; Reviewer rating: 6 of 6.
-
-Details: https://shreyaboyane.dev/projects/latent-cot (markdown: https://shreyaboyane.dev/md/projects/latent-cot.md). Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
-
 ### SkipLegal: multi-agent H-1B document intelligence
 
-Production system for Crossing, Data Science GQP MVP. Production system, Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
+Production system for Crossing, Data Science GQP MVP. LLM systems, Aug 2025 to Dec 2025, Crossing x WPI industry-sponsored Graduate Qualifying Project. Data Science GQP MVP, December 2025.
+
+- Problem: Immigration attorneys spent 3 to 4 days per H-1B petition checking Form I-129 packages for missing documents and errors.
+- What she did: Built and delivered a four-agent LLM pipeline on AWS with LangGraph that extracts schema-validated JSON and a single QC report.
+- What changed: Review time fell from 3 to 4 days to 5 to 10 minutes at 95 to 99% structural accuracy.
 
 A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.
 
 Key numbers: Review time: 3 to 4 days down to 5 to 10 min; Structural accuracy: 95 to 99%; Missing-document detection: 99 to 100%; Rules across fields: 50+ over 45+; Hours freed per firm per season: about 2,000; Cost per case: 50 to 70% lower.
 
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/skiplegal.mp4 (poster: https://shreyaboyane.dev/videos/skiplegal.webp).
+
 Details: https://shreyaboyane.dev/projects/skiplegal (markdown: https://shreyaboyane.dev/md/projects/skiplegal.md). Code: https://github.com/Sonica-B/GQP-SkipLegal
+
+### Interpreting Latent CoT Reasoning as Dynamical Systems
+
+Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster. Research, Feb 2026 to May 2026, Algoverse AI Research Fellowship. Poster, ICML 2026 FoGen Workshop.
+
+- Problem: Existing interpretability tools cannot explain how latent chain-of-thought reasoning evolves from one step to the next.
+- What she did: Modeled 768-dimensional latent trajectories as discrete-time dynamical systems across 8,792 GSM8K and 500 MATH samples on GPT-2.
+- What changed: CODI behaves as a stable attractor and COCONUT as an unstable expanding system; accepted as an ICML 2026 FoGen poster, rated 6 of 6.
+
+Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.
+
+Key numbers: GSM8K samples: 8,792; Trajectory dimension: 768; Samples with an unstable DMD mode, COCONUT vs CODI: 41% vs 85%; Claims passing her verification harness: 28 of 28; Reviewer rating: 6 of 6, confidence 3 of 3.
+
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/latent-cot.mp4 (poster: https://shreyaboyane.dev/videos/latent-cot.webp).
+
+Details: https://shreyaboyane.dev/projects/latent-cot (markdown: https://shreyaboyane.dev/md/projects/latent-cot.md). Code: https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems
 
 ### Einstein Vision: 3D scene reconstruction for autonomous driving
 
 Perception stack plus TensorRT inference optimization. Computer vision, Mar 2025 to Apr 2025, WPI RBE/CS 549 Computer Vision.
 
+- Problem: Dash-cam footage gives no interpretable 3D context for debugging perception or explaining autonomous-driving decisions to humans.
+- What she did: Fused depth, detection, segmentation, pose and optical-flow models into Blender 3D reconstructions, then deployed the detectors through TensorRT FP16.
+- What changed: Rebuilt 13 dash-cam sequences as Blender 3D scenes, streaming masks and poses at 30 FPS, with 1.5x throughput and p95 latency down 35%.
+
 Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.
 
-Key numbers: 3D placement accuracy: +50%; Scene realism: +75%; Driving sequences: 13; Multi-object throughput: 1.5x; p95 latency: -35%.
+Key numbers: Driving sequences: 13; Mask and pose stream: 30 FPS; Multi-object throughput: 1.5x; p95 latency: -35%.
+
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/einstein-vision.mp4 (poster: https://shreyaboyane.dev/videos/einstein-vision.webp).
 
 Details: https://shreyaboyane.dev/projects/einstein-vision (markdown: https://shreyaboyane.dev/md/projects/einstein-vision.md). Code: https://github.com/Sonica-B/EinsteinVision
 
@@ -60,9 +85,15 @@ Details: https://shreyaboyane.dev/projects/einstein-vision (markdown: https://sh
 
 Real-time game asset generation with optimized GPU inference. Generative AI, Mar 2025 to Aug 2025, Worcester Polytechnic Institute.
 
+- Problem: Real-time game worlds need coherent assets and layouts under strict latency and memory budgets, and hand-authoring them does not scale.
+- What she did: Led the AI models for a multi-agent diffusion runtime with LoRA adapters per biome, then optimized inference with ONNX, TensorRT and INT8.
+- What changed: p95 latency fell from 200 ms to 95 ms, the runtime generated 120 assets per minute and manual design time dropped 73%.
+
 A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.
 
 Key numbers: Assets per minute: 120; Manual design time: -73%; p95 latency: 200 to 95 ms; Throughput: 1.8x; FID: 12.3; CLIP similarity: 0.89.
+
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/madwe.mp4 (poster: https://shreyaboyane.dev/videos/madwe.webp).
 
 Details: https://shreyaboyane.dev/projects/madwe (markdown: https://shreyaboyane.dev/md/projects/madwe.md). Code: https://github.com/Sonica-B/RealmWeaver-MADWE
 
@@ -70,9 +101,15 @@ Details: https://shreyaboyane.dev/projects/madwe (markdown: https://shreyaboyane
 
 CycleGAN plus diffusion on 65,072 MRI images. Computer vision, Oct 2024 to Dec 2024, WPI Deep Learning.
 
+- Problem: Supervised tumor segmentation needs large labeled MRI datasets that are expensive to produce, and tumors vary widely in size, shape and position.
+- What she did: Paired CycleGAN synthesis with diffusion refinement and automated labeling to detect and segment tumors across 65,072 BraTS2020 images without labels.
+- What changed: Segmentation accuracy passed 90% with no manual labels, precision rose 15% over baseline and inference ran 1.6x faster.
+
 An unsupervised medical-imaging pipeline that pairs CycleGAN image synthesis with diffusion-based refinement to detect and segment brain tumors across 65,072 BraTS2020 MRI images with more than 90% segmentation accuracy and no manual labels.
 
 Key numbers: MRI images: 65,072; Segmentation accuracy: >90%; Precision over baseline: +15%; Inference throughput: 1.6x.
+
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/tumorlytix.mp4 (poster: https://shreyaboyane.dev/videos/tumorlytix.webp).
 
 Details: https://shreyaboyane.dev/projects/tumorlytix (markdown: https://shreyaboyane.dev/md/projects/tumorlytix.md). Code: https://github.com/Sonica-B/TumorLytix
 
@@ -80,9 +117,15 @@ Details: https://shreyaboyane.dev/projects/tumorlytix (markdown: https://shreyab
 
 Multimodal classifier shipped as an operated MLOps platform. MLOps, Aug 2025 to Dec 2025, WPI DS-553 Case Studies in Data Science.
 
+- Problem: Most course projects stop at a model; this one had to prove the model could be operated reliably across clouds.
+- What she did: Shipped a CLIP plus Wav2Vec2 mood classifier as one container with Prometheus, Grafana, GitHub Actions and tested recovery paths.
+- What changed: One image runs on GCP, AWS and Azure, recovery is tested against crashes, wipes and network drops, and two Hugging Face Spaces are live.
+
 A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.
 
 Key numbers: Clouds from one image: 3; Mood scores: 5; Live Spaces: 2.
+
+Pitch video (25 seconds): https://shreyaboyane.dev/videos/scene-mood-classifier.mp4 (poster: https://shreyaboyane.dev/videos/scene-mood-classifier.webp).
 
 Details: https://shreyaboyane.dev/projects/scene-mood-classifier (markdown: https://shreyaboyane.dev/md/projects/scene-mood-classifier.md). Code: https://github.com/Sonica-B/Case-Studies
 
@@ -152,6 +195,6 @@ Full detail: https://shreyaboyane.dev/research (markdown: https://shreyaboyane.d
 - HackerRank: https://www.hackerrank.com/profile/shreyaa_boyane
 - VS Code Marketplace: https://marketplace.visualstudio.com/items?itemName=ShreyaBoyane.auto-git-copilot
 
-Contact: shreyaa.boyane@gmail.com. Book a call: https://zcal.co/i/4aMYgoRr.
+Contact: LinkedIn https://www.linkedin.com/in/shreya-boyane/. Book a call: https://zcal.co/i/4aMYgoRr. Contact card (vCard, includes the email address): https://shreyaboyane.dev/shreya-boyane.vcf.
 
-Canonical page: https://shreyaboyane.dev/. This markdown: https://shreyaboyane.dev/md/index.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/. This markdown: https://shreyaboyane.dev/md/index.md. Written by Shreya Boyane; generated from the site content model, last updated 2026-10-15.

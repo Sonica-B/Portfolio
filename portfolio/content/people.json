@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Amit Shinde",
+    "slug": "amit-shinde",
+    "headline": "SDE2 @TCS | .NET, Angular, AWS SAA, Azure",
+    "title": "IT Analyst",
+    "org": "Tata Consultancy Services",
+    "linkedin": "https://www.linkedin.com/in/amit-shinde-1608751b5/",
+    "photo": "/people/amit-shinde.webp"
+  },
+  {
+    "name": "Gurdeep Singh",
+    "slug": "gurdeep-singh",
+    "headline": "SWE 2 | Backend Developer | .NET Core | REST APIs & Microservices | Cloud (AWS) | Azure DevOps",
+    "title": "Lead Software Engineer",
+    "org": "Persistent Systems",
+    "linkedin": "https://www.linkedin.com/in/gurdeep-singh-99b541240/",
+    "photo": "/people/gurdeep-singh.webp"
+  },
+  {
+    "name": "Vinay Dandinashivara",
+    "slug": "vinay-dandinashivara",
+    "headline": "Architect | .Net | AWS Certified SAA",
+    "title": "Principal Software Engineer I",
+    "org": "Planview",
+    "linkedin": "https://www.linkedin.com/in/vinay-dandinashivara/",
+    "photo": "/people/vinay-dandinashivara.webp"
+  },
+  {
+    "name": "Jordan Kelley",
+    "slug": "jordan-kelley",
+    "headline": "Senior Software Engineer at Magnetar",
+    "title": "Senior Software Engineer",
+    "org": "Magnetar",
+    "linkedin": "https://www.linkedin.com/in/jordan-kelley-62a29474/",
+    "photo": "/people/jordan-kelley.webp"
+  },
+  {
+    "name": "Abhaysinh Chavan",
+    "slug": "abhaysinh-chavan",
+    "headline": "Lead Consultant @ Infosys | Ex Persistent, BookMyShow, FIS | .Net AWS | BFSI, E-commerce | Product Developer",
+    "title": "Lead Consultant",
+    "org": "Infosys",
+    "linkedin": "https://www.linkedin.com/in/abhaysinh7/",
+    "photo": "/people/abhaysinh-chavan.webp"
+  }
+]

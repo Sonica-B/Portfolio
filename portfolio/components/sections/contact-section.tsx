@@ -1,46 +1,58 @@
+import { AddressBook, CalendarBlank, DownloadSimple } from '@phosphor-icons/react/dist/ssr'
 import { profile } from '@/lib/content'
-import { ButtonLink } from '@/components/ui/button'
+import { TrackLink } from '@/components/cta/actions'
+import { CopyEmail } from '@/components/cta/copy-email'
+import { splitEmail } from '@/components/cta/email'
+import { ShareButton } from '@/components/cta/share-button'
 import { Reveal } from '@/components/ui/reveal'
 
-/** Closing call to action. Full-bleed raised band, so it does not use the shared Section wrapper. */
+const VCARD = '/shreya-boyane.vcf'
+
+/**
+ * Closing band: one flat accent-soft field with the statement, the availability and every
+ * action. The email is copied, never linked, so no mailto: reaches the HTML; every action
+ * reports a cta_click through its component. Full-bleed, so it does not use the Section wrapper.
+ */
 export function ContactSection() {
   const { identity, links } = profile
-  const { availability, location } = identity
+  const { availability, location, headline } = identity
+  // "Immediately" -> "immediately"; a dated start ("June 2027") keeps its capitals.
+  const start = /^[A-Za-z]+$/.test(availability.startDate) ? availability.startDate.toLowerCase() : availability.startDate
+  const authorization = availability.workAuthorization.split('. ')[0].replace(/\.?$/, '.')
+
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-16 bg-surface-raised">
-      <Reveal className="container-site py-20 md:py-28">
-        <div className="grid gap-10 md:grid-cols-12 md:gap-x-8 md:gap-y-8">
-          <div className="md:col-span-7 md:row-start-1">
-            <h2 id="contact-title" className="text-headline max-w-[18ch]">
-              Hiring for ML, computer vision or inference work?
+    <section id="contact" aria-labelledby="contact-title" className=" bg-accent-soft">
+      <Reveal className="container-site py-16 md:py-24">
+        <div className="grid gap-10 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-7">
+            <h2 id="contact-title" className="text-headline max-w-[20ch]">
+              Full-time roles, starting {start}
             </h2>
-            <p className="text-lead mt-5 max-w-[46ch] text-ink-2">{availability.display}.</p>
+            <p className="text-lead mt-5 max-w-[52ch] text-ink-2">{availability.display}.</p>
+            <p className="text-status mt-4 max-w-[60ch]">
+              {location.display}. {authorization}
+            </p>
           </div>
 
-          <dl className="space-y-5 text-sm md:col-span-5 md:col-start-8 md:row-span-2 md:row-start-1 md:pt-2 lg:col-span-4 lg:col-start-9">
-            <div>
-              <dt className="text-xs text-ink-3">Work authorization</dt>
-              <dd className="mt-1 text-ink-2">{availability.workAuthorization}</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-ink-3">Location</dt>
-              <dd className="mt-1 text-ink-2">{location.display}</dd>
-            </div>
-            <div>
-              <dt className="text-xs text-ink-3">Start date</dt>
-              <dd className="mt-1 text-ink-2">{availability.startDate}</dd>
-            </div>
-          </dl>
-
-          <div className="flex flex-wrap gap-3 md:col-span-7 md:row-start-2">
-            <ButtonLink href={links.email}>Email me</ButtonLink>
-            <ButtonLink href={links.scheduling} variant="secondary">
+          <div className="flex flex-wrap content-start gap-3 md:col-span-5 md:self-end md:justify-end">
+            <CopyEmail parts={splitEmail(links.email)} location="contact" variant="primary" />
+            <TrackLink href={links.scheduling} id="call" location="contact" variant="secondary">
+              <CalendarBlank size={16} aria-hidden="true" />
               Book a call
-            </ButtonLink>
+            </TrackLink>
+            <TrackLink href={links.resumePdf} id="resume" location="contact" variant="secondary" download>
+              <DownloadSimple size={16} aria-hidden="true" />
+              Download resume
+            </TrackLink>
+            <TrackLink href={VCARD} id="vcard" location="contact" variant="secondary" download>
+              <AddressBook size={16} aria-hidden="true" />
+              Download vCard
+            </TrackLink>
+            <ShareButton text={headline} location="contact" />
           </div>
         </div>
 
-        <p className="mt-12 border-t border-rule pt-5 text-sm text-ink-2">
+        <p className="mt-12 border-t border-rule-strong/40 pt-5 text-sm leading-snug text-ink-2">
           <span className="text-ink">Roles: </span>
           {availability.roles.join(', ')}
         </p>

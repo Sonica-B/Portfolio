@@ -1,0 +1,31 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.000
+[Music]
+
+2
+00:00:01.000 --> 00:00:04.390
+You can't read a model's latent thoughts.
+But you can track where they go.
+
+3
+00:00:04.390 --> 00:00:08.740
+Interpreting Latent CoT Reasoning as Dynamical Systems
+Poster, ICML 2026 FoGen Workshop
+
+4
+00:00:08.740 --> 00:00:14.200
+CODI: a stable attractor. COCONUT: an unstable expanding system.
+Sim-CoT supervision tightens both without changing the dynamics.
+
+5
+00:00:14.200 --> 00:00:20.190
+CODI step-to-step change falls: a decelerating trajectory.
+8,792 GSM8K samples, 768-dimensional trajectories, 4 model configurations, 28 of 28 claims verified
+
+6
+00:00:20.190 --> 00:00:24.500
+Shreya Boyane
+shreyaboyane.dev/projects/latent-cot
+Co-first author. Poster, ICML 2026 FoGen Workshop.

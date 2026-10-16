@@ -1,28 +1,34 @@
 import type { Metadata, Viewport } from 'next'
-import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { profile, SITE_URL } from '@/lib/content'
 import { Nav } from '@/components/site/nav'
 import { Footer } from '@/components/site/footer'
 import { Grain } from '@/components/site/grain'
+import { SiteAnalytics } from '@/components/site/analytics'
+import { DeferredAnalytics } from '@/components/site/deferred-analytics'
+import { CommandPalette } from '@/components/cta/command-palette'
+import { ScrollIsland } from '@/components/cta/scroll-island'
+import { ReelProvider, pitchItems } from '@/components/reel'
 import { JsonLd, personJsonLd, websiteJsonLd } from '@/lib/jsonld'
 
-const bricolage = Bricolage_Grotesque({
-  subsets: ['latin'],
-  variable: '--font-bricolage',
-  display: 'swap',
-  axes: ['opsz', 'wdth'],
-})
+const space = Space_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--font-space', display: 'swap' })
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
 
-const { identity } = profile
-const TITLE = `${identity.name} | Machine Learning Engineer, Computer Vision and LLM Systems`
-const DESCRIPTION =
-  'Shreya Boyane is a Machine Learning Engineer (M.S. AI, WPI 2026) with 2+ years of production DevOps, an ICML 2026 workshop paper on latent reasoning, and shipped multi-agent, computer-vision and inference-optimization systems.'
+const { identity, links } = profile
+const TITLE = `${identity.name} | ${identity.title}, Computer Vision and LLMs`
+// Home description: role, domain and location in 150 to 160 characters (the search snippet budget).
+const DESCRIPTION = `${identity.name}, ${identity.title} in ${identity.location.city}, ${identity.location.region}: computer vision, LLMs, inference optimization. M.S. AI, WPI. ICML 2026 workshop paper. Open to roles.`
 
+// Hex twin of --surface in globals.css (oklch(0.13 0.02 255)); the browser chrome wants a plain colour.
+const GROUND = '#03080f'
+
+// The nav joins the address on the client at click time, so no page carries a mailto: link in its markup.
+const [emailUser, emailDomain] = links.email.replace(/^mailto:/, '').split('@')
+
+// openGraph and twitter carry no title or description on purpose: Next fills them from each page's own
+// resolved title and description, so a route that sets neither still gets its own social card copy.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: TITLE, template: `%s | ${identity.name}` },
@@ -43,21 +49,21 @@ export const metadata: Metadata = {
     'MLOps',
     'Worcester Polytechnic Institute',
     'San Jose',
+    'San Francisco Bay Area',
     'open to work',
+    'machine learning portfolio',
   ],
-  alternates: { canonical: '/' },
+  alternates: { canonical: '/', types: { 'text/markdown': '/md/index.md' } },
   openGraph: {
     type: 'profile',
     locale: 'en_US',
     url: SITE_URL,
     siteName: 'Shreya Boyane',
-    title: TITLE,
-    description: DESCRIPTION,
     firstName: 'Shreya',
     lastName: 'Boyane',
     username: 'Sonica-B',
   },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
+  twitter: { card: 'summary_large_image' },
   robots: {
     index: true,
     follow: true,
@@ -71,35 +77,33 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  colorScheme: 'dark light',
-  themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#121218' },
-    { media: '(prefers-color-scheme: light)', color: '#faf9f7' },
-  ],
+  colorScheme: 'dark',
+  themeColor: GROUND,
 }
-
-// Runs before paint so a saved light preference never flashes dark.
-const themeInit = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}})()`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" className={`${bricolage.variable} ${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${space.variable} ${geist.variable} ${geistMono.variable}`}>
       <body className="bg-surface text-ink">
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-ink"
         >
           Skip to content
         </a>
-        <Nav />
-        <main id="main">{children}</main>
+        <Nav email={{ user: emailUser, domain: emailDomain }} />
+        {/* The reel provider wraps the page content so any PlayPitch or filmstrip opens the one shared lightbox. */}
+        <ReelProvider items={pitchItems()}>
+          <main id="main">{children}</main>
+        </ReelProvider>
         <Footer />
         <Grain />
         <JsonLd data={personJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
-        <Analytics />
-        <SpeedInsights />
+        <DeferredAnalytics />
+        <SiteAnalytics />
+        <ScrollIsland />
+        <CommandPalette />
       </body>
     </html>
   )
