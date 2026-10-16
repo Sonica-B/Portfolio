@@ -1,0 +1,248 @@
+{
+  "source": "Sonica-B/TrendED, data/json/wpi_courses.json, Department: Computer Science",
+  "note": "Thirty undergraduate and thirty graduate titles in catalog order, unique titles, skipping topics, research, thesis, capstone, teacher and non-major rows.",
+  "department": "Computer Science",
+  "catalogCount": 153,
+  "courses": [
+    {
+      "code": "CS 1101",
+      "title": "Introduction to Program Design"
+    },
+    {
+      "code": "CS 1102",
+      "title": "Accelerated Introduction to Program Design"
+    },
+    {
+      "code": "CS 2011",
+      "title": "Introduction to Machine Organization and Assembly Language"
+    },
+    {
+      "code": "CS 2022",
+      "title": "Discrete Mathematics"
+    },
+    {
+      "code": "CS 2102",
+      "title": "Object-Oriented Design Concepts"
+    },
+    {
+      "code": "CS 2103",
+      "title": "Accelerated Object-Oriented Design Concepts"
+    },
+    {
+      "code": "CS 2119",
+      "title": "Application Building with Object-Oriented Concepts"
+    },
+    {
+      "code": "CS 2223",
+      "title": "Algorithms"
+    },
+    {
+      "code": "CS 2303",
+      "title": "Systems Programming Concepts"
+    },
+    {
+      "code": "CS 3013",
+      "title": "Operating Systems"
+    },
+    {
+      "code": "CS 3041",
+      "title": "Human-Computer Interaction"
+    },
+    {
+      "code": "CS 3043",
+      "title": "Social Implications of Information Processing"
+    },
+    {
+      "code": "CS 3133",
+      "title": "Foundations of Computer Science"
+    },
+    {
+      "code": "CS 3431",
+      "title": "Database Systems I"
+    },
+    {
+      "code": "CS 3516",
+      "title": "Computer Networks"
+    },
+    {
+      "code": "CS 3733",
+      "title": "Software Engineering"
+    },
+    {
+      "code": "CS 4032",
+      "title": "Numerical Methods for Linear and Nonlinear Systems"
+    },
+    {
+      "code": "CS 4033",
+      "title": "Numerical Methods for Calculus and Differential Equations"
+    },
+    {
+      "code": "CS 4100",
+      "title": "Artificial Intelligence for Interactive Media and Games"
+    },
+    {
+      "code": "CS 4120",
+      "title": "Analysis of Algorithms"
+    },
+    {
+      "code": "CS 4123",
+      "title": "Theory of Computation"
+    },
+    {
+      "code": "CS 4233",
+      "title": "Object-Oriented Analysis and Design"
+    },
+    {
+      "code": "CS 4241",
+      "title": "Webware: Computational Technology for Network Information Systems"
+    },
+    {
+      "code": "CS 4300",
+      "title": "Graphics, Simulation, and Aesthetics"
+    },
+    {
+      "code": "CS 4341",
+      "title": "Introduction to Artificial Intelligence"
+    },
+    {
+      "code": "CS 4342",
+      "title": "Machine Learning"
+    },
+    {
+      "code": "CS 4401",
+      "title": "Software Security Engineering"
+    },
+    {
+      "code": "CS 4404",
+      "title": "Tools and Techniques in Computer Network Security"
+    },
+    {
+      "code": "CS 4432",
+      "title": "Database Systems II"
+    },
+    {
+      "code": "CS 4433",
+      "title": "Big Data Management and Analytics"
+    },
+    {
+      "code": "CS 504",
+      "title": "Analysis of Computations and Systems"
+    },
+    {
+      "code": "CS 509",
+      "title": "Design of Software Systems"
+    },
+    {
+      "code": "CS 514",
+      "title": "Advanced Systems Architecture"
+    },
+    {
+      "code": "CS 521",
+      "title": "Logic in Computer Science"
+    },
+    {
+      "code": "CS 522",
+      "title": "Numerical Methods"
+    },
+    {
+      "code": "CS 526",
+      "title": "Human-Robot Interaction"
+    },
+    {
+      "code": "CS 528",
+      "title": "Mobile and Ubiquitous Computing"
+    },
+    {
+      "code": "CS 529",
+      "title": "Multimedia Networking"
+    },
+    {
+      "code": "CS 533",
+      "title": "Modeling and Performance Evaluation of Network and Computer Systems"
+    },
+    {
+      "code": "CS 535",
+      "title": "Advanced Topics in Operating Systems"
+    },
+    {
+      "code": "CS 536",
+      "title": "Programming Language Design"
+    },
+    {
+      "code": "CS 538",
+      "title": "Knowledge-Based Systems"
+    },
+    {
+      "code": "CS 540",
+      "title": "Artificial Intelligence in Design"
+    },
+    {
+      "code": "CS 541",
+      "title": "Deep Learning"
+    },
+    {
+      "code": "CS 542",
+      "title": "Database Management Systems"
+    },
+    {
+      "code": "CS 543",
+      "title": "Computer Graphics"
+    },
+    {
+      "code": "CS 544",
+      "title": "Compiler Construction"
+    },
+    {
+      "code": "CS 545",
+      "title": "Digital Image Processing"
+    },
+    {
+      "code": "CS 547",
+      "title": "Information Retrieval"
+    },
+    {
+      "code": "CS 548",
+      "title": "Knowledge Discovery and Data Mining"
+    },
+    {
+      "code": "CS 549",
+      "title": "Computer Vision"
+    },
+    {
+      "code": "CS 552",
+      "title": "Generative Artificial Intelligence"
+    },
+    {
+      "code": "CS 553",
+      "title": "Machine Learning Development and Operations"
+    },
+    {
+      "code": "CS 554",
+      "title": "Natural Language Processing"
+    },
+    {
+      "code": "CS 555",
+      "title": "Responsible Artificial Intelligence"
+    },
+    {
+      "code": "CS 556/DS",
+      "title": "On-Device Deep Learning"
+    },
+    {
+      "code": "CS 557",
+      "title": "Software Security Design and Analysis"
+    },
+    {
+      "code": "CS 558",
+      "title": "Computer Network Security"
+    },
+    {
+      "code": "CS 559",
+      "title": "Advanced Topics in Theoretical Computer Science"
+    },
+    {
+      "code": "CS 561",
+      "title": "Advanced Topics in Database Systems"
+    }
+  ]
+}
