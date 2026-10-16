@@ -1,5 +1,4 @@
 import { profile } from '@/lib/content'
-import { cn } from '@/lib/utils'
 import { HudFrame } from '@/components/ui/hud-frame'
 import { DepthPortrait } from '@/components/hero/depth-portrait'
 
@@ -14,8 +13,7 @@ const PIPELINE = 'Depth Anything V2 depth map, WebGL2 point field'
 export function HologramCard({ className }: { className?: string }) {
   const { identity } = profile
   return (
-    // The figure's own caption is nowrap for the hero; inside a 60 percent card it has to wrap.
-    <HudFrame status={PIPELINE} className={cn('[&_figcaption>span]:whitespace-normal', className)}>
+    <HudFrame status={PIPELINE} className={className}>
       <DepthPortrait variant="hologram" alt={`${identity.name}, ${identity.title}`} />
     </HudFrame>
   )

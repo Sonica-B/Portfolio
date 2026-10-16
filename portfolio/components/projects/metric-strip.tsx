@@ -59,7 +59,8 @@ export function MetricStrip({ metrics, className }: { metrics: Metric[]; classNa
               hero ? 'bg-accent-soft' : i === 1 ? 'bg-surface-raised' : 'bg-surface',
             )}
           >
-            <dt className="order-2 text-sm text-ink-2">{m.label}</dt>
+            {/* ink-2 on the accent tint measures 4.29:1, so the tinted lead cell labels in ink. */}
+            <dt className={cn('order-2 text-sm', hero ? 'text-ink' : 'text-ink-2')}>{m.label}</dt>
             <dd className={cn('order-1 text-metric text-balance text-ink', hero ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl')}>
               {m.value}
             </dd>

@@ -85,7 +85,8 @@ export function ProjectStrip({ item }: { item: StripItem }) {
           <span>{item.kindLabel}</span>
           <span className="tnum">{item.year}</span>
         </p>
-        <h2 className="text-title mt-1">
+        {/* anywhere: a single long token ("shreyaboyane.dev:", "reconstruction") breaks inside the 1fr column at 320 px. */}
+        <h2 className="text-title mt-1 [overflow-wrap:anywhere]">
           <Link
             href={`/projects/${item.slug}`}
             className="text-ink transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-accent"

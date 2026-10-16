@@ -35,7 +35,7 @@ export function GithubActivity() {
     <article aria-labelledby="github-title" className="panel p-5 md:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id="github-title" className="text-title">
-          <a href={profile.links.github} target="_blank" rel="me noopener noreferrer" className="transition-colors hover:text-accent">
+          <a href={profile.links.github} target="_blank" rel="me noopener noreferrer" className="inline-flex min-h-11 items-center transition-colors hover:text-accent">
             On GitHub
           </a>
         </h2>
@@ -46,12 +46,13 @@ export function GithubActivity() {
 
       <ul className="mt-3">
         {repos.map(([name, stats]) => (
-          <li key={name} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 py-2">
+          <li key={name} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+            {/* py-2.5 on the 24 px line makes a 44 px target, in place of the row's old 8 px padding. */}
             <a
               href={`https://github.com/${name}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-w-0 truncate text-ink transition-colors hover:text-accent"
+              className="min-w-0 truncate py-2.5 text-ink transition-colors hover:text-accent"
             >
               {name.split('/')[1] ?? name}
             </a>

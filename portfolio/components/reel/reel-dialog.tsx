@@ -72,10 +72,13 @@ export function ReelDialog() {
       onClose={onClose}
       onClick={onBackdropClick}
       onKeyDown={onKeyDown}
-      className="m-auto max-h-[100dvh] w-full max-w-[1120px] overflow-y-auto border-0 bg-transparent p-0 text-ink transition-opacity duration-300 ease-out [overscroll-behavior:contain] backdrop:bg-[oklch(0.08_0.01_260/0.88)] starting:open:opacity-0 md:w-[calc(100%-3rem)]"
+      // Phones: an opaque full-height sheet, so nothing behind the caption and controls shows through.
+      // From 768 px: a transparent frame over the 88 percent backdrop, with 8 px of padding so the
+      // focus rings of edge controls (Close, Open project) are not clipped by the scroll box.
+      className="m-auto h-dvh max-h-none w-full max-w-[1120px] overflow-y-auto border-0 bg-surface p-0 text-ink transition-opacity duration-300 ease-out [overscroll-behavior:contain] backdrop:bg-surface starting:open:opacity-0 md:h-fit md:max-h-[100dvh] md:w-[calc(100%-3rem)] md:bg-transparent md:p-2 md:backdrop:bg-[oklch(0.08_0.01_260/0.88)]"
     >
       {item ? (
-        <div className="flex w-full flex-col">
+        <div className="flex min-h-full w-full flex-col justify-center md:min-h-0">
           <div className="flex items-center justify-between gap-4 px-[max(1rem,env(safe-area-inset-left))] pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 md:px-0 md:pt-0">
             <p className="text-metric text-sm text-ink-2">
               {index + 1} of {items.length}

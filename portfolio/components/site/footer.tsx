@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { profile } from '@/lib/content'
 import { ButtonLink } from '@/components/ui/button'
 import { Logo } from '@/components/ui/logo'
+import { getLogo } from '@/lib/logos'
 import { CopyEmail } from '@/components/cta/copy-email'
 import { splitEmail } from '@/components/cta/email'
 
@@ -24,13 +25,14 @@ const SITE: { href: string; label: string; download?: boolean }[] = [
   { href: '/resume', label: 'Resume' },
 ]
 
-// Every list link is at least 24 px tall (min-h-6 plus py-1) with 8 px between items, the Lighthouse target size.
-const LIST_LINK = 'inline-flex min-h-6 items-center py-1 text-ink-2 hover:text-ink'
+// Every list link is a 44 px target, stacked flush so the rows keep a 44 px pitch.
+const LIST_LINK = 'inline-flex min-h-11 items-center text-ink-2 hover:text-ink'
 
 export function Footer() {
   const { links, identity, meta } = profile
   return (
-    <footer className="safe-bottom bg-surface-sunken">
+    // Safe-area padding plus --island-room (3.5rem while the scroll island is enabled, see globals.css), so the island never covers the last line.
+    <footer className="bg-surface-sunken pb-[calc(max(1.25rem,env(safe-area-inset-bottom))+var(--island-room,0px))]">
       <div className="container-site grid gap-10 py-12 md:grid-cols-12">
         <div className="md:col-span-5">
           <p className="font-display text-2xl font-bold tracking-tight">{identity.name}</p>
@@ -49,7 +51,7 @@ export function Footer() {
 
         <nav aria-label="Site" className="md:col-span-3">
           <p className="text-label text-ink-3">Site</p>
-          <ul className="mt-3 space-y-2 text-sm">
+          <ul className="mt-1 grid grid-cols-2 gap-x-2 text-sm md:grid-cols-1">
             {SITE.map((s) => (
               <li key={s.href}>
                 <Link className={LIST_LINK} href={s.href}>
@@ -77,12 +79,24 @@ export function Footer() {
 
         <nav aria-label="Profiles" className="md:col-span-4">
           <p className="text-label text-ink-3">Elsewhere</p>
-          <ul className="mt-3 grid grid-cols-2 gap-2 text-sm">
+          <ul className="mt-1 grid grid-cols-2 gap-x-2 text-sm">
             {SOCIAL.map((s) => (
               <li key={s.key} className="group">
                 <a className={`${LIST_LINK} gap-2`} href={links[s.key]} target="_blank" rel="me noopener noreferrer">
-                  <Logo name={s.label} height={16} />
-                  {s.label}
+                  {getLogo(s.label)?.wordmark ? (
+                    // A wordmark already spells the name: show it alone and give the link its name once, as text.
+                    <>
+                      <span aria-hidden="true">
+                        <Logo name={s.label} height={16} />
+                      </span>
+                      <span className="sr-only">{s.label}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Logo name={s.label} height={16} />
+                      {s.label}
+                    </>
+                  )}
                 </a>
               </li>
             ))}

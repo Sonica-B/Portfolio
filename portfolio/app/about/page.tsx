@@ -93,15 +93,19 @@ export default function AboutPage() {
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }])} />
       <JsonLd data={aboutPageJsonLd()} />
 
-      <header className="grid gap-8 md:grid-cols-12 md:gap-x-3 md:gap-y-0">
+      {/* Phones read h1 and headline, then the hologram, then the story. From md the hologram spans both rows on the right. */}
+      <header className="grid gap-8 md:grid-cols-12 md:grid-rows-[auto_1fr] md:gap-x-3 md:gap-y-0">
         <div className="md:col-span-7 lg:col-span-8">
           <h1 className="text-display">About</h1>
           <p className="text-title mt-3 max-w-[34ch] font-medium text-ink-2">{identity.headline}</p>
-          <Story />
         </div>
-        <div className="order-first md:order-none md:col-span-5 lg:col-span-4">
+        <div className="md:col-span-5 md:col-start-8 md:row-span-2 md:row-start-1 lg:col-span-4 lg:col-start-9">
           {/* 60 percent of the column on phones with a 240 px floor for 320 px screens; about 320 px of portrait inside the 360 px frame from md. */}
           <HologramCard className="mx-auto w-3/5 min-w-60 md:mr-0 md:w-full md:min-w-0 md:max-w-[22.5rem]" />
+        </div>
+        {/* -mt-6 offsets the Story's own 24 px top margin, so the hologram has the same 32 px gap above and below on phones. */}
+        <div className="-mt-6 md:col-span-7 md:mt-0 lg:col-span-8">
+          <Story />
         </div>
       </header>
 
@@ -118,15 +122,15 @@ export default function AboutPage() {
           <ActivityTimeline />
         </Block>
 
-        <Block id="recognition" title="Recognition" intro={recognitionIntro()} className="cv-auto">
+        <Block id="recognition" title="Recognition" intro={recognitionIntro()}>
           <RecognitionTable />
         </Block>
 
-        <Block id="certifications" title="Certifications" intro={certificationsIntro()} className="cv-auto">
+        <Block id="certifications" title="Certifications" intro={certificationsIntro()}>
           <CredentialWallet />
         </Block>
 
-        <Block id="recommendations" title="What colleagues say" intro={recommendationsIntro()} className="cv-auto">
+        <Block id="recommendations" title="What colleagues say" intro={recommendationsIntro()}>
           <Recommendations />
         </Block>
 

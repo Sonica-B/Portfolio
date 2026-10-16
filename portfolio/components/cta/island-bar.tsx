@@ -40,6 +40,14 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
     }
   }, [])
 
+  // While the island is enabled, <html data-island> gives the footer room under its last line (globals.css).
+  useEffect(() => {
+    const root = document.documentElement
+    if (dismissed) root.removeAttribute('data-island')
+    else root.setAttribute('data-island', '')
+    return () => root.removeAttribute('data-island')
+  }, [dismissed])
+
   // The home hero renders [data-hero-end]; elsewhere the island appears after 600 px.
   // The root is extended far below the viewport, so the zero-height sentinel counts as
   // intersecting until it passes the top edge; an instant jump past it still fires.
@@ -82,6 +90,12 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
 
   const dismiss = () => {
     track('cta_click', { id: 'dismiss', location: 'island' })
+    // The button is about to unmount: hand focus to the main landmark rather than letting it fall to body.
+    const main = document.getElementById('main')
+    if (main && toolbar.current?.contains(document.activeElement)) {
+      if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1')
+      main.focus({ preventScroll: true })
+    }
     setDismissed(true)
     try {
       sessionStorage.setItem(DISMISS_KEY, '1')
@@ -120,7 +134,7 @@ export function IslandBar({ resumeHref, callHref, email }: Props) {
             role="toolbar"
             aria-label="Quick actions"
             onKeyDown={onKeyDown}
-            className="panel pointer-events-auto flex items-center gap-1 rounded-xl border border-rule bg-surface-raised/95 p-1.5 backdrop-blur-md"
+            className="panel pointer-events-auto relative flex items-center gap-1 rounded-xl border border-rule bg-surface-raised/95 p-1.5 backdrop-blur-md"
           >
             <span aria-hidden="true" className="mx-1 inline-flex h-7 w-7 shrink-0 items-center justify-center">
               <svg viewBox="0 0 28 28" className="h-7 w-7 -rotate-90">

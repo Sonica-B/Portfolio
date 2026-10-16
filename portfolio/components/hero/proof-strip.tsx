@@ -73,7 +73,8 @@ export function ProofStrip() {
               ))}
               <span>{it.label}</span>
             </p>
-            <Link href={it.href} className="mt-1.5 block max-w-[34ch] text-[0.95rem] leading-snug text-ink hover:text-accent">
+            {/* 12 px of padding above and below, offset by negative margins: a 44 px target with the text where it was. */}
+            <Link href={it.href} className="-mt-1.5 -mb-3 block max-w-[34ch] py-3 text-[0.95rem] leading-snug text-ink hover:text-accent">
               {it.title}
             </Link>
           </li>

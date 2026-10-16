@@ -82,7 +82,8 @@ const VARIANTS = {
     cols: { phone: 180, desktop: 300 },
     maxWidth: 'min(560px, calc(var(--portrait-max-h, 80dvh) * 0.568))',
     frame: '[--portrait-max-h:46dvh] md:[--portrait-max-h:80dvh]',
-    sizes: '(min-width: 768px) 40vw, 60vw',
+    // The rendered width: 0.568 of the height cap (46dvh on phones is 26.1vh, 80dvh from 768 px is 45.4vh), capped by 560 px and the column.
+    sizes: '(min-width: 768px) min(560px, 46vh, 40vw), min(27vh, 100vw)',
   },
   hologram: {
     src: '/portrait/shreya2-560.webp',
@@ -366,15 +367,22 @@ export function DepthPortrait({ variant = 'hero', alt, className, ...overrides }
   return (
     <figure className={cn('mx-auto w-full', cfg.frame, className)} style={{ maxWidth: cfg.maxWidth }} data-paused={paused || undefined}>
       <div ref={host} className={cn('relative w-full', hologram && 'dp-float')} style={{ aspectRatio: `${width} / ${height}` }}>
-        <Image
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          priority={!hologram}
-          sizes={cfg.sizes}
-          className={cn('absolute inset-0 h-full w-full object-contain transition-opacity duration-700', ready && 'opacity-0')}
-        />
+        {/* No preload link for the portrait: the speculative preload and the img resolved different
+            candidates on phones, so one download went unused. React adds a preload for every eager
+            img outside a <picture>, so the wrapper opts out; the img stays eager and high priority in
+            the server HTML and fetches only the candidate its own sizes resolve to. */}
+        <picture className="contents">
+          <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            loading={hologram ? 'lazy' : 'eager'}
+            fetchPriority={hologram ? undefined : 'high'}
+            sizes={cfg.sizes}
+            className={cn('absolute inset-0 h-full w-full object-contain transition-opacity duration-700', ready && 'opacity-0')}
+          />
+        </picture>
         <canvas
           ref={canvasRef}
           aria-hidden="true"
@@ -388,7 +396,8 @@ export function DepthPortrait({ variant = 'hero', alt, className, ...overrides }
         )}
       </div>
       <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-        <span className="text-status font-mono text-sm whitespace-nowrap text-ink-2">{status}</span>
+        {/* Wraps: at 320 px the hero figure is about 148 px wide, narrower than the status line. */}
+        <span className="text-status min-w-0 font-mono text-sm break-words text-ink-2">{status}</span>
         {supported && ready && (
           <button
             type="button"

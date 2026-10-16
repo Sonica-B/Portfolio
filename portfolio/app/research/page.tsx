@@ -89,7 +89,7 @@ function PublicationArticle({ pub }: { pub: Publication }) {
               href={pub.venueUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-start gap-1 text-ink underline-offset-4 hover:text-accent hover:underline"
+              className="-my-2.5 inline-flex items-start gap-1 py-2.5 text-ink underline-offset-4 hover:text-accent hover:underline"
             >
               <span>{pub.venueFull}</span>
               <ArrowUpRight size={16} className="mt-1 shrink-0" aria-hidden="true" />

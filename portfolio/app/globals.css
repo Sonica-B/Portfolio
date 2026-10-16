@@ -84,6 +84,10 @@
   }
   ::selection { background: var(--accent); color: var(--accent-ink); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  /* Programmatic focus target (the island's dismiss, the skip link): the landmark itself draws no ring. */
+  #main[tabindex="-1"]:focus { outline: none; }
+  /* While the scroll island is enabled (IslandBar sets data-island) the footer keeps 3.5rem clear under its last line. */
+  :root[data-island] { --island-room: 3.5rem; }
   h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; }
   p, li, dd { text-wrap: pretty; }
   a, button, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
@@ -117,7 +121,6 @@
 @utility hairline { border-top: 1px solid var(--rule); }
 @utility safe-bottom { padding-bottom: max(1.25rem, env(safe-area-inset-bottom)); }
 @utility safe-top { padding-top: max(0px, env(safe-area-inset-top)); }
-@utility cv-auto { content-visibility: auto; contain-intrinsic-size: auto 800px; }
 @utility press { transition: transform 150ms var(--ease-out-quart); &:active { transform: scale(0.98); } }
 
 /* ---------- Type: five steps plus the mono data styles. Space Grotesk has no axes. ---------- */

@@ -13,15 +13,11 @@ export function filterHref(pathname: string, kind: string): string {
   return `${pathname}?kind=${encodeURIComponent(kind)}`
 }
 
-// Mono chips in the HUD grammar: 44 px tall, uppercase 13 px, cyan fill when selected.
+// Mono chips in the HUD grammar: 44 px tall, uppercase 13 px, cyan fill when selected. 12 px side padding on phones keeps the wrapped block short.
 const chip =
-  'press inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-full border px-4 font-mono text-[13px] uppercase tracking-[0.08em] whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200'
-/**
- * Phones: one snap rail that bleeds into the page gutters so the next chip shows at the edge
- * (same gutter clamp as container-site). From 768 px the chips wrap in place.
- */
-const rail =
-  'flex gap-2 [--gutter:clamp(1rem,0.4rem+3vw,4rem)] mx-[calc(-1*var(--gutter))] snap-x snap-mandatory scroll-px-[var(--gutter)] overflow-x-auto px-[var(--gutter)] pb-1 [scrollbar-width:thin] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0'
+  'press inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border px-3 font-mono text-[13px] uppercase tracking-[0.08em] whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 md:px-4'
+/** The chips wrap in place at every width: no sideways rail, so no chip is ever cut at the edge. */
+const rail = 'flex flex-wrap gap-2'
 const idle = 'border-rule-strong text-ink-2 hover:border-accent/60 hover:text-ink hover:glow'
 const selectedCls = 'border-accent bg-accent text-accent-ink'
 

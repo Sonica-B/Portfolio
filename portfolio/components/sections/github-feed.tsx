@@ -201,8 +201,9 @@ export function GithubFeed({ user, max = 5 }: { user: string; max?: number }) {
           <p className="text-status">Latest public activity</p>
           <ul className="mt-1">
             {items.map((it) => (
-              <li key={it.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 py-2">
-                <a href={it.href} target="_blank" rel="noopener noreferrer" className="min-w-0 text-ink transition-colors hover:text-accent">
+              <li key={it.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+                {/* py-2.5 on the 24 px line makes a 44 px target. */}
+                <a href={it.href} target="_blank" rel="noopener noreferrer" className="min-w-0 py-2.5 text-ink transition-colors hover:text-accent">
                   {it.text}
                 </a>
                 <time dateTime={it.at} className="text-status shrink-0">

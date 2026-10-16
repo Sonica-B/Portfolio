@@ -117,7 +117,7 @@ export function Nav({ email }: { email: NavEmail }) {
     <header className="sticky top-0 z-40 safe-top">
       <div className="border-b border-rule/70 bg-surface/80 backdrop-blur-md">
         <nav aria-label="Primary" className="container-site flex h-16 items-center justify-between gap-3">
-          <Link href="/" className="font-display text-lg font-bold tracking-tight text-ink" aria-label="Shreya Boyane, home">
+          <Link href="/" className="inline-flex min-h-11 items-center font-display text-lg font-bold tracking-tight text-ink" aria-label="Shreya Boyane, home">
             Shreya Boyane
           </Link>
 
