@@ -1,16 +1,20 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import { KIND_LABEL, formatRange, profile, year } from '@/lib/content'
+import { KIND_LABEL, profile, year, type Project } from '@/lib/content'
 import { JsonLd, breadcrumbJsonLd, itemListJsonLd } from '@/lib/jsonld'
+import { PITCH_SECONDS, hasPitch, pitchThumbSrc } from '@/components/reel/pitch-slugs'
 import type { KindOption } from '@/components/projects/filter-bar'
-import { ProjectIndex, type LedgerItem } from '@/components/projects/project-ledger'
+import { publicImageSize } from '@/components/projects/figure'
+import { ProjectIndex } from '@/components/projects/project-ledger'
+import type { StripFrame, StripItem } from '@/components/projects/project-strip'
 import { ProjectFilter } from './project-filter'
 
 const { projects, identity } = profile
 const count = projects.length
 const firstYear = projects.map((p) => year(p.start)).sort()[0]
+const pitched = projects.filter((p) => hasPitch(p.slug)).length
 
-const DESCRIPTION = `${count} machine learning projects by ${identity.name}: research papers, production systems, computer vision, generative AI, MLOps and developer tooling, each with metrics, stack and source links.`
+const DESCRIPTION = `${count} machine learning projects by ${identity.name} since ${firstYear}, each with the problem, what she did and what changed, plus metrics, stack and source links; ${pitched} carry a ${PITCH_SECONDS}-second pitch video.`
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -19,14 +23,33 @@ export const metadata: Metadata = {
   openGraph: { title: `Projects by ${identity.name}`, description: DESCRIPTION, url: '/projects' },
 }
 
-const items: LedgerItem[] = projects.map((p) => ({
+/** The metric that stands in for a picture: the first one short enough to read as a number. */
+function tileMetric(p: Project) {
+  return p.metrics.find((m) => m.value.length <= 12) ?? p.metrics[0]
+}
+
+/** Pitch thumbnail when a video exists, else the project visual, else a typographic metric tile. */
+function frameFor(p: Project): StripFrame {
+  if (hasPitch(p.slug)) return { type: 'thumb', src: pitchThumbSrc(p.slug) }
+  if (p.visual) {
+    const { width, height } = publicImageSize(p.visual.src)
+    return { type: 'visual', src: p.visual.src, alt: p.visual.alt, width, height }
+  }
+  const m = tileMetric(p)
+  return m
+    ? { type: 'metric', value: m.value, label: m.label }
+    : { type: 'metric', value: year(p.start), label: KIND_LABEL[p.kind] ?? p.kind }
+}
+
+const items: StripItem[] = projects.map((p) => ({
   slug: p.slug,
   name: p.name,
-  subtitle: p.subtitle,
   kind: p.kind,
   kindLabel: KIND_LABEL[p.kind] ?? p.kind,
-  range: formatRange(p.start, p.end),
-  metric: p.metrics[0] ?? null,
+  year: year(p.end ?? p.start),
+  change: p.pitch.change,
+  hasPitch: hasPitch(p.slug),
+  frame: frameFor(p),
 }))
 
 const options: KindOption[] = [{ kind: 'all', label: 'All', count }]
@@ -45,13 +68,13 @@ export default function ProjectsPage() {
       <header className="max-w-[64ch]">
         <h1 className="text-display">Work</h1>
         <p className="text-lead mt-5 text-ink-2">
-          All {count} projects since {firstYear}, from research papers and production systems to computer vision,
-          generative AI and developer tooling, each with its metrics, stack and source links.
+          All {count} projects since {firstYear}, each with the problem, what she did and what changed. {pitched} of them
+          carry a {PITCH_SECONDS}-second pitch.
         </p>
       </header>
 
-      <div className="mt-12 md:mt-16">
-        {/* The fallback is the full ledger, so the static HTML carries every project even before hydration. */}
+      <div className="mt-10 md:mt-14">
+        {/* The fallback is the full sheet, so the static HTML carries every project even before hydration. */}
         <Suspense fallback={<ProjectIndex items={items} options={options} active="all" />}>
           <ProjectFilter items={items} options={options} />
         </Suspense>

@@ -6,25 +6,23 @@ import type { Project } from '@/lib/content'
 
 type InstrumentComponent = ComponentType<{ project: Project }>
 
-const opts = { ssr: false } as const
-
 /** Bespoke instruments by project slug. Everything else falls back to a figure switcher or the metric explorer. */
 const bespoke: Record<string, InstrumentComponent> = {
-  'latent-cot': dynamic(() => import('./latent-cot'), opts),
-  'einstein-vision': dynamic(() => import('./einstein-vision'), opts),
-  tumorlytix: dynamic(() => import('./tumorlytix'), opts),
-  vio: dynamic(() => import('./vio'), opts),
-  'buildings-built-in-minutes': dynamic(() => import('./buildings-built-in-minutes'), opts),
-  robofusion: dynamic(() => import('./robofusion'), opts),
-  skiplegal: dynamic(() => import('./skiplegal'), opts),
-  madwe: dynamic(() => import('./madwe'), opts),
-  'realmweaver-ai': dynamic(() => import('./realmweaver-ai'), opts),
-  'trended-pathfinder': dynamic(() => import('./trended-pathfinder'), opts),
-  autogit: dynamic(() => import('./autogit'), opts),
+  'latent-cot': dynamic(() => import('./latent-cot'), { ssr: false }),
+  'einstein-vision': dynamic(() => import('./einstein-vision'), { ssr: false }),
+  tumorlytix: dynamic(() => import('./tumorlytix'), { ssr: false }),
+  vio: dynamic(() => import('./vio'), { ssr: false }),
+  'buildings-built-in-minutes': dynamic(() => import('./buildings-built-in-minutes'), { ssr: false }),
+  robofusion: dynamic(() => import('./robofusion'), { ssr: false }),
+  skiplegal: dynamic(() => import('./skiplegal'), { ssr: false }),
+  madwe: dynamic(() => import('./madwe'), { ssr: false }),
+  'realmweaver-ai': dynamic(() => import('./realmweaver-ai'), { ssr: false }),
+  'trended-pathfinder': dynamic(() => import('./trended-pathfinder'), { ssr: false }),
+  autogit: dynamic(() => import('./autogit'), { ssr: false }),
 }
 
-const FigureSwitcher = dynamic(() => import('./figure-switcher'), opts)
-const MetricExplorer = dynamic(() => import('./metric-explorer'), opts)
+const FigureSwitcher = dynamic(() => import('./figure-switcher'), { ssr: false })
+const MetricExplorer = dynamic(() => import('./metric-explorer'), { ssr: false })
 
 export const BESPOKE_SLUGS = Object.keys(bespoke)
 

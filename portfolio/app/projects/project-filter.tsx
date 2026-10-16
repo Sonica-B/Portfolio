@@ -3,10 +3,11 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 import type { KindOption } from '@/components/projects/filter-bar'
-import { ProjectIndex, type LedgerItem } from '@/components/projects/project-ledger'
+import { ProjectIndex } from '@/components/projects/project-ledger'
+import type { StripItem } from '@/components/projects/project-strip'
 
 /** Keeps the kind filter in `?kind=` so a filtered view can be shared or reloaded. */
-export function ProjectFilter({ items, options }: { items: LedgerItem[]; options: KindOption[] }) {
+export function ProjectFilter({ items, options }: { items: StripItem[]; options: KindOption[] }) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()

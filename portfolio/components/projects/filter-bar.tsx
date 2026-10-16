@@ -3,9 +3,16 @@ import { cn } from '@/lib/utils'
 
 export type KindOption = { kind: string; label: string; count: number }
 
+// Mono chips in the HUD grammar: 44 px tall, uppercase 13 px, cyan fill when selected.
 const chip =
-  'press inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm transition-[background-color,border-color,color] duration-200'
-const idle = 'border-rule-strong text-ink-2 hover:bg-surface-raised hover:text-ink'
+  'press inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-full border px-4 font-mono text-[13px] uppercase tracking-[0.08em] whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200'
+/**
+ * Phones: one snap rail that bleeds into the page gutters so the next chip shows at the edge
+ * (same gutter clamp as container-site). From 768 px the chips wrap in place.
+ */
+const rail =
+  'flex gap-2 [--gutter:clamp(1rem,0.4rem+3vw,4rem)] mx-[calc(-1*var(--gutter))] snap-x snap-mandatory scroll-px-[var(--gutter)] overflow-x-auto px-[var(--gutter)] pb-1 [scrollbar-width:thin] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0'
+const idle = 'border-rule-strong text-ink-2 hover:border-accent/60 hover:text-ink hover:glow'
 const selectedCls = 'border-accent bg-accent text-accent-ink'
 
 /**
@@ -22,14 +29,14 @@ export function FilterBar({
   onSelect?: (kind: string) => void
 }) {
   return (
-    <div role="group" aria-label="Filter projects by kind" className="flex flex-wrap gap-2">
+    <div role="group" aria-label="Filter projects by kind" className={rail}>
       {options.map((o) => {
         const selected = o.kind === active
         const cls = cn(chip, selected ? selectedCls : idle)
         const content = (
           <>
             <span>{o.label}</span>
-            <span className="text-metric text-xs">{o.count}</span>
+            <span className="tnum">{o.count}</span>
           </>
         )
         if (onSelect) {

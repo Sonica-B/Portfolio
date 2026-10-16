@@ -91,7 +91,7 @@ export function Figure({
         height={height}
         sizes={sizes}
         loading="lazy"
-        className="w-full rounded-card bg-surface-raised"
+        className="frame-media w-full"
         style={{ height: 'auto' }}
       />
       {caption ? <figcaption className="mt-3 text-sm text-ink-2">{caption}</figcaption> : null}

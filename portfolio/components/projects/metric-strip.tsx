@@ -38,7 +38,7 @@ function spans(n: number): number[] {
   return out
 }
 
-/** Asymmetric bento of mono metric values. The first cell is tinted amber, the second raised. */
+/** Asymmetric ledger of mono metric values with hairlines between cells. The first cell is tinted with the accent, the second raised. */
 export function MetricStrip({ metrics, className }: { metrics: Metric[]; className?: string }) {
   const n = metrics.length
   if (n === 0) return null
