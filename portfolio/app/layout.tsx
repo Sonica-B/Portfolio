@@ -1,295 +1,105 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-// Enable these after turning on Analytics in Vercel Dashboard:
-// import { Analytics } from '@vercel/analytics/react'
-// import { SpeedInsights } from '@vercel/speed-insights/next'
+import type { Metadata, Viewport } from 'next'
+import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
+import { profile, SITE_URL } from '@/lib/content'
+import { Nav } from '@/components/site/nav'
+import { Footer } from '@/components/site/footer'
+import { Grain } from '@/components/site/grain'
+import { JsonLd, personJsonLd, websiteJsonLd } from '@/lib/jsonld'
 
-const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], display: 'swap', variable: '--font-inter' })
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  variable: '--font-bricolage',
+  display: 'swap',
+  axes: ['opsz', 'wdth'],
+})
+const geist = Geist({ subsets: ['latin'], variable: '--font-geist', display: 'swap' })
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
 
-const SITE_URL = 'https://shreyaboyane.dev'
-const FULL_NAME = 'Shreya Boyane'
+const { identity } = profile
+const TITLE = `${identity.name} | Machine Learning Engineer, Computer Vision and LLM Systems`
+const DESCRIPTION =
+  'Shreya Boyane is a Machine Learning Engineer (M.S. AI, WPI 2026) with 2+ years of production DevOps, an ICML 2026 workshop paper on latent reasoning, and shipped multi-agent, computer-vision and inference-optimization systems.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: 'Shreya Boyane | AI/ML Engineer - Agentic AI, LLMs & Computer Vision',
-    template: '%s | Shreya Boyane',
-  },
-  description:
-    'Shreya Boyane is an AI/ML Engineer specializing in production-grade Agentic AI workflows, LLM systems, and Computer Vision solutions. MS in Artificial Intelligence at Worcester Polytechnic Institute (WPI).',
+  title: { default: TITLE, template: `%s | ${identity.name}` },
+  description: DESCRIPTION,
+  applicationName: 'shreyaboyane.dev',
+  authors: [{ name: identity.name, url: SITE_URL }],
+  creator: identity.name,
+  publisher: identity.name,
   keywords: [
     'Shreya Boyane',
-    'AI Engineer',
-    'ML Engineer',
     'Machine Learning Engineer',
-    'Agentic AI',
-    'LLM',
-    'Large Language Models',
-    'Computer Vision',
-    'Artificial Intelligence',
-    'WPI',
+    'AI Engineer',
+    'Computer Vision Engineer',
+    'LLM Engineer',
+    'inference optimization',
+    'TensorRT',
+    'mechanistic interpretability',
+    'MLOps',
     'Worcester Polytechnic Institute',
-    'AI Developer',
-    'Deep Learning',
-    'NLP',
-    'Python',
-    'Multi-Agent AI',
+    'San Jose',
+    'open to work',
   ],
-  authors: [{ name: FULL_NAME, url: SITE_URL }],
-  creator: FULL_NAME,
-  publisher: FULL_NAME,
-  alternates: {
-    canonical: '/',
-  },
+  alternates: { canonical: '/' },
   openGraph: {
-    title: 'Shreya Boyane | AI/ML Engineer',
-    description:
-      'AI/ML Engineer building production-grade Agentic AI workflows, LLM systems, and Computer Vision solutions. MS in AI at WPI.',
-    url: SITE_URL,
-    siteName: 'Shreya Boyane - AI/ML Engineer Portfolio',
     type: 'profile',
     locale: 'en_US',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Shreya Boyane - AI/ML Engineer specializing in Agentic AI, LLMs & Computer Vision',
-        type: 'image/jpeg',
-      },
-    ],
+    url: SITE_URL,
+    siteName: 'Shreya Boyane',
+    title: TITLE,
+    description: DESCRIPTION,
+    firstName: 'Shreya',
+    lastName: 'Boyane',
+    username: 'Sonica-B',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Shreya Boyane | AI/ML Engineer',
-    description:
-      'AI/ML Engineer building production-grade Agentic AI workflows, LLM systems, and Computer Vision solutions.',
-    images: [
-      {
-        url: '/og-image.jpg',
-        alt: 'Shreya Boyane - AI/ML Engineer',
-      },
-    ],
-  },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
   robots: {
     index: true,
     follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    // Add your Google Search Console verification code here once you have it
-    // google: 'your-verification-code',
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
   },
   category: 'technology',
-  classification: 'Portfolio',
+  formatDetection: { telephone: false, email: false, address: false },
 }
 
-// Comprehensive Person schema for Google Knowledge Panel
-const personJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  '@id': `${SITE_URL}/#person`,
-  name: 'Shreya Boyane',
-  givenName: 'Shreya',
-  familyName: 'Boyane',
-  url: SITE_URL,
-  image: `${SITE_URL}/Shreya.png`,
-  description:
-    'AI/ML Engineer specializing in production-grade Agentic AI workflows, LLM systems, and Computer Vision solutions. Former Lead DevOps Engineer with expertise in CI/CD, MLOps, and scalable AI systems.',
-  jobTitle: 'Machine Learning Engineer',
-  knowsAbout: [
-    'Artificial Intelligence',
-    'Machine Learning',
-    'Agentic AI Workflows',
-    'Large Language Models',
-    'Computer Vision',
-    'Deep Learning',
-    'Natural Language Processing',
-    'Multi-Agent AI Systems',
-    'Python',
-    'PyTorch',
-    'TensorFlow',
-    'DevOps',
-    'CI/CD Pipelines',
-    'MLOps',
-    'Brain-Computer Interfaces',
-    'Docker',
-    'Kubernetes',
-    'AWS',
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  colorScheme: 'dark light',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#121218' },
+    { media: '(prefers-color-scheme: light)', color: '#faf9f7' },
   ],
-  alumniOf: [
-    {
-      '@type': 'CollegeOrUniversity',
-      name: 'Worcester Polytechnic Institute',
-      alternateName: 'WPI',
-      url: 'https://www.wpi.edu',
-      sameAs: 'https://en.wikipedia.org/wiki/Worcester_Polytechnic_Institute',
-    },
-    {
-      '@type': 'CollegeOrUniversity',
-      name: 'PES Modern College of Engineering',
-      alternateName: 'PES MCOE',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Pune',
-        addressCountry: 'IN',
-      },
-    },
-  ],
-  hasCredential: [
-    {
-      '@type': 'EducationalOccupationalCredential',
-      name: 'Master of Science in Artificial Intelligence',
-      credentialCategory: 'degree',
-      recognizedBy: {
-        '@type': 'CollegeOrUniversity',
-        name: 'Worcester Polytechnic Institute',
-      },
-    },
-    {
-      '@type': 'EducationalOccupationalCredential',
-      name: 'Bachelor of Engineering in Information Technology',
-      credentialCategory: 'degree',
-      recognizedBy: {
-        '@type': 'CollegeOrUniversity',
-        name: 'PES Modern College of Engineering',
-      },
-    },
-  ],
-  award: [
-    'Top Talent Award - DevOps Excellence, Persistent Systems',
-    'Data Science GQP MVP - Best Qualifying Project, WPI',
-    'Bravo Individual Award - Persistent Systems',
-    'Team Excellence Award FY2023 - Persistent Systems',
-    'Bravo Team Award - Persistent Systems',
-    'Best Intern Award - Top among 20,000+ new joiners, Persistent Systems',
-    '1st Rank - Yantra-Maan Robotics, Xtronica Mpulse 2018',
-  ],
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Worcester',
-    addressRegion: 'MA',
-    addressCountry: 'US',
-  },
-  nationality: {
-    '@type': 'Country',
-    name: 'India',
-  },
-  knowsLanguage: ['English', 'Hindi', 'Marathi'],
-  sameAs: [
-    'https://www.linkedin.com/in/shreya-boyane/',
-    'https://github.com/Sonica-B',
-    'https://orcid.org/0009-0004-1211-3253',
-    'https://www.wikidata.org/wiki/Q138034331',
-    'https://g.dev/shreyaboyane',
-    'https://dev.to/sonicab',
-  ],
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': SITE_URL,
-  },
 }
 
-// WebSite schema for sitelinks search box
-const websiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${SITE_URL}/#website`,
-  name: 'Shreya Boyane - AI/ML Engineer Portfolio',
-  url: SITE_URL,
-  description:
-    'Official portfolio of Shreya Boyane, AI/ML Engineer specializing in Agentic AI, LLMs, and Computer Vision.',
-  publisher: {
-    '@id': `${SITE_URL}/#person`,
-  },
-}
+// Runs before paint so a saved light preference never flashes dark.
+const themeInit = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}})()`
 
-// ProfilePage schema — tells Google this page IS about Shreya
-const profilePageJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  '@id': `${SITE_URL}/#profilepage`,
-  name: 'Shreya Boyane | AI/ML Engineer',
-  url: SITE_URL,
-  mainEntity: {
-    '@id': `${SITE_URL}/#person`,
-  },
-  dateCreated: '2024-12-01',
-  dateModified: new Date().toISOString().split('T')[0],
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=5"
-        />
-
-        {/* Favicon set */}
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
-        <link rel="manifest" href="/manifest.json" />
-
-        {/* Theme color for browser UI */}
-        <meta name="theme-color" content="#000000" />
-        <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
-        />
-
-        {/* Geo tags for local SEO */}
-        <meta name="geo.region" content="US-MA" />
-        <meta name="geo.placename" content="Worcester" />
-
-        {/* JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personJsonLd),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteJsonLd),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(profilePageJsonLd),
-          }}
-        />
-      </head>
-      <body className="overflow-x-hidden">
-        <a href="#home" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-black focus:rounded-lg focus:text-sm focus:font-medium">Skip to content</a>
-        <noscript>
-          <div style={{ padding: '2rem', textAlign: 'center', color: '#f5f5f7', background: '#000', minHeight: '100vh' }}>
-            <h1>Shreya Boyane — AI/ML Engineer</h1>
-            <p>This portfolio requires JavaScript to display interactive content.</p>
-            <p>Contact: <a href="mailto:shreyaa.boyane@gmail.com" style={{ color: '#00d4ff' }}>shreyaa.boyane@gmail.com</a></p>
-            <p><a href="https://linkedin.com/in/shreya-boyane" style={{ color: '#00d4ff' }}>LinkedIn</a> | <a href="https://github.com/Sonica-B" style={{ color: '#00d4ff' }}>GitHub</a></p>
-          </div>
-        </noscript>
-        {children}
-        {/* Uncomment after enabling Analytics in Vercel Dashboard */}
-        {/* <Analytics /> */}
-        {/* <SpeedInsights /> */}
+    <html lang="en" data-theme="dark" className={`${bricolage.variable} ${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <body className="bg-surface text-ink">
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-ink"
+        >
+          Skip to content
+        </a>
+        <Nav />
+        <main id="main">{children}</main>
+        <Footer />
+        <Grain />
+        <JsonLd data={personJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

@@ -1,0 +1,1 @@
+Latent chain-of-thought reasoning is hard to read, so we measured how it moves: each latent thought becomes a state on a trajectory, CODI behaves as a stable attractor and COCONUT as an unstable expanding system. Poster at the ICML 2026 FoGen Workshop, built on 8,792 GSM8K problems with 28 of 28 claims verified. shreyaboyane.dev/projects/latent-cot

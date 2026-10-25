@@ -1,39 +1,33 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
+import { profile, SITE_URL } from '@/lib/content'
 
+type Entry = MetadataRoute.Sitemap[number]
+
+// Every indexable route, generated from the content model so a new project is listed automatically.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://shreyaboyane.dev'
-  const lastModified = new Date()
+  const lastModified = new Date(profile.meta.lastUpdated)
+  const entry = (path: string, changeFrequency: Entry['changeFrequency'], priority: number, images?: string[]): Entry => ({
+    url: `${SITE_URL}${path}`,
+    lastModified,
+    changeFrequency,
+    priority,
+    ...(images && images.length ? { images } : {}),
+  })
 
   return [
-    {
-      url: baseUrl,
-      lastModified,
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/#experience`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/#projects`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/#skills`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/#about`,
-      lastModified,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+    entry('/', 'weekly', 1, [`${SITE_URL}/portrait/shreya-flat.jpg`]),
+    entry('/projects', 'weekly', 0.9),
+    entry('/research', 'monthly', 0.9),
+    entry('/resume', 'monthly', 0.8),
+    entry('/about', 'monthly', 0.7),
+    ...profile.projects.map((p) =>
+      entry(
+        `/projects/${p.slug}`,
+        p.status === 'ongoing' ? 'monthly' : 'yearly',
+        p.featured ? 0.8 : 0.6,
+        p.visual ? [`${SITE_URL}${p.visual.src}`] : undefined,
+      ),
+    ),
+    entry('/llms.txt', 'monthly', 0.3),
   ]
 }

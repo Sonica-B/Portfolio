@@ -1,0 +1,1 @@
+MADWE: a multi-agent diffusion engine that generates 120 game assets a minute with rank-8 LoRA adapters per biome, Wave Function Collapse layouts and an evaluator agent, mapped straight into Unity. After ONNX and TensorRT kernel fusion it runs at 120 FPS, with p95 latency down from 200 ms to 95 ms and FID 12.3 under 2 GB of VRAM.

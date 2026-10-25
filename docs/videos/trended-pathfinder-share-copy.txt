@@ -1,0 +1,1 @@
+Introducing TrendED Pathfinder: a career recommender that reads 10,000+ job descriptions, 5,000 resumes and 300+ course catalogs to match students to roles at 95% accuracy and suggest the courses that close their gaps. Built with Python, TF-IDF, scikit-learn, TensorFlow and BeautifulSoup.

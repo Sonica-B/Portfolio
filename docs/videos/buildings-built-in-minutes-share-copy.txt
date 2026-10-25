@@ -1,0 +1,1 @@
+Introducing Buildings Built in Minutes: structure from motion that pulls reprojection error from 1.75 to 1.01 px, then NeRF end to end for photorealistic 360-degree orbits of the Lego, Hotdog and Ship scenes, about 60% higher PSNR than the baseline. shreyaboyane.dev/projects/buildings-built-in-minutes

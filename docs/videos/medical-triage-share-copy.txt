@@ -1,0 +1,1 @@
+Medical Triage HIL: local LLMs assign Emergency Severity Index levels, track confidence as each patient question is revealed, and hand high-risk escalations to a human reviewer. Triage precision up 20%, false escalations down 40%, hallucinations down 50%. Research prototype, not a clinical decision tool. shreyaboyane.dev/projects/medical-triage

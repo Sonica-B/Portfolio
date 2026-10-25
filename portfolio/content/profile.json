@@ -1,0 +1,2383 @@
+{
+  "meta": {
+    "version": "2026.10.06",
+    "lastUpdated": "2026-10-06",
+    "sources": [
+      "ShreyaBoyaneResume.pdf (July 2026)",
+      "linkedin.com/in/shreya-boyane (logged-in view, October 2026)",
+      "github.com/Sonica-B profile and repository READMEs",
+      "orcid.org/0009-0004-1211-3253",
+      "career-ops/cv.md and config/profile.yml",
+      "older resumes 2021 to 2025"
+    ]
+  },
+  "identity": {
+    "name": "Shreya Boyane",
+    "fullName": "Shreya Sanjay Boyane",
+    "pronouns": "she/her",
+    "title": "Machine Learning Engineer",
+    "headline": "Machine Learning Engineer specializing in computer vision, LLMs, inference optimization and MLOps",
+    "tagline": "I build production ML systems end to end, from data and training infrastructure through inference optimization to reliability monitoring.",
+    "summary": "Machine Learning Engineer with 2+ years of production DevOps experience and an M.S. in Artificial Intelligence from WPI (May 2026, GPA 3.9). Algoverse Research Fellow and co-first author of a mechanistic interpretability paper on latent chain-of-thought reasoning accepted as a poster at the ICML 2026 FoGen Workshop. Recognized in the Google Cloud x NVIDIA developer community with a Golden Ticket Contest honorable mention at NVIDIA GTC 2026 for inference-optimization engagement across three completed learning pathways. Data Science GQP MVP for a production multi-agent document-intelligence system built for an industry sponsor.",
+    "location": {
+      "city": "San Jose",
+      "region": "CA",
+      "country": "US",
+      "display": "San Jose, CA (San Francisco Bay Area)"
+    },
+    "email": "shreyaa.boyane@gmail.com",
+    "phone": "+1 (774) 519-9905",
+    "languages": [
+      "English",
+      "Hindi",
+      "Marathi"
+    ],
+    "availability": {
+      "status": "open",
+      "display": "Open to full-time machine learning, AI, computer vision and research engineering roles",
+      "workAuthorization": "F-1 with OPT and STEM OPT: 3 years of US work authorization, no sponsorship needed up front. Open to H-1B sponsorship long term.",
+      "startDate": "Immediately",
+      "roles": [
+        "ML Engineer (inference, performance, platform)",
+        "AI Engineer / Applied AI",
+        "GenAI / LLM Engineer",
+        "Computer Vision / Multimodal Engineer",
+        "Research Engineer",
+        "Forward Deployed Engineer (AI)",
+        "MLOps / ML Platform Engineer"
+      ],
+      "locations": [
+        "Remote (US)",
+        "San Francisco Bay Area",
+        "Seattle",
+        "New York",
+        "Boston",
+        "Austin",
+        "Los Angeles",
+        "San Diego",
+        "open to relocation anywhere in the US"
+      ]
+    }
+  },
+  "links": {
+    "website": "https://shreyaboyane.dev",
+    "linkedin": "https://www.linkedin.com/in/shreya-boyane/",
+    "github": "https://github.com/Sonica-B",
+    "orcid": "https://orcid.org/0009-0004-1211-3253",
+    "huggingface": "https://huggingface.co/SonicaB",
+    "googleDev": "https://g.dev/shreyaboyane",
+    "devto": "https://dev.to/sonicab",
+    "hackerrank": "https://www.hackerrank.com/profile/shreyaa_boyane",
+    "vscodeMarketplace": "https://marketplace.visualstudio.com/items?itemName=ShreyaBoyane.auto-git-copilot",
+    "scheduling": "https://zcal.co/i/4aMYgoRr",
+    "email": "mailto:shreyaa.boyane@gmail.com",
+    "resumePdf": "/ShreyaBoyaneResume.pdf"
+  },
+  "education": [
+    {
+      "id": "wpi",
+      "institution": "Worcester Polytechnic Institute",
+      "abbr": "WPI",
+      "degree": "Master of Science",
+      "field": "Artificial Intelligence",
+      "location": "Worcester, MA",
+      "start": "2024-08",
+      "end": "2026-05",
+      "status": "completed",
+      "gpa": "3.9",
+      "gpaScale": "4.0",
+      "url": "https://www.wpi.edu",
+      "coursework": [
+        "Computer Vision",
+        "Generative AI",
+        "Deep Learning",
+        "Large Language Models",
+        "MLOps",
+        "Reinforcement Learning",
+        "Case Studies in Data Science"
+      ],
+      "honors": [
+        "Data Science GQP Most Valuable Player (MVP), December 2025",
+        "Golden Ticket Contest Honorable Mention, Google Cloud x NVIDIA developer community, NVIDIA GTC 2026"
+      ]
+    },
+    {
+      "id": "pesmcoe",
+      "institution": "PES Modern College of Engineering (Savitribai Phule Pune University)",
+      "abbr": "PESMCOE",
+      "degree": "Bachelor of Engineering",
+      "field": "Information Technology, Honours in Artificial Intelligence and Machine Learning",
+      "location": "Pune, India",
+      "start": "2017-06",
+      "end": "2022-05",
+      "status": "completed",
+      "gpa": "8.9",
+      "gpaScale": "10",
+      "url": "https://moderncoe.edu.in",
+      "coursework": [
+        "Machine Learning",
+        "Deep Learning",
+        "NLP and Computer Vision",
+        "Data Structures and Algorithms",
+        "Database Management Systems",
+        "Object-Oriented Programming",
+        "Internet of Things"
+      ],
+      "honors": [
+        "Honours in Artificial Intelligence and Machine Learning",
+        "Final-year project sponsorship from TECHVED, October 2021"
+      ]
+    }
+  ],
+  "publications": [
+    {
+      "id": "latent-cot",
+      "title": "Interpreting Latent CoT Reasoning as Dynamical Systems",
+      "venue": "ICML 2026 FoGen Workshop",
+      "venueFull": "ICML 2026 Workshop on Foundations of Deep Generative Models: Understanding Memorization, Generalization, and Reasoning",
+      "venueUrl": "https://openreview.net/forum?id=ZAGsOMAwBV",
+      "status": "Accepted, poster",
+      "displayString": "Poster, ICML 2026 FoGen Workshop",
+      "date": "2026-05",
+      "authors": [
+        "Sabari Iyyappan Duraipandian",
+        "Shreya Sanjay Boyane",
+        "Manju Nagesh",
+        "Jerome Francis",
+        "Archana Vaidheeswaran",
+        "Kevin Zhu"
+      ],
+      "equalContribution": [
+        "Sabari Iyyappan Duraipandian",
+        "Shreya Sanjay Boyane",
+        "Manju Nagesh"
+      ],
+      "affiliations": [
+        "San Jose State University",
+        "Worcester Polytechnic Institute",
+        "George Mason University",
+        "Algoverse AI Research"
+      ],
+      "role": "Co-first author and lead pipeline engineer (Algoverse AI Research Fellowship)",
+      "review": "Reviewer rating 6/6, confidence 3/3",
+      "tldr": "Latent chain-of-thought trajectories form structured dynamical systems: CODI behaves as a stable attractor, COCONUT as an unstable expanding system, and Sim-CoT supervision tightens both without changing the underlying dynamics.",
+      "abstract": "Recent latent reasoning methods such as CODI and COCONUT face a fundamental interpretability problem: they carry multiple superimposed candidate traces in hidden space at each step, which obscures how reasoning evolves. We model the sequence of latent tokens as a trajectory in representation space and apply dynamical-systems analysis to characterize reasoning evolution. Using quantitative metrics (step-to-step change, direction consistency, Lyapunov sensitivity) and qualitative projections (UMAP, DMD, PHATE), we show that latent CoT exhibits structured, non-random dynamics with two distinct stability classes.",
+      "findings": [
+        "CODI behaves as a stable attractor: latent states converge into a bounded region, and shorter, simpler paths correlate with correct answers.",
+        "COCONUT behaves as an unstable expanding system: latent states spread outward across steps, and more latent work correlates with correctness.",
+        "Sim-CoT supervision tightens both behaviours without changing the underlying dynamics.",
+        "COCONUT shows three-attractor compression with a mid-chain direction-consistency hinge at step 3, while CODI behaves as a near period-2 oscillator with 85% of samples carrying at least one unstable DMD mode (41% for COCONUT). Signatures hold across GSM8K and MATH."
+      ],
+      "stats": [
+        "8,792 GSM8K samples and 500 MATH samples",
+        "768-dimensional latent trajectories across 6 latent steps",
+        "4 model configurations on GPT-2-small backbones",
+        "22 quantitative plots per run and 28 of 28 reproducible numeric claims verified"
+      ],
+      "links": {
+        "paper": "https://openreview.net/pdf?id=ZAGsOMAwBV",
+        "openreview": "https://openreview.net/forum?id=ZAGsOMAwBV",
+        "projectPage": "https://sabariiyyappan.github.io/Latent-CoT/",
+        "code": "https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems"
+      },
+      "figures": [
+        {
+          "src": "/projects/latent-cot/trajectory-dmd.webp",
+          "alt": "CODI latent trajectories projected onto dominant DMD modes, forming tight clusters",
+          "caption": "CODI trajectories projected onto dominant DMD modes contract toward a bounded region."
+        },
+        {
+          "src": "/projects/latent-cot/trajectory-phate-3d.webp",
+          "alt": "Three-component PHATE embedding of COCONUT latent trajectories colored by step",
+          "caption": "COCONUT trajectories in a 3D PHATE embedding spread outward across steps."
+        },
+        {
+          "src": "/projects/latent-cot/step2step-change.webp",
+          "alt": "Step-to-step displacement between consecutive latent states",
+          "caption": "Step-to-step change between consecutive latent states."
+        },
+        {
+          "src": "/projects/latent-cot/perturbation-grid.webp",
+          "alt": "Relative divergence under Gaussian input noise at three sigma levels",
+          "caption": "Perturbation divergence under Gaussian noise at sigma 0.01, 0.1 and 1.0."
+        }
+      ],
+      "tags": [
+        "mechanistic interpretability",
+        "dynamical systems",
+        "latent reasoning",
+        "LLMs"
+      ]
+    },
+    {
+      "id": "fairprep",
+      "title": "Toward Fairness-Aware Human Feedback for Table Unionability",
+      "venue": "DASHSys 2026",
+      "venueFull": "DASHSys 2026, regular paper track",
+      "venueUrl": "https://github.com/Sonica-B/FairPrep",
+      "status": "Submitted",
+      "displayString": "Submitted, DASHSys 2026",
+      "date": "2026-05",
+      "authors": [
+        "Nina Klimenkova",
+        "Shreya Sanjay Boyane",
+        "Roee Shraga"
+      ],
+      "equalContribution": [
+        "Nina Klimenkova",
+        "Shreya Sanjay Boyane"
+      ],
+      "affiliations": [
+        "Worcester Polytechnic Institute"
+      ],
+      "role": "Co-first author, research assistant under Dr. Roee Shraga (BSF Grant 2024022)",
+      "review": null,
+      "tldr": "First adaptation of the FairEM framework from entity matching to annotator-level fairness in table union search, showing that human feedback should be treated as conditionally reliable.",
+      "abstract": "Table union search is a foundational primitive in modern data lakes, and human feedback is increasingly used to supervise it. We adapt the FairEM framework (Shahbazi et al., VLDB 2023) from entity matching to annotator-level fairness and ask whether feedback quality varies systematically across demographic groups. On a 480-row dataset of 60 annotators across 8 questions and 4 survey versions, we find statistically significant disparities that survive multiple-testing correction and five orthogonal cleaning strategies.",
+      "findings": [
+        "6 of 10 FairEM metrics flag unfairness against non-native English annotators.",
+        "25% versus 44% accuracy on hard questions (Fisher exact p = 0.031).",
+        "The non-native, lower-education, young triple intersection persists at p_BH = 0.037 after Benjamini-Hochberg FDR correction.",
+        "Robust across 5 of 5 orthogonal data-cleaning strategies; behavioral disparities exceed demographic ones."
+      ],
+      "stats": [
+        "480-row dataset: 60 annotators x 8 questions x 4 survey versions",
+        "10 FairEM confusion-matrix metrics",
+        "10,000-shuffle permutation tests and 10,000-resample stratified bootstrap CIs",
+        "9 source modules across 5 experimental phases"
+      ],
+      "links": {
+        "code": "https://github.com/Sonica-B/FairPrep"
+      },
+      "figures": [],
+      "tags": [
+        "fairness",
+        "human feedback",
+        "data lakes",
+        "statistics"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "id": "latent-cot-research",
+      "title": "Latent chain-of-thought trajectories as dynamical systems",
+      "org": "Algoverse AI Research Fellowship",
+      "role": "AI Research Fellow, lead pipeline engineer",
+      "advisor": "Jerome Francis",
+      "grant": null,
+      "start": "2026-02",
+      "end": "2026-05",
+      "status": "completed",
+      "publicationId": "latent-cot",
+      "projectSlug": "latent-cot",
+      "summary": "Selected for the competitive 12-week Algoverse fellowship; modeled latent chain-of-thought reasoning in LLMs as discrete-time dynamical systems and reproduced two latent-reasoning training methods end to end on GPT-2.",
+      "highlights": [
+        "Applied Dynamic Mode Decomposition, PHATE, UMAP, t-SNE and PCA to 768-dimensional latent trajectories across 8,792 GSM8K and 500 MATH samples, producing 22 quantitative plots per run.",
+        "Reproduced CODI self-distillation (parallel teacher-student with a 3-loss objective) and the COCONUT 4-stage latent curriculum as LoRA adapters (rank 128, alpha 32) on stock GPT-2 with PyTorch, Hugging Face Transformers and PEFT; recovered 99.84% of test samples with a positional overflow guard.",
+        "Engineered the reliability layer: a multi-stage Bash and Python orchestrator with CUDA health polling that stabilized 14+ hour training runs, HDF5 resume-from-cache saving about 90 minutes per recovery, a GPU-resident Kraskov KSG-1 mutual-information estimator, and a safetensors-level checkpoint repair that preserved trained embeddings byte for byte.",
+        "Built a verification harness that passes 28 of 28 reproducible numeric claims on the canonical run."
+      ],
+      "tags": [
+        "PyTorch",
+        "Hugging Face Transformers",
+        "PEFT/LoRA",
+        "DMD",
+        "PHATE",
+        "UMAP",
+        "CUDA",
+        "HDF5"
+      ]
+    },
+    {
+      "id": "fairprep-research",
+      "title": "FairPrep: demographic fairness for table union search",
+      "org": "Worcester Polytechnic Institute",
+      "role": "Research Assistant",
+      "advisor": "Dr. Roee Shraga",
+      "grant": "BSF Grant 2024022",
+      "start": "2025-01",
+      "end": "2026-05",
+      "status": "completed",
+      "publicationId": "fairprep",
+      "projectSlug": "fairprep",
+      "summary": "First adaptation of the FairEM framework to annotator-level fairness in table union search, with a complete statistical methodology stack.",
+      "highlights": [
+        "Built 9 source modules across 5 experimental phases on a 480-row dataset (60 annotators x 8 questions x 4 survey versions).",
+        "Designed the statistical stack: 10 FairEM confusion-matrix metrics, permutation testing (10,000 shuffles), bootstrap confidence intervals (10,000 stratified resamples), Fisher exact tests, Benjamini-Hochberg FDR correction, and dual-track logistic regression (scikit-learn for interpretation, statsmodels for inference).",
+        "Surfaced statistically significant bias against non-native English annotators on hard questions (25% versus 44% accuracy, p = 0.031), robust across 5 of 5 cleaning strategies."
+      ],
+      "tags": [
+        "statsmodels",
+        "scikit-learn",
+        "permutation testing",
+        "FDR correction",
+        "fairness"
+      ]
+    },
+    {
+      "id": "vla-physics-research",
+      "title": "Where does physics live in vision encoders?",
+      "org": "Independent research",
+      "role": "Lead researcher",
+      "advisor": null,
+      "grant": null,
+      "start": "2026-03",
+      "end": "2026-05",
+      "status": "completed",
+      "publicationId": null,
+      "projectSlug": "vla-physics",
+      "summary": "Spatial probing of physical reasoning across the vision encoder, projection and LLM stages of three vision-language models, plus a factorial LoRA ablation to find the leverage point for physical intuition.",
+      "highlights": [
+        "Trained linear and MLP probes on per-patch activations at four pipeline stages of Qwen2.5-VL-7B, InternVL 2.5-8B and LLaVA-OneVision-7B using Physion++ ground-truth physical properties.",
+        "Produced physics saliency maps and measured information loss across the projection bottleneck.",
+        "Ran a five-condition factorial LoRA ablation (encoder, projection, LLM, encoder plus projection, full model) evaluated on PhysBench, GRASP Level 2 and ConservationBench."
+      ],
+      "tags": [
+        "VLMs",
+        "probing",
+        "LoRA",
+        "Physion++",
+        "PhysBench"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": "handshake",
+      "role": "AI Trainer Fellow, Software Engineering and Multimodal AI",
+      "org": "Handshake AI",
+      "orgUrl": "https://joinhandshake.com",
+      "location": "San Francisco, CA (remote)",
+      "type": "Contract fellowship",
+      "start": "2026-04",
+      "end": null,
+      "status": "ongoing",
+      "award": null,
+      "summary": "Selected as a domain-expert fellow improving frontier LLMs and vision-language models for leading AI labs.",
+      "highlights": [
+        "Evaluated 40+ structured tasks, each a side-by-side assessment of two frontier models (80+ LLM and VLM outputs graded for correctness, code quality, technical depth and reasoning soundness), delivering rubric-based expert feedback.",
+        "Authored challenging visual and compositional reasoning benchmark items with verified ground-truth answers over real-world charts, diagrams, infographics and scientific figures for chart and diagram VQA.",
+        "Developed domain-specific prompts for frontier LLMs across software engineering, machine learning and agentic reasoning, and conducted independent research to inform prompt design and rubric construction."
+      ],
+      "tags": [
+        "LLM evaluation",
+        "VLMs",
+        "VQA",
+        "benchmark authoring",
+        "prompt engineering",
+        "AI alignment"
+      ]
+    },
+    {
+      "id": "crossing-gqp",
+      "role": "Machine Learning Engineer",
+      "org": "Crossing x WPI, industry-sponsored Graduate Qualifying Project",
+      "orgUrl": null,
+      "location": "Worcester, MA (hybrid)",
+      "type": "Industry-sponsored project",
+      "start": "2025-08",
+      "end": "2025-12",
+      "status": "completed",
+      "award": "Data Science GQP Most Valuable Player (MVP)",
+      "summary": "Owned client-facing delivery of a production multi-agent document-intelligence system for H-1B immigration workflows.",
+      "highlights": [
+        "Ran requirements discovery with the sponsor's engineers, translated ambiguous legal-workflow needs into acceptance tests, led weekly stakeholder demos, and owned end-to-end integration and handoff.",
+        "Built a four-agent LLM pipeline on AWS (Amazon Bedrock, S3 ingest, Lambda, Step Functions, event-driven triggers) that extracts structured fields into schema-validated canonical JSON and generates unified QC reports for Form I-129 evidence.",
+        "Normalized 45+ critical fields and executed 50+ deterministic rules per case with severity-tagged issues and traceable field-level decisions.",
+        "Cut petition processing from 3 to 4 days to about 5 to 10 minutes at 95 to 99% structural accuracy and 99 to 100% missing-document detection, with 85 to 95% of repeatable checks automated, manual verification reduced 70 to 90% and cost reduced 50 to 70%, freeing about 2,000 hours per mid-size firm per season.",
+        "Added a RAG fallback with RAGAS evaluation loops (faithfulness, context recall) and regression gating, plus a FastAPI evaluation service with Prometheus latency and error-budget metrics."
+      ],
+      "team": [
+        "Mansi Rupesh Mantri",
+        "Nandini Priya Sripada",
+        "Pradyumn Tendulkar"
+      ],
+      "advisors": [
+        "Prof. Bahman Moraffah",
+        "Prof. Chun-Kit Ngan",
+        "Prof. Fatemeh Emdad"
+      ],
+      "presented": "WPI 2025-26 GQP GRIE Showcase, 24 April 2026",
+      "tags": [
+        "LangGraph",
+        "Amazon Bedrock",
+        "AWS Lambda",
+        "Step Functions",
+        "S3",
+        "Textract",
+        "Pydantic",
+        "RAG",
+        "RAGAS",
+        "FastAPI"
+      ]
+    },
+    {
+      "id": "wpi-hypersonic",
+      "role": "Graduate Assistant, Hypersonic Vehicles Project",
+      "org": "Worcester Polytechnic Institute",
+      "orgUrl": "https://www.wpi.edu",
+      "location": "Worcester, MA (on-site)",
+      "type": "Part-time",
+      "start": "2025-06",
+      "end": "2026-05",
+      "status": "completed",
+      "award": null,
+      "summary": "Part-time graduate assistant on WPI's hypersonic vehicles research project.",
+      "highlights": [],
+      "tags": []
+    },
+    {
+      "id": "wpi-researcher",
+      "role": "Graduate Student Researcher, Generative AI and LLMs for Healthcare",
+      "org": "Worcester Polytechnic Institute",
+      "orgUrl": "https://www.wpi.edu",
+      "location": "Worcester, MA (hybrid)",
+      "type": "Credit-based directed research mentored by Prof. Roee Shraga",
+      "start": "2025-01",
+      "end": "2025-08",
+      "status": "completed",
+      "award": null,
+      "summary": "Built a production-minded GenAI plus human-in-the-loop triage assistant with difficulty-aware reasoning, confidence calibration and auditable workflows.",
+      "highlights": [
+        "Built confidence-aware triage orchestration in Python, PyTorch and scikit-learn with human-in-the-loop review, raising triage precision 20%, ESI assignment accuracy 25%, and cutting false escalations 40%.",
+        "Engineered a dual-channel decision flow separating high-risk escalation from routine guidance, reducing LLM hallucinations and miscommunication 50%, unnecessary handoffs 30%, and improving patient-provider alignment 2.3x.",
+        "Implemented difficulty-weighted training and GPT-style calibration scoring: errors down 30%, reliability up 35%, early critical-case detection up 60%, non-critical misclassification down 70%.",
+        "Added LLM guardrails, escalation rules, slice tests, calibration curves, drift checks and error-taxonomy trending; enforced reproducible runs with fixed seeds and deterministic loaders; partnered with clinicians to turn findings into decision guidelines and SOPs."
+      ],
+      "tags": [
+        "PyTorch",
+        "scikit-learn",
+        "OpenAI GPT",
+        "Ollama",
+        "FastAPI",
+        "HITL",
+        "calibration"
+      ]
+    },
+    {
+      "id": "wpi-lspe",
+      "role": "Graduate Assistant, Laboratory of Spaceflight and Planetary Exploration (LSPE)",
+      "org": "Worcester Polytechnic Institute",
+      "orgUrl": "https://www.wpi.edu",
+      "location": "Worcester, MA (hybrid)",
+      "type": "Part-time",
+      "start": "2025-04",
+      "end": "2025-08",
+      "status": "completed",
+      "award": null,
+      "summary": "Developed an interactive data-driven web application and Python backend for spaceflight trajectory visualization.",
+      "highlights": [
+        "Built the trajectory visualization app and its Python backend; presented a project poster.",
+        "Collaborated with lab members on execution and delivery and iterated on data visualization techniques."
+      ],
+      "tags": [
+        "Python",
+        "data visualization",
+        "GitHub",
+        "DBMS"
+      ]
+    },
+    {
+      "id": "persistent-lead",
+      "role": "Lead DevOps Engineer",
+      "org": "Persistent Systems",
+      "orgUrl": "https://www.persistent.com",
+      "location": "Pune, India (hybrid)",
+      "type": "Full-time",
+      "start": "2022-06",
+      "end": "2024-07",
+      "status": "completed",
+      "award": "Top Talent 2024, Bravo Individual Award, Team Excellence Award FY2023, Bravo Team Award",
+      "summary": "Owned CI/CD and cloud infrastructure across 20+ production projects.",
+      "highlights": [
+        "Accelerated software delivery 95% by building CI/CD pipelines in Azure DevOps, Docker and Terraform with integrated automated testing and gated approvals across 20+ projects.",
+        "Standardized VM provisioning and cluster setup with Ansible and Terraform infrastructure as code, cutting manual configuration 70% and provisioning time 40%, including AWS S3, Lambda and DynamoDB codified in Terraform.",
+        "Improved system uptime 25% by deploying Prometheus and Grafana observability dashboards monitoring latency, queue time and build health in real time; cut cloud operating costs 30%.",
+        "Integrated ML-Ops into existing workflows, streamlining model deployment 50% through automation; shortened integration cycles 70% by coordinating release tooling across Angular and React frontend teams; reduced critical vulnerabilities with Snyk scans in CI/CD gates.",
+        "Restructured release pipelines and variable groups to manage more than 10 code repositories cleanly."
+      ],
+      "tags": [
+        "Azure DevOps",
+        "Docker",
+        "Terraform",
+        "Ansible",
+        "Prometheus",
+        "Grafana",
+        "AWS",
+        "Snyk",
+        "PowerShell",
+        "Bash"
+      ]
+    },
+    {
+      "id": "persistent-intern",
+      "role": "Software Engineer Intern (.NET)",
+      "org": "Persistent Systems",
+      "orgUrl": "https://www.persistent.com",
+      "location": "Pune, India (on-site)",
+      "type": "Internship",
+      "start": "2022-01",
+      "end": "2022-07",
+      "status": "completed",
+      "award": "Best Intern of the 2022 batch among 20,000+ new joiners across India",
+      "summary": "Built ASP.NET Web APIs and integrated Azure Machine Learning for predictive analytics.",
+      "highlights": [
+        "Engineered scalable ASP.NET Web APIs with .NET Core and ADO.NET and optimized Microsoft SQL Server and MySQL queries for 30% faster load times.",
+        "Integrated Azure Machine Learning for predictive analytics; completed the GEMS (Graduate Engineers with Multidimensional Skills) training program."
+      ],
+      "tags": [
+        ".NET Core",
+        "ASP.NET",
+        "ADO.NET",
+        "SQL Server",
+        "MySQL",
+        "Azure ML",
+        "Git"
+      ]
+    },
+    {
+      "id": "flavalon",
+      "role": "Web Developer Intern",
+      "org": "Flavalon IT Solution LLP",
+      "orgUrl": null,
+      "location": "Mumbai, India (remote)",
+      "type": "Internship",
+      "start": "2021-03",
+      "end": "2021-05",
+      "status": "completed",
+      "award": null,
+      "summary": "Built and launched brand websites with chatbots and learned SEO fundamentals.",
+      "highlights": [
+        "Developed and launched five interactive websites per quarter on WordPress with CSS and JavaScript.",
+        "Integrated a chatbot on each site, increasing real-time engagement 40%; optimized MySQL structures and queries for faster load times; added ML-based personalized recommendations; performed website analysis and SEO optimization."
+      ],
+      "tags": [
+        "WordPress",
+        "JavaScript",
+        "CSS",
+        "MySQL",
+        "SEO"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "slug": "latent-cot",
+      "name": "Interpreting Latent CoT Reasoning as Dynamical Systems",
+      "subtitle": "Mechanistic interpretability paper, ICML 2026 FoGen Workshop poster",
+      "kind": "research",
+      "featured": true,
+      "start": "2026-02",
+      "end": "2026-05",
+      "status": "completed",
+      "affiliation": "Algoverse AI Research Fellowship",
+      "team": [
+        "Sabari Iyyappan Duraipandian",
+        "Manju Nagesh",
+        "Jerome Francis",
+        "Archana Vaidheeswaran",
+        "Kevin Zhu"
+      ],
+      "summary": "Treats each latent thought token of a chain-of-thought language model as a state in a discrete-time trajectory and applies dynamical-systems analysis to 768-dimensional reasoning trajectories across 8,792 GSM8K and 500 MATH samples.",
+      "problem": "Latent reasoning methods such as CODI and COCONUT keep multiple superimposed candidate traces in hidden space at every step, so existing mechanistic tools reveal compression and shortcuts but cannot explain how reasoning evolves from one latent step to the next.",
+      "approach": "Model the six latent hidden states as a trajectory; measure step-to-step change, direction consistency, arc length, a Lyapunov surrogate and perturbation divergence; project with DMD, PHATE, UMAP, PCA and t-SNE across four model configurations (CODI and COCONUT, vanilla and Sim-CoT) on GPT-2-small.",
+      "highlights": [
+        "CODI behaves as a stable attractor while COCONUT behaves as an unstable expanding system; Sim-CoT supervision tightens both without changing the dynamics.",
+        "Reproduced CODI self-distillation and the COCONUT four-stage latent curriculum end to end as rank-128 LoRA adapters with PyTorch, Transformers and PEFT.",
+        "Built the reliability layer: CUDA health-polling orchestration for 14+ hour runs, HDF5 resume-from-cache, a GPU-resident Kraskov KSG-1 mutual-information estimator and a byte-exact safetensors checkpoint repair.",
+        "Verification harness passes 28 of 28 reproducible numeric claims; fixed seeds, greedy decoding and pinned dependencies throughout."
+      ],
+      "metrics": [
+        {
+          "label": "GSM8K samples",
+          "value": "8,792"
+        },
+        {
+          "label": "Trajectory dimension",
+          "value": "768"
+        },
+        {
+          "label": "Samples with an unstable DMD mode, COCONUT vs CODI",
+          "value": "41% vs 85%"
+        },
+        {
+          "label": "Verified claims",
+          "value": "28 of 28"
+        },
+        {
+          "label": "Reviewer rating",
+          "value": "6 of 6"
+        }
+      ],
+      "tags": [
+        "PyTorch",
+        "Hugging Face Transformers",
+        "PEFT",
+        "LoRA",
+        "DMD",
+        "PHATE",
+        "UMAP",
+        "CUDA",
+        "HDF5",
+        "mechanistic interpretability"
+      ],
+      "repo": "https://github.com/SabariIyyappan/Latent-CoT-Reasoning-as-Dynamical-Systems",
+      "links": {
+        "paper": "https://openreview.net/pdf?id=ZAGsOMAwBV",
+        "projectPage": "https://sabariiyyappan.github.io/Latent-CoT/",
+        "openreview": "https://openreview.net/forum?id=ZAGsOMAwBV"
+      },
+      "visual": {
+        "src": "/projects/latent-cot/trajectory-phate-3d.webp",
+        "alt": "3D PHATE embedding of COCONUT latent reasoning trajectories colored by step"
+      },
+      "video": null,
+      "recognition": "Poster, ICML 2026 FoGen Workshop",
+      "publicationId": "latent-cot",
+      "experienceId": null
+    },
+    {
+      "slug": "skiplegal",
+      "name": "SkipLegal: multi-agent H-1B document intelligence",
+      "subtitle": "Production system for Crossing, Data Science GQP MVP",
+      "kind": "production",
+      "featured": true,
+      "start": "2025-08",
+      "end": "2025-12",
+      "status": "completed",
+      "affiliation": "Crossing x WPI industry-sponsored Graduate Qualifying Project",
+      "team": [
+        "Mansi Rupesh Mantri",
+        "Nandini Priya Sripada",
+        "Pradyumn Tendulkar"
+      ],
+      "summary": "A four-agent LLM pipeline on AWS that turns messy multi-format H-1B petition packages into schema-validated JSON and a single attorney-ready QC report, cutting review from 3 to 4 days to about 5 to 10 minutes.",
+      "problem": "Immigration attorneys spent days per petition manually checking Form I-129 packages and supporting evidence for missing documents, inconsistent fields and structural errors.",
+      "approach": "Agent 1 (intake and vision) collapses PDFs into a unified schema with Textract OCR; Agent 2A canonicalizes I-129 fields through a deterministic logic engine; Agent 2B runs LLM semantic validation on supporting evidence; Agent 2C is a cross-document comparator with an Amazon Bedrock RAG fallback for cases the rules cannot resolve. Orchestrated with LangGraph on S3, Lambda, Step Functions and EventBridge.",
+      "highlights": [
+        "Owned client-facing delivery: requirements discovery with Crossing engineers, acceptance tests, weekly demos, integration and handoff.",
+        "Built the computer-vision grouping, API schema and the Pydantic-validated canonical JSON contract consumed downstream.",
+        "RAG evaluation loops with RAGAS (faithfulness, context recall) and threshold-based regression gating across prompt and retriever changes.",
+        "Presented to eleven industry judges at the WPI GRIE Showcase in April 2026; recognized with the Data Science GQP MVP award."
+      ],
+      "metrics": [
+        {
+          "label": "Review time",
+          "value": "3 to 4 days down to 5 to 10 min"
+        },
+        {
+          "label": "Structural accuracy",
+          "value": "95 to 99%"
+        },
+        {
+          "label": "Missing-document detection",
+          "value": "99 to 100%"
+        },
+        {
+          "label": "Rules across fields",
+          "value": "50+ over 45+"
+        },
+        {
+          "label": "Hours freed per firm per season",
+          "value": "about 2,000"
+        },
+        {
+          "label": "Cost per case",
+          "value": "50 to 70% lower"
+        }
+      ],
+      "tags": [
+        "LangGraph",
+        "Amazon Bedrock",
+        "AWS Lambda",
+        "Step Functions",
+        "S3",
+        "EventBridge",
+        "Textract",
+        "Pydantic",
+        "RAGAS",
+        "FastAPI",
+        "Prometheus"
+      ],
+      "repo": "https://github.com/Sonica-B/GQP-SkipLegal",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": "Data Science GQP MVP, December 2025",
+      "publicationId": null,
+      "experienceId": "crossing-gqp"
+    },
+    {
+      "slug": "einstein-vision",
+      "name": "Einstein Vision: 3D scene reconstruction for autonomous driving",
+      "subtitle": "Perception stack plus TensorRT inference optimization",
+      "kind": "computer-vision",
+      "featured": true,
+      "start": "2025-03",
+      "end": "2025-04",
+      "status": "completed",
+      "affiliation": "WPI RBE/CS 549 Computer Vision",
+      "team": [
+        "Divam Trivedi"
+      ],
+      "summary": "Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusing depth, detection, segmentation, pose and optical-flow models, then renders the scene with the Blender Python API while streaming masks and poses at 30 FPS.",
+      "problem": "Dash-cam footage lacks interpretable 3D context for perception debugging and for explaining autonomous-driving decisions to humans.",
+      "approach": "Fused MiDaS and Depth Anything monocular depth, Detic open-vocabulary detection with a custom vocabulary, YOLO3D vehicle yaw and boxes, OpenPifPaf and OSX body keypoints, Mask R-CNN lanes and road markings, and RAFT optical flow; calibrated a pinhole camera model and projected detections into world coordinates; synthesized LiDAR-like point clouds and lane contours as ground truth. Rendered through Blender EEVEE with typed asset collections, per-sequence transforms and deterministic replays for side-by-side comparison; input was 13 Tesla Model S dash-cam sequences.",
+      "highlights": [
+        "Improved 3D placement accuracy 50% and scene realism 75% across 13 driving sequences.",
+        "Deployed detectors through TorchScript to ONNX to TensorRT FP16 with layer fusion: 1.5x multi-object throughput and 35% lower p95 latency, validated with NVIDIA Nsight.",
+        "Documented failure modes honestly: tunnel reflections, rain on the lens, class flicker between SUV and pickup, and optical-flow direction errors at low speed."
+      ],
+      "metrics": [
+        {
+          "label": "3D placement accuracy",
+          "value": "+50%"
+        },
+        {
+          "label": "Scene realism",
+          "value": "+75%"
+        },
+        {
+          "label": "Driving sequences",
+          "value": "13"
+        },
+        {
+          "label": "Multi-object throughput",
+          "value": "1.5x"
+        },
+        {
+          "label": "p95 latency",
+          "value": "-35%"
+        }
+      ],
+      "tags": [
+        "Depth Anything",
+        "MiDaS",
+        "Mask R-CNN",
+        "Detic",
+        "OpenPifPaf",
+        "YOLO3D",
+        "RAFT",
+        "Blender Python API",
+        "TensorRT",
+        "ONNX",
+        "Nsight"
+      ],
+      "repo": "https://github.com/Sonica-B/EinsteinVision",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "madwe",
+      "name": "MADWE: Multi-Agent Diffusion World Engine",
+      "subtitle": "Real-time game asset generation with optimized GPU inference",
+      "kind": "generative-ai",
+      "featured": true,
+      "start": "2025-03",
+      "end": "2025-08",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [
+        "Ankit Gole"
+      ],
+      "summary": "A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.",
+      "problem": "Real-time game worlds need coherent assets, layouts and styles under strict latency and memory budgets, and hand-authoring them does not scale.",
+      "approach": "Asset agent on Stable Diffusion 1.5 with rank-8 LoRA adapters per biome and latent-consistency few-step inference; Wave Function Collapse for layout constraints; evaluator agent scoring quality; biome-aware prefab mapping into Unity. Shreya led AI models and generation. Unity bridge with batched prefab transfers, caching and request prioritization.",
+      "highlights": [
+        "Optimized GPU inference with ONNX and TensorRT kernel fusion: p95 latency 200 ms to 95 ms, FPS 60 to 120, binary size down 38%.",
+        "Designed a neural world-state graph for coordination, a predictive generation protocol that pre-warms likely branches, and memory pooling that cut allocation overhead about 73% and peak VRAM about 41%.",
+        "Mixed precision, INT8 quantization and CUDA graphs delivered 1.8x throughput and 24% less memory while holding FID 12.3 and CLIP similarity 0.89 under 2 GB VRAM.",
+        "Orchestration layer sustained 31 FPS at 6.2 GB VRAM with PSNR 30.1 dB and 94% tileability across large variant sets."
+      ],
+      "metrics": [
+        {
+          "label": "Assets per minute",
+          "value": "120"
+        },
+        {
+          "label": "Manual design time",
+          "value": "-73%"
+        },
+        {
+          "label": "p95 latency",
+          "value": "200 to 95 ms"
+        },
+        {
+          "label": "Throughput",
+          "value": "1.8x"
+        },
+        {
+          "label": "FID",
+          "value": "12.3"
+        },
+        {
+          "label": "CLIP similarity",
+          "value": "0.89"
+        }
+      ],
+      "tags": [
+        "PyTorch",
+        "Diffusers",
+        "Stable Diffusion",
+        "LoRA",
+        "ONNX",
+        "TensorRT",
+        "INT8",
+        "CUDA graphs",
+        "Unity",
+        "Wave Function Collapse"
+      ],
+      "repo": "https://github.com/Sonica-B/RealmWeaver-MADWE",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "tumorlytix",
+      "name": "TumorLytix: unsupervised brain tumor detection and segmentation",
+      "subtitle": "CycleGAN plus diffusion on 65,072 MRI images",
+      "kind": "computer-vision",
+      "featured": true,
+      "start": "2024-10",
+      "end": "2024-12",
+      "status": "completed",
+      "affiliation": "WPI Deep Learning",
+      "team": [
+        "Ankit Gole",
+        "Devesh Bhangale",
+        "Farhan Seliya",
+        "Sarthak Mehta"
+      ],
+      "summary": "An unsupervised medical-imaging pipeline that pairs CycleGAN image synthesis with diffusion-based refinement to detect and segment brain tumors across 65,072 BraTS2020 MRI images with more than 90% segmentation accuracy and no manual labels.",
+      "problem": "Supervised tumor segmentation needs large labeled MRI datasets that are expensive to produce, while tumors vary widely in size, shape and position.",
+      "approach": "Train CycleGAN on unpaired scans to synthesize paired healthy and diseased images and flag anomalies where reconstruction fails; refine boundaries with a conditionally guided diffusion model; automate labeling with OpenCV morphological operations and entropy-based filtering.",
+      "highlights": [
+        "Processed 23,180 healthy and 41,892 diseased slices across T1, T2, T1CE and FLAIR modalities from 369 patients.",
+        "Automated labeling improved baseline precision 15% and stabilized performance across modalities.",
+        "Packaged TorchScript batched mixed-precision inference for 1.6x images per second, profiled with Nsight Compute.",
+        "Synthetic pairing reached 88.2% accuracy on tumor image creation and 73.7% on healthy reconstruction over 75 epochs; versus a plain CycleGAN, 25% fewer artifacts, 30% higher precision and 50% faster convergence."
+      ],
+      "metrics": [
+        {
+          "label": "MRI images",
+          "value": "65,072"
+        },
+        {
+          "label": "Segmentation accuracy",
+          "value": ">90%"
+        },
+        {
+          "label": "Precision over baseline",
+          "value": "+15%"
+        },
+        {
+          "label": "Inference throughput",
+          "value": "1.6x"
+        }
+      ],
+      "tags": [
+        "PyTorch",
+        "TensorFlow",
+        "CycleGAN",
+        "diffusion models",
+        "OpenCV",
+        "TorchScript",
+        "Nsight Compute",
+        "BraTS2020"
+      ],
+      "repo": "https://github.com/Sonica-B/TumorLytix",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "scene-mood-classifier",
+      "name": "Scene Mood Classifier: one container, three clouds",
+      "subtitle": "Multimodal classifier shipped as an operated MLOps platform",
+      "kind": "mlops",
+      "featured": true,
+      "start": "2025-08",
+      "end": "2025-12",
+      "status": "completed",
+      "affiliation": "WPI DS-553 Case Studies in Data Science",
+      "team": [],
+      "summary": "A CLIP plus Wav2Vec2 fusion model that scores the mood of a video or image-and-audio pair, shipped as one container image deployed to GCP, AWS and Azure with monitoring, alerting, CI/CD and tested recovery paths.",
+      "problem": "Most course projects stop at a model; the goal here was to prove the model can be operated reliably across clouds with measurable recovery behaviour.",
+      "approach": "Gradio UI plus an HTTP inference API with per-class probability logging and latency tracking; Dockerized app and API; Prometheus, node exporter and Grafana dashboards; GitHub Actions workflow chaining with Discord deployment status; per-provider port injection with runtime-aware config.",
+      "highlights": [
+        "VM bootstrap and recovery paths with auto-restart, health checks and Discord alerting, tested against forced crashes, full wipes and network drops with recovery time treated as a performance metric.",
+        "Standardized port assignment eliminated an entire class of downtime across providers.",
+        "Published as two Hugging Face Spaces (local mode and inference-API mode with Hugging Face OAuth)."
+      ],
+      "metrics": [
+        {
+          "label": "Clouds from one image",
+          "value": "3"
+        },
+        {
+          "label": "Mood scores",
+          "value": "5"
+        },
+        {
+          "label": "Live Spaces",
+          "value": "2"
+        }
+      ],
+      "tags": [
+        "CLIP",
+        "Wav2Vec2",
+        "Gradio",
+        "Docker",
+        "GCP",
+        "AWS",
+        "Azure",
+        "Prometheus",
+        "Grafana",
+        "GitHub Actions",
+        "Hugging Face Spaces"
+      ],
+      "repo": "https://github.com/Sonica-B/Case-Studies",
+      "links": {
+        "demo": "https://huggingface.co/spaces/SonicaB/Scene-Mood-Classifier",
+        "api": "https://huggingface.co/spaces/SonicaB/Scene-Mood-Classifier-API"
+      },
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "fairprep",
+      "name": "FairPrep: fairness-aware human feedback for table unionability",
+      "subtitle": "Co-first-author paper submitted to DASHSys 2026",
+      "kind": "research",
+      "featured": false,
+      "start": "2025-01",
+      "end": "2026-05",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute, BSF Grant 2024022",
+      "team": [
+        "Nina Klimenkova",
+        "Dr. Roee Shraga"
+      ],
+      "summary": "The first adaptation of the FairEM framework from entity matching to annotator-level fairness in table union search, finding statistically significant bias against non-native English annotators on hard questions.",
+      "problem": "Human feedback supervises table union search in modern data lakes, but nobody had checked whether that feedback is equally reliable across annotator demographics.",
+      "approach": "Nine source modules across five experimental phases on a 480-row dataset; 10 FairEM confusion-matrix metrics, 10,000-shuffle permutation tests, 10,000-resample stratified bootstrap intervals, Fisher exact tests, Benjamini-Hochberg FDR correction and dual-track logistic regression.",
+      "highlights": [
+        "6 of 10 FairEM metrics flag unfairness; 25% versus 44% accuracy on hard questions (p = 0.031).",
+        "Triple intersection of non-native, lower-education and young annotators persists at p_BH = 0.037 after FDR correction.",
+        "Findings robust across 5 of 5 orthogonal cleaning strategies; behavioral disparities exceed demographic ones."
+      ],
+      "metrics": [
+        {
+          "label": "Annotators",
+          "value": "60"
+        },
+        {
+          "label": "Metrics flagging unfairness",
+          "value": "6 of 10"
+        },
+        {
+          "label": "Accuracy gap on hard questions",
+          "value": "25% vs 44%"
+        },
+        {
+          "label": "Fisher exact p",
+          "value": "0.031"
+        }
+      ],
+      "tags": [
+        "Python",
+        "statsmodels",
+        "scikit-learn",
+        "permutation testing",
+        "bootstrap",
+        "FDR correction",
+        "fairness"
+      ],
+      "repo": "https://github.com/Sonica-B/FairPrep",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": "fairprep",
+      "experienceId": null
+    },
+    {
+      "slug": "vla-physics",
+      "name": "Where does physics live in vision encoders?",
+      "subtitle": "Spatial probing and LoRA ablation of VLM physical reasoning",
+      "kind": "research",
+      "featured": false,
+      "start": "2026-03",
+      "end": "2026-05",
+      "status": "completed",
+      "affiliation": "Independent research",
+      "team": [],
+      "summary": "Probes where physical properties such as mass, friction, elasticity and stability are encoded across the encoder, projection and LLM stages of Qwen2.5-VL, InternVL 2.5 and LLaVA-OneVision, then fine-tunes five LoRA configurations to find the leverage point for physical intuition.",
+      "problem": "Vision-language models trained on internet-scale data show surprising physical reasoning yet fail systematically on intuitive physics, and it was unclear where physical information lives in their pipelines.",
+      "approach": "Linear and MLP probes on per-patch activations at four stages using Physion++ ground truth; physics saliency maps as 14x14 heatmaps; R-squared degradation curves across the projection bottleneck; a 3 model x 5 condition factorial LoRA ablation evaluated on PhysBench, GRASP Level 2 and ConservationBench; before-and-after attention analysis.",
+      "highlights": [
+        "Four research questions covering spatial encoding, pipeline degradation, architectural leverage points and fine-tuning effects.",
+        "Hydra-configured codebase with probing, visualization, evaluation and ablation modules."
+      ],
+      "metrics": [
+        {
+          "label": "Vision-language models",
+          "value": "3"
+        },
+        {
+          "label": "Pipeline stages probed",
+          "value": "4"
+        },
+        {
+          "label": "LoRA ablation runs",
+          "value": "15"
+        },
+        {
+          "label": "Benchmarks",
+          "value": "3"
+        }
+      ],
+      "tags": [
+        "Qwen2.5-VL",
+        "InternVL",
+        "LLaVA-OneVision",
+        "LoRA",
+        "Physion++",
+        "PhysBench",
+        "probing",
+        "Hydra"
+      ],
+      "repo": "https://github.com/Sonica-B/VLAs",
+      "links": {},
+      "visual": {
+        "src": "/projects/vla-physics/saliency-grid.webp",
+        "alt": "Grid of physics saliency maps over Physion++ scenes"
+      },
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "medical-triage",
+      "name": "Medical Triage HIL: confidence-aware LLM triage",
+      "subtitle": "Human-in-the-loop emergency severity prediction",
+      "kind": "llm-systems",
+      "featured": false,
+      "start": "2025-01",
+      "end": "2025-08",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [],
+      "summary": "Local LLMs assign Emergency Severity Index levels, reason about handoff risk and track confidence as more patient questions are revealed, with human-in-the-loop review on high-risk escalations.",
+      "problem": "LLM triage assistants hallucinate and escalate incorrectly; the question was whether calibrated confidence plus human review could make them safer.",
+      "approach": "Ollama-served models (Mistral by default) with risk-factor extraction, incremental QA-based confidence tracking, and elicitation strategies (vanilla, chain of thought, self-probing, top-k, misleading and paraphrased sampling, aggregation); dual-channel decision flow separating escalation from routine guidance; reliability diagrams and calibration plots.",
+      "highlights": [
+        "Raised triage precision 20% and ESI accuracy 25% while cutting false escalations 40%.",
+        "Reduced hallucinations 50% and improved patient-provider alignment 2.3x through the dual-channel flow.",
+        "Difficulty-weighted training and GPT-style calibration scoring: errors down 30%, reliability up 35%, early critical-case detection up 60%, non-critical misclassification down 70%.",
+        "Research prototype, explicitly not a clinical decision tool."
+      ],
+      "metrics": [
+        {
+          "label": "Triage precision",
+          "value": "+20%"
+        },
+        {
+          "label": "False escalations",
+          "value": "-40%"
+        },
+        {
+          "label": "Hallucinations",
+          "value": "-50%"
+        },
+        {
+          "label": "Early critical-case detection",
+          "value": "+60%"
+        }
+      ],
+      "tags": [
+        "Python",
+        "PyTorch",
+        "scikit-learn",
+        "Ollama",
+        "LangChain",
+        "calibration",
+        "HITL"
+      ],
+      "repo": "https://github.com/Sonica-B/Medical-Triage-HIL",
+      "links": {},
+      "visual": {
+        "src": "/projects/medical-triage/esi-confidence.webp",
+        "alt": "ESI prediction and confidence overlay for one triage case as questions are revealed"
+      },
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": "wpi-researcher"
+    },
+    {
+      "slug": "autogit",
+      "name": "AutoGit-AI: VS Code extension with secret scanning",
+      "subtitle": "Shipped on the VS Code Marketplace",
+      "kind": "tooling",
+      "featured": false,
+      "start": "2025-05",
+      "end": null,
+      "status": "ongoing",
+      "affiliation": "Open source",
+      "team": [],
+      "summary": "Save a file and AutoGit stages it, writes an AI commit message with GitHub Copilot, scans the diff for leaked secrets and pushes. The only auto-commit extension with a built-in secret scanner that blocks keys, tokens and passwords before they reach the remote.",
+      "problem": "Auto-commit removes the human review step between saving and pushing, which is exactly when secrets leak; AI-assisted commits leak at roughly twice the baseline rate.",
+      "approach": "Pattern plus entropy scanning of only the added lines (AWS, GitHub, GitLab, Google, Slack, Stripe, npm, SendGrid, OpenAI and Anthropic keys, JWTs, private-key blocks, connection strings); fails closed on oversized diffs; fingerprint-bound overrides; gitignore-style excludes enforced at staging time; skips merges, rebases and detached HEAD; git invoked with argument arrays, never shell strings.",
+      "highlights": [
+        "Published on the VS Code Marketplace as ShreyaBoyane.auto-git-copilot under Apache-2.0, with CI that lints, tests and packages on every push.",
+        "Pure logic lives in a fully unit-tested library; VS Code wiring is isolated in the extension entry point.",
+        "Debounced batching, protected branches, status-bar control and a full output-channel log."
+      ],
+      "metrics": [
+        {
+          "label": "Secret pattern families",
+          "value": "10+"
+        },
+        {
+          "label": "License",
+          "value": "Apache-2.0"
+        },
+        {
+          "label": "Minimum VS Code",
+          "value": "1.90"
+        }
+      ],
+      "tags": [
+        "TypeScript",
+        "JavaScript",
+        "VS Code Extension API",
+        "GitHub Copilot",
+        "Git",
+        "secret scanning"
+      ],
+      "repo": "https://github.com/Sonica-B/AutoGit",
+      "links": {
+        "marketplace": "https://marketplace.visualstudio.com/items?itemName=ShreyaBoyane.auto-git-copilot"
+      },
+      "visual": {
+        "src": "/projects/autogit/how-it-works.webp",
+        "alt": "Diagram of the AutoGit flow: save, stage, AI message, secret scan, commit and push"
+      },
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "vio",
+      "name": "VIO: deep visual-inertial odometry via multimodal fusion",
+      "subtitle": "Camera plus IMU fusion with a Transformer encoder",
+      "kind": "computer-vision",
+      "featured": false,
+      "start": "2025-03",
+      "end": "2025-05",
+      "status": "completed",
+      "affiliation": "WPI RBE/CS 549 Computer Vision",
+      "team": [
+        "Divam Trivedi"
+      ],
+      "summary": "Fuses a FlowNet-style CNN over frames, a two-layer bi-LSTM over IMU windows and a Transformer fusion encoder into a pose regressor trained with an L1 translation and SO(3) geodesic rotation loss on synthetic Blender and OysterSim trajectories.",
+      "problem": "Synthetic video and IMU streams showed scale drift and domain shift that degraded long-horizon odometry.",
+      "approach": "Automated dataset creation and alignment with OysterSim physics and EVO Umeyama evaluation across six training and three test trajectories at 1000 Hz IMU and 100 Hz RGB; compared vision-only, inertial-only and fusion models.",
+      "highlights": [
+        "Fusion cut RMSE ATE versus the vision-only model by about 32% on the Infinity trajectory, 34% on Random and 31% on Spiral, with median RPE holding near two units.",
+        "Delivered RMSE ATE 7.9 to 12.1 and median 7.2 to 8.6 with the SO(3) geodesic loss.",
+        "Deployed inference through TorchScript and ONNX to TensorRT: 35% lower per-step latency and 20% less VRAM with RPE and ATE deltas within 3%."
+      ],
+      "metrics": [
+        {
+          "label": "RMSE ATE vs vision-only",
+          "value": "-31 to -34%"
+        },
+        {
+          "label": "IMU rate",
+          "value": "1000 Hz"
+        },
+        {
+          "label": "RGB rate",
+          "value": "100 Hz"
+        },
+        {
+          "label": "Per-step latency",
+          "value": "-35%"
+        },
+        {
+          "label": "VRAM",
+          "value": "-20%"
+        }
+      ],
+      "tags": [
+        "PyTorch",
+        "LSTM",
+        "Transformer",
+        "sensor fusion",
+        "Blender",
+        "OysterSim",
+        "TensorRT",
+        "ONNX"
+      ],
+      "repo": "https://github.com/Sonica-B/VIO",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "robofusion",
+      "name": "RoboFusion: ML-driven sensor integration for motion control",
+      "subtitle": "Gesture-controlled robotic arm on ROS2",
+      "kind": "robotics",
+      "featured": false,
+      "start": "2024-09",
+      "end": "2024-12",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [
+        "Ankit Gole",
+        "Harsh Chhajed",
+        "Shivam Shinde",
+        "Simran Chauhan"
+      ],
+      "summary": "A real-time human-robot interface that controls a robotic arm from hand gestures by fusing MediaPipe hand tracking, a TensorFlow gesture model and MPU6050 IMU angle estimates inside ROS2, with sub-500 ms gesture-to-command latency.",
+      "problem": "Sensor data alone is noisy and inconsistent for precise arm control, which matters in hazardous remote operations, manufacturing and medical robotics.",
+      "approach": "Collected a custom dataset of 5,000+ hand gestures with MediaPipe, trained a gesture-and-angle model, fused predictions with MPU6050 readings to cancel noise, and validated in a Gazebo simulation of the arm.",
+      "highlights": [
+        "93% gesture recognition accuracy on the custom dataset and about 35% better task precision than the sensor-only baseline.",
+        "Sub-500 ms gesture-to-command latency across the full pipeline.",
+        "Production-style ROS2 nodes with deterministic message contracts reusable in downstream robotics projects."
+      ],
+      "metrics": [
+        {
+          "label": "Gesture recognition accuracy",
+          "value": "93%"
+        },
+        {
+          "label": "Gesture-to-command latency",
+          "value": "<500 ms"
+        },
+        {
+          "label": "Gesture samples",
+          "value": "5,000+"
+        }
+      ],
+      "tags": [
+        "ROS2",
+        "Gazebo",
+        "TensorFlow",
+        "MediaPipe",
+        "OpenCV",
+        "MPU6050",
+        "sensor fusion"
+      ],
+      "repo": "https://github.com/Sonica-B/RoboFusion",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "buildings-built-in-minutes",
+      "name": "Buildings Built in Minutes: structure from motion and NeRF",
+      "subtitle": "Classical reconstruction of WPI Unity Hall and neural rendering",
+      "kind": "computer-vision",
+      "featured": false,
+      "start": "2025-02",
+      "end": "2025-03",
+      "status": "completed",
+      "affiliation": "WPI RBE/CS 549 Computer Vision",
+      "team": [
+        "Divam Trivedi"
+      ],
+      "summary": "Turns uncalibrated photographs into a metrically reliable 3D asset with a full structure-from-motion pipeline, then implements NeRF end to end to render photorealistic 360-degree orbits of the Lego, Hotdog and Ship scenes.",
+      "problem": "Reconstructing a building from phone photos for AR and VR needs both classical geometry and neural rendering while keeping compute modest.",
+      "approach": "Phase 1 in Python and OpenCV: SIFT keypoints and matching, eight-point fundamental and essential matrix estimation with RANSAC, PnP camera poses, linear and nonlinear triangulation and bundle adjustment. Phase 2: NeRF with positional encoding and hierarchical coarse-to-fine volume sampling, evaluated with PSNR and SSIM.",
+      "highlights": [
+        "Average reprojection error improved from 1.75 to 1.01 pixels across five views after sparse bundle adjustment in SciPy.",
+        "NeRF novel views reached about 60% higher PSNR than the baseline with roughly 40% fewer rendering artifacts; coordinates aligned to SfM poses for consistent scale.",
+        "Reproducibility guards: fixed seeds, deterministic loaders, metric scripts and result caching."
+      ],
+      "metrics": [
+        {
+          "label": "Reprojection error",
+          "value": "1.75 to 1.01 px"
+        },
+        {
+          "label": "PSNR vs baseline",
+          "value": "+60%"
+        },
+        {
+          "label": "Rendering artifacts",
+          "value": "-40%"
+        }
+      ],
+      "tags": [
+        "Python",
+        "OpenCV",
+        "SfM",
+        "bundle adjustment",
+        "NeRF",
+        "PyTorch"
+      ],
+      "repo": "https://github.com/Sonica-B/Buildings-Built-in-Minutes",
+      "links": {},
+      "visual": {
+        "src": "/projects/buildings-built-in-minutes/nerf-lego.webp",
+        "alt": "NeRF rendering of the Lego scene rotating 360 degrees"
+      },
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "trended-pathfinder",
+      "name": "TrendED Pathfinder: career recommender",
+      "subtitle": "NLP role matching and skill-gap learning paths",
+      "kind": "nlp",
+      "featured": false,
+      "start": "2024-09",
+      "end": "2024-11",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [
+        "Sakshi",
+        "Blake",
+        "Harrison",
+        "Ankit"
+      ],
+      "summary": "An NLP engine that matches resumes to roles with TF-IDF and cosine similarity, calibrates rankings with supervised classifiers, and recommends courses that close the skill gaps it finds.",
+      "problem": "Job boards filter on job type and company, not on what a specific student can do and should learn next.",
+      "approach": "Scraped job boards and university catalogs with BeautifulSoup, built the matching and ranking models in TensorFlow and scikit-learn, and generated top-k role plus coursework recommendations from unified text features.",
+      "highlights": [
+        "Scaled to 10,000+ job descriptions, 5,000 resumes and 300+ course catalogs.",
+        "95% match accuracy with 90% NLP precision; irrelevant results down 50% and data preparation time down 65%.",
+        "Used by 1,000+ students for tailored course suggestions; LDA topic modeling on job and catalog text."
+      ],
+      "metrics": [
+        {
+          "label": "Job descriptions",
+          "value": "10,000+"
+        },
+        {
+          "label": "Match accuracy",
+          "value": "95%"
+        },
+        {
+          "label": "NLP precision",
+          "value": "90%"
+        }
+      ],
+      "tags": [
+        "Python",
+        "TF-IDF",
+        "scikit-learn",
+        "TensorFlow",
+        "BeautifulSoup",
+        "NLP"
+      ],
+      "repo": "https://github.com/Sonica-B/TrendED",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "realmweaver-ai",
+      "name": "RealmWeaver-AI: procedural game asset generator",
+      "subtitle": "Stable Diffusion, CVAE-GAN and Wave Function Collapse for Unity",
+      "kind": "generative-ai",
+      "featured": false,
+      "start": "2025-03",
+      "end": "2025-04",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [],
+      "summary": "A procedural 2D asset framework that generates terrain tiles and props with Stable Diffusion and LoRA, learns tile structure with a CVAE-GAN, lays out biomes with Wave Function Collapse and places prefabs automatically in Unity.",
+      "problem": "Indie developers spend most of their time building game worlds by hand.",
+      "approach": "VAE-based terrain synthesis, entropy-minimized Wave Function Collapse for biome layouts, LoRA-enhanced latent diffusion for assets, and a classifier-discriminator extension of the CVAE-GAN tuned by ablation for stability and style coherence.",
+      "highlights": [
+        "FID 32.4 at 2.7 seconds per asset, surpassing baseline procedural methods in realism and diversity.",
+        "Biome-aware prefab mapping in Unity reduced manual integration effort 73%."
+      ],
+      "metrics": [
+        {
+          "label": "FID",
+          "value": "32.4"
+        },
+        {
+          "label": "Time per asset",
+          "value": "2.7 s"
+        },
+        {
+          "label": "Manual effort",
+          "value": "-73%"
+        }
+      ],
+      "tags": [
+        "Stable Diffusion",
+        "LoRA",
+        "CVAE-GAN",
+        "VAE",
+        "Wave Function Collapse",
+        "Unity",
+        "PyTorch"
+      ],
+      "repo": "https://github.com/Sonica-B/RealmWeaver-AI",
+      "links": {},
+      "visual": {
+        "src": "/projects/realmweaver-ai/terrain.webp",
+        "alt": "Generated 3D terrain tile rendered from the RealmWeaver pipeline"
+      },
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "sasrec",
+      "name": "SASRec sequential recommender",
+      "subtitle": "Transformer next-item ranking in PyTorch",
+      "kind": "ml",
+      "featured": false,
+      "start": "2025-04",
+      "end": "2025-05",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [],
+      "summary": "A self-attentive sequential recommender with multi-head attention, causal masking and residual feed-forward blocks for next-item ranking, tuned with hyperparameter sweeps and selected by offline metrics.",
+      "problem": "Sparse interaction histories make next-item prediction unstable; the goal was a compact model that holds up under sparsity.",
+      "approach": "Swept dropout 0.05 to 0.5, attention heads 1 to 2 and hidden dimensions 5 to 50, visualized stability across five variants and picked the best checkpoint by nDCG and hit rate.",
+      "highlights": [
+        "nDCG@10 of 0.3166 and Hit@10 of 0.4913 at epoch 14 with a two-block, 50-dimensional configuration."
+      ],
+      "metrics": [
+        {
+          "label": "nDCG@10",
+          "value": "0.3166"
+        },
+        {
+          "label": "Hit@10",
+          "value": "0.4913"
+        }
+      ],
+      "tags": [
+        "PyTorch",
+        "Transformers",
+        "recommender systems"
+      ],
+      "repo": null,
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "face-generation",
+      "name": "Eigenfaces and latent face generation",
+      "subtitle": "Probabilistic PCA versus beta-VAE",
+      "kind": "ml",
+      "featured": false,
+      "start": "2025-01",
+      "end": "2025-02",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [],
+      "summary": "Trained probabilistic PCA and beta-VAE models on 576-dimensional face vectors for unsupervised identity representation and generation, then compared reconstructions and latent interpolations.",
+      "problem": "How much of a face survives a 16-, 32- or 64-dimensional latent, and which model interpolates more smoothly.",
+      "approach": "Reduced to latent spaces of 16, 32 and 64 dimensions with 95%+ variance retained, generated 100 novel faces by decoder sampling, and compared models through PCA-projected visualizations and 10x10 output grids.",
+      "highlights": [
+        "VAE showed stronger feature continuity and expressiveness; decoder sampling cut training time 35% over dense baselines."
+      ],
+      "metrics": [
+        {
+          "label": "Variance retained",
+          "value": "95%+"
+        },
+        {
+          "label": "Novel samples",
+          "value": "100"
+        }
+      ],
+      "tags": [
+        "PyTorch",
+        "VAE",
+        "PCA",
+        "unsupervised learning"
+      ],
+      "repo": null,
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "atari-pong",
+      "name": "Behavioral cloning in Atari Pong",
+      "subtitle": "Imitation learning with a 3-layer CNN",
+      "kind": "reinforcement-learning",
+      "featured": false,
+      "start": "2024-09",
+      "end": "2024-10",
+      "status": "completed",
+      "affiliation": "Worcester Polytechnic Institute",
+      "team": [],
+      "summary": "A supervised imitation-learning pipeline that clones an expert Pong policy from Arcade Learning Environment demonstrations with a three-layer convolutional network.",
+      "problem": "Can a small CNN reproduce expert paddle control from demonstrations alone without reward signals.",
+      "approach": "Trained on expert frames for 100 epochs, validated through loss trajectories and gameplay video logs, and measured action latency.",
+      "highlights": [
+        "87.55% test accuracy with minimal overfitting; the cloned agent tracks the paddle with sub-500 ms action latency."
+      ],
+      "metrics": [
+        {
+          "label": "Test accuracy",
+          "value": "87.55%"
+        },
+        {
+          "label": "Action latency",
+          "value": "<500 ms"
+        }
+      ],
+      "tags": [
+        "TensorFlow",
+        "OpenCV",
+        "CNN",
+        "imitation learning",
+        "ALE"
+      ],
+      "repo": null,
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "map-ar",
+      "name": "Map.AR: augmented reality navigation assistant",
+      "subtitle": "Indoor and outdoor AR wayfinding, TECHVED sponsored",
+      "kind": "ar",
+      "featured": false,
+      "start": "2021-01",
+      "end": "2022-01",
+      "status": "completed",
+      "affiliation": "PES Modern College of Engineering",
+      "team": [
+        "Vaishnavi",
+        "Anuj",
+        "one more teammate"
+      ],
+      "summary": "An augmented-reality navigation assistant that guides users to a destination indoors and outdoors, combining Vuforia marker detection with Unity 3D overlays and place recommendations based on user preferences.",
+      "problem": "Complex indoor spaces are hard to navigate with 2D maps.",
+      "approach": "Built the indoor navigation feature, the recommendation logic and the entire frontend in Unity and C# with Vuforia, Autodesk Revit models, Maps SDK and Firebase; designed the UI in Figma.",
+      "highlights": [
+        "Piloted with college users at 90%+ satisfaction on a usability survey; robust across lighting conditions.",
+        "Secured industry sponsorship from TECHVED in October 2021 and presented a seminar on AR development tools."
+      ],
+      "metrics": [
+        {
+          "label": "User satisfaction",
+          "value": "90%+"
+        },
+        {
+          "label": "Team size",
+          "value": "4"
+        }
+      ],
+      "tags": [
+        "Unity",
+        "C#",
+        "Vuforia",
+        "Autodesk Revit",
+        "Maps SDK",
+        "Firebase",
+        "Figma"
+      ],
+      "repo": null,
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "sign-language-detection",
+      "name": "Real-time sign language detection",
+      "subtitle": "Custom SSD object detector",
+      "kind": "computer-vision",
+      "featured": false,
+      "start": "2021-04",
+      "end": "2021-10",
+      "status": "completed",
+      "affiliation": "Independent project",
+      "team": [],
+      "summary": "An end-to-end custom object-detection system that recognizes hand gestures and translates sign language into text in real time for people with hearing impairments.",
+      "problem": "Communication barriers for users of sign language in everyday settings.",
+      "approach": "Trained a Single Shot Multibox Detector in TensorFlow on a custom gesture dataset and integrated it with a live camera feed.",
+      "highlights": [
+        "Accurate real-time detection and translation of multiple gestures."
+      ],
+      "metrics": [
+        {
+          "label": "Architecture",
+          "value": "SSD"
+        }
+      ],
+      "tags": [
+        "TensorFlow",
+        "Python",
+        "object detection",
+        "OpenCV"
+      ],
+      "repo": null,
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "face-mask-detection",
+      "name": "Real-time face mask detection",
+      "subtitle": "MobileNet SSD on live video",
+      "kind": "computer-vision",
+      "featured": false,
+      "start": "2020-11",
+      "end": "2021-03",
+      "status": "completed",
+      "affiliation": "Independent project",
+      "team": [],
+      "summary": "A lightweight MobileNet SSD detector that checks whether people are wearing face masks on live video feeds, built for COVID-19 compliance monitoring in public spaces.",
+      "problem": "Institutions needed an automated, low-cost way to monitor mask compliance.",
+      "approach": "Trained a custom MobileNet SSD model and integrated it with video streams for real-time inference.",
+      "highlights": [
+        "Deployed for live detection with high accuracy, suitable for institutions and public venues."
+      ],
+      "metrics": [
+        {
+          "label": "Backbone",
+          "value": "MobileNet SSD"
+        }
+      ],
+      "tags": [
+        "TensorFlow",
+        "OpenCV",
+        "Python"
+      ],
+      "repo": null,
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "bookadda",
+      "name": "BookADDA: peer-to-peer book rental platform",
+      "subtitle": "Full-stack web app for students",
+      "kind": "web",
+      "featured": false,
+      "start": "2020-06",
+      "end": "2020-11",
+      "status": "completed",
+      "affiliation": "PES Modern College of Engineering",
+      "team": [
+        "three teammates"
+      ],
+      "summary": "An online platform where students buy, rent or sell books with fellow students, with a search-first interface and a Flask backend.",
+      "problem": "Textbooks are expensive and campus book exchange was informal and slow.",
+      "approach": "Designed and implemented the entire frontend in HTML, CSS, Bootstrap and JavaScript and integrated it with a Python Flask and MySQL backend.",
+      "highlights": [
+        "Launched a working platform that received positive feedback for ease of use and search."
+      ],
+      "metrics": [
+        {
+          "label": "Team size",
+          "value": "4"
+        }
+      ],
+      "tags": [
+        "HTML",
+        "CSS",
+        "Bootstrap",
+        "JavaScript",
+        "Flask",
+        "MySQL"
+      ],
+      "repo": null,
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    },
+    {
+      "slug": "portfolio-site",
+      "name": "shreyaboyane.dev: this site",
+      "subtitle": "Content-graph-driven portfolio with a depth-map hero",
+      "kind": "web",
+      "featured": false,
+      "start": "2026-02",
+      "end": null,
+      "status": "ongoing",
+      "affiliation": "Personal",
+      "team": [],
+      "summary": "A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and an HTML resume, with a WebGL2 hero that renders a depth map of the portrait produced by Depth Anything V2.",
+      "problem": "The previous version drifted a full degree-completion behind reality because content was hardcoded in four places, and its particle background read as a template.",
+      "approach": "Single source of truth in content/profile.json with a build-time drift guard; Tailwind 4 OKLCH tokens; Motion-Primitives for interactive islands; raw WebGL2 point cloud displaced by depth; static generation for all routes; markdown content negotiation and llms.txt for AI agents; pitch videos rendered with Hyperframes.",
+      "highlights": [
+        "Every route is static; no runtime API.",
+        "One h1 per page, Person and ProfilePage JSON-LD with full sameAs, VideoObject schema per pitch video."
+      ],
+      "metrics": [
+        {
+          "label": "Project pages",
+          "value": "23"
+        },
+        {
+          "label": "Runtime APIs",
+          "value": "0"
+        }
+      ],
+      "tags": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Motion",
+        "WebGL2",
+        "Depth Anything V2",
+        "Vercel"
+      ],
+      "repo": "https://github.com/Sonica-B/Portfolio",
+      "links": {},
+      "visual": null,
+      "video": null,
+      "recognition": null,
+      "publicationId": null,
+      "experienceId": null
+    }
+  ],
+  "recognition": [
+    {
+      "id": "icml-poster",
+      "kind": "publication",
+      "title": "Poster accepted at the ICML 2026 FoGen Workshop",
+      "org": "ICML 2026 Workshop on Foundations of Deep Generative Models",
+      "date": "2026-05",
+      "note": "Interpreting Latent CoT Reasoning as Dynamical Systems; reviewer rating 6/6."
+    },
+    {
+      "id": "golden-ticket",
+      "kind": "honor",
+      "title": "Golden Ticket Contest honorable mention, NVIDIA GTC 2026",
+      "org": "Google Cloud x NVIDIA developer community",
+      "date": "2026-03",
+      "note": "Community contest recognition for a technical write-up on inference optimization after completing three Google Cloud x NVIDIA learning pathways (NVIDIA NIM on GKE, Intro to Inference on GPUs, Speed Up Data Analytics on GPUs). One of 12 honorable mentions; invited to coffee chats with Google and NVIDIA leaders."
+    },
+    {
+      "id": "gqp-mvp",
+      "kind": "award",
+      "title": "Data Science GQP Most Valuable Player (MVP)",
+      "org": "Worcester Polytechnic Institute",
+      "date": "2025-12",
+      "note": "One of only a few MVP recipients; exceptional individual contribution to the Crossing x WPI industry-sponsored project that cut immigration petition review from 3 to 4 days to 5 to 10 minutes."
+    },
+    {
+      "id": "algoverse",
+      "kind": "fellowship",
+      "title": "AI Research Fellow",
+      "org": "Algoverse AI Research Fellowship",
+      "date": "2026-02",
+      "note": "Competitive 12-week fellowship, February 2026 cohort; latent chain-of-thought mechanistic interpretability."
+    },
+    {
+      "id": "handshake-fellow",
+      "kind": "fellowship",
+      "title": "AI Trainer Fellow",
+      "org": "Handshake AI",
+      "date": "2026-04",
+      "note": "Selected domain expert for frontier LLM and VLM evaluation."
+    },
+    {
+      "id": "top-talent",
+      "kind": "award",
+      "title": "Top Talent 2024",
+      "org": "Persistent Systems",
+      "date": "2024-05",
+      "note": "DevOps excellence: CI/CD automation across 20+ projects, infrastructure as code, container orchestration and automated deployment workflows."
+    },
+    {
+      "id": "bravo-individual",
+      "kind": "award",
+      "title": "Bravo Individual Award, Technology and Process Excellence",
+      "org": "Persistent Systems",
+      "date": "2023-12",
+      "note": "Critical role in multiple deliverables and impactful automation improvements under tight deadlines."
+    },
+    {
+      "id": "team-excellence",
+      "kind": "award",
+      "title": "Team Excellence Award FY2023",
+      "org": "Persistent Systems annual awards",
+      "date": "2023-01",
+      "note": "One of the best teams at Persistent for performance and delivery."
+    },
+    {
+      "id": "bravo-team",
+      "kind": "award",
+      "title": "Bravo Team Award, Teamwork and Dedication",
+      "org": "Persistent Systems",
+      "date": "2022-12",
+      "note": "Delivering challenging work under tight project deadlines."
+    },
+    {
+      "id": "gems",
+      "kind": "certification",
+      "title": "Graduate Engineers with Multidimensional Skills (GEMS)",
+      "org": "Persistent Systems",
+      "date": "2022-06",
+      "note": "Completed the GEMS professional development program."
+    },
+    {
+      "id": "best-intern",
+      "kind": "award",
+      "title": "Best Intern, 2022 batch",
+      "org": "Persistent Systems",
+      "date": "2022-05",
+      "note": "Top intern among 20,000+ new joiners across India."
+    },
+    {
+      "id": "be-honours",
+      "kind": "honor",
+      "title": "Honours in Artificial Intelligence and Machine Learning",
+      "org": "PES Modern College of Engineering",
+      "date": "2022-05",
+      "note": "B.E. Information Technology with an AI and ML honours specialization."
+    },
+    {
+      "id": "techved",
+      "kind": "honor",
+      "title": "Project sponsorship from TECHVED",
+      "org": "TECHVED Consulting",
+      "date": "2021-10",
+      "note": "Industry sponsorship for the Map.AR final-year project."
+    },
+    {
+      "id": "kotlin-iitb",
+      "kind": "certification",
+      "title": "Android App Development using Kotlin, 85/100",
+      "org": "Spoken Tutorial Project, IIT Bombay (MHRD, Government of India)",
+      "date": "2021-10",
+      "note": null
+    },
+    {
+      "id": "hackerrank-gold",
+      "kind": "honor",
+      "title": "Python Gold Badge (5 stars)",
+      "org": "HackerRank",
+      "date": "2020-08",
+      "note": null
+    },
+    {
+      "id": "csi-webdesign",
+      "kind": "competition",
+      "title": "National Level Technical Contest on Web Design",
+      "org": "SNJB College of Engineering; Computer Society of India x TechGig",
+      "date": "2020-05",
+      "note": "Participation certificate."
+    },
+    {
+      "id": "fuel",
+      "kind": "competition",
+      "title": "FUEL Aptitude Championship",
+      "org": "National level",
+      "date": "2020-05",
+      "note": null
+    },
+    {
+      "id": "yantra-maan",
+      "kind": "competition",
+      "title": "1st rank, Yantra-Maan robotics",
+      "org": "Xtronica Mpulse 2018",
+      "date": "2018-02",
+      "note": "Robotics competition during undergraduate studies."
+    },
+    {
+      "id": "credenz",
+      "kind": "competition",
+      "title": "Clash Contest, Credenz 2017",
+      "org": "PICT IEEE Student Branch",
+      "date": "2017-09",
+      "note": null
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Deploy Faster GenAI with NVIDIA NIM on GKE",
+      "issuer": "Google Cloud x NVIDIA learning pathway",
+      "date": "2026-02",
+      "image": "/images/badges/deploy-genai-nvidia.svg",
+      "credentialId": null
+    },
+    {
+      "title": "Introduction to Inference on GPUs",
+      "issuer": "Google Cloud x NVIDIA learning pathway",
+      "date": "2026-02",
+      "image": "/images/badges/intro-inference-gpu.svg",
+      "credentialId": null
+    },
+    {
+      "title": "Speed Up Data Analytics on GPUs",
+      "issuer": "Google Cloud x NVIDIA learning pathway",
+      "date": "2026-02",
+      "image": "/images/badges/speed-up-data-analytics.svg",
+      "credentialId": null
+    },
+    {
+      "title": "Google Cloud x NVIDIA developer community member",
+      "issuer": "Google Cloud and NVIDIA",
+      "date": "2026-01",
+      "image": "/images/badges/nvidia-community.svg",
+      "credentialId": null
+    },
+    {
+      "title": "Top Talent 2024",
+      "issuer": "Persistent Systems",
+      "date": "2024-05",
+      "image": "/images/certs/Shreya_Boyane.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Bravo Individual Award, Process and Technology Excellence",
+      "issuer": "Persistent Systems",
+      "date": "2023-12",
+      "image": "/images/certs/REQ-084067_46402.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Bravo Team Award, Teamwork and Dedication",
+      "issuer": "Persistent Systems",
+      "date": "2022-12",
+      "image": "/images/certs/REQ-087550_46402.webp",
+      "credentialId": null
+    },
+    {
+      "title": "GEMS Training Program (Graduate Engineers with Multidimensional Skills)",
+      "issuer": "Persistent Systems",
+      "date": "2022-06",
+      "image": "/images/certs/046402_Graduate_Engineers_with_Multidimensional_Skills.webp",
+      "credentialId": null
+    },
+    {
+      "title": "AI For Everyone",
+      "issuer": "DeepLearning.AI on Coursera",
+      "date": "2021-05",
+      "image": "/images/certs/Coursera_B8N3LBXEWHSM.webp",
+      "credentialId": "B8N3LBXEWHSM"
+    },
+    {
+      "title": "Azure Machine Learning Development: Basic Concepts",
+      "issuer": "LinkedIn Learning",
+      "date": "2021-03",
+      "image": "/images/certs/CertificateOfCompletion_Azure_Machine_Learning_Development_1.webp",
+      "credentialId": "AbT195j3moT1H1zbgmnLUgoRdlEP"
+    },
+    {
+      "title": "Supervised Learning Essential Training",
+      "issuer": "LinkedIn Learning",
+      "date": "2021-03",
+      "image": "/images/certs/CertificateOfCompletion_Supervised_Learning_Essential_Traini.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Machine Learning with Scikit-Learn",
+      "issuer": "LinkedIn Learning",
+      "date": "2021-03",
+      "image": null,
+      "credentialId": null
+    },
+    {
+      "title": "Learning Python",
+      "issuer": "LinkedIn Learning",
+      "date": "2021-03",
+      "image": "/images/certs/CertificateOfCompletion_Learning_Python__1_.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Python Object-Oriented Programming",
+      "issuer": "LinkedIn Learning",
+      "date": "2021-03",
+      "image": "/images/certs/CertificateOfCompletion_Python_ObjectOriented_Programming.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Microsoft AI Classroom Series",
+      "issuer": "Microsoft x NASSCOM",
+      "date": "2021-03",
+      "image": "/images/certs/MicrosoftCertificate.webp",
+      "credentialId": null
+    },
+    {
+      "title": "App Development for Beginners",
+      "issuer": "JigsawMindz",
+      "date": "2021-03",
+      "image": "/images/certs/App.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Web Development Internship Selection",
+      "issuer": "Internshala (Flavalon IT)",
+      "date": "2021-03",
+      "image": "/images/certs/Shreya_Boyane_Hired_Certificate.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Introduction to Virtual Reality",
+      "issuer": "University of London, Goldsmiths on Coursera",
+      "date": "2020-12",
+      "image": "/images/certs/Intriduction-to-Virtual-Reality.webp",
+      "credentialId": "6AHCC7APLNXK"
+    },
+    {
+      "title": "Cybersecurity and the Internet of Things",
+      "issuer": "University System of Georgia (Kennesaw State) on Coursera",
+      "date": "2020-11",
+      "image": "/images/certs/Coursera_Z9CRVXVGS2MG.webp",
+      "credentialId": "Z9CRVXVGS2MG"
+    },
+    {
+      "title": "Python (Basic)",
+      "issuer": "HackerRank",
+      "date": "2020-11",
+      "image": "/images/certs/HackerRank-Python_Basic_.webp",
+      "credentialId": "B3938933B424"
+    },
+    {
+      "title": "Java (Basic)",
+      "issuer": "HackerRank",
+      "date": "2020-11",
+      "image": "/images/certs/HackerRank-Java_Basic_.webp",
+      "credentialId": "856810A954C4"
+    },
+    {
+      "title": "Problem Solving (Basic)",
+      "issuer": "HackerRank",
+      "date": "2020-11",
+      "image": "/images/certs/HackerRank-ProblemSolving_Basic_.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Python Programming",
+      "issuer": "Skill assessment certificate",
+      "date": "2020-08",
+      "image": "/images/certs/Certificate_for_Shreya_Boyane_for__Python_Programming_.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Web Design Course",
+      "issuer": "Skill assessment certificate",
+      "date": "2020-05",
+      "image": "/images/certs/Certificate_for_Shreya_Boyane_for__Test_for_Web_Design_Cours.webp",
+      "credentialId": "UP722Q-CE000122"
+    },
+    {
+      "title": "National Level Technical Contest on Web Design",
+      "issuer": "Computer Society of India x TechGig",
+      "date": "2020-05",
+      "image": "/images/certs/National_Level_Technical_Co____.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Technology Awareness Quiz on Data Structures Using C",
+      "issuer": "PCCOE IT Department, ITSA and IEEE PCCOE Student Branch",
+      "date": "2020-05",
+      "image": "/images/certs/Quiz_On_Data_Structure_usin___.webp",
+      "credentialId": null
+    },
+    {
+      "title": "FUEL Aptitude Championship",
+      "issuer": "National level competition",
+      "date": "2020-05",
+      "image": "/images/certs/Certificate_for_Shreya_Boyane_for__FUEL_Aptitude_Championshi.webp",
+      "credentialId": null
+    },
+    {
+      "title": "C Training",
+      "issuer": "Spoken Tutorial Project, IIT Bombay",
+      "date": "2019-09",
+      "image": "/images/certs/SHREYA-BOYANE-Participant-Certificate.webp",
+      "credentialId": null
+    },
+    {
+      "title": "Data Science with Python",
+      "issuer": "Technogeeks, Pune",
+      "date": "2019-06",
+      "image": null,
+      "credentialId": null
+    },
+    {
+      "title": "C Language Course",
+      "issuer": "Learn Well Technocraft, Pune",
+      "date": "2019-04",
+      "image": "/images/certs/C_Lang_Shreya_Certificate.webp",
+      "credentialId": "21716301TD"
+    },
+    {
+      "title": "Web Development Training",
+      "issuer": "Internshala Trainings",
+      "date": "2018-09",
+      "image": "/images/certs/Web_Development_Training_-_Certificate_of_Completion__1_.webp",
+      "credentialId": null
+    }
+  ],
+  "activity": [
+    {
+      "date": "2026-06",
+      "type": "publication",
+      "title": "Paper accepted at the ICML 2026 FoGen Workshop",
+      "location": "Online",
+      "note": "Interpreting Latent CoT Reasoning as Dynamical Systems accepted as a poster at the ICML 2026 Workshop on Foundations of Deep Generative Models."
+    },
+    {
+      "date": "2026-06",
+      "type": "post",
+      "title": "ICML acceptance post reached 8,000+ impressions on LinkedIn",
+      "location": "Online",
+      "note": "90 reactions, 9 comments and 5 reposts on the announcement of the FoGen Workshop poster."
+    },
+    {
+      "date": "2026-05",
+      "type": "conference",
+      "title": "Google I/O 2026",
+      "location": "Shoreline Amphitheatre, Mountain View, CA",
+      "note": "Attended with the Google Cloud x NVIDIA community five days after graduating. Sessions on the agentic AI era, Physical AI with Boston Dynamics and DeepMind, on-device AI with Gemma and Google AI Edge, and the TPU software stack. Tried the Android XR glasses and spoke with Ian Ballantyne and Gus Martins of the Gemma team."
+    },
+    {
+      "date": "2026-05",
+      "type": "meetup",
+      "title": "Google Cloud x NVIDIA community meetup",
+      "location": "Bay Area, CA",
+      "note": "In-person meetup marking 100K+ developers in the community's first year."
+    },
+    {
+      "date": "2026-04",
+      "type": "conference",
+      "title": "ODSC AI East 2026",
+      "location": "Boston, MA",
+      "note": "Three days of sessions on optimization, voice foundation models, decision latency in enterprise AI, sub-500 ms inference architecture, self-improving agents and LLM inference economics; published a detailed recap."
+    },
+    {
+      "date": "2026-04",
+      "type": "showcase",
+      "title": "WPI 2025-26 GQP GRIE Showcase",
+      "location": "Worcester, MA",
+      "note": "Presented the SkipLegal multi-agent immigration document validation system to eleven industry judges; a judge publicly called it one of the strong projects of the showcase."
+    },
+    {
+      "date": "2026-02",
+      "type": "learning",
+      "title": "Three Google Cloud x NVIDIA learning pathways",
+      "location": "Online",
+      "note": "NVIDIA NIM on GKE, Introduction to Inference on GPUs, Speed Up Data Analytics on GPUs."
+    },
+    {
+      "date": "2025-11",
+      "type": "livestream",
+      "title": "NVIDIA AI Nemotron Labs: Bash computer-use agent",
+      "location": "Online",
+      "note": "Built along with Nemotron Nano 9B v2 and LangGraph."
+    },
+    {
+      "date": "2021-06",
+      "type": "talk",
+      "title": "Seminar: Development Tools for AR Applications",
+      "location": "PES Modern College of Engineering, Pune",
+      "note": "Delivered a seminar on the AR development toolchain used for Map.AR."
+    },
+    {
+      "date": "2021-03",
+      "type": "workshop",
+      "title": "App Development workshop",
+      "location": "JigsawMindz",
+      "note": null
+    },
+    {
+      "date": "2020-05",
+      "type": "workshop",
+      "title": "Web Design workshop",
+      "location": "MIT Arts, Commerce and Science College, Alandi",
+      "note": null
+    },
+    {
+      "date": "2017-09",
+      "type": "workshop",
+      "title": "Auto Wagen workshop",
+      "location": "Team Pegasus, PES Modern College of Engineering",
+      "note": null
+    }
+  ],
+  "leadership": [
+    {
+      "title": "Technical Team Head, Graphix Club",
+      "org": "PES Modern College of Engineering",
+      "date": "2019 to 2022",
+      "note": "Organized technical workshops and quizzes for the club."
+    },
+    {
+      "title": "Client-facing project lead, Crossing x WPI GQP",
+      "org": "Worcester Polytechnic Institute",
+      "date": "2025",
+      "note": "Owned sponsor communication, acceptance tests, weekly demos and final handoff for a four-person team."
+    },
+    {
+      "title": "Member, Google Cloud x NVIDIA developer community",
+      "org": "Google Cloud and NVIDIA",
+      "date": "2026 to present",
+      "note": "Golden Ticket Contest honorable mention, NVIDIA GTC 2026."
+    }
+  ],
+  "recommendations": [
+    {
+      "name": "Amit Shinde",
+      "role": "Colleague",
+      "org": "Persistent Systems",
+      "quote": "She is an exceptional Lead DevOps Engineer with deep expertise in Azure, AWS, and robust experience in designing and maintaining reliable CI/CD pipelines. One of her standout achievements was her outstanding work in segregating variable groups and restructuring the release pipelines to efficiently manage more than 10 code repositories."
+    },
+    {
+      "name": "Gurdeep Singh",
+      "role": "DevOps Engineer",
+      "org": "Persistent Systems",
+      "quote": "She grew exceptionally well in Azure DevOps and also had other talents like AI/ML and Python. She was completely familiar with all the pipelines and repositories in the project we worked on and implemented optimisations to smoothen the feature delivery from Dev to Production environments."
+    }
+  ],
+  "skills": {
+    "Machine learning and AI": [
+      "PyTorch",
+      "PyTorch Lightning",
+      "TensorFlow",
+      "Keras",
+      "scikit-learn",
+      "Hugging Face Transformers",
+      "PEFT and LoRA fine-tuning",
+      "LLMs",
+      "vision-language models",
+      "LangChain",
+      "LangGraph",
+      "multi-agent systems",
+      "RAG",
+      "prompt engineering",
+      "model evaluation and benchmarking",
+      "LLM-as-judge and rubric grading",
+      "diffusion models",
+      "CycleGAN",
+      "VAEs and GANs",
+      "NeRF",
+      "reinforcement learning",
+      "recommender systems",
+      "statsmodels"
+    ],
+    "Computer vision and 3D": [
+      "OpenCV",
+      "object detection and segmentation (Mask R-CNN, Detic, SSD)",
+      "monocular depth estimation",
+      "pose estimation (OpenPifPaf, MediaPipe)",
+      "structure from motion",
+      "visual-inertial odometry",
+      "sensor fusion",
+      "optical flow",
+      "visual question answering",
+      "chart and document understanding",
+      "Blender Python API",
+      "Unity"
+    ],
+    "Inference and GPU optimization": [
+      "CUDA",
+      "TensorRT",
+      "ONNX",
+      "TorchScript",
+      "INT8 quantization",
+      "mixed precision",
+      "CUDA graphs",
+      "kernel fusion",
+      "Nsight Systems and Nsight Compute",
+      "NVIDIA NIM"
+    ],
+    "MLOps, cloud and DevOps": [
+      "AWS (Bedrock, S3, Lambda, Step Functions, EventBridge, CloudWatch, Textract, DynamoDB)",
+      "Azure DevOps",
+      "Azure ML",
+      "GCP",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Ansible",
+      "CI/CD (Azure Pipelines, GitHub Actions)",
+      "MLflow",
+      "Prometheus",
+      "Grafana",
+      "Snyk",
+      "infrastructure as code",
+      "Linux",
+      "Slurm HPC"
+    ],
+    "Programming and data": [
+      "Python",
+      "C++",
+      "C#",
+      "Java",
+      "SQL",
+      "R",
+      "MATLAB",
+      "Scala",
+      "Rust",
+      "Bash",
+      "PowerShell",
+      "TypeScript and JavaScript",
+      "React",
+      "Angular",
+      "FastAPI",
+      "Flask",
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "HDF5",
+      "JSON Schema"
+    ]
+  }
+}

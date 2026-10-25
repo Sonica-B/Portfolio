@@ -1,0 +1,7 @@
+export { FeaturedWork } from './featured-work'
+export { ResearchSection } from './research-section'
+export { ExperienceLedger } from './experience-ledger'
+export { SkillsSection } from './skills-section'
+export { RecognitionSection } from './recognition-section'
+export { ActivitySection } from './activity-section'
+export { ContactSection } from './contact-section'
