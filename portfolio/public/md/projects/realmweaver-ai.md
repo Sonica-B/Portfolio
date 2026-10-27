@@ -36,4 +36,4 @@ Stable Diffusion, LoRA, CVAE-GAN, VAE, Wave Function Collapse, Unity, PyTorch
 
 ![Generated 3D terrain tile rendered from the RealmWeaver pipeline](https://shreyaboyane.dev/projects/realmweaver-ai/terrain.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/realmweaver-ai. This markdown: https://shreyaboyane.dev/md/projects/realmweaver-ai.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/realmweaver-ai. This markdown: https://shreyaboyane.dev/md/projects/realmweaver-ai.md. Generated from the site content model, last updated 2026-10-27.

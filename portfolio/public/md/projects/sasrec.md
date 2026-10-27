@@ -29,4 +29,4 @@ Swept dropout 0.05 to 0.5, attention heads 1 to 2 and hidden dimensions 5 to 50,
 
 PyTorch, Transformers, recommender systems
 
-Canonical page: https://shreyaboyane.dev/projects/sasrec. This markdown: https://shreyaboyane.dev/md/projects/sasrec.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/sasrec. This markdown: https://shreyaboyane.dev/md/projects/sasrec.md. Generated from the site content model, last updated 2026-10-27.

@@ -34,4 +34,4 @@ Scraped job boards and university catalogs with BeautifulSoup, built the matchin
 
 Python, TF-IDF, scikit-learn, TensorFlow, BeautifulSoup, NLP
 
-Canonical page: https://shreyaboyane.dev/projects/trended-pathfinder. This markdown: https://shreyaboyane.dev/md/projects/trended-pathfinder.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/trended-pathfinder. This markdown: https://shreyaboyane.dev/md/projects/trended-pathfinder.md. Generated from the site content model, last updated 2026-10-27.

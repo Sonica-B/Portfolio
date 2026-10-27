@@ -29,4 +29,4 @@ Reduced to latent spaces of 16, 32 and 64 dimensions with 95%+ variance retained
 
 PyTorch, VAE, PCA, unsupervised learning
 
-Canonical page: https://shreyaboyane.dev/projects/face-generation. This markdown: https://shreyaboyane.dev/md/projects/face-generation.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/face-generation. This markdown: https://shreyaboyane.dev/md/projects/face-generation.md. Generated from the site content model, last updated 2026-10-27.

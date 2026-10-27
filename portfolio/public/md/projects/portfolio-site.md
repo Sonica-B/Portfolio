@@ -31,4 +31,4 @@ Single source of truth in content/profile.json with a build-time drift guard; Ta
 
 Next.js, React, TypeScript, Tailwind CSS, Motion, WebGL2, Depth Anything V2, Vercel
 
-Canonical page: https://shreyaboyane.dev/projects/portfolio-site. This markdown: https://shreyaboyane.dev/md/projects/portfolio-site.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/portfolio-site. This markdown: https://shreyaboyane.dev/md/projects/portfolio-site.md. Generated from the site content model, last updated 2026-10-27.

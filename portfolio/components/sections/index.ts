@@ -1,6 +1,7 @@
 export { FeaturedWork } from './featured-work'
 export { ResearchSection } from './research-section'
 export { ExperienceLedger } from './experience-ledger'
+export { OpenSourceSection } from './open-source-section'
 export { SkillsSection } from './skills-section'
 export { RecognitionSection } from './recognition-section'
 export { ActivitySection } from './activity-section'

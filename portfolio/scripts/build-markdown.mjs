@@ -38,6 +38,16 @@ const LINK_LABEL = {
   demo: 'Live demo',
   api: 'Inference API',
   marketplace: 'VS Code Marketplace',
+  benchmark: 'Benchmark report',
+  pullRequest: '2026 rebuild pull request',
+}
+const openSourceMd = () => {
+  const o = profile.openSource
+  return [
+    o.summary,
+    list(o.merged.map((m) => `Merged: ${m.org} ${m.repo} #${m.number}, ${m.title}. ${m.url}`)),
+    `In review at ${o.inReview.join(', ')}. Counts as of ${o.asOf}. All pull requests: ${o.allUrl}`,
+  ]
 }
 const PROFILE_LINKS = [
   ['linkedin', 'LinkedIn'],
@@ -129,6 +139,8 @@ function indexMd() {
             `${e.role}, ${e.org}, ${formatRange(e.start, e.end)}, ${e.location}. ${e.summary}${e.award ? ` Award: ${e.award}.` : ''}`,
         ),
       ),
+      '## Open source',
+      openSourceMd(),
       '## Education',
       list(
         profile.education.map(
@@ -350,6 +362,8 @@ function resumeMd() {
       ]),
       '## Other projects',
       list(others.map((p) => `${p.name} (${formatRange(p.start, p.end)}): ${p.summary}${p.repo ? ` Code: ${p.repo}` : ''}`)),
+      '## Open source',
+      openSourceMd(),
       '## Skills',
       list(Object.entries(profile.skills).map(([group, items]) => `${group}: ${items.join(', ')}`)),
       '## Recognition',

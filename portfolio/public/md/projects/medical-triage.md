@@ -43,4 +43,4 @@ Graduate Student Researcher, Generative AI and LLMs for Healthcare, Worcester Po
 
 ![ESI prediction and confidence overlay for one triage case as questions are revealed](https://shreyaboyane.dev/projects/medical-triage/esi-confidence.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/medical-triage. This markdown: https://shreyaboyane.dev/md/projects/medical-triage.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/medical-triage. This markdown: https://shreyaboyane.dev/md/projects/medical-triage.md. Generated from the site content model, last updated 2026-10-27.

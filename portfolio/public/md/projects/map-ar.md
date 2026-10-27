@@ -31,4 +31,4 @@ Built the indoor navigation feature, the recommendation logic and the entire fro
 
 Unity, C#, Vuforia, Autodesk Revit, Maps SDK, Firebase, Figma
 
-Canonical page: https://shreyaboyane.dev/projects/map-ar. This markdown: https://shreyaboyane.dev/md/projects/map-ar.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/map-ar. This markdown: https://shreyaboyane.dev/md/projects/map-ar.md. Generated from the site content model, last updated 2026-10-27.

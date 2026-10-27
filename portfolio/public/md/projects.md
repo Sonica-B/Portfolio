@@ -38,15 +38,15 @@ Stack: Depth Anything, MiDaS, Mask R-CNN, Detic, OpenPifPaf, YOLO3D, RAFT, Blend
 
 Details: https://shreyaboyane.dev/projects/einstein-vision (markdown: https://shreyaboyane.dev/md/projects/einstein-vision.md). Code: https://github.com/Sonica-B/EinsteinVision
 
-## MADWE: Multi-Agent Diffusion World Engine
+## RealmWeaver (MADWE): multi-agent diffusion world engine
 
-Real-time game asset generation with optimized GPU inference. Generative AI, Mar 2025 to Aug 2025, Worcester Polytechnic Institute.
+Game-world generation on a laptop GPU, every number from a benchmark report. Generative AI, Mar 2025 to Oct 2026, Worcester Polytechnic Institute (2025 prototype), independent rebuild (2026).
 
-A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.
+A game-world engine that turns a biome description into seamless textures, constraint-valid tile layouts and Unity-ready chunks. Rebuilt in 2026 from a 2025 team prototype, it generates a 512 px texture in 0.37 s on a laptop GPU, and every number it reports comes from a reproducible benchmark.
 
-Key numbers: Assets per minute: 120; Manual design time: -73%; p95 latency: 200 to 95 ms; Throughput: 1.8x; FID: 12.3; CLIP similarity: 0.89.
+Key numbers: Seconds per 512 px asset, p50: 0.37; Assets per minute: 165; Latency cut by the CUDA-graph pool: 41%; Peak VRAM: 3.1 GB; Prewarm hit rate vs baseline: 99% vs 56%; Tests: 228.
 
-Stack: PyTorch, Diffusers, Stable Diffusion, LoRA, ONNX, TensorRT, INT8, CUDA graphs, Unity, Wave Function Collapse.
+Stack: PyTorch, Diffusers, Stable Diffusion, Hyper-SD, LoRA, CUDA graphs, DINOv2, Wave Function Collapse, FastAPI, WebSocket, Unity, Docker, llama.cpp.
 
 Details: https://shreyaboyane.dev/projects/madwe (markdown: https://shreyaboyane.dev/md/projects/madwe.md). Code: https://github.com/Sonica-B/RealmWeaver-MADWE
 
@@ -278,4 +278,4 @@ Stack: Next.js, React, TypeScript, Tailwind CSS, Motion, WebGL2, Depth Anything 
 
 Details: https://shreyaboyane.dev/projects/portfolio-site (markdown: https://shreyaboyane.dev/md/projects/portfolio-site.md). Code: https://github.com/Sonica-B/Portfolio
 
-Canonical page: https://shreyaboyane.dev/projects. This markdown: https://shreyaboyane.dev/md/projects.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects. This markdown: https://shreyaboyane.dev/md/projects.md. Generated from the site content model, last updated 2026-10-27.

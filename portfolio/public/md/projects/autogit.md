@@ -38,4 +38,4 @@ TypeScript, JavaScript, VS Code Extension API, GitHub Copilot, Git, secret scann
 
 ![Diagram of the AutoGit flow: save, stage, AI message, secret scan, commit and push](https://shreyaboyane.dev/projects/autogit/how-it-works.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/autogit. This markdown: https://shreyaboyane.dev/md/projects/autogit.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/autogit. This markdown: https://shreyaboyane.dev/md/projects/autogit.md. Generated from the site content model, last updated 2026-10-27.

@@ -4,7 +4,7 @@ import { JsonLd, breadcrumbJsonLd } from '@/lib/jsonld'
 import { ButtonLink } from '@/components/ui/button'
 import { PrintButton } from './print-button'
 
-const { identity, links, experience, research, education, publications, skills, recognition } = profile
+const { identity, links, experience, research, education, publications, skills, recognition, openSource } = profile
 
 export const metadata: Metadata = {
   title: 'Resume',
@@ -200,6 +200,26 @@ export default function ResumePage() {
             })}
           </ol>
           <p className="mt-3 text-xs text-ink-2">* Equal contribution.</p>
+        </Section>
+
+        <Section id="open-source" title="Open source">
+          <p className="max-w-[72ch] text-sm text-ink-2">{openSource.summary}</p>
+          <ol className="mt-3 divide-y divide-rule">
+            {openSource.merged.map((m) => (
+              <li key={m.url} className="grid gap-x-6 gap-y-0.5 py-2.5 text-sm sm:grid-cols-[6rem_minmax(0,1fr)] print:py-1.5">
+                <p className="text-metric text-ink-2">Merged</p>
+                <p className="text-ink">
+                  <a href={m.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent">
+                    {m.title}
+                  </a>
+                  <span className="text-ink-2">
+                    , {m.org} {m.repo} #{m.number}
+                  </span>
+                </p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-3 max-w-[72ch] text-sm text-ink-2">In review at {openSource.inReview.join(', ')}.</p>
         </Section>
 
         <Section id="skills" title="Skills">

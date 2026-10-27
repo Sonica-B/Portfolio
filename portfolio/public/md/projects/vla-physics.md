@@ -37,4 +37,4 @@ Qwen2.5-VL, InternVL, LLaVA-OneVision, LoRA, Physion++, PhysBench, probing, Hydr
 
 ![Grid of physics saliency maps over Physion++ scenes](https://shreyaboyane.dev/projects/vla-physics/saliency-grid.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/vla-physics. This markdown: https://shreyaboyane.dev/md/projects/vla-physics.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/vla-physics. This markdown: https://shreyaboyane.dev/md/projects/vla-physics.md. Generated from the site content model, last updated 2026-10-27.

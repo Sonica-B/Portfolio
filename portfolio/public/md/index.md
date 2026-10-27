@@ -56,13 +56,13 @@ Key numbers: 3D placement accuracy: +50%; Scene realism: +75%; Driving sequences
 
 Details: https://shreyaboyane.dev/projects/einstein-vision (markdown: https://shreyaboyane.dev/md/projects/einstein-vision.md). Code: https://github.com/Sonica-B/EinsteinVision
 
-### MADWE: Multi-Agent Diffusion World Engine
+### RealmWeaver (MADWE): multi-agent diffusion world engine
 
-Real-time game asset generation with optimized GPU inference. Generative AI, Mar 2025 to Aug 2025, Worcester Polytechnic Institute.
+Game-world generation on a laptop GPU, every number from a benchmark report. Generative AI, Mar 2025 to Oct 2026, Worcester Polytechnic Institute (2025 prototype), independent rebuild (2026).
 
-A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.
+A game-world engine that turns a biome description into seamless textures, constraint-valid tile layouts and Unity-ready chunks. Rebuilt in 2026 from a 2025 team prototype, it generates a 512 px texture in 0.37 s on a laptop GPU, and every number it reports comes from a reproducible benchmark.
 
-Key numbers: Assets per minute: 120; Manual design time: -73%; p95 latency: 200 to 95 ms; Throughput: 1.8x; FID: 12.3; CLIP similarity: 0.89.
+Key numbers: Seconds per 512 px asset, p50: 0.37; Assets per minute: 165; Latency cut by the CUDA-graph pool: 41%; Peak VRAM: 3.1 GB; Prewarm hit rate vs baseline: 99% vs 56%; Tests: 228.
 
 Details: https://shreyaboyane.dev/projects/madwe (markdown: https://shreyaboyane.dev/md/projects/madwe.md). Code: https://github.com/Sonica-B/RealmWeaver-MADWE
 
@@ -105,6 +105,19 @@ Full detail: https://shreyaboyane.dev/research (markdown: https://shreyaboyane.d
 - Lead DevOps Engineer, Persistent Systems, Jun 2022 to Jul 2024, Pune, India (hybrid). Owned CI/CD and cloud infrastructure across 20+ production projects. Award: Top Talent 2024, Bravo Individual Award, Team Excellence Award FY2023, Bravo Team Award.
 - Software Engineer Intern (.NET), Persistent Systems, Jan 2022 to Jul 2022, Pune, India (on-site). Built ASP.NET Web APIs and integrated Azure Machine Learning for predictive analytics. Award: Best Intern of the 2022 batch among 20,000+ new joiners across India.
 - Web Developer Intern, Flavalon IT Solution LLP, Mar 2021 to May 2021, Mumbai, India (remote). Built and launched brand websites with chatbots and learned SEO fundamentals.
+
+## Open source
+
+41 pull requests to 41 open-source machine learning repositories in October 2026, 6 merged so far. Fixes span agent frameworks, training and inference libraries, robotics and computer vision.
+
+- Merged: NVIDIA NeMo Agent Toolkit #2474, Register every built-in tool when langchain-core is not installed. https://github.com/NVIDIA/NeMo-Agent-Toolkit/pull/2474
+- Merged: NVIDIA Isaac Lab #8809, Close replaced root-logger handlers in configure_logging. https://github.com/isaac-sim/IsaacLab/pull/8809
+- Merged: PyTorch torchtitan #5621, download_hf_assets copies asset types and raises a readable unknown-asset error. https://github.com/pytorch/torchtitan/pull/5621
+- Merged: Hugging Face huggingface_hub #5255, hf cache verify no longer crashes on Windows redirected stdout. https://github.com/huggingface/huggingface_hub/pull/5255
+- Merged: A2A Project a2a-python #1375, Raise A2A errors for malformed JSON-RPC responses. https://github.com/a2aproject/a2a-python/pull/1375
+- Merged: Roboflow supervision #2803, Draw comparison annotators on grayscale scenes. https://github.com/roboflow/supervision/pull/2803
+
+In review at PyTorch ao, rl, ignite and ExecuTorch, ONNX Runtime, onnxscript, Olive and MarkItDown, ONNX, Flax, Optax, MuJoCo and MaxText, TensorRT-LLM, Hugging Face datasets, DeepSpeed, DSPy, MLflow, SGLang, SkyPilot, MONAI, Ultralytics, TransformerLens and SAELens, Gymnasium, Claude Agent SDK. Counts as of 2026-10-27. All pull requests: https://github.com/search?q=is%3Apr+author%3ASonica-B+-user%3ASonica-B+-user%3Askip-hp+-user%3Ayl-space+-user%3ASabariIyyappan&type=pullrequests
 
 ## Education
 
@@ -154,4 +167,4 @@ Full detail: https://shreyaboyane.dev/research (markdown: https://shreyaboyane.d
 
 Contact: shreyaa.boyane@gmail.com. Book a call: https://zcal.co/i/4aMYgoRr.
 
-Canonical page: https://shreyaboyane.dev/. This markdown: https://shreyaboyane.dev/md/index.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/. This markdown: https://shreyaboyane.dev/md/index.md. Generated from the site content model, last updated 2026-10-27.
