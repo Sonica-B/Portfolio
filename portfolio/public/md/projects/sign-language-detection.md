@@ -28,4 +28,4 @@ Trained a Single Shot Multibox Detector in TensorFlow on a custom gesture datase
 
 TensorFlow, Python, object detection, OpenCV
 
-Canonical page: https://shreyaboyane.dev/projects/sign-language-detection. This markdown: https://shreyaboyane.dev/md/projects/sign-language-detection.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/sign-language-detection. This markdown: https://shreyaboyane.dev/md/projects/sign-language-detection.md. Generated from the site content model, last updated 2026-10-27.

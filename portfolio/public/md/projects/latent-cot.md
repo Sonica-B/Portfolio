@@ -54,4 +54,4 @@ Interpreting Latent CoT Reasoning as Dynamical Systems. Poster, ICML 2026 FoGen 
 
 ![3D PHATE embedding of COCONUT latent reasoning trajectories colored by step](https://shreyaboyane.dev/projects/latent-cot/trajectory-phate-3d.webp)
 
-Canonical page: https://shreyaboyane.dev/projects/latent-cot. This markdown: https://shreyaboyane.dev/md/projects/latent-cot.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/latent-cot. This markdown: https://shreyaboyane.dev/md/projects/latent-cot.md. Generated from the site content model, last updated 2026-10-27.

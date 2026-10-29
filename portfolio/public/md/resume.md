@@ -211,18 +211,18 @@ Converts monocular dash-cam video into scene-accurate 3D reconstructions by fusi
 
 Stack: Depth Anything, MiDaS, Mask R-CNN, Detic, OpenPifPaf, YOLO3D, RAFT, Blender Python API, TensorRT, ONNX, Nsight. Code: https://github.com/Sonica-B/EinsteinVision. Page: https://shreyaboyane.dev/projects/einstein-vision
 
-### MADWE: Multi-Agent Diffusion World Engine
+### RealmWeaver (MADWE): multi-agent diffusion world engine
 
-Real-time game asset generation with optimized GPU inference. Mar 2025 to Aug 2025, Worcester Polytechnic Institute.
+Game-world generation on a laptop GPU, every number from a benchmark report. Mar 2025 to Oct 2026, Worcester Polytechnic Institute (2025 prototype), independent rebuild (2026).
 
-A multi-agent generative runtime that routes work to specialist diffusion agents over a shared world-state graph with budget-aware scheduling, generating 120 game assets per minute and cutting manual design time 73%.
+A game-world engine that turns a biome description into seamless textures, constraint-valid tile layouts and Unity-ready chunks. Rebuilt in 2026 from a 2025 team prototype, it generates a 512 px texture in 0.37 s on a laptop GPU, and every number it reports comes from a reproducible benchmark.
 
-- Optimized GPU inference with ONNX and TensorRT kernel fusion: p95 latency 200 ms to 95 ms, FPS 60 to 120, binary size down 38%.
-- Designed a neural world-state graph for coordination, a predictive generation protocol that pre-warms likely branches, and memory pooling that cut allocation overhead about 73% and peak VRAM about 41%.
-- Mixed precision, INT8 quantization and CUDA graphs delivered 1.8x throughput and 24% less memory while holding FID 12.3 and CLIP similarity 0.89 under 2 GB VRAM.
-- Orchestration layer sustained 31 FPS at 6.2 GB VRAM with PSNR 30.1 dB and 94% tileability across large variant sets.
+- Measured 0.37 s per 512 px texture (p50 over 100 assets, p95 0.37 s) and 165 assets per minute at 3.1 GB peak VRAM on an RTX 5070 Ti laptop GPU.
+- CUDA-graph replay over pooled memory cut per-asset latency 41%, from 0.63 s to 0.37 s, in a pool on versus pool off comparison over 100 assets.
+- The Markov prewarm predictor reached 99% top-3 hit rate on the next chunk against 56% for a ring baseline, and Wave Function Collapse solves a 16 by 16 chunk in 20.5 ms.
+- Shipped with 228 tests, CI with linting and secret scanning and a Docker GPU image, plus spikes for a local Qwen3-4B NPC runtime at 0.38 s per turn, TRELLIS.2 3D props and 30 km diffusion terrain tiles.
 
-Stack: PyTorch, Diffusers, Stable Diffusion, LoRA, ONNX, TensorRT, INT8, CUDA graphs, Unity, Wave Function Collapse. Code: https://github.com/Sonica-B/RealmWeaver-MADWE. Page: https://shreyaboyane.dev/projects/madwe
+Stack: PyTorch, Diffusers, Stable Diffusion, Hyper-SD, LoRA, CUDA graphs, DINOv2, Wave Function Collapse, FastAPI, WebSocket, Unity, Docker, llama.cpp. Code: https://github.com/Sonica-B/RealmWeaver-MADWE. Page: https://shreyaboyane.dev/projects/madwe
 
 ### TumorLytix: unsupervised brain tumor detection and segmentation
 
@@ -268,6 +268,19 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 - Real-time face mask detection (Nov 2020 to Mar 2021): A lightweight MobileNet SSD detector that checks whether people are wearing face masks on live video feeds, built for COVID-19 compliance monitoring in public spaces.
 - BookADDA: peer-to-peer book rental platform (Jun 2020 to Nov 2020): An online platform where students buy, rent or sell books with fellow students, with a search-first interface and a Flask backend.
 - shreyaboyane.dev: this site (Feb 2026 to present): A Next.js 16 and React 19 site driven by one JSON content graph that feeds every page, the JSON-LD, the sitemap, llms.txt and an HTML resume, with a WebGL2 hero that renders a depth map of the portrait produced by Depth Anything V2. Code: https://github.com/Sonica-B/Portfolio
+
+## Open source
+
+41 pull requests to 41 open-source machine learning repositories in October 2026, 6 merged so far. Fixes span agent frameworks, training and inference libraries, robotics and computer vision.
+
+- Merged: NVIDIA NeMo Agent Toolkit #2474, Register every built-in tool when langchain-core is not installed. https://github.com/NVIDIA/NeMo-Agent-Toolkit/pull/2474
+- Merged: NVIDIA Isaac Lab #8809, Close replaced root-logger handlers in configure_logging. https://github.com/isaac-sim/IsaacLab/pull/8809
+- Merged: PyTorch torchtitan #5621, download_hf_assets copies asset types and raises a readable unknown-asset error. https://github.com/pytorch/torchtitan/pull/5621
+- Merged: Hugging Face huggingface_hub #5255, hf cache verify no longer crashes on Windows redirected stdout. https://github.com/huggingface/huggingface_hub/pull/5255
+- Merged: A2A Project a2a-python #1375, Raise A2A errors for malformed JSON-RPC responses. https://github.com/a2aproject/a2a-python/pull/1375
+- Merged: Roboflow supervision #2803, Draw comparison annotators on grayscale scenes. https://github.com/roboflow/supervision/pull/2803
+
+In review at PyTorch ao, rl, ignite and ExecuTorch, ONNX Runtime, onnxscript, Olive and MarkItDown, ONNX, Flax, Optax, MuJoCo and MaxText, TensorRT-LLM, Hugging Face datasets, DeepSpeed, DSPy, MLflow, SGLang, SkyPilot, MONAI, Ultralytics, TransformerLens and SAELens, Gymnasium, Claude Agent SDK. Counts as of 2026-10-27. All pull requests: https://github.com/search?q=is%3Apr+author%3ASonica-B+-user%3ASonica-B+-user%3Askip-hp+-user%3Ayl-space+-user%3ASabariIyyappan&type=pullrequests
 
 ## Skills
 
@@ -343,4 +356,4 @@ Stack: CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, Git
 
 English, Hindi, Marathi
 
-Canonical page: https://shreyaboyane.dev/resume. This markdown: https://shreyaboyane.dev/md/resume.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/resume. This markdown: https://shreyaboyane.dev/md/resume.md. Generated from the site content model, last updated 2026-10-27.

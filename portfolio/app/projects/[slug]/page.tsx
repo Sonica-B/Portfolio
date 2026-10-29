@@ -47,6 +47,8 @@ const LINK_LABELS: [key: string, label: string][] = [
   ['marketplace', 'VS Code Marketplace'],
   ['api', 'API Space'],
   ['openreview', 'OpenReview'],
+  ['benchmark', 'Benchmark report'],
+  ['pullRequest', '2026 rebuild pull request'],
 ]
 
 /** Pitch videos are optional build-time assets: the block renders only when the file exists. */

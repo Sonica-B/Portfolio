@@ -5,6 +5,7 @@ import {
   ContactSection,
   ExperienceLedger,
   FeaturedWork,
+  OpenSourceSection,
   RecognitionSection,
   ResearchSection,
   SkillsSection,
@@ -20,6 +21,7 @@ export default function HomePage() {
       <FeaturedWork />
       <ResearchSection />
       <ExperienceLedger />
+      <OpenSourceSection />
       <SkillsSection />
       <RecognitionSection />
       <ActivitySection />

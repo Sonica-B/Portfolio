@@ -36,4 +36,4 @@ Train CycleGAN on unpaired scans to synthesize paired healthy and diseased image
 
 PyTorch, TensorFlow, CycleGAN, diffusion models, OpenCV, TorchScript, Nsight Compute, BraTS2020
 
-Canonical page: https://shreyaboyane.dev/projects/tumorlytix. This markdown: https://shreyaboyane.dev/md/projects/tumorlytix.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/tumorlytix. This markdown: https://shreyaboyane.dev/md/projects/tumorlytix.md. Generated from the site content model, last updated 2026-10-27.

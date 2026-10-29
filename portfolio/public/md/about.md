@@ -114,4 +114,4 @@ English, Hindi, Marathi
 
 Contact: shreyaa.boyane@gmail.com. Book a call: https://zcal.co/i/4aMYgoRr.
 
-Canonical page: https://shreyaboyane.dev/about. This markdown: https://shreyaboyane.dev/md/about.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/about. This markdown: https://shreyaboyane.dev/md/about.md. Generated from the site content model, last updated 2026-10-27.

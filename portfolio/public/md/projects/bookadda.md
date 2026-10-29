@@ -29,4 +29,4 @@ Designed and implemented the entire frontend in HTML, CSS, Bootstrap and JavaScr
 
 HTML, CSS, Bootstrap, JavaScript, Flask, MySQL
 
-Canonical page: https://shreyaboyane.dev/projects/bookadda. This markdown: https://shreyaboyane.dev/md/projects/bookadda.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/bookadda. This markdown: https://shreyaboyane.dev/md/projects/bookadda.md. Generated from the site content model, last updated 2026-10-27.

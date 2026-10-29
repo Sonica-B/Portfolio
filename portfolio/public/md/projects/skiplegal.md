@@ -43,4 +43,4 @@ LangGraph, Amazon Bedrock, AWS Lambda, Step Functions, S3, EventBridge, Textract
 
 Machine Learning Engineer, Crossing x WPI, industry-sponsored Graduate Qualifying Project, Aug 2025 to Dec 2025. Owned client-facing delivery of a production multi-agent document-intelligence system for H-1B immigration workflows.
 
-Canonical page: https://shreyaboyane.dev/projects/skiplegal. This markdown: https://shreyaboyane.dev/md/projects/skiplegal.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/skiplegal. This markdown: https://shreyaboyane.dev/md/projects/skiplegal.md. Generated from the site content model, last updated 2026-10-27.

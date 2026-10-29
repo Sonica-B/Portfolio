@@ -106,6 +106,16 @@ export type Project = {
   experienceId: string | null
 }
 
+export type MergedContribution = { org: string; repo: string; number: number; title: string; url: string }
+export type OpenSource = {
+  summary: string
+  asOf: string
+  allUrl: string
+  stats: Metric[]
+  merged: MergedContribution[]
+  inReview: string[]
+}
+
 export type Recognition = { id: string; kind: string; title: string; org: string; date: string; note: string | null }
 export type Certification = { title: string; issuer: string; date: string; image: string | null; credentialId: string | null }
 export type Activity = { date: string; type: string; title: string; location: string | null; note: string | null }
@@ -141,6 +151,7 @@ export type Profile = {
   research: Research[]
   experience: Experience[]
   projects: Project[]
+  openSource: OpenSource
   recognition: Recognition[]
   certifications: Certification[]
   activity: Activity[]

@@ -36,4 +36,4 @@ Automated dataset creation and alignment with OysterSim physics and EVO Umeyama 
 
 PyTorch, LSTM, Transformer, sensor fusion, Blender, OysterSim, TensorRT, ONNX
 
-Canonical page: https://shreyaboyane.dev/projects/vio. This markdown: https://shreyaboyane.dev/md/projects/vio.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/vio. This markdown: https://shreyaboyane.dev/md/projects/vio.md. Generated from the site content model, last updated 2026-10-27.

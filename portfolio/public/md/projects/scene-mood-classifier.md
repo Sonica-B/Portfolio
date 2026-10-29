@@ -35,4 +35,4 @@ Gradio UI plus an HTTP inference API with per-class probability logging and late
 
 CLIP, Wav2Vec2, Gradio, Docker, GCP, AWS, Azure, Prometheus, Grafana, GitHub Actions, Hugging Face Spaces
 
-Canonical page: https://shreyaboyane.dev/projects/scene-mood-classifier. This markdown: https://shreyaboyane.dev/md/projects/scene-mood-classifier.md. Generated from the site content model, last updated 2026-10-06.
+Canonical page: https://shreyaboyane.dev/projects/scene-mood-classifier. This markdown: https://shreyaboyane.dev/md/projects/scene-mood-classifier.md. Generated from the site content model, last updated 2026-10-27.
